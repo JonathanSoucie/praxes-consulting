@@ -34,7 +34,11 @@ export default function AboutPage() {
       <Section>
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
-            <SectionHeading eyebrow="S.01 — Story" title="How we got here." />
+            <SectionHeading
+              align="left"
+              eyebrow="Story"
+              title="How we got here."
+            />
             <Reveal delay={60} className="max-w-2xl space-y-5">
               <p className="text-base leading-relaxed text-muted">
                 We started out doing automation assessments for manufacturers —
@@ -42,7 +46,7 @@ export default function AboutPage() {
                 financial case for whether a piece of equipment would pay for
                 itself. The discipline that work demanded turned out to be the
                 whole business: measure first, model the return conservatively,
-                and be willing to say the investment isn't worth it.
+                and be willing to say the investment isn&apos;t worth it.
               </p>
               <p className="text-base leading-relaxed text-muted">
                 When clients started asking about AI, we found the same market
@@ -71,21 +75,21 @@ export default function AboutPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Team                                                              */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted">
+      <Section tone="card">
         <Container>
           <SectionHeading
-            eyebrow="S.02 — Team"
+            eyebrow="Team"
             title="Who does the work."
             deck="Three people, each responsible for a different part of the answer. You will be talking to us directly, not to an account manager."
           />
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-3 lg:gap-10">
+          <div className="mt-16 grid gap-6 lg:grid-cols-3">
             {team.map((member, i) => (
               <Reveal
                 as="article"
                 key={member.name}
                 delay={i * 70}
-                className="flex flex-col rounded-sm border border-line bg-surface"
+                className="card-raise flex flex-col overflow-hidden rounded-2xl bg-surface"
               >
                 <div className="relative aspect-4/5 overflow-hidden bg-surface-2">
                   <Image
@@ -93,14 +97,16 @@ export default function AboutPage() {
                     alt={`Portrait of ${member.name}`}
                     fill
                     sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover grayscale"
+                    className="object-cover"
                     priority={i === 0}
                   />
                 </div>
 
                 <div className="flex flex-1 flex-col p-7">
                   <h3 className="text-xl">{member.name}</h3>
-                  <p className="mt-1 text-sm text-accent">{member.role}</p>
+                  <p className="mt-1 text-sm font-medium text-accent">
+                    {member.role}
+                  </p>
                   {/* flex-1 on the bio pushes the credential row to the card
                       base, so all three align regardless of bio length. */}
                   <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
@@ -111,7 +117,7 @@ export default function AboutPage() {
                     {member.credentials.map((credential) => (
                       <li
                         key={credential}
-                        className="rounded-xs border border-line bg-surface-2 px-2.5 py-1 text-xs text-muted"
+                        className="rounded-full bg-surface-2 px-3 py-1 text-xs text-muted"
                       >
                         {credential}
                       </li>
@@ -127,23 +133,23 @@ export default function AboutPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Values                                                            */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section tone="wash">
         <Container>
           <SectionHeading
-            eyebrow="S.03 — How we think"
+            eyebrow="How we think"
             title="Four commitments we'd rather be held to."
           />
 
-          <div className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2">
+          <div className="mt-16 grid gap-5 sm:grid-cols-2">
             {values.map((value, i) => (
               <Reveal
                 key={value.title}
                 delay={i * 60}
-                className="bg-surface p-8 lg:p-10"
+                className="card-raise rounded-2xl bg-surface p-8 lg:p-9"
               >
                 <span
                   aria-hidden
-                  className="block h-px w-6 bg-accent"
+                  className="block h-1 w-10 rounded-full bg-accent"
                 />
                 <h3 className="mt-6 text-xl">{value.title}</h3>
                 <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -158,16 +164,16 @@ export default function AboutPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Credibility                                                       */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted">
+      <Section tone="card">
         <Container>
           <SectionHeading
-            eyebrow="S.04 — By the numbers"
+            eyebrow="By the numbers"
             title="Where we stand."
             deck={`Based in ${site.address.locality}, ${site.address.region}. Working with clients across Europe and North America.`}
           />
 
-          <div className="mt-14">
-            <StatsBlock stats={credibilityStats} tone="panel" columns={4} />
+          <div className="mt-16">
+            <StatsBlock stats={credibilityStats} columns={4} />
           </div>
         </Container>
       </Section>

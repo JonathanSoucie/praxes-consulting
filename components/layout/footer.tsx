@@ -8,24 +8,24 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-line bg-surface-2">
+    <footer className="bg-surface">
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-sm">
             <Logo />
-            <p className="mt-4 text-sm leading-relaxed text-muted">
+            <p className="mt-5 text-sm leading-relaxed text-muted">
               {site.description}
             </p>
           </div>
 
           <nav aria-label="Footer">
-            <h2 className="label-eyebrow text-muted">Site</h2>
+            <h2 className="text-sm font-medium text-ink">Site</h2>
             <ul className="mt-5 space-y-3">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-ink transition-colors hover:text-accent"
+                    className="text-sm text-muted transition-colors hover:text-accent"
                   >
                     {item.label}
                   </Link>
@@ -35,12 +35,12 @@ export function Footer() {
           </nav>
 
           <div>
-            <h2 className="label-eyebrow text-muted">Contact</h2>
+            <h2 className="text-sm font-medium text-ink">Contact</h2>
             <ul className="mt-5 space-y-3 text-sm">
               <li>
                 <a
                   href={`mailto:${site.email}`}
-                  className="text-ink transition-colors hover:text-accent"
+                  className="text-muted transition-colors hover:text-accent"
                 >
                   {site.email}
                 </a>
@@ -48,7 +48,7 @@ export function Footer() {
               <li>
                 <a
                   href={`tel:${site.phone.replace(/\s/g, "")}`}
-                  className="text-ink transition-colors hover:text-accent"
+                  className="text-muted transition-colors hover:text-accent"
                 >
                   {site.phone}
                 </a>
@@ -61,7 +61,7 @@ export function Footer() {
                   href={site.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-ink transition-colors hover:text-accent"
+                  className="text-muted transition-colors hover:text-accent"
                 >
                   LinkedIn
                 </a>
@@ -80,7 +80,7 @@ export function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-xs text-muted transition-colors hover:text-ink"
+                  className="text-xs text-muted transition-colors hover:text-accent"
                 >
                   {item.label}
                 </Link>

@@ -66,7 +66,8 @@ export default function ServicesPage() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
             <SectionHeading
-              eyebrow="S.01 — Positioning"
+              align="left"
+              eyebrow="Positioning"
               title="Bottleneck first, tooling second."
             />
             <Reveal delay={60} className="max-w-2xl space-y-5">
@@ -95,50 +96,54 @@ export default function ServicesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Service categories                                                */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted">
+      <Section tone="card">
         <Container>
           <SectionHeading
-            eyebrow="S.02 — Capabilities"
+            eyebrow="Capabilities"
             title="Problem, solution, typical return."
           />
 
-          <div className="mt-14 space-y-px bg-line">
+          <div className="mt-16 space-y-5">
             {services.map((service, i) => (
               <Reveal
                 as="article"
                 key={service.slug}
                 delay={i * 40}
-                className="bg-surface p-8 lg:p-12"
+                className="rounded-2xl bg-surface-2 p-8 lg:p-10"
               >
-                <div className="grid gap-8 lg:grid-cols-[0.55fr_1.45fr] lg:gap-16">
+                <div className="grid gap-8 lg:grid-cols-[0.55fr_1.45fr] lg:gap-14">
                   <div>
-                    <ServiceIcon
-                      name={service.icon}
-                      className="size-5 text-accent"
-                    />
+                    <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
+                      <ServiceIcon
+                        name={service.icon}
+                        className="size-5 text-accent"
+                      />
+                    </span>
                     <h3 className="mt-5 text-2xl">{service.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted">
                       {service.summary}
                     </p>
                   </div>
 
-                  <dl className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                    <div>
-                      <dt className="label-eyebrow text-muted">The problem</dt>
+                  <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="rounded-xl bg-surface p-5">
+                      <dt className="text-xs font-medium text-muted">
+                        The problem
+                      </dt>
                       <dd className="mt-3 text-sm leading-relaxed text-ink">
                         {service.problem}
                       </dd>
                     </div>
-                    <div>
-                      <dt className="label-eyebrow text-muted">
+                    <div className="rounded-xl bg-surface p-5">
+                      <dt className="text-xs font-medium text-muted">
                         What we build
                       </dt>
                       <dd className="mt-3 text-sm leading-relaxed text-ink">
                         {service.solution}
                       </dd>
                     </div>
-                    <div className="border-l-2 border-accent pl-5 sm:col-span-2 lg:col-span-1 lg:border-l lg:border-line lg:pl-6">
-                      <dt className="label-eyebrow text-accent">
+                    <div className="rounded-xl bg-accent-soft p-5 sm:col-span-2 lg:col-span-1">
+                      <dt className="text-xs font-medium text-accent-ink">
                         Typical return
                       </dt>
                       <dd className="mt-3 text-sm leading-relaxed text-ink">
@@ -156,23 +161,25 @@ export default function ServicesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* How we measure ROI — the differentiator                           */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section tone="wash">
         <Container>
           <SectionHeading
-            eyebrow="S.03 — The differentiator"
+            eyebrow="The differentiator"
             title="How we measure ROI, and why you can check us on it."
             deck="Anyone can put a return figure on a slide. The question worth asking a consultant is what that figure is measured against, and what happens when it misses. Here is our answer, in full."
           />
 
-          <div className="mt-14 grid gap-px border border-line bg-line sm:grid-cols-2">
+          <div className="mt-16 grid gap-5 sm:grid-cols-2">
             {measurement.map((item, i) => (
               <Reveal
                 key={item.n}
                 delay={i * 60}
-                className="bg-surface p-8 lg:p-10"
+                className="card-raise rounded-2xl bg-surface p-8 lg:p-9"
               >
-                <span className="figure-num text-sm text-accent">{item.n}</span>
-                <h3 className="mt-4 text-xl">{item.title}</h3>
+                <span className="grid size-10 place-items-center rounded-full bg-accent text-sm font-semibold text-white">
+                  {item.n}
+                </span>
+                <h3 className="mt-5 text-xl">{item.title}</h3>
                 <p className="mt-4 text-sm leading-relaxed text-muted">
                   {item.body}
                 </p>
@@ -181,19 +188,25 @@ export default function ServicesPage() {
           </div>
 
           <Reveal delay={80}>
-            <div className="mt-10 rounded-sm border border-accent/25 bg-accent-soft p-8 lg:p-10">
-              <h3 className="text-xl">
-                What we don't do: guarantee a number before we've measured
-                anything.
-              </h3>
-              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-ink">
-                A firm that promises a specific ROI on a first call is either
-                guessing or selling. We commit to something narrower and more
-                useful: the measurement will be honest, the assumptions will be
-                visible, and you will get the 90-day comparison whichever way it
-                goes. That commitment is in the engagement terms, not just on
-                this page.
-              </p>
+            <div className="gradient-deep relative mt-10 overflow-hidden rounded-2xl p-8 lg:p-12">
+              <div
+                aria-hidden
+                className="grid-rule-dark pointer-events-none absolute inset-0"
+              />
+              <div className="relative mx-auto max-w-3xl text-center">
+                <h3 className="text-xl text-white sm:text-2xl">
+                  What we don&apos;t do: guarantee a number before we&apos;ve
+                  measured anything.
+                </h3>
+                <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70">
+                  A firm that promises a specific ROI on a first call is either
+                  guessing or selling. We commit to something narrower and more
+                  useful: the measurement will be honest, the assumptions will
+                  be visible, and you will get the 90-day comparison whichever
+                  way it goes. That commitment is in the engagement terms, not
+                  just on this page.
+                </p>
+              </div>
             </div>
           </Reveal>
         </Container>
@@ -202,27 +215,22 @@ export default function ServicesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Process teaser                                                    */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted">
+      <Section tone="card">
         <Container>
-          <div className="flex flex-wrap items-end justify-between gap-8">
-            <SectionHeading
-              eyebrow="S.04 — Process"
-              title="How an engagement runs."
-              className="max-w-2xl"
-            />
-            <Reveal delay={80}>
-              <Button asChild variant="outline">
-                <Link href="/process">
-                  Full process
-                  <ArrowRight aria-hidden />
-                </Link>
-              </Button>
-            </Reveal>
-          </div>
+          <SectionHeading eyebrow="Process" title="How an engagement runs." />
 
-          <div className="mt-14">
+          <div className="mt-16">
             <ProcessTimeline variant="overview" />
           </div>
+
+          <Reveal delay={80} className="mt-10 text-center">
+            <Button asChild variant="soft">
+              <Link href="/process">
+                Full process
+                <ArrowRight aria-hidden />
+              </Link>
+            </Button>
+          </Reveal>
         </Container>
       </Section>
 
@@ -231,16 +239,13 @@ export default function ServicesPage() {
       {/* ---------------------------------------------------------------- */}
       <Section>
         <Container>
-          <SectionHeading
-            eyebrow="S.05 — Proof"
-            title="The numbers this produces."
-          />
+          <SectionHeading eyebrow="Proof" title="The numbers this produces." />
 
-          <div className="mt-14">
+          <div className="mt-16">
             <StatsBlock stats={headlineStats} tone="panel" columns={4} />
           </div>
 
-          <Reveal className="mt-14">
+          <Reveal className="mt-10">
             <FeaturedCaseStudy study={featured} />
           </Reveal>
         </Container>

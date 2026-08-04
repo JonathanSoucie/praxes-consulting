@@ -25,7 +25,7 @@ export function LegalPage({
         deck={
           <>
             Last updated{" "}
-            <time dateTime={updated} className="figure-num text-ink">
+            <time dateTime={updated} className="text-white">
               {new Date(updated).toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "long",
@@ -37,8 +37,8 @@ export function LegalPage({
       />
 
       <Container className="py-16 sm:py-20">
-        <div className="max-w-2xl space-y-10">
-          <div className="rounded-sm border border-line bg-surface-2 p-5 text-sm leading-relaxed text-muted">
+        <div className="card-raise mx-auto max-w-3xl space-y-10 rounded-2xl bg-surface p-8 sm:p-12">
+          <div className="rounded-xl bg-accent-soft p-5 text-sm leading-relaxed text-accent-ink">
             <strong className="text-ink">Template notice.</strong> This document
             is a starting point, not legal advice. Have it reviewed against your
             jurisdiction and actual data practices before you rely on it.

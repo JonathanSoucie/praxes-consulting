@@ -14,10 +14,11 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0f766e",
+          background: "#5b5be6",
           color: "#ffffff",
-          fontSize: 22,
-          fontFamily: "Georgia, serif",
+          fontSize: 21,
+          fontWeight: 700,
+          fontFamily: "system-ui, sans-serif",
           letterSpacing: "-0.02em",
         }}
       >

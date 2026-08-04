@@ -5,16 +5,16 @@ import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
 const tagStyles: Record<string, string> = {
-  Free: "border-accent/30 bg-accent-soft text-accent",
-  Paid: "border-ink/20 bg-surface-2 text-ink",
-  Downpayment: "border-ink/20 bg-surface-2 text-ink",
-  "Final payment": "border-ink/20 bg-surface-2 text-ink",
+  Free: "bg-accent-soft text-accent-ink",
+  Paid: "bg-ink text-white",
+  Downpayment: "bg-surface-2 text-ink",
+  "Final payment": "bg-surface-2 text-ink",
 };
 
 /**
  * The five-step engagement.
  *
- * `variant="overview"` — condensed, for the Home page.
+ * `variant="overview"` — condensed cards, for the Home page.
  * `variant="full"`     — with deliverables and durations, for /process.
  */
 export function ProcessTimeline({
@@ -22,33 +22,25 @@ export function ProcessTimeline({
 }: {
   variant?: "overview" | "full";
 }) {
-  return (
-    <ol className="relative">
-      {processSteps.map((step, i) => (
-        <Reveal
-          as="li"
-          key={step.n}
-          delay={i * 50}
-          className={cn(
-            "relative grid gap-x-8 gap-y-4 border-t border-line py-10 sm:grid-cols-[auto_1fr] lg:py-12",
-            i === processSteps.length - 1 && "border-b"
-          )}
-        >
-          {/* Step number + connector rail */}
-          <div className="flex items-start gap-5 sm:w-40">
-            <span className="figure-num text-sm text-accent">{step.n}</span>
-            <span
-              aria-hidden
-              className="mt-2 hidden h-px flex-1 bg-line sm:block"
-            />
-          </div>
-
-          <div className={cn(variant === "full" ? "max-w-4xl" : "max-w-3xl")}>
-            <div className="flex flex-wrap items-center gap-3">
-              <h3 className="text-xl sm:text-2xl">{step.title}</h3>
+  if (variant === "overview") {
+    return (
+      <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {processSteps.map((step, i) => (
+          <Reveal
+            as="li"
+            key={step.n}
+            delay={i * 60}
+            className="card-raise flex h-full flex-col rounded-xl bg-surface p-7"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <span className="grid size-9 place-items-center rounded-full bg-accent-soft">
+                <span className="figure-num text-sm text-accent-ink">
+                  {step.n}
+                </span>
+              </span>
               <span
                 className={cn(
-                  "label-eyebrow rounded-xs border px-2 py-1",
+                  "rounded-full px-3 py-1 text-xs font-medium",
                   tagStyles[step.tag]
                 )}
               >
@@ -56,35 +48,69 @@ export function ProcessTimeline({
               </span>
             </div>
 
-            <p className="mt-4 text-base leading-relaxed text-muted">
-              {variant === "full" ? step.detail : step.summary}
+            <h3 className="mt-5 text-lg">{step.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              {step.summary}
             </p>
+          </Reveal>
+        ))}
+      </ol>
+    );
+  }
 
-            {variant === "full" ? (
-              <div className="mt-7 grid gap-6 sm:grid-cols-[1fr_auto] sm:items-start">
-                <div>
-                  <h4 className="label-eyebrow text-muted">What you get</h4>
-                  <ul className="mt-4 space-y-2.5">
-                    {step.deliverables.map((item) => (
-                      <li key={item} className="flex gap-3 text-sm text-ink">
-                        <Check
-                          aria-hidden
-                          className="mt-0.5 size-4 shrink-0 text-accent"
-                        />
-                        <span className="leading-relaxed">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+  return (
+    <ol className="space-y-5">
+      {processSteps.map((step, i) => (
+        <Reveal
+          as="li"
+          key={step.n}
+          delay={i * 50}
+          className="card-raise rounded-2xl bg-surface p-8 lg:p-10"
+        >
+          <div className="grid gap-8 lg:grid-cols-[auto_1fr] lg:gap-12">
+            {/* Step number rail */}
+            <div className="flex items-center gap-4 lg:w-32 lg:flex-col lg:items-start">
+              <span className="grid size-12 place-items-center rounded-full bg-accent-soft">
+                <span className="figure-num text-base text-accent-ink">
+                  {step.n}
+                </span>
+              </span>
+              <span
+                className={cn(
+                  "rounded-full px-3 py-1 text-xs font-medium",
+                  tagStyles[step.tag]
+                )}
+              >
+                {step.tag}
+              </span>
+            </div>
 
-                <div className="rounded-sm border border-line bg-surface-2 px-4 py-3 sm:min-w-44">
-                  <span className="label-eyebrow text-muted">Typical</span>
-                  <p className="figure-num mt-2 text-sm text-ink">
-                    {step.duration}
-                  </p>
-                </div>
+            <div>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                <h3 className="text-xl sm:text-2xl">{step.title}</h3>
+                <span className="figure-num text-sm text-muted">
+                  {step.duration}
+                </span>
               </div>
-            ) : null}
+
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted">
+                {step.detail}
+              </p>
+
+              <div className="mt-7 rounded-xl bg-surface-2 p-6">
+                <h4 className="label-tech text-muted">What you get</h4>
+                <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {step.deliverables.map((item) => (
+                    <li key={item} className="flex gap-3 text-sm text-ink">
+                      <span className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full bg-accent">
+                        <Check aria-hidden className="size-2.5 text-white" />
+                      </span>
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </Reveal>
       ))}

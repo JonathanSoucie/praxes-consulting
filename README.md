@@ -56,7 +56,7 @@ The copy is written to be realistic, not to be true. Replace it:
   with real, permitted quotes or delete the section (it degrades gracefully).
 - **`content/case-studies/*.ts`** — invented clients and figures. Same rule.
 - **`content/stats.ts`** — invented aggregate figures.
-- **`components/sections/roi-readout.tsx`** — the hero panel's numbers.
+- **`components/sections/dashboard-cluster.tsx`** — the hero panel's numbers.
 - **`app/privacy/page.tsx` / `app/terms/page.tsx`** — templates, not legal
   advice. Have them reviewed against your jurisdiction and actual practices.
 
@@ -106,20 +106,30 @@ Everything visual is driven by the `@theme` block at the top of
 [`app/globals.css`](app/globals.css) — colours, type faces, radii, motion easing.
 Change a token there and the whole site follows.
 
-- **Palette.** White and neutral greys carry the page. Teal `#0F766E` is an
-  accent only: CTAs, key figures, active states, the thin rule under section
-  labels. Resist widening its use — the restraint is the look.
-- **Type.** Serif headings (Source Serif 4), sans body (Inter), monospace stat
-  figures (JetBrains Mono). To switch headings to a grotesk, point
-  `--font-serif` at `--font-sans` in the `@theme` block — one line.
-- **Data marks.** `--color-chart-before` (`#949494`) and `--color-chart-after`
-  (teal) are the before/after comparison pair. They were checked for ≥3:1
-  contrast on white and for separation under protan/deutan/tritan simulation,
-  and every bar is direct-labelled so colour is never the only channel. If you
-  change them, keep both properties.
+- **Palette.** A lavender-white page (`--color-surface-2`) with white cards,
+  violet accent `#5B5BE6`, and deep indigo for the hero and closing-CTA bands.
+  The dark bands are what give the page its rhythm — every page opens on one
+  and closes on one, with light sections between.
+- **Type.** Plus Jakarta Sans for display and stat figures, Inter for body.
+  JetBrains Mono appears only as small technical labels inside the built data
+  visuals (`label-tech`). To change the display face, repoint `--font-display`.
+- **Shape.** Pill buttons and badges (`rounded-full`), 12–28px card radii,
+  one soft elevation step (`card-raise`) and a stronger one for floating
+  panels (`card-float`). Never stack shadows.
+- **Data marks.** `--color-chart-before` (`#A9A9C2`) and `--color-chart-after`
+  (violet) are the before/after comparison pair, and every bar is
+  direct-labelled so colour is never the only channel carrying the comparison.
+  If you change them, keep the direct labels.
 
-Utility classes `container-page`, `figure-num`, `label-eyebrow` and `grid-rule`
-are defined at the bottom of the same file.
+Band utilities — `gradient-hero` (the dark-to-page hero), `gradient-deep` (the
+CTA band), `gradient-wash` (soft lavender relief) — plus `container-page`,
+`figure-num`, `label-tech`, `grid-rule` and `grid-rule-dark` are all defined at
+the bottom of the same file.
+
+The navbar overlays the page rather than sitting in flow, so the hero gradient
+runs behind it. It is transparent with white contents at the top of the page
+and resolves to a solid light bar after 24px of scroll — which is why every
+page top carries a `pt-32`–`pt-44`.
 
 ---
 
@@ -141,15 +151,16 @@ components/
   book-a-call.tsx         THE shared CTA — used everywhere, change once
   cal-embed.tsx           inline booking widget (Cal / Calendly / placeholder)
   contact-form.tsx        client validation, honeypot, success state
-  container.tsx           Container + Section (vertical rhythm, tones)
-  section-heading.tsx     eyebrow + serif headline + deck
+  container.tsx           Container + Section (rhythm; tones: card/wash/deep)
+  section-heading.tsx     pill eyebrow + display headline + deck
   reveal.tsx              subtle scroll reveal, respects reduced-motion
   icon.tsx                name → lucide icon lookup for content files
-  layout/                 navbar, footer, logo
-  sections/               hero, stats-block, case-study-card, testimonial-slider,
+  layout/                 navbar (overlay), footer, logo
+  sections/               hero, dashboard-cluster (the coded hero visual),
+                          stats-block, case-study-card, testimonial-slider,
                           process-timeline, faq, cta, page-header, trust-bar,
-                          roi-readout, case-study-grid, legal-page
-  ui/                     shadcn primitives: button, input, textarea, label, accordion
+                          case-study-grid, legal-page
+  ui/                     button, badge, input, textarea, label, accordion
 
 lib/
   booking.ts              provider abstraction (Cal ↔ Calendly)

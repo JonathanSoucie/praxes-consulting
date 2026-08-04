@@ -16,12 +16,14 @@ export function CaseStudyCard({
     <Link
       href={`/case-studies/${study.slug}`}
       className={cn(
-        "group flex h-full flex-col rounded-sm border border-line bg-surface p-7 transition-colors hover:border-line-strong",
+        "group card-raise flex h-full flex-col rounded-xl bg-surface p-7 transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:card-float",
         className
       )}
     >
       <div className="flex items-start justify-between gap-4">
-        <span className="label-eyebrow text-muted">{study.industry}</span>
+        <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-ink">
+          {study.industry}
+        </span>
         <ArrowUpRight
           aria-hidden
           className="size-4 shrink-0 text-line-strong transition-colors group-hover:text-accent"
@@ -47,9 +49,9 @@ export function CaseStudyCard({
 /** Wide, higher-emphasis card for the "featured study" slot. */
 export function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
   return (
-    <div className="grid overflow-hidden rounded-sm border border-line bg-surface lg:grid-cols-[1.25fr_1fr]">
+    <div className="card-raise grid overflow-hidden rounded-2xl bg-surface lg:grid-cols-[1.25fr_1fr]">
       <div className="p-8 sm:p-12">
-        <span className="label-eyebrow text-muted">
+        <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-ink">
           Featured · {study.industry}
         </span>
 
@@ -75,28 +77,34 @@ export function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
         </Link>
       </div>
 
-      <div className="grid-rule border-t border-line bg-surface-2 p-8 sm:p-12 lg:border-t-0 lg:border-l">
-        <span className="label-eyebrow text-muted">Measured result</span>
-        <dl className="mt-6 space-y-6">
-          {study.results.slice(0, 3).map((result) => (
-            <div key={result.label}>
-              <dt className="sr-only">{result.label}</dt>
-              <dd>
-                <span className="figure-num text-3xl text-accent">
-                  {result.value}
-                </span>
-                {result.unit ? (
-                  <span className="figure-num ml-1 text-base text-accent/70">
-                    {result.unit}
+      <div className="gradient-deep relative overflow-hidden p-8 sm:p-12">
+        <div
+          aria-hidden
+          className="grid-rule-dark pointer-events-none absolute inset-0"
+        />
+        <div className="relative">
+          <span className="label-tech text-white/50">Measured result</span>
+          <dl className="mt-6 space-y-6">
+            {study.results.slice(0, 3).map((result) => (
+              <div key={result.label}>
+                <dt className="sr-only">{result.label}</dt>
+                <dd>
+                  <span className="figure-num text-3xl text-white">
+                    {result.value}
                   </span>
-                ) : null}
-                <span className="mt-1 block text-sm text-ink">
-                  {result.label}
-                </span>
-              </dd>
-            </div>
-          ))}
-        </dl>
+                  {result.unit ? (
+                    <span className="figure-num ml-1 text-base text-white/60">
+                      {result.unit}
+                    </span>
+                  ) : null}
+                  <span className="mt-1 block text-sm text-white/70">
+                    {result.label}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </div>
   );

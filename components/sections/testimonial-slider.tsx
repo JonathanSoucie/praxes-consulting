@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 
 import type { Testimonial } from "@/content/testimonials";
 import { cn } from "@/lib/utils";
@@ -26,21 +26,25 @@ export function TestimonialSlider({
   const go = (next: number) => setIndex((next + count) % count);
 
   return (
-    <div>
-      <blockquote>
+    <div
+      className={cn(
+        "rounded-2xl p-8 sm:p-10",
+        inverse ? "bg-white/8 backdrop-blur-sm" : "card-raise bg-surface"
+      )}
+    >
+      <Quote
+        aria-hidden
+        className={cn("size-7", inverse ? "text-white/40" : "text-accent/40")}
+      />
+
+      <blockquote className="mt-6">
         <p
           className={cn(
-            "font-serif text-xl leading-snug text-balance sm:text-2xl lg:text-[1.75rem] lg:leading-[1.4]",
+            "font-display text-xl leading-snug font-medium text-balance sm:text-2xl lg:text-[1.6rem] lg:leading-[1.42]",
             inverse ? "text-white" : "text-ink"
           )}
         >
-          <span aria-hidden className="text-accent">
-            “
-          </span>
           {current.quote}
-          <span aria-hidden className="text-accent">
-            ”
-          </span>
         </p>
 
         <footer className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
@@ -67,7 +71,7 @@ export function TestimonialSlider({
       </blockquote>
 
       {count > 1 ? (
-        <div className="mt-10 flex items-center gap-4">
+        <div className="mt-9 flex items-center gap-4 border-t border-line pt-6">
           <div className="flex gap-2">
             <SliderButton
               label="Previous testimonial"
@@ -117,10 +121,10 @@ function SliderButton({
       onClick={onClick}
       aria-label={label}
       className={cn(
-        "inline-flex size-10 items-center justify-center rounded-sm border transition-colors",
+        "inline-flex size-10 items-center justify-center rounded-full border transition-colors",
         inverse
-          ? "border-white/25 text-white hover:border-white/60"
-          : "border-line-strong text-ink hover:border-ink"
+          ? "border-white/25 text-white hover:bg-white/15"
+          : "border-line-strong text-ink hover:border-accent hover:text-accent"
       )}
     >
       {children}

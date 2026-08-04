@@ -1,7 +1,11 @@
 import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
+import { Badge } from "@/components/ui/badge";
 
-/** Standard page masthead. Consistent across every top-level page. */
+/**
+ * Standard page masthead — the short version of the hero gradient, used on
+ * every page except Home. The navbar overlays its dark end.
+ */
 export function PageHeader({
   eyebrow,
   title,
@@ -11,24 +15,26 @@ export function PageHeader({
   eyebrow: string;
   title: React.ReactNode;
   deck?: React.ReactNode;
-  /** Optional trailing content — CTAs, stat strip, etc. */
+  /** Optional trailing content — CTAs, a stat strip, etc. */
   children?: React.ReactNode;
 }) {
   return (
-    <div className="border-b border-line bg-surface pt-16 pb-16 sm:pt-20 sm:pb-20">
-      <Container>
-        <Reveal className="max-w-4xl">
-          <div className="flex items-center gap-3">
-            <span aria-hidden className="h-px w-6 bg-accent" />
-            <span className="label-eyebrow text-muted">{eyebrow}</span>
-          </div>
+    <div className="gradient-hero relative overflow-hidden">
+      <div
+        aria-hidden
+        className="grid-rule-dark pointer-events-none absolute inset-x-0 top-0 h-[70%] mask-[linear-gradient(to_bottom,black,transparent)]"
+      />
 
-          <h1 className="mt-6 text-4xl leading-[1.1] sm:text-5xl lg:text-[3.5rem] lg:leading-[1.06]">
+      <Container className="relative pt-36 pb-20 sm:pt-40 sm:pb-24">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <Badge tone="onDark">{eyebrow}</Badge>
+
+          <h1 className="mt-7 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
             {title}
           </h1>
 
           {deck ? (
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
               {deck}
             </p>
           ) : null}

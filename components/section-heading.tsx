@@ -1,15 +1,17 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/reveal";
+import { Badge } from "@/components/ui/badge";
 
 /**
- * Standard section header: eyebrow label with a thin teal rule, a serif
- * headline, and optional deck. Used on every page so the rhythm stays exact.
+ * Standard section header: a pill eyebrow, a display headline, optional deck.
+ * Centred by default — the reference layout leads with centred section heads
+ * and reserves left-alignment for two-column text sections.
  */
 export function SectionHeading({
   eyebrow,
   title,
   deck,
-  align = "left",
+  align = "center",
   tone = "default",
   className,
 }: {
@@ -21,37 +23,24 @@ export function SectionHeading({
   className?: string;
 }) {
   const inverse = tone === "inverse";
+  const centered = align === "center";
 
   return (
     <Reveal
       className={cn(
-        "max-w-3xl",
-        align === "center" && "mx-auto text-center",
+        centered ? "mx-auto max-w-3xl text-center" : "max-w-2xl",
         className
       )}
     >
       {eyebrow ? (
-        <div
-          className={cn(
-            "mb-5 flex items-center gap-3",
-            align === "center" && "justify-center"
-          )}
-        >
-          <span aria-hidden className="h-px w-6 bg-accent" />
-          <span
-            className={cn(
-              "label-eyebrow",
-              inverse ? "text-white/60" : "text-muted"
-            )}
-          >
-            {eyebrow}
-          </span>
+        <div className={cn("mb-6 flex", centered && "justify-center")}>
+          <Badge tone={inverse ? "onDark" : "soft"}>{eyebrow}</Badge>
         </div>
       ) : null}
 
       <h2
         className={cn(
-          "text-3xl leading-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]",
+          "text-3xl leading-[1.14] sm:text-4xl lg:text-[2.875rem] lg:leading-[1.1]",
           inverse && "text-white"
         )}
       >
@@ -61,8 +50,8 @@ export function SectionHeading({
       {deck ? (
         <p
           className={cn(
-            "mt-5 max-w-2xl text-base leading-relaxed sm:text-lg",
-            align === "center" && "mx-auto",
+            "mt-5 text-base leading-relaxed sm:text-lg",
+            centered ? "mx-auto max-w-2xl" : "max-w-xl",
             inverse ? "text-white/70" : "text-muted"
           )}
         >

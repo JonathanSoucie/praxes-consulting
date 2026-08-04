@@ -11,10 +11,7 @@ function Label({
 }: React.ComponentProps<typeof LabelPrimitive.Root>) {
   return (
     <LabelPrimitive.Root
-      className={cn(
-        "text-xs font-medium tracking-wide text-ink uppercase",
-        className
-      )}
+      className={cn("text-sm font-medium text-ink", className)}
       {...props}
     />
   );

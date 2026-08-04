@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Navbar } from "@/components/layout/navbar";
@@ -15,18 +15,18 @@ const inter = Inter({
   display: "swap",
 });
 
-/* Headings: an established, authoritative serif. */
-const sourceSerif = Source_Serif_4({
+/* Display: geometric sans for headings and stat figures. */
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-source-serif",
+  variable: "--font-jakarta",
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["500", "600", "700"],
 });
 
-/* Stat figures: monospace so numbers read as precise data. */
+/* Mono: small technical labels inside the built data visuals only. */
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-mono-stat",
+  variable: "--font-mono-label",
   display: "swap",
   weight: ["400", "500"],
 });
@@ -52,14 +52,11 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#100f26",
   width: "device-width",
   initialScale: 1,
 };
@@ -70,15 +67,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sourceSerif.variable} ${jetBrainsMono.variable}`}
+      className={`${inter.variable} ${jakarta.variable} ${jetBrainsMono.variable}`}
     >
-      <body className="min-h-screen bg-surface antialiased">
+      <body className="min-h-screen bg-surface-2 antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-sm focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-full focus:bg-ink focus:px-5 focus:py-2.5 focus:text-sm focus:text-white"
         >
           Skip to content
         </a>
+        {/* The navbar overlays the page rather than sitting in flow, so the
+            hero gradient runs behind it. Page tops reserve space with pt-*. */}
         <Navbar />
         <main id="main">{children}</main>
         <Footer />

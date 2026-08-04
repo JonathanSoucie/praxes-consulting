@@ -34,24 +34,24 @@ export default function CaseStudiesPage() {
       <PageHeader
         eyebrow="Case Studies"
         title="What the measurement actually showed."
-        deck="Each study below states the baseline we started from, what the audit found, what we built, and the re-measured result at 90 days. Including one engagement where the answer was to build nothing."
-      >
-        <div className="mt-12">
-          <StatsBlock stats={caseStudyAggregate} columns={3} />
-        </div>
-      </PageHeader>
+        deck="Each study states the baseline we started from, what the audit found, what we built, and the re-measured result at 90 days. Including one engagement where the answer was to build nothing."
+      />
+
+      {/* Aggregate stats — lifted into the seam under the header */}
+      <Container className="relative -mt-12 pb-4">
+        <Reveal>
+          <StatsBlock stats={caseStudyAggregate} tone="panel" columns={3} />
+        </Reveal>
+      </Container>
 
       {/* ---------------------------------------------------------------- */}
       {/* Filterable grid                                                   */}
       {/* ---------------------------------------------------------------- */}
       <Section>
         <Container>
-          <SectionHeading
-            eyebrow="S.01 — All studies"
-            title="Filter by industry."
-          />
+          <SectionHeading eyebrow="All studies" title="Filter by industry." />
 
-          <Reveal className="mt-12">
+          <Reveal className="mt-14">
             <CaseStudyGrid studies={caseStudies} industries={industries} />
           </Reveal>
         </Container>
@@ -60,15 +60,15 @@ export default function CaseStudiesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Featured                                                          */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted">
+      <Section tone="card">
         <Container>
           <SectionHeading
-            eyebrow="S.02 — Featured"
+            eyebrow="Featured"
             title="The one that changed the brief."
             deck="The client asked us to build document extraction. The measurement said the extraction was a third of the problem — so we sequenced it last."
           />
 
-          <Reveal className="mt-14">
+          <Reveal className="mt-16">
             <FeaturedCaseStudy study={featured} />
           </Reveal>
         </Container>
@@ -77,14 +77,12 @@ export default function CaseStudiesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Testimonials                                                      */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section tone="wash">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-            <SectionHeading eyebrow="S.03 — Clients" title="In their words." />
-            <Reveal delay={80}>
-              <TestimonialSlider testimonials={testimonials} />
-            </Reveal>
-          </div>
+          <SectionHeading eyebrow="Clients" title="In their words." />
+          <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
+            <TestimonialSlider testimonials={testimonials} />
+          </Reveal>
         </Container>
       </Section>
 

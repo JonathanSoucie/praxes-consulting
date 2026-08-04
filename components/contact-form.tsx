@@ -69,8 +69,10 @@ export function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="rounded-sm border border-line bg-surface-2 p-10 text-center">
-        <Check aria-hidden className="mx-auto size-6 text-accent" />
+      <div className="card-raise rounded-2xl bg-surface p-10 text-center">
+        <span className="mx-auto grid size-12 place-items-center rounded-full bg-accent-soft">
+          <Check aria-hidden className="size-5 text-accent" />
+        </span>
         <h3 className="mt-5 text-xl">Message received</h3>
         <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted">
           We reply to everything within one business day. If it's urgent, book
@@ -81,7 +83,11 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-6">
+    <form
+      onSubmit={onSubmit}
+      noValidate
+      className="card-raise space-y-6 rounded-2xl bg-surface p-7 sm:p-9"
+    >
       <div className="grid gap-6 sm:grid-cols-2">
         <Field id="name" label="Name" error={errors.name}>
           <Input

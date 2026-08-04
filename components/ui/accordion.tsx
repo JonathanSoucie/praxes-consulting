@@ -14,7 +14,10 @@ function AccordionItem({
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
-      className={cn("border-b border-line", className)}
+      className={cn(
+        "card-raise overflow-hidden rounded-xl bg-surface transition-shadow",
+        className
+      )}
       {...props}
     />
   );
@@ -29,16 +32,18 @@ function AccordionTrigger({
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
         className={cn(
-          "group flex flex-1 items-start justify-between gap-6 py-5 text-left font-serif text-base text-ink transition-colors hover:text-accent sm:text-lg",
+          "group flex flex-1 items-start justify-between gap-6 px-6 py-5 text-left font-display text-base font-medium text-ink transition-colors hover:text-accent sm:text-lg",
           className
         )}
         {...props}
       >
         {children}
-        <Plus
+        <span
           aria-hidden
-          className="mt-1 size-4 shrink-0 text-muted transition-transform duration-200 group-hover:text-accent group-data-[state=open]:rotate-45"
-        />
+          className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-accent-soft transition-transform duration-200 group-data-[state=open]:rotate-45"
+        >
+          <Plus className="size-3.5 text-accent-ink" />
+        </span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
@@ -56,7 +61,7 @@ function AccordionContent({
     >
       <div
         className={cn(
-          "max-w-[65ch] pr-10 pb-6 text-sm leading-relaxed text-muted",
+          "max-w-[68ch] px-6 pb-6 text-sm leading-relaxed text-muted",
           className
         )}
       >

@@ -16,10 +16,9 @@ import { Button } from "@/components/ui/button";
 /**
  * Inline booking widget for the Contact page.
  *
- * Renders the Cal.com inline embed when NEXT_PUBLIC_CAL_LINK is set. With
- * Calendly selected it renders the Calendly inline widget instead. With
- * neither configured it shows a clear, non-broken placeholder so the page
- * still builds and reviews cleanly.
+ * Renders the Cal.com inline embed when NEXT_PUBLIC_CAL_LINK is set, the
+ * Calendly widget when that provider is selected, and a clear placeholder
+ * when neither is configured — so the page always builds and reviews cleanly.
  */
 export function BookingEmbed() {
   if (bookingProvider === "calendly" && bookingConfigured) {
@@ -42,8 +41,8 @@ function CalInline() {
           hideEventTypeDetails: false,
           layout: "month_view",
           cssVarsPerTheme: {
-            light: { "cal-brand": "#0f766e" },
-            dark: { "cal-brand": "#0f766e" },
+            light: { "cal-brand": "#5b5be6" },
+            dark: { "cal-brand": "#5b5be6" },
           },
         });
       } catch {
@@ -53,7 +52,7 @@ function CalInline() {
   }, []);
 
   return (
-    <div className="overflow-hidden rounded-sm border border-line bg-surface">
+    <div className="card-raise overflow-hidden rounded-2xl bg-surface p-2">
       <Cal
         namespace={calNamespace}
         calLink={calLink}
@@ -75,13 +74,13 @@ function CalInline() {
 
 function CalendlyInline() {
   // Calendly's inline widget is a plain iframe — no extra script required.
-  const url = `${bookingHref()}?hide_gdpr_banner=1&primary_color=0f766e`;
+  const url = `${bookingHref()}?hide_gdpr_banner=1&primary_color=5b5be6`;
   return (
-    <div className="overflow-hidden rounded-sm border border-line bg-surface">
+    <div className="card-raise overflow-hidden rounded-2xl bg-surface p-2">
       <iframe
         src={url}
         title="Book a discovery call"
-        className="h-[44rem] w-full"
+        className="h-176 w-full rounded-xl"
         loading="lazy"
       />
     </div>
@@ -90,15 +89,17 @@ function CalendlyInline() {
 
 function BookingPlaceholder() {
   return (
-    <div className="grid-rule rounded-sm border border-line bg-surface-2 p-10 text-center sm:p-16">
-      <Calendar aria-hidden className="mx-auto size-6 text-accent" />
+    <div className="card-raise grid-rule rounded-2xl bg-surface p-10 text-center sm:p-16">
+      <span className="mx-auto grid size-12 place-items-center rounded-full bg-accent-soft">
+        <Calendar aria-hidden className="size-5 text-accent" />
+      </span>
       <h3 className="mt-5 text-xl">Scheduler not connected yet</h3>
       <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
         Set <code className="font-mono text-ink">NEXT_PUBLIC_CAL_LINK</code> in
         your environment to embed the live Cal.com booking calendar here. Until
         then, the form below reaches us directly.
       </p>
-      <Button asChild variant="outline" size="sm" className="mt-6">
+      <Button asChild variant="soft" size="sm" className="mt-6">
         <a href="#contact-form">Use the contact form</a>
       </Button>
     </div>

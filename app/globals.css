@@ -3,51 +3,61 @@
 /* ==========================================================================
    Design tokens — the single place to restyle the site.
    Tailwind v4 reads these and generates utilities from them:
-     --color-accent      -> bg-accent, text-accent, border-accent ...
-     --radius-sm         -> rounded-sm
-     --font-serif        -> font-serif
+     --color-accent   -> bg-accent, text-accent, border-accent ...
+     --radius-lg      -> rounded-lg
+     --font-display   -> font-display
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* Swap headings to a grotesk by pointing --font-serif at --font-sans. */
+  /* Geometric sans for display, highly legible sans for body. Mono is used
+     only for small technical labels inside the built data visuals. */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
-  --font-mono: var(--font-mono-stat), ui-monospace, "SFMono-Regular", monospace;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
-  /* --- Colour ----------------------------------------------------------- */
-  /* Neutrals carry the page; teal is a rare, deliberate accent. */
-  --color-ink: #111111; /* headings, primary text */
-  --color-ink-soft: #3f3f46; /* body text on white */
-  --color-muted: #6b7280; /* secondary text */
-  --color-surface: #ffffff;
-  --color-surface-2: #f5f5f5; /* alternating section background */
-  --color-surface-3: #fafafa;
-  --color-line: #e5e5e5; /* hairline borders, dividers */
-  --color-line-strong: #d4d4d4; /* emphasised borders */
+  /* --- Ink -------------------------------------------------------------- */
+  --color-ink: #0e0e1b; /* headings */
+  --color-ink-soft: #33334a; /* body copy */
+  --color-muted: #6e6e85; /* secondary text */
 
-  --color-accent: #0f766e; /* teal — CTAs, key figures, active states */
-  --color-accent-hover: #0c5f58;
-  --color-accent-soft: #f0fdfa; /* barely-there tint, use sparingly */
+  /* --- Surfaces --------------------------------------------------------- */
+  --color-surface: #ffffff; /* cards */
+  --color-surface-2: #f5f5fb; /* page background — a lavender white */
+  --color-surface-3: #fafaff;
+  --color-line: #e7e7f1;
+  --color-line-strong: #d3d3e4;
 
-  /* Data marks. The "before" reference is a deliberate neutral: it clears 3:1
-     against white and separates from the teal under protan/deutan/tritan
-     simulation (ΔE 12.5 / 17.8 normal-vision), so the comparison survives
-     colour-blindness and greyscale print. Both bars are also direct-labelled,
-     so colour is never the only channel. */
-  --color-chart-after: #0f766e;
-  --color-chart-before: #949494;
+  /* --- Accent ----------------------------------------------------------- */
+  --color-accent: #5b5be6; /* CTAs, links, active states */
+  --color-accent-hover: #4a4ad4;
+  --color-accent-ink: #3f3fb8; /* accent text on a soft background */
+  --color-accent-soft: #eeeefc; /* pill badges, tinted panels */
+
+  /* --- Deep surfaces (hero, CTA bands) ---------------------------------- */
+  --color-deep: #100f26;
+  --color-deep-2: #241f68;
+  --color-deep-3: #4f47d6;
+
+  /* --- Data marks -------------------------------------------------------
+     The before/after comparison pair. Checked for >=3:1 contrast on white
+     and for separation under protan/deutan/tritan simulation, and every bar
+     is direct-labelled so colour is never the only channel. Keep both
+     properties if you change them. */
+  --color-chart-after: #5b5be6;
+  --color-chart-before: #a9a9c2;
 
   /* --- Shape ------------------------------------------------------------ */
-  --radius-xs: 2px;
-  --radius-sm: 3px;
-  --radius-md: 4px;
-  --radius-lg: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
 
   /* --- Motion ----------------------------------------------------------- */
   --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
 
-  --animate-accordion-down: accordion-down 220ms var(--ease-out-soft);
-  --animate-accordion-up: accordion-up 220ms var(--ease-out-soft);
+  --animate-accordion-down: accordion-down 240ms var(--ease-out-soft);
+  --animate-accordion-up: accordion-up 240ms var(--ease-out-soft);
 }
 
 @keyframes accordion-down {
@@ -86,10 +96,9 @@
   }
 
   body {
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-2);
     color: var(--color-ink-soft);
     font-family: var(--font-sans);
-    font-feature-settings: "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -98,22 +107,22 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     color: var(--color-ink);
-    font-weight: 500;
-    letter-spacing: -0.014em;
+    font-weight: 600;
+    letter-spacing: -0.022em;
     text-wrap: balance;
   }
 
-  /* Visible, high-contrast focus ring for keyboard users. */
   :focus-visible {
     outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   ::selection {
-    background-color: var(--color-accent);
-    color: #ffffff;
+    background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+    color: var(--color-ink);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -139,28 +148,58 @@
 @utility container-page {
   width: 100%;
   margin-inline: auto;
-  max-width: 76rem;
+  max-width: 78rem;
   padding-inline: 1.5rem;
 }
 
-/* Numeric figures: monospace, tight, tabular so columns line up. */
+/* Numeric figures inside the built data visuals. */
 @utility figure-num {
-  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--font-display);
 }
 
-/* Small uppercase section label, e.g. "S.02 — Process". */
-@utility label-eyebrow {
-  font-size: 0.6875rem;
+/* Small technical label, e.g. [BASELINE] inside a diagram. */
+@utility label-tech {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
   line-height: 1;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-weight: 500;
 }
 
-/* Faint grid used behind data/stat panels — reads as an analytics readout. */
+/* The hero band: deep indigo at the top, resolving into the page background.
+   Applied to a wrapper that also carries the navbar, so the header sits on
+   the dark end of the gradient. */
+@utility gradient-hero {
+  background-image: linear-gradient(
+    180deg,
+    #100f26 0%,
+    #1b1747 22%,
+    #2f2794 52%,
+    #6f68ec 78%,
+    #b9b5f5 91%,
+    var(--color-surface-2) 100%
+  );
+}
+
+/* Deep band used for the closing CTA — the mirror of the hero. */
+@utility gradient-deep {
+  background-image: linear-gradient(160deg, #100f26 0%, #241f68 55%, #3b32a8 100%);
+}
+
+/* Soft lavender wash for relief sections. */
+@utility gradient-wash {
+  background-image: linear-gradient(
+    180deg,
+    var(--color-surface-2) 0%,
+    #ecebfa 45%,
+    var(--color-surface-2) 100%
+  );
+}
+
+/* Faint grid, used behind built visuals so they read as an instrument panel. */
 @utility grid-rule {
   background-image: linear-gradient(
       to right,
@@ -168,5 +207,29 @@
       transparent 1px
     ),
     linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
-  background-size: 44px 44px;
+  background-size: 48px 48px;
+}
+
+/* Same grid at low opacity for use on the dark gradient. */
+@utility grid-rule-dark {
+  background-image: linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Card elevation. Soft and low — one step, never stacked shadows. */
+@utility card-raise {
+  box-shadow:
+    0 1px 2px rgb(16 15 38 / 0.04),
+    0 8px 24px -12px rgb(16 15 38 / 0.12);
+}
+
+@utility card-float {
+  box-shadow:
+    0 2px 4px rgb(16 15 38 / 0.06),
+    0 18px 48px -18px rgb(16 15 38 / 0.28);
 }

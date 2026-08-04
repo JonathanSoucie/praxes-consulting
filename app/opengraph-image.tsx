@@ -7,9 +7,8 @@ export const contentType = "image/png";
 export const alt = `${site.name} — ${site.tagline}`;
 
 /**
- * Default Open Graph card. Type-driven and in the brand palette — no stock
- * imagery, no gradient. Individual pages can override with their own
- * opengraph-image file.
+ * Default Open Graph card — the hero gradient, type-driven. Individual pages
+ * can override with their own opengraph-image file.
  */
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -21,43 +20,53 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#ffffff",
+          backgroundImage:
+            "linear-gradient(150deg, #100f26 0%, #241f68 55%, #4f47d6 100%)",
           padding: "72px 80px",
-          fontFamily: "Georgia, serif",
+          fontFamily: "system-ui, sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ width: 40, height: 2, background: "#0f766e" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <div
             style={{
-              fontSize: 20,
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "#6b7280",
-              fontFamily: "system-ui, sans-serif",
+              width: 44,
+              height: 44,
+              borderRadius: 12,
+              background: "rgba(255,255,255,0.15)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#ffffff",
+              fontSize: 24,
+              fontWeight: 700,
             }}
           >
-            AI Consulting
+            P
+          </div>
+          <div style={{ fontSize: 30, fontWeight: 600, color: "#ffffff" }}>
+            {site.name}
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              fontSize: 76,
-              lineHeight: 1.08,
-              color: "#111111",
-              letterSpacing: "-0.02em",
+              fontSize: 74,
+              lineHeight: 1.06,
+              fontWeight: 600,
+              color: "#ffffff",
+              letterSpacing: "-0.03em",
             }}
           >
             AI that pays for itself.
           </div>
           <div
             style={{
-              fontSize: 76,
-              lineHeight: 1.08,
-              color: "#6b7280",
-              letterSpacing: "-0.02em",
+              fontSize: 74,
+              lineHeight: 1.06,
+              fontWeight: 600,
+              color: "rgba(255,255,255,0.55)",
+              letterSpacing: "-0.03em",
             }}
           >
             And the numbers to prove it.
@@ -69,30 +78,14 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid #e5e5e5",
-            paddingTop: 32,
+            borderTop: "1px solid rgba(255,255,255,0.18)",
+            paddingTop: 30,
+            fontSize: 22,
+            color: "rgba(255,255,255,0.7)",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              fontSize: 34,
-              color: "#111111",
-            }}
-          >
-            {site.name}
-            <span style={{ color: "#0f766e" }}>.</span>
-          </div>
-          <div
-            style={{
-              fontSize: 22,
-              color: "#6b7280",
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
-            Free 15-minute discovery call
-          </div>
+          <div style={{ display: "flex" }}>AI consulting · measured ROI</div>
+          <div style={{ display: "flex" }}>Free 15-minute discovery call</div>
         </div>
       </div>
     ),

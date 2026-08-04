@@ -10,19 +10,27 @@ export function Container({
 
 /**
  * A full-width band with consistent vertical rhythm.
- * `tone` alternates the background so sections read as distinct registers.
+ *
+ * tone:
+ *   default — the lavender page background
+ *   card    — a white band, for sections that should feel lifted
+ *   wash    — a soft lavender gradient, used as relief between white bands
+ *   deep    — the dark indigo gradient (closing CTA)
  */
 export function Section({
   className,
   tone = "default",
   ...props
-}: React.ComponentProps<"section"> & { tone?: "default" | "muted" | "ink" }) {
+}: React.ComponentProps<"section"> & {
+  tone?: "default" | "card" | "wash" | "deep";
+}) {
   return (
     <section
       className={cn(
         "py-20 sm:py-24 lg:py-28",
-        tone === "muted" && "bg-surface-2",
-        tone === "ink" && "bg-ink text-white",
+        tone === "card" && "bg-surface",
+        tone === "wash" && "gradient-wash",
+        tone === "deep" && "gradient-deep text-white",
         className
       )}
       {...props}

@@ -47,38 +47,38 @@ export default function ContactPage() {
       />
 
       {/* ---------------------------------------------------------------- */}
-      {/* Booking widget                                                    */}
+      {/* Booking widget — lifted into the seam under the header            */}
       {/* ---------------------------------------------------------------- */}
-      <Section className="pt-14 sm:pt-16">
-        <Container>
-          <Reveal>
-            <BookingEmbed />
-          </Reveal>
-        </Container>
-      </Section>
+      <Container className="relative -mt-12 pb-4">
+        <Reveal>
+          <BookingEmbed />
+        </Reveal>
+      </Container>
 
       {/* ---------------------------------------------------------------- */}
       {/* What to expect                                                    */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted" className="py-16 sm:py-20">
+      <Section className="py-16 sm:py-20">
         <Container>
           <SectionHeading
-            eyebrow="S.01 — What to expect"
+            eyebrow="What to expect"
             title="What happens on the call."
           />
 
-          <div className="mt-12 grid gap-px border border-line bg-line lg:grid-cols-3">
+          <div className="mt-14 grid gap-5 lg:grid-cols-3">
             {expectations.map((item, i) => (
               <Reveal
                 key={item.title}
                 delay={i * 60}
-                className="bg-surface p-8"
+                className="card-raise rounded-xl bg-surface p-7"
               >
-                <item.icon
-                  aria-hidden
-                  strokeWidth={1.5}
-                  className="size-5 text-accent"
-                />
+                <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
+                  <item.icon
+                    aria-hidden
+                    strokeWidth={1.8}
+                    className="size-5 text-accent"
+                  />
+                </span>
                 <h3 className="mt-5 text-lg">{item.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
                   {item.body}
@@ -92,38 +92,39 @@ export default function ContactPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Contact form                                                      */}
       {/* ---------------------------------------------------------------- */}
-      <Section id="contact-form" className="scroll-mt-24">
+      <Section id="contact-form" tone="card" className="scroll-mt-24">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <div>
               <SectionHeading
-                eyebrow="S.02 — Or write to us"
+                align="left"
+                eyebrow="Or write to us"
                 title="Prefer email?"
                 deck="Tell us roughly what's slowing you down. We reply to everything within one business day."
               />
 
-              <Reveal delay={80} className="mt-10 space-y-4 text-sm">
+              <Reveal delay={80} className="mt-10 space-y-5 text-sm">
                 <div>
-                  <p className="label-eyebrow text-muted">Email</p>
+                  <p className="text-xs font-medium text-muted">Email</p>
                   <a
                     href={`mailto:${site.email}`}
-                    className="mt-2 block text-ink transition-colors hover:text-accent"
+                    className="mt-1.5 block text-ink transition-colors hover:text-accent"
                   >
                     {site.email}
                   </a>
                 </div>
                 <div>
-                  <p className="label-eyebrow text-muted">Phone</p>
+                  <p className="text-xs font-medium text-muted">Phone</p>
                   <a
                     href={`tel:${site.phone.replace(/\s/g, "")}`}
-                    className="figure-num mt-2 block text-ink transition-colors hover:text-accent"
+                    className="mt-1.5 block text-ink transition-colors hover:text-accent"
                   >
                     {site.phone}
                   </a>
                 </div>
                 <div>
-                  <p className="label-eyebrow text-muted">Based in</p>
-                  <p className="mt-2 text-ink">
+                  <p className="text-xs font-medium text-muted">Based in</p>
+                  <p className="mt-1.5 text-ink">
                     {site.address.locality}, {site.address.region},{" "}
                     {site.address.country}
                   </p>
@@ -141,17 +142,12 @@ export default function ContactPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Quick FAQ                                                         */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted">
+      <Section tone="wash">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-            <SectionHeading
-              eyebrow="S.03 — Questions"
-              title="Before you book."
-            />
-            <Reveal delay={80}>
-              <FaqList items={contactFaqs} />
-            </Reveal>
-          </div>
+          <SectionHeading eyebrow="Questions" title="Before you book." />
+          <Reveal delay={80} className="mx-auto mt-14 max-w-3xl">
+            <FaqList items={contactFaqs} />
+          </Reveal>
         </Container>
       </Section>
     </>

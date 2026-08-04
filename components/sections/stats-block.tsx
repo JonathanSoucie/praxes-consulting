@@ -3,8 +3,8 @@ import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
 /**
- * Stat figures rendered as a clean analytics readout: monospace numerals,
- * ruled cells, teal reserved for the figure itself.
+ * Stat figures in a ruled row — hairline separators, large display numerals,
+ * accent reserved for the figure itself.
  */
 export function StatsBlock({
   stats,
@@ -24,25 +24,18 @@ export function StatsBlock({
   return (
     <div
       className={cn(
-        "grid divide-line",
-        tone === "panel" && "grid-rule rounded-sm border border-line bg-surface",
-        inverse && "divide-white/15",
+        "grid",
+        tone === "panel" && "card-raise rounded-xl bg-surface p-2",
         cols === 2 && "sm:grid-cols-2",
         cols === 3 && "sm:grid-cols-2 lg:grid-cols-3",
         cols === 4 && "sm:grid-cols-2 lg:grid-cols-4",
         "divide-y sm:divide-y-0 sm:divide-x",
+        inverse ? "divide-white/15" : "divide-line",
         className
       )}
     >
       {stats.map((stat, i) => (
-        <Reveal
-          key={stat.label}
-          delay={i * 60}
-          className={cn(
-            "px-6 py-8 first:pl-6 sm:px-8",
-            tone === "panel" && "backdrop-blur-[1px]"
-          )}
-        >
+        <Reveal key={stat.label} delay={i * 60} className="px-6 py-7 sm:px-7">
           <div className="flex items-baseline gap-1">
             <span
               className={cn(
@@ -56,7 +49,7 @@ export function StatsBlock({
               <span
                 className={cn(
                   "figure-num text-lg lg:text-xl",
-                  inverse ? "text-white/60" : "text-accent/70"
+                  inverse ? "text-white/60" : "text-accent/60"
                 )}
               >
                 {stat.unit}

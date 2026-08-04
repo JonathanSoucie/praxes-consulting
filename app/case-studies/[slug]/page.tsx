@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Quote } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
 import { SectionHeading } from "@/components/section-heading";
@@ -9,6 +9,7 @@ import { StatsBlock } from "@/components/sections/stats-block";
 import { CaseStudyCard } from "@/components/sections/case-study-card";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
+import { Badge } from "@/components/ui/badge";
 
 import {
   caseStudies,
@@ -56,34 +57,37 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                              */}
       {/* ---------------------------------------------------------------- */}
-      <div className="border-b border-line bg-surface pt-10 pb-16 sm:pb-20">
-        <Container>
+      <div className="gradient-hero relative overflow-hidden">
+        <div
+          aria-hidden
+          className="grid-rule-dark pointer-events-none absolute inset-x-0 top-0 h-[70%] mask-[linear-gradient(to_bottom,black,transparent)]"
+        />
+
+        <Container className="relative pt-32 pb-20 sm:pt-36 sm:pb-24">
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-ink"
+            className="inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
           >
             <ArrowLeft aria-hidden className="size-4" />
             All case studies
           </Link>
 
           <Reveal className="mt-10 max-w-4xl">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <span className="label-eyebrow text-accent">{study.client}</span>
-              <span aria-hidden className="h-3 w-px bg-line-strong" />
-              <span className="label-eyebrow text-muted">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge tone="onDark">{study.client}</Badge>
+              <span className="rounded-full border border-white/20 px-3.5 py-1.5 text-xs text-white/70">
                 {study.industry}
               </span>
-              <span aria-hidden className="h-3 w-px bg-line-strong" />
-              <span className="label-eyebrow text-muted">
+              <span className="rounded-full border border-white/20 px-3.5 py-1.5 text-xs text-white/70">
                 {study.duration}
               </span>
             </div>
 
-            <h1 className="mt-6 text-4xl leading-[1.1] sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+            <h1 className="mt-7 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.25rem] lg:leading-[1.06]">
               {study.headline}
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
               {study.summary}
             </p>
           </Reveal>
@@ -97,7 +101,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
             <SectionHeading
-              eyebrow="S.01 — The challenge"
+              align="left"
+              eyebrow="The challenge"
               title="What they came to us with."
             />
             <Reveal delay={60} className="max-w-2xl space-y-5">
@@ -117,11 +122,12 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       {/* The bottleneck we found                                           */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted">
+      <Section tone="card">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
             <SectionHeading
-              eyebrow="S.02 — The bottleneck"
+              align="left"
+              eyebrow="The bottleneck"
               title="What the audit found."
             />
             <Reveal delay={60} className="max-w-2xl space-y-5">
@@ -143,23 +149,20 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       <Section>
         <Container>
-          <SectionHeading
-            eyebrow="S.03 — What we built"
-            title="The implementation."
-          />
+          <SectionHeading eyebrow="What we built" title="The implementation." />
 
-          <ol className="mt-14 grid gap-px border-t border-line bg-line sm:grid-cols-2">
+          <ol className="mt-16 grid gap-5 sm:grid-cols-2">
             {study.built.map((item, i) => (
               <Reveal
                 as="li"
                 key={item.title}
                 delay={i * 60}
-                className="bg-surface p-8 lg:p-10"
+                className="card-raise rounded-xl bg-surface p-8"
               >
-                <span className="figure-num text-sm text-accent">
+                <span className="grid size-9 place-items-center rounded-full bg-accent-soft text-sm font-semibold text-accent-ink">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-4 text-lg">{item.title}</h3>
+                <h3 className="mt-5 text-lg">{item.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
                   {item.detail}
                 </p>
@@ -172,15 +175,15 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       {/* The ROI                                                           */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="muted">
+      <Section tone="wash">
         <Container>
           <SectionHeading
-            eyebrow="S.04 — The return"
+            eyebrow="The return"
             title="Measured against the audit baseline."
             deck="Same metrics, same definitions, re-measured 90 days after go-live."
           />
 
-          <div className="mt-14">
+          <div className="mt-16">
             <StatsBlock stats={study.results} tone="panel" />
           </div>
         </Container>
@@ -190,18 +193,13 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Client quote                                                      */}
       {/* ---------------------------------------------------------------- */}
       {study.quote ? (
-        <Section>
+        <Section tone="card">
           <Container>
             <Reveal className="mx-auto max-w-3xl text-center">
-              <blockquote>
-                <p className="font-serif text-2xl leading-snug text-balance text-ink sm:text-3xl sm:leading-[1.35]">
-                  <span aria-hidden className="text-accent">
-                    “
-                  </span>
+              <Quote aria-hidden className="mx-auto size-8 text-accent/40" />
+              <blockquote className="mt-7">
+                <p className="font-display text-2xl leading-snug font-medium text-balance text-ink sm:text-3xl sm:leading-[1.36]">
                   {study.quote.text}
-                  <span aria-hidden className="text-accent">
-                    ”
-                  </span>
                 </p>
                 <footer className="mt-8">
                   <cite className="text-sm font-medium not-italic text-ink">
@@ -219,13 +217,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Related                                                           */}
       {/* ---------------------------------------------------------------- */}
       {related.length ? (
-        <Section tone={study.quote ? "muted" : "default"}>
+        <Section tone={study.quote ? "default" : "card"}>
           <Container>
-            <SectionHeading
-              eyebrow="S.05 — Related"
-              title="Other engagements."
-            />
-            <div className="mt-12 grid gap-6 sm:grid-cols-2">
+            <SectionHeading eyebrow="Related" title="Other engagements." />
+            <div className="mt-14 grid gap-5 sm:grid-cols-2">
               {related.map((item) => (
                 <CaseStudyCard key={item.slug} study={item} />
               ))}
