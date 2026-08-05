@@ -16,12 +16,10 @@ export function TrustBar() {
         <p className="text-center text-sm text-muted">
           Engagements delivered across
         </p>
-        <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
+        {/* Typographic, not chips — separators do the work a border used to. */}
+        <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-2">
           {industries.map((industry) => (
-            <li
-              key={industry.name}
-              className="rounded-full border border-line bg-surface px-4 py-2 text-sm text-ink"
-            >
+            <li key={industry.name} className="text-sm text-ink">
               {industry.name}
             </li>
           ))}

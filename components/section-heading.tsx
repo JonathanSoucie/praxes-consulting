@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/reveal";
-import { Badge } from "@/components/ui/badge";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 /**
  * Standard section header: a pill eyebrow, a display headline, optional deck.
@@ -33,9 +33,9 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <div className={cn("mb-6 flex", centered && "justify-center")}>
-          <Badge tone={inverse ? "onDark" : "soft"}>{eyebrow}</Badge>
-        </div>
+        <Eyebrow tone={inverse ? "onDark" : "default"} className="mb-5">
+          {eyebrow}
+        </Eyebrow>
       ) : null}
 
       <h2

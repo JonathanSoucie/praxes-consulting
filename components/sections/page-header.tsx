@@ -1,6 +1,6 @@
 import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
-import { Badge } from "@/components/ui/badge";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 /**
  * Standard page masthead — the short version of the hero gradient, used on
@@ -27,9 +27,9 @@ export function PageHeader({
 
       <Container className="relative pt-36 pb-20 sm:pt-40 sm:pb-24">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <Badge tone="onDark">{eyebrow}</Badge>
+          <Eyebrow tone="onDark">{eyebrow}</Eyebrow>
 
-          <h1 className="mt-7 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
+          <h1 className="mt-6 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
             {title}
           </h1>
 

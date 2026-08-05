@@ -21,7 +21,7 @@ export function CaseStudyCard({
       )}
     >
       <div className="flex items-start justify-between gap-4">
-        <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-ink">
+        <span className="text-xs font-medium tracking-[0.14em] text-muted uppercase">
           {study.industry}
         </span>
         <ArrowUpRight
@@ -51,7 +51,7 @@ export function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
   return (
     <div className="card-raise grid overflow-hidden rounded-2xl bg-surface lg:grid-cols-[1.25fr_1fr]">
       <div className="p-8 sm:p-12">
-        <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-ink">
+        <span className="text-xs font-medium tracking-[0.14em] text-muted uppercase">
           Featured · {study.industry}
         </span>
 

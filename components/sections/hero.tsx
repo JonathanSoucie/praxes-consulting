@@ -3,9 +3,9 @@ import Link from "next/link";
 import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/reveal";
-import { DashboardCluster } from "@/components/sections/dashboard-cluster";
+import { TimeEstimator } from "@/components/sections/time-estimator";
 
 /**
  * Hero. Deep indigo at the top resolving into the page background, with the
@@ -23,14 +23,14 @@ export function Hero() {
       <Container className="relative pt-36 pb-24 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32">
         <div className="mx-auto max-w-3xl text-center">
           <Reveal>
-            <Badge tone="onDark">AI consulting · measured, not promised</Badge>
+            <Eyebrow tone="onDark">AI consulting</Eyebrow>
           </Reveal>
 
           <Reveal delay={60}>
-            <h1 className="mt-7 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl lg:leading-[1.05]">
-              AI that pays for itself.
+            <h1 className="mt-6 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl lg:leading-[1.05]">
+              Identifying where AI automation
               <span className="block text-white/60">
-                And the numbers to prove it.
+                creates measurable return.
               </span>
             </h1>
           </Reveal>
@@ -55,7 +55,7 @@ export function Hero() {
         </div>
 
         <Reveal delay={220}>
-          <DashboardCluster className="mx-auto mt-20 max-w-4xl" />
+          <TimeEstimator className="mx-auto mt-20 max-w-2xl" />
         </Reveal>
       </Container>
     </section>

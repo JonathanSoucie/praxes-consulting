@@ -15,9 +15,9 @@ export const site = {
   email: "praxesconsulting.hr@gmail.com",
   phone: "+385 91 44 55 021",
   address: {
-    locality: "Pula",
-    region: "Istria",
-    country: "Croatia",
+    locality: "Ottawa",
+    region: "Ontario",
+    country: "Canada",
   },
   /** Year the firm started — used in the footer copyright range. */
   founded: 2024,

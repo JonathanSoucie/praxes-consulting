@@ -2,13 +2,15 @@ import { Check } from "lucide-react";
 
 import { processSteps } from "@/content/process";
 import { Reveal } from "@/components/reveal";
-import { cn } from "@/lib/utils";
 
 /**
- * The five-step engagement.
+ * The engagement stages.
  *
  * `variant="overview"` — condensed cards, for the Home page.
  * `variant="full"`     — with deliverables and durations, for /process.
+ *
+ * The commercial framing (free / paid / small deposit …) is plain text beside
+ * the stage title rather than a chip.
  */
 export function ProcessTimeline({
   variant = "full",
@@ -25,20 +27,17 @@ export function ProcessTimeline({
             delay={i * 60}
             className="card-raise flex h-full flex-col rounded-xl bg-surface p-7"
           >
-            <div className="flex items-center justify-between gap-3">
-              <span className="grid size-9 place-items-center rounded-full bg-accent-soft">
-                <span className="figure-num text-sm text-accent-ink">
-                  {step.n}
-                </span>
+            <span className="grid size-9 place-items-center rounded-full bg-accent-soft">
+              <span className="figure-num text-sm text-accent-ink">
+                {step.n}
               </span>
-              {step.tag ? (
-                <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-ink">
-                  {step.tag}
-                </span>
-              ) : null}
-            </div>
+            </span>
 
             <h3 className="mt-5 text-lg">{step.title}</h3>
+            {step.tag ? (
+              <p className="mt-1 text-xs text-accent">{step.tag}</p>
+            ) : null}
+
             <p className="mt-3 text-sm leading-relaxed text-muted">
               {step.summary}
             </p>
@@ -58,23 +57,25 @@ export function ProcessTimeline({
           className="card-raise rounded-2xl bg-surface p-8 lg:p-10"
         >
           <div className="grid gap-8 lg:grid-cols-[auto_1fr] lg:gap-12">
-            {/* Step number rail */}
-            <div className="flex items-center gap-4 lg:w-32 lg:flex-col lg:items-start">
+            {/* Stage number rail */}
+            <div className="lg:w-24">
               <span className="grid size-12 place-items-center rounded-full bg-accent-soft">
                 <span className="figure-num text-base text-accent-ink">
                   {step.n}
                 </span>
               </span>
-              {step.tag ? (
-                <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-ink">
-                  {step.tag}
-                </span>
-              ) : null}
             </div>
 
             <div>
               <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                <h3 className="text-xl sm:text-2xl">{step.title}</h3>
+                <h3 className="text-xl sm:text-2xl">
+                  {step.title}
+                  {step.tag ? (
+                    <span className="ml-3 text-base font-normal text-accent">
+                      {step.tag}
+                    </span>
+                  ) : null}
+                </h3>
                 <span className="figure-num text-sm text-muted">
                   {step.duration}
                 </span>

@@ -62,20 +62,19 @@ function OrganizationJsonLd() {
 
 const problems = [
   {
-    title: "Work queues where nobody is watching",
-    body: "The expensive delay is rarely the task itself — it's the days a file sits waiting for someone to be free. It doesn't show up in anyone's timesheet, so it never gets costed.",
+    n: "01",
+    title: "Queues nobody is watching",
+    body: "The cost is not the task. It is the hours or days a file spends waiting for someone to become free. That delay appears on no timesheet and in no budget line.",
   },
   {
+    n: "02",
     title: "Capable people doing mechanical work",
-    body: "Retyping, chasing, reconciling, reformatting. Hours of it a week, done by the people you hired for judgement, because no one has ever priced the alternative.",
+    body: "Retyping, chasing, reconciling, reformatting. Several hours weekly, absorbed by staff hired for judgement. The alternative has never been costed against it.",
   },
   {
+    n: "03",
     title: "Decisions made on stale numbers",
-    body: "By the time month-end reporting is assembled, the decisions it should have informed are already made. You are steering on last month's picture.",
-  },
-  {
-    title: "AI bought, then quietly abandoned",
-    body: "A tool gets purchased on a demo, half-adopted, and dropped within a quarter because nothing connected it to the actual workflow and nobody owned it.",
+    body: "By the time month-end reporting is assembled, the decisions it should have informed are already made. Operations run on last month's picture, creating a gap that is untreated.",
   },
 ];
 
@@ -83,7 +82,7 @@ const solution = [
   {
     n: "01",
     title: "Find the bottleneck",
-    body: "We measure the process rather than take the brief at face value. The constraint is usually not where the team thinks it is — and that difference is where the money is.",
+    body: "We measure the process rather than take the brief at face value. The constraint is frequently not where the team believes it to be, and the discrepancy is where the return sits.",
   },
   {
     n: "02",
@@ -133,17 +132,20 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="The problem"
             title="Most businesses don't have an AI problem. They have a bottleneck nobody has priced."
-            deck="The constraint is usually mundane, invisible in the reporting, and expensive. It rarely looks like the thing everyone complains about."
+            deck="The constraint is usually mundane, absent from the reporting, and expensive. It is rarely the thing people complain about."
           />
 
-          <div className="mt-16 grid gap-5 sm:grid-cols-2">
+          <div className="mt-16 grid gap-5 lg:grid-cols-3">
             {problems.map((problem, i) => (
               <Reveal
                 key={problem.title}
                 delay={i * 60}
                 className="rounded-xl bg-surface-2 p-8"
               >
-                <h3 className="text-lg">{problem.title}</h3>
+                <p className="figure-num text-sm text-accent">
+                  {problem.n} <span className="text-line-strong">—</span>
+                </p>
+                <h3 className="mt-3 text-lg">{problem.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
                   {problem.body}
                 </p>
@@ -191,7 +193,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Process"
-            title="Five steps, and your risk only grows once the case is proven."
+            title="Five stages. Commitment increases only after the case is established."
           />
 
           <div className="mt-16">

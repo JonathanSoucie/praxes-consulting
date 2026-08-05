@@ -9,7 +9,7 @@ import { StatsBlock } from "@/components/sections/stats-block";
 import { CaseStudyCard } from "@/components/sections/case-study-card";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
-import { Badge } from "@/components/ui/badge";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 import {
   caseStudies,
@@ -82,17 +82,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </Link>
 
           <Reveal className="mt-10 max-w-4xl">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge tone="onDark">{study.client}</Badge>
-              <span className="rounded-full border border-white/20 px-3.5 py-1.5 text-xs text-white/70">
-                {study.industry}
-              </span>
-              <span className="rounded-full border border-white/20 px-3.5 py-1.5 text-xs text-white/70">
-                {study.duration}
-              </span>
-            </div>
+            <Eyebrow tone="onDark">
+              {study.client} · {study.industry} · {study.duration}
+            </Eyebrow>
 
-            <h1 className="mt-7 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.25rem] lg:leading-[1.06]">
+            <h1 className="mt-6 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.25rem] lg:leading-[1.06]">
               {study.headline}
             </h1>
 

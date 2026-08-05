@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container, Section } from "@/components/container";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/reveal";
 
 /**
@@ -35,9 +35,9 @@ export function CtaSection({
 
       <Container className="relative">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <Badge tone="onDark">{eyebrow}</Badge>
+          <Eyebrow tone="onDark">{eyebrow}</Eyebrow>
 
-          <h2 className="mt-7 text-3xl leading-[1.12] text-white sm:text-4xl lg:text-[2.875rem] lg:leading-[1.08]">
+          <h2 className="mt-6 text-3xl leading-[1.12] text-white sm:text-4xl lg:text-[2.875rem] lg:leading-[1.08]">
             {title}
           </h2>
 

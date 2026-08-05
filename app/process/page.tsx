@@ -53,7 +53,7 @@ export default function ProcessPage() {
       <PageHeader
         eyebrow="Process"
         title="A sequence designed so you can stop at any point."
-        deck="Two free conversations, a paid audit you keep regardless of what you decide, then a fixed-scope build. Your exposure grows only after the case for it has been measured."
+        deck="A free conversation, then a paid audit you keep regardless of what you decide, then a fixed-scope build. Your exposure grows only after the case for it has been measured."
       >
         <div className="mt-10 flex flex-col items-center gap-4">
           <BookACall size="lg" variant="onDark" withArrow />
@@ -68,7 +68,7 @@ export default function ProcessPage() {
         <Container>
           <SectionHeading
             eyebrow="The engagement"
-            title="Five steps, start to finish."
+            title="Five stages. Commitment increases only after the case is established."
             deck="What happens at each stage, what you receive, and how long it typically takes."
           />
 

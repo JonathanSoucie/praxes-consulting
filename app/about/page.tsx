@@ -126,13 +126,15 @@ export default function AboutPage() {
                   {member.bio}
                 </p>
 
-                <ul className="mt-5 flex flex-wrap gap-2 border-t border-line pt-5">
-                  {member.credentials.map((credential) => (
-                    <li
-                      key={credential}
-                      className="rounded-full bg-surface-2 px-3 py-1 text-xs text-muted"
-                    >
+                <ul className="mt-5 flex flex-wrap gap-x-2 gap-y-1 border-t border-line pt-5 text-xs text-muted">
+                  {member.credentials.map((credential, index) => (
+                    <li key={credential}>
                       {credential}
+                      {index < member.credentials.length - 1 ? (
+                        <span aria-hidden className="ml-2 text-line-strong">
+                          ·
+                        </span>
+                      ) : null}
                     </li>
                   ))}
                 </ul>

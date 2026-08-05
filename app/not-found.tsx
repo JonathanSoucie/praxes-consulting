@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { BookACall } from "@/components/book-a-call";
 import { nav } from "@/content/site";
 
@@ -16,9 +16,9 @@ export default function NotFound() {
 
       <Container className="relative pt-40 pb-28 text-center sm:pt-44 sm:pb-32">
         <div className="mx-auto max-w-2xl">
-          <Badge tone="onDark">Error 404</Badge>
+          <Eyebrow tone="onDark">Error 404</Eyebrow>
 
-          <h1 className="mt-7 text-4xl leading-tight text-white sm:text-5xl">
+          <h1 className="mt-6 text-4xl leading-tight text-white sm:text-5xl">
             That page isn&apos;t here.
           </h1>
 

@@ -45,8 +45,8 @@ export const processFaqs: Faq[] = [
     a: "You get that answer in writing, with the model behind it, and the engagement ends there with no pressure to proceed. This happens in roughly a third of audits. You still keep the bottleneck map and the cost model — clients regularly act on those independently, because the exercise of pricing your own inefficiency is useful whatever the conclusion.",
   },
   {
-    q: "Why is the audit paid when the first two calls are free?",
-    a: "The calls are a qualification exercise for both sides. The audit is real work: measuring your process, building a financial model, and staking our recommendation on it. Charging for it is what lets the conclusion be genuinely independent of whether you buy a build.",
+    q: "Why is the audit paid when the discovery call is free?",
+    a: "The call is a qualification exercise for both sides. The audit is real work: sitting with your team, measuring the process, building a financial model, and staking our recommendation on it. Charging for it is what lets the conclusion be genuinely independent of whether you buy a build.",
   },
   {
     q: "Can we take the audit and implement it ourselves?",
@@ -54,7 +54,7 @@ export const processFaqs: Faq[] = [
   },
   {
     q: "How long does the whole thing take?",
-    a: "Discovery call: 15 minutes. Deep-dive: 60–90 minutes. Audit: 1 week. Build and integration: 2–3 weeks. Most engagements are live within about six weeks of the first call, after which we monitor and maintain the system on an ongoing basis.",
+    a: "Discovery call: 15 minutes. Audit: 1 week. Build and integration: 2–3 weeks. Go-live and handover: 1 week. Most engagements are live within about five weeks of the first call, after which we monitor and maintain the system on an ongoing basis.",
   },
   {
     q: "How much disruption should we expect?",
@@ -86,7 +86,7 @@ export const contactFaqs: Faq[] = [
   },
   {
     q: "Will you try to sell me something on the call?",
-    a: "The only thing on offer at that stage is a longer analysis call, and only if there's something worth analysing. The first paid step is the audit, and it comes several conversations later.",
+    a: "The only thing on offer at that stage is the audit, and only if there's something worth measuring. Nothing is quoted on the call itself, and if we can't see a credible case we'll say so rather than propose one.",
   },
   {
     q: "Can we talk by email instead?",

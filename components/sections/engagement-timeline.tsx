@@ -23,32 +23,39 @@ type Phase = {
 
 const phases: Phase[] = [
   {
-    label: "Discovery & deep-dive",
+    label: "Discovery call",
     duration: "Week 0",
-    span: 1.2,
-    fill: "bg-accent/25",
-    detail: "Two free calls",
+    span: 1,
+    fill: "bg-accent/20",
+    detail: "Free, 15 minutes",
   },
   {
-    label: "ROI audit",
+    label: "Audit",
     duration: "1 week",
     span: 1.4,
-    fill: "bg-accent/50",
-    detail: "Bottleneck map + model",
+    fill: "bg-accent/40",
+    detail: "Bottleneck map + ROI",
   },
   {
     label: "Build & integration",
     duration: "2–3 weeks",
     span: 3,
-    fill: "bg-accent/75",
+    fill: "bg-accent/65",
     detail: "Built and tested on your data",
+  },
+  {
+    label: "Go-live & handover",
+    duration: "1 week",
+    span: 1.4,
+    fill: "bg-accent/85",
+    detail: "Measured against baseline",
   },
   {
     label: "Monitoring & maintenance",
     duration: "Ongoing",
-    span: 2.2,
+    span: 2,
     fill: "bg-accent",
-    detail: "Measured at 30 and 90 days",
+    detail: "Watched and kept current",
   },
 ];
 
@@ -63,7 +70,7 @@ export function EngagementTimeline({ className }: { className?: string }) {
         </p>
         <p className="text-sm text-muted">
           Live in roughly{" "}
-          <span className="font-medium text-accent">six weeks</span> from the
+          <span className="font-medium text-accent">five weeks</span> from the
           first call
         </p>
       </div>
