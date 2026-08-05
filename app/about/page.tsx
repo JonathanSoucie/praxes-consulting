@@ -94,38 +94,35 @@ export default function AboutPage() {
             deck="Three people, each responsible for a different part of the answer. You will be talking to us directly, not to an account manager."
           />
 
-          {/* Compact cards: a small square portrait sits beside the name
-              rather than a large image dominating the card. */}
+          {/* A square portrait at the head of the card — large enough to read
+              a face, without the 4:5 crop dominating the whole card. */}
           <div className="mt-16 grid gap-5 lg:grid-cols-3">
             {team.map((member, i) => (
               <Reveal
                 as="article"
                 key={member.name}
                 delay={i * 70}
-                className="card-raise flex flex-col rounded-2xl bg-surface p-6"
+                className="card-raise flex flex-col rounded-2xl bg-surface p-7"
               >
-                <div className="flex items-center gap-4">
-                  <div className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-surface-2">
-                    <Image
-                      src={member.image}
-                      alt={`Portrait of ${member.name}`}
-                      fill
-                      sizes="64px"
-                      className="object-cover"
-                      priority={i === 0}
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-lg leading-snug">{member.name}</h3>
-                    <p className="mt-0.5 text-sm font-medium text-accent">
-                      {member.role}
-                    </p>
-                  </div>
+                <div className="relative size-36 overflow-hidden rounded-2xl bg-surface-2 sm:size-40">
+                  <Image
+                    src={member.image}
+                    alt={`Portrait of ${member.name}`}
+                    fill
+                    sizes="160px"
+                    className="object-cover"
+                    priority={i === 0}
+                  />
                 </div>
+
+                <h3 className="mt-6 text-xl leading-snug">{member.name}</h3>
+                <p className="mt-1 text-sm font-medium text-accent">
+                  {member.role}
+                </p>
 
                 {/* flex-1 on the bio pushes the credential row to the card
                     base, so all three align regardless of bio length. */}
-                <p className="mt-5 flex-1 text-sm leading-relaxed text-muted">
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
                   {member.bio}
                 </p>
 
