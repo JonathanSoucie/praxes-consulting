@@ -16,11 +16,16 @@ import {
   getCaseStudy,
   getRelatedCaseStudies,
 } from "@/content/case-studies";
+import { features } from "@/content/site";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
-/** One static route per entry in the collection. */
+/**
+ * One static route per entry in the collection — none while the section is
+ * hidden, so nothing gets prerendered or indexed. See content/site.ts.
+ */
 export function generateStaticParams() {
+  if (!features.caseStudies) return [];
   return caseStudies.map((study) => ({ slug: study.slug }));
 }
 
@@ -30,7 +35,9 @@ export async function generateMetadata({
   const { slug } = await params;
   const study = getCaseStudy(slug);
 
-  if (!study) return { title: "Case study not found" };
+  if (!study || !features.caseStudies) {
+    return { title: "Case study not found", robots: { index: false } };
+  }
 
   return {
     title: `${study.client} — ${study.headline}`,
@@ -45,6 +52,8 @@ export async function generateMetadata({
 }
 
 export default async function CaseStudyPage({ params }: PageProps) {
+  if (!features.caseStudies) notFound();
+
   const { slug } = await params;
   const study = getCaseStudy(slug);
 

@@ -85,6 +85,16 @@ content/
     *.ts              one file per case study
 ```
 
+### Hidden sections
+
+`features` in [`content/site.ts`](content/site.ts) gates optional sections.
+`caseStudies` is currently **off**: the nav links, the `/case-studies` index and
+detail pages, the featured-study blocks on Home and Services, the "Read the
+study" links under testimonials and the sitemap entries all disappear together,
+and the routes return 404 with `noindex`. The content in
+`content/case-studies/` is untouched — flip the flag to `true` to bring the
+whole section back.
+
 ### Adding a case study
 
 1. Copy an existing file in `content/case-studies/`, e.g. `northgate-accounting.ts`.

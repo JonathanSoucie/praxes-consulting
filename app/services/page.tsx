@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { getFeaturedCaseStudy } from "@/content/case-studies";
 import { headlineStats } from "@/content/stats";
 import { services } from "@/content/services";
+import { features } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -245,16 +246,19 @@ export default function ServicesPage() {
             <StatsBlock stats={headlineStats} tone="panel" columns={4} />
           </div>
 
-          <Reveal className="mt-10">
-            <FeaturedCaseStudy study={featured} />
-          </Reveal>
+          {/* Featured study — hidden with the Case Studies section. */}
+          {features.caseStudies && featured ? (
+            <Reveal className="mt-10">
+              <FeaturedCaseStudy study={featured} />
+            </Reveal>
+          ) : null}
         </Container>
       </Section>
 
       <CtaSection
         title="Which of these applies to you? Let's find out properly."
         body="Fifteen free minutes to work out whether there's a bottleneck here worth measuring — and which of the above, if any, would address it."
-        secondary={{ href: "/case-studies", label: "See the results" }}
+        secondary={{ href: "/process", label: "How an engagement runs" }}
       />
     </>
   );

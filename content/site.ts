@@ -26,14 +26,29 @@ export const site = {
   },
 } as const;
 
+/**
+ * Feature flags.
+ *
+ * `caseStudies` is off until there are real, publishable engagements to show.
+ * Flipping it to true restores, in one step: the navbar and footer links, the
+ * /case-studies index and its detail pages, the featured-study blocks on Home
+ * and Services, the "Read the study" links under testimonials, and the
+ * sitemap entries. The content in content/case-studies/ is left untouched.
+ */
+export const features = {
+  caseStudies: false,
+} as const;
+
 /** Primary navigation. Order here is the order in the navbar and footer. */
 export const nav = [
   { href: "/services", label: "Services" },
   { href: "/process", label: "Process" },
-  { href: "/case-studies", label: "Case Studies" },
+  ...(features.caseStudies
+    ? [{ href: "/case-studies", label: "Case Studies" }]
+    : []),
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-] as const;
+] as { href: string; label: string }[];
 
 export const legalNav = [
   { href: "/privacy", label: "Privacy Policy" },

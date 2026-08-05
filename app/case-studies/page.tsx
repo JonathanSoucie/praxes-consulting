@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { Container, Section } from "@/components/container";
 import { PageHeader } from "@/components/sections/page-header";
@@ -17,15 +18,21 @@ import {
 } from "@/content/case-studies";
 import { caseStudyAggregate } from "@/content/stats";
 import { testimonials } from "@/content/testimonials";
+import { features } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Case Studies",
   description:
     "Measured outcomes from AI engagements across accounting, hospitality, logistics, healthcare and property — including the audit that recommended not building.",
   alternates: { canonical: "/case-studies" },
+  // Hidden for now — don't let search engines index it while it's off.
+  robots: features.caseStudies ? undefined : { index: false, follow: false },
 };
 
 export default function CaseStudiesPage() {
+  // Hidden until there are real engagements to publish. See content/site.ts.
+  if (!features.caseStudies) notFound();
+
   const featured = getFeaturedCaseStudy();
   const industries = getCaseStudyIndustries();
 

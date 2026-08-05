@@ -59,7 +59,7 @@ export const values = [
   },
   {
     title: "You own everything",
-    body: "The models, the documentation, the admin access, the integrations. No proprietary black box, no mandatory retainer, no licence you have to keep paying us for.",
+    body: "The models, the documentation, the admin access, the integrations. No proprietary black box and no licence you have to keep paying for. We monitor and maintain the system because that is how the return holds, not to keep you tied to us.",
   },
   {
     title: "Conservative by default",

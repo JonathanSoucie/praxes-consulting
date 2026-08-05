@@ -4,13 +4,6 @@ import { processSteps } from "@/content/process";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
-const tagStyles: Record<string, string> = {
-  Free: "bg-accent-soft text-accent-ink",
-  Paid: "bg-ink text-white",
-  Downpayment: "bg-surface-2 text-ink",
-  "Final payment": "bg-surface-2 text-ink",
-};
-
 /**
  * The five-step engagement.
  *
@@ -38,14 +31,11 @@ export function ProcessTimeline({
                   {step.n}
                 </span>
               </span>
-              <span
-                className={cn(
-                  "rounded-full px-3 py-1 text-xs font-medium",
-                  tagStyles[step.tag]
-                )}
-              >
-                {step.tag}
-              </span>
+              {step.tag ? (
+                <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-ink">
+                  {step.tag}
+                </span>
+              ) : null}
             </div>
 
             <h3 className="mt-5 text-lg">{step.title}</h3>
@@ -75,14 +65,11 @@ export function ProcessTimeline({
                   {step.n}
                 </span>
               </span>
-              <span
-                className={cn(
-                  "rounded-full px-3 py-1 text-xs font-medium",
-                  tagStyles[step.tag]
-                )}
-              >
-                {step.tag}
-              </span>
+              {step.tag ? (
+                <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-ink">
+                  {step.tag}
+                </span>
+              ) : null}
             </div>
 
             <div>

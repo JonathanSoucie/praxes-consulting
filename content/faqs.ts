@@ -54,19 +54,23 @@ export const processFaqs: Faq[] = [
   },
   {
     q: "How long does the whole thing take?",
-    a: "Discovery call: 15 minutes. Deep-dive: 60–90 minutes. Audit: 2–3 weeks. Build and integration: 4–10 weeks depending on scope. Measurement runs 90 days past go-live. Most engagements are three to five months end to end.",
+    a: "Discovery call: 15 minutes. Deep-dive: 60–90 minutes. Audit: 1 week. Build and integration: 2–3 weeks. Most engagements are live within about six weeks of the first call, after which we monitor and maintain the system on an ongoing basis.",
   },
   {
     q: "How much disruption should we expect?",
-    a: "The audit needs a few hours from the people who run the process, spread over two to three weeks. Build happens alongside your operation, not through it. Go-live is staged with the previous process running as fallback until the numbers hold.",
+    a: "The audit needs a few hours from the people who run the process, spread over the week we're measuring. Build happens alongside your operation, not through it. Rollout is staged with the previous process running as fallback until the numbers hold.",
   },
   {
     q: "What if it doesn't hit the projected ROI?",
     a: "We measure and report it regardless, and we work the gap. Our projections lead with a conservative case precisely so this is rare — but when a forecast misses, you'll hear it from us first, with the reason.",
   },
   {
-    q: "Do we need to sign an ongoing retainer?",
-    a: "No. Support is available if you want it, but the system is built to be run by your team, and you get the documentation and access to do that. A retainer you don't need is not a business we're interested in.",
+    q: "What happens after it's live?",
+    a: "We monitor and maintain it. Performance is tracked against the baseline the audit established, integrations and models are kept current as your tools and volumes change, and we fix problems before they show up in your operation. A system nobody is watching drifts, and drift is how these projects quietly stop paying back.",
+  },
+  {
+    q: "Does that mean we're locked in?",
+    a: "No. You own the models, the documentation and the administrative access outright, and you get the training to run the system in-house. Ongoing monitoring is how we make sure the return holds, not a licence you have to keep buying to keep the lights on.",
   },
 ];
 

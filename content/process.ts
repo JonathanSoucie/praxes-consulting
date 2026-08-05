@@ -6,8 +6,8 @@
 export type ProcessStep = {
   n: string;
   title: string;
-  /** Commercial framing shown as a chip: what this stage costs. */
-  tag: "Free" | "Paid" | "Downpayment" | "Final payment";
+  /** Optional chip. Only used to flag the stages that cost nothing. */
+  tag?: "Free";
   /** Short version, used in the Home page overview. */
   summary: string;
   /** Full version, used on /process. */
@@ -45,16 +45,15 @@ export const processSteps: ProcessStep[] = [
     deliverables: [
       "A mapped view of the candidate workflows",
       "Volume and effort estimates gathered from your team",
-      "A scoped proposal for the ROI audit, with a fixed fee",
+      "A scoped proposal for the ROI audit",
     ],
     duration: "60–90 minutes",
   },
   {
     n: "03",
     title: "ROI audit",
-    tag: "Paid",
     summary:
-      "The paid deliverable: a bottleneck map and a projected ROI model you own, whatever you decide next.",
+      "A bottleneck map and a projected ROI model you own, whatever you decide next.",
     detail:
       "We measure. Cycle times, touch counts, error and rework rates, cost per transaction. Then we build the financial model: what each bottleneck costs you annually, what fixing it would cost, and what the return looks like under conservative, expected and optimistic assumptions. The assumptions are written down and you can argue with them.",
     deliverables: [
@@ -63,66 +62,37 @@ export const processSteps: ProcessStep[] = [
       "A build recommendation — including 'don't build', when that's the answer",
       "Scope and fixed price for implementation, if we recommend proceeding",
     ],
-    duration: "2–3 weeks",
+    duration: "1 week",
   },
   {
     n: "04",
     title: "Build & integration",
-    tag: "Downpayment",
     summary:
       "We build against the audit scope and integrate into the systems you already run.",
     detail:
-      "Implementation starts on a downpayment. We build to the scope the audit defined, integrate with your existing stack, and test against real historical data rather than a demo set. You see working software early and in stages — there is no reveal at the end.",
+      "We build to the scope the audit defined, integrate with your existing stack, and test against real historical data rather than a demo set.",
     deliverables: [
       "Working implementation in a staging environment",
       "Integration with your existing systems",
       "Validation against your own historical data",
       "Staff walkthrough before anything touches live work",
     ],
-    duration: "4–10 weeks, depending on scope",
+    duration: "2–3 weeks",
   },
   {
     n: "05",
-    title: "Go-live & measurement",
-    tag: "Final payment",
+    title: "Monitoring & maintenance",
     summary:
-      "We switch on, measure against the audit baseline, and hand over full ownership.",
+      "We keep the system running, watched, and measured against the baseline as your business changes.",
     detail:
-      "Go-live is staged, with the old process running alongside until the numbers hold. The balance falls due at go-live. Then we measure against the baseline the audit established, at 30 and 90 days, and give you the comparison in writing — whether or not it flatters us.",
+      "Going live is the start of our responsibility, not the end of it. Rollout is staged, with the previous process running alongside until the numbers hold. From there we monitor performance against the baseline the audit established, keep integrations and models current as your tools and volumes change, and fix problems before they surface in your operation.",
     deliverables: [
       "Staged rollout with the previous process as fallback",
-      "Measured results against the audit baseline at 30 and 90 days",
-      "Documentation, admin access and team training",
-      "Full ownership — no lock-in, no mandatory retainer",
+      "Continuous monitoring against the audit baseline",
+      "Measured results at 30 and 90 days, in writing",
+      "Updates and fixes as your systems and volumes change",
+      "Documentation, admin access and team training — the system is yours",
     ],
-    duration: "Ongoing measurement for 90 days",
+    duration: "Ongoing",
   },
 ];
-
-/** Investment framing shown on /process. */
-export const investmentModel = [
-  {
-    stage: "Discovery & analysis",
-    cost: "Free",
-    detail:
-      "Both conversations are free. We're deciding together whether there's a case worth measuring.",
-  },
-  {
-    stage: "ROI audit",
-    cost: "Fixed fee",
-    detail:
-      "Quoted before we start, based on scope. This is a real deliverable you keep and can act on with anyone — including without us.",
-  },
-  {
-    stage: "Build & integration",
-    cost: "Downpayment",
-    detail:
-      "A downpayment starts the build. The scope and total price are fixed at the end of the audit, so there is no open-ended meter running.",
-  },
-  {
-    stage: "Go-live",
-    cost: "Balance",
-    detail:
-      "The remaining balance falls due at go-live, once the system is running against real work.",
-  },
-] as const;

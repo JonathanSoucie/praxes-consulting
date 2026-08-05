@@ -15,7 +15,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Praxes is an AI consulting firm built around one commitment: measure the business honestly, and say so when AI isn't the answer. Meet the team and how we think.",
+    "Praxes is an AI consulting firm for Canadian small and mid-sized businesses, built around one commitment: measure the business honestly, and say so when AI isn't the answer. Meet the team and how we think.",
   alternates: { canonical: "/about" },
 };
 
@@ -24,8 +24,8 @@ export default function AboutPage() {
     <>
       <PageHeader
         eyebrow="About"
-        title="We exist because most AI advice is sold by people paid to say yes."
-        deck="Praxes was built around a narrower promise than most consultancies make: we will measure your business honestly, and we will tell you when the answer is no."
+        title="Built to give Canadian businesses a straight answer on AI."
+        deck="Praxes makes a narrower promise than most consultancies: we will measure your business honestly, show you the numbers behind our recommendation, and tell you when the answer is no."
       />
 
       {/* ---------------------------------------------------------------- */}
@@ -41,30 +41,41 @@ export default function AboutPage() {
             />
             <Reveal delay={60} className="max-w-2xl space-y-5">
               <p className="text-base leading-relaxed text-muted">
-                We started out doing automation assessments for manufacturers —
-                walking factory floors, timing processes, and building the
-                financial case for whether a piece of equipment would pay for
-                itself. The discipline that work demanded turned out to be the
-                whole business: measure first, model the return conservatively,
-                and be willing to say the investment isn&apos;t worth it.
+                We started out doing automation assessments — walking floors,
+                timing processes, and building the financial case for whether a
+                piece of equipment would pay for itself. The discipline that
+                work demanded turned out to be the whole business: measure
+                first, model the return conservatively, and be willing to say
+                the investment isn&apos;t worth it.
               </p>
               <p className="text-base leading-relaxed text-muted">
-                When clients started asking about AI, we found the same market
-                failure, only worse. The technology was newer, the claims were
-                larger, and almost nobody was establishing a baseline before
-                building — which meant almost nobody could say afterwards
-                whether it had worked. Businesses were buying capability and
-                hoping.
+                Then we started looking at what AI was doing to Canadian small
+                and mid-sized businesses. The pattern was hard to miss. The
+                enterprise end of the market had consultants, budgets and
+                people whose job was to check the maths. Everyone else — the
+                accounting practices, the clinics, the clubs, the distributors,
+                the firms that actually employ most Canadians — was being sold
+                the same technology with none of the scrutiny, on a demo and a
+                promise.
               </p>
               <p className="text-base leading-relaxed text-muted">
-                So we brought the same method across. Find the constraint. Price
-                it. Build only what the numbers justify. Then re-measure and
-                report what actually happened. It is not a novel idea — it is
-                just ordinary engineering discipline applied to a field that
-                currently runs on enthusiasm.
+                Almost nobody was establishing a baseline before building, which
+                meant almost nobody could say afterwards whether it had worked.
+                Owners were spending real money on capability and hoping. A few
+                got lucky. Most quietly stopped using what they bought.
               </p>
               <p className="text-base leading-relaxed text-muted">
-                Praxes is the Greek for practice — action informed by theory
+                Praxes exists to close that gap. We bring the same method to a
+                twenty-person practice that a bank would expect for a
+                seven-figure programme: find the constraint, price it, build
+                only what the numbers justify, then re-measure and report what
+                actually happened. It is not a novel idea. It is ordinary
+                engineering discipline applied to a field that currently runs on
+                enthusiasm — and applied for businesses that have rarely been
+                offered it.
+              </p>
+              <p className="text-base leading-relaxed text-muted">
+                Praxes is the Greek for practice: action informed by theory
                 rather than theory on its own. That is roughly the whole point.
               </p>
             </Reveal>
@@ -83,47 +94,51 @@ export default function AboutPage() {
             deck="Three people, each responsible for a different part of the answer. You will be talking to us directly, not to an account manager."
           />
 
-          <div className="mt-16 grid gap-6 lg:grid-cols-3">
+          {/* Compact cards: a small square portrait sits beside the name
+              rather than a large image dominating the card. */}
+          <div className="mt-16 grid gap-5 lg:grid-cols-3">
             {team.map((member, i) => (
               <Reveal
                 as="article"
                 key={member.name}
                 delay={i * 70}
-                className="card-raise flex flex-col overflow-hidden rounded-2xl bg-surface"
+                className="card-raise flex flex-col rounded-2xl bg-surface p-6"
               >
-                <div className="relative aspect-4/5 overflow-hidden bg-surface-2">
-                  <Image
-                    src={member.image}
-                    alt={`Portrait of ${member.name}`}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover"
-                    priority={i === 0}
-                  />
+                <div className="flex items-center gap-4">
+                  <div className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-surface-2">
+                    <Image
+                      src={member.image}
+                      alt={`Portrait of ${member.name}`}
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                      priority={i === 0}
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="text-lg leading-snug">{member.name}</h3>
+                    <p className="mt-0.5 text-sm font-medium text-accent">
+                      {member.role}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex flex-1 flex-col p-7">
-                  <h3 className="text-xl">{member.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-accent">
-                    {member.role}
-                  </p>
-                  {/* flex-1 on the bio pushes the credential row to the card
-                      base, so all three align regardless of bio length. */}
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
-                    {member.bio}
-                  </p>
+                {/* flex-1 on the bio pushes the credential row to the card
+                    base, so all three align regardless of bio length. */}
+                <p className="mt-5 flex-1 text-sm leading-relaxed text-muted">
+                  {member.bio}
+                </p>
 
-                  <ul className="mt-6 flex flex-wrap gap-2 border-t border-line pt-5">
-                    {member.credentials.map((credential) => (
-                      <li
-                        key={credential}
-                        className="rounded-full bg-surface-2 px-3 py-1 text-xs text-muted"
-                      >
-                        {credential}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="mt-5 flex flex-wrap gap-2 border-t border-line pt-5">
+                  {member.credentials.map((credential) => (
+                    <li
+                      key={credential}
+                      className="rounded-full bg-surface-2 px-3 py-1 text-xs text-muted"
+                    >
+                      {credential}
+                    </li>
+                  ))}
+                </ul>
               </Reveal>
             ))}
           </div>
@@ -169,7 +184,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="By the numbers"
             title="Where we stand."
-            deck={`Based in ${site.address.locality}, ${site.address.region}. Working with clients across Europe and North America.`}
+            deck="Working with owner-led small and mid-sized businesses across Canada."
           />
 
           <div className="mt-16">

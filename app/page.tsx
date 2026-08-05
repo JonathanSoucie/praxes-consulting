@@ -20,7 +20,7 @@ import { getFeaturedCaseStudy } from "@/content/case-studies";
 import { generalFaqs } from "@/content/faqs";
 import { headlineStats } from "@/content/stats";
 import { industries, services } from "@/content/services";
-import { site } from "@/content/site";
+import { features, site } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
 
 export const metadata: Metadata = {
@@ -108,7 +108,7 @@ const differentiators = [
   },
   {
     title: "You stay in control",
-    body: "You own the models, the documentation and the admin access. No proprietary black box, no mandatory retainer, and no licence you have to keep paying us for.",
+    body: "You own the models, the documentation and the admin access. No proprietary black box and no licence you have to keep paying for — if you ever want to take it in-house, everything you need is already yours.",
   },
   {
     title: "No vendor incentives",
@@ -269,34 +269,36 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Featured case study                                               */}
+      {/* Featured case study — hidden with the Case Studies section        */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
-        <Container>
-          <SectionHeading
-            eyebrow="Case study"
-            title="When the bottleneck isn't where the client thought it was."
-          />
+      {features.caseStudies && featured ? (
+        <Section tone="wash">
+          <Container>
+            <SectionHeading
+              eyebrow="Case study"
+              title="When the bottleneck isn't where the client thought it was."
+            />
 
-          <Reveal className="mt-16">
-            <FeaturedCaseStudy study={featured} />
-          </Reveal>
+            <Reveal className="mt-16">
+              <FeaturedCaseStudy study={featured} />
+            </Reveal>
 
-          <Reveal delay={80} className="mt-10 text-center">
-            <Button asChild variant="soft">
-              <Link href="/case-studies">
-                All case studies
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
+            <Reveal delay={80} className="mt-10 text-center">
+              <Button asChild variant="soft">
+                <Link href="/case-studies">
+                  All case studies
+                  <ArrowRight aria-hidden />
+                </Link>
+              </Button>
+            </Reveal>
+          </Container>
+        </Section>
+      ) : null}
 
       {/* ---------------------------------------------------------------- */}
       {/* Testimonials                                                      */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
+      <Section tone="wash">
         <Container>
           <SectionHeading eyebrow="Clients" title="In their words." />
           <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">

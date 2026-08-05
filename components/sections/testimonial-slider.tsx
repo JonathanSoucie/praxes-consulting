@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 
 import type { Testimonial } from "@/content/testimonials";
+import { features } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 /**
@@ -59,7 +60,8 @@ export function TestimonialSlider({
           <span className={inverse ? "text-white/60" : "text-muted"}>
             {current.title}, {current.company}
           </span>
-          {current.caseStudy ? (
+          {/* Only link out while the case study section is published. */}
+          {features.caseStudies && current.caseStudy ? (
             <Link
               href={`/case-studies/${current.caseStudy}`}
               className="text-accent underline-offset-4 hover:underline"
