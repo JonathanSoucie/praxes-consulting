@@ -25,7 +25,7 @@ export function LegalPage({
         deck={
           <>
             Last updated{" "}
-            <time dateTime={updated} className="text-white">
+            <time dateTime={updated} className="text-ink">
               {new Date(updated).toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "long",

@@ -10,6 +10,7 @@ import { CaseStudyCard } from "@/components/sections/case-study-card";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { NeuralField } from "@/components/sections/neural-field";
 
 import {
   caseStudies,
@@ -66,31 +67,28 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                              */}
       {/* ---------------------------------------------------------------- */}
-      <div className="gradient-hero relative overflow-hidden">
-        <div
-          aria-hidden
-          className="grid-rule-dark pointer-events-none absolute inset-x-0 top-0 h-[70%] mask-[linear-gradient(to_bottom,black,transparent)]"
-        />
+      <div className="relative overflow-hidden bg-surface">
+        <NeuralField className="pointer-events-none absolute inset-0" />
 
         <Container className="relative pt-32 pb-20 sm:pt-36 sm:pb-24">
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
+            className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
           >
             <ArrowLeft aria-hidden className="size-4" />
             All case studies
           </Link>
 
           <Reveal className="mt-10 max-w-4xl">
-            <Eyebrow tone="onDark">
+            <Eyebrow>
               {study.client} · {study.industry} · {study.duration}
             </Eyebrow>
 
-            <h1 className="mt-6 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.25rem] lg:leading-[1.06]">
+            <h1 className="mt-6 text-4xl leading-[1.08] text-ink sm:text-5xl lg:text-[3.25rem] lg:leading-[1.06]">
               {study.headline}
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
               {study.summary}
             </p>
           </Reveal>

@@ -28,22 +28,24 @@
   --color-line-strong: #d3d3e4;
 
   /* --- Accent ----------------------------------------------------------- */
-  --color-accent: #5b5be6; /* CTAs, links, active states */
-  --color-accent-hover: #4a4ad4;
-  --color-accent-ink: #3f3fb8; /* accent text on a soft background */
-  --color-accent-soft: #eeeefc; /* pill badges, tinted panels */
+  --color-accent: #d6146e; /* CTAs, links, active states — 5.0:1 on white */
+  --color-accent-hover: #b91565;
+  --color-accent-ink: #b91565; /* accent text on a soft background */
+  --color-accent-soft: #fdf0f6; /* pill badges, tinted panels */
+  --color-accent-bright: #ff4fa3; /* decorative only — gradients, glow, neuron pulses. Not for text-on-white: 3.0:1. */
 
-  /* --- Deep surfaces (hero, CTA bands) ---------------------------------- */
-  --color-deep: #100f26;
-  --color-deep-2: #241f68;
-  --color-deep-3: #4f47d6;
+  /* --- Deep surfaces (closing CTA band) ---------------------------------- */
+  --color-deep: #1a0410;
+  --color-deep-2: #6e1140;
+  --color-deep-3: #d6146e;
 
   /* --- Data marks -------------------------------------------------------
      The before/after comparison pair. Checked for >=3:1 contrast on white
-     and for separation under protan/deutan/tritan simulation, and every bar
-     is direct-labelled so colour is never the only channel. Keep both
+     and for separation under protan/deutan/tritan simulation (CVD ΔE 16.8,
+     normal-vision ΔE 27.7 against the new accent), and every bar is
+     direct-labelled so colour is never the only channel. Keep both
      properties if you change them. */
-  --color-chart-after: #5b5be6;
+  --color-chart-after: #d6146e;
   --color-chart-before: #a9a9c2;
 
   /* --- Shape ------------------------------------------------------------ */
@@ -58,6 +60,8 @@
 
   --animate-accordion-down: accordion-down 240ms var(--ease-out-soft);
   --animate-accordion-up: accordion-up 240ms var(--ease-out-soft);
+  --animate-gradient-shift: gradient-shift 6s ease-in-out infinite;
+  --animate-eyebrow-ping: eyebrow-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 @keyframes accordion-down {
@@ -78,6 +82,28 @@
   }
   to {
     height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes eyebrow-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.4);
     opacity: 0;
   }
 }
@@ -152,6 +178,23 @@
   padding-inline: 1.5rem;
 }
 
+/* Pink gradient text — for the one or two words per page that should carry
+   the brand accent. Use sparingly; most headline text stays solid ink. The
+   background slowly drifts (animate-gradient-shift) for a faint shimmer,
+   frozen automatically under prefers-reduced-motion (see the base layer). */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-accent) 10%,
+    var(--color-accent-bright) 45%,
+    var(--color-accent) 90%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 /* Numeric figures inside the built data visuals. */
 @utility figure-num {
   font-variant-numeric: tabular-nums;
@@ -169,32 +212,24 @@
   text-transform: uppercase;
 }
 
-/* The hero band: deep indigo at the top, resolving into the page background.
-   Applied to a wrapper that also carries the navbar, so the header sits on
-   the dark end of the gradient. */
-@utility gradient-hero {
+/* Deep band used for the closing CTA — near-black plum resolving into the
+   vivid accent. References the token triplet directly (not literal hex)
+   so a palette change here always follows --color-deep*. */
+@utility gradient-deep {
   background-image: linear-gradient(
-    180deg,
-    #100f26 0%,
-    #1b1747 22%,
-    #2f2794 52%,
-    #6f68ec 78%,
-    #b9b5f5 91%,
-    var(--color-surface-2) 100%
+    160deg,
+    var(--color-deep) 0%,
+    var(--color-deep-2) 55%,
+    var(--color-deep-3) 100%
   );
 }
 
-/* Deep band used for the closing CTA — the mirror of the hero. */
-@utility gradient-deep {
-  background-image: linear-gradient(160deg, #100f26 0%, #241f68 55%, #3b32a8 100%);
-}
-
-/* Soft lavender wash for relief sections. */
+/* Soft pink wash for relief sections. */
 @utility gradient-wash {
   background-image: linear-gradient(
     180deg,
     var(--color-surface-2) 0%,
-    #ecebfa 45%,
+    #fbe6f0 45%,
     var(--color-surface-2) 100%
   );
 }
@@ -266,6 +301,22 @@
   box-shadow:
     0 1px 2px rgb(16 15 38 / 0.04),
     0 8px 24px -12px rgb(16 15 38 / 0.12);
+}
+
+/* Shared hover motion for the repeating card grids — a small lift plus a
+   step up in elevation. Cheap and consistent rather than one-off per grid. */
+@utility hover-lift {
+  transition:
+    transform 220ms var(--ease-out-soft),
+    box-shadow 220ms var(--ease-out-soft),
+    background-color 220ms var(--ease-out-soft);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 2px 4px rgb(16 15 38 / 0.06),
+      0 18px 48px -18px rgb(16 15 38 / 0.28);
+  }
 }
 
 @utility card-float {

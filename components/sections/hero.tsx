@@ -5,38 +5,34 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/reveal";
-import { TimeEstimator } from "@/components/sections/time-estimator";
+import { NeuralField } from "@/components/sections/neural-field";
 
 /**
- * Hero. Deep indigo at the top resolving into the page background, with the
- * navbar overlaying the dark end of the gradient.
+ * Hero. White, with a faint interconnected network tracing behind the copy —
+ * signals occasionally firing along it. The navbar overlays the top of it.
  */
 export function Hero() {
   return (
-    <section className="gradient-hero relative overflow-hidden">
-      {/* Faint grid on the dark portion only */}
-      <div
-        aria-hidden
-        className="grid-rule-dark pointer-events-none absolute inset-x-0 top-0 h-[60%] mask-[linear-gradient(to_bottom,black,transparent)]"
-      />
+    <section className="relative overflow-hidden bg-surface">
+      <NeuralField className="pointer-events-none absolute inset-0" />
 
-      <Container className="relative pt-36 pb-24 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32">
+      <Container className="relative pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28">
         <div className="mx-auto max-w-3xl text-center">
-          <Reveal>
-            <Eyebrow tone="onDark">AI consulting</Eyebrow>
+          <Reveal className="flex justify-center">
+            <Eyebrow>AI consulting</Eyebrow>
           </Reveal>
 
           <Reveal delay={60}>
-            <h1 className="mt-6 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl lg:leading-[1.05]">
+            <h1 className="mt-6 text-4xl leading-[1.08] text-ink sm:text-5xl lg:text-6xl lg:leading-[1.05]">
               Identifying where AI automation
-              <span className="block text-white/60">
+              <span className="text-gradient animate-gradient-shift block">
                 creates measurable return.
               </span>
             </h1>
           </Reveal>
 
           <Reveal delay={120}>
-            <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
               We analyse how your business actually runs, find the bottleneck
               that is genuinely costing you, and implement AI to fix it — then
               measure the result against the baseline we started from.
@@ -45,18 +41,14 @@ export function Hero() {
 
           <Reveal delay={180}>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-              <BookACall size="lg" variant="onDark" withArrow />
-              <Button asChild variant="onDarkGhost" size="lg">
+              <BookACall size="lg" withArrow />
+              <Button asChild variant="outline" size="lg">
                 <Link href="/process">See how it works</Link>
               </Button>
             </div>
-            <BookingNote className="mt-5 text-white/55" />
+            <BookingNote className="mt-5" />
           </Reveal>
         </div>
-
-        <Reveal delay={220}>
-          <TimeEstimator className="mx-auto mt-20 max-w-2xl" />
-        </Reveal>
       </Container>
     </section>
   );

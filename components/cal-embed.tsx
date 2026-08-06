@@ -44,8 +44,8 @@ function CalInline() {
           hideEventTypeDetails: false,
           layout: "month_view",
           cssVarsPerTheme: {
-            light: { "cal-brand": "#5b5be6" },
-            dark: { "cal-brand": "#5b5be6" },
+            light: { "cal-brand": "#d6146e" },
+            dark: { "cal-brand": "#d6146e" },
           },
         });
       } catch {
@@ -80,7 +80,7 @@ function CalInline() {
 
 function CalendlyInline() {
   // Calendly's inline widget is a plain iframe — no extra script required.
-  const url = `${bookingHref()}?hide_gdpr_banner=1&primary_color=5b5be6`;
+  const url = `${bookingHref()}?hide_gdpr_banner=1&primary_color=d6146e`;
   return (
     <div className="card-raise overflow-hidden rounded-2xl bg-surface p-2">
       <iframe

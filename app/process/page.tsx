@@ -56,8 +56,8 @@ export default function ProcessPage() {
         deck="A free conversation, then a paid audit you keep regardless of what you decide, then a fixed-scope build. Your exposure grows only after the case for it has been measured."
       >
         <div className="mt-10 flex flex-col items-center gap-4">
-          <BookACall size="lg" variant="onDark" withArrow />
-          <BookingNote className="text-white/55" />
+          <BookACall size="lg" withArrow />
+          <BookingNote />
         </div>
       </PageHeader>
 

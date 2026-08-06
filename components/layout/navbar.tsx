@@ -12,16 +12,17 @@ import { nav } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 /**
- * Overlay navbar. Transparent over the dark hero gradient, then resolves to a
- * solid light bar once the page scrolls past it.
+ * Overlay navbar. Every page top is now a light (white/neuron-field)
+ * background, so the bar stays light and frosted throughout — no more
+ * dark-hero colour flip. Scroll only adds a hairline border for separation.
  */
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
-  const [solid, setSolid] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -39,22 +40,18 @@ export function Navbar() {
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
-  // Once the bar is solid — or the mobile sheet is open — it is a light
-  // surface, so its contents switch to dark ink.
-  const onLight = solid || open;
-
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300",
-        onLight
-          ? "border-b border-line bg-surface-2/85 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+        "fixed inset-x-0 top-0 z-50 bg-surface/85 backdrop-blur-md transition-[border-color,box-shadow] duration-300",
+        scrolled || open
+          ? "border-b border-line shadow-[0_1px_0_rgba(16,4,16,0.02)]"
+          : "border-b border-transparent"
       )}
     >
       <Container>
         <div className="flex h-18 items-center justify-between gap-8">
-          <Logo tone={onLight ? "default" : "inverse"} />
+          <Logo />
 
           <nav aria-label="Primary" className="hidden lg:block">
             <ul className="flex items-center gap-1">
@@ -65,13 +62,9 @@ export function Navbar() {
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
                       "rounded-full px-3.5 py-2 text-sm transition-colors",
-                      onLight
-                        ? isActive(item.href)
-                          ? "bg-accent-soft text-accent-ink"
-                          : "text-muted hover:text-ink"
-                        : isActive(item.href)
-                          ? "bg-white/15 text-white"
-                          : "text-white/70 hover:text-white"
+                      isActive(item.href)
+                        ? "bg-accent-soft text-accent-ink"
+                        : "text-muted hover:text-ink"
                     )}
                   >
                     {item.label}
@@ -82,21 +75,14 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <BookACall
-              size="sm"
-              variant={onLight ? "primary" : "onDark"}
-              className="hidden sm:inline-flex"
-            />
+            <BookACall size="sm" className="hidden sm:inline-flex" />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
-              className={cn(
-                "-mr-2 inline-flex size-10 items-center justify-center rounded-full transition-colors lg:hidden",
-                onLight ? "text-ink" : "text-white"
-              )}
+              className="-mr-2 inline-flex size-10 items-center justify-center rounded-full text-ink lg:hidden"
             >
               {open ? (
                 <X aria-hidden className="size-5" />
@@ -112,7 +98,7 @@ export function Navbar() {
       <div
         id="mobile-nav"
         hidden={!open}
-        className="border-t border-line bg-surface-2 lg:hidden"
+        className="border-t border-line bg-surface lg:hidden"
       >
         <Container className="py-5">
           <ul className="space-y-1">
@@ -125,7 +111,7 @@ export function Navbar() {
                     "flex items-center rounded-lg px-4 py-3.5 font-display text-lg font-medium transition-colors",
                     isActive(item.href)
                       ? "bg-accent-soft text-accent-ink"
-                      : "text-ink hover:bg-white"
+                      : "text-ink hover:bg-surface-2"
                   )}
                 >
                   {item.label}

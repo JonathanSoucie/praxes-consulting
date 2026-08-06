@@ -1,10 +1,11 @@
 import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { NeuralField } from "@/components/sections/neural-field";
 
 /**
- * Standard page masthead — the short version of the hero gradient, used on
- * every page except Home. The navbar overlays its dark end.
+ * Standard page masthead — the short version of the hero treatment, used on
+ * every page except Home. The navbar overlays the top of it.
  */
 export function PageHeader({
   eyebrow,
@@ -19,22 +20,21 @@ export function PageHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="gradient-hero relative overflow-hidden">
-      <div
-        aria-hidden
-        className="grid-rule-dark pointer-events-none absolute inset-x-0 top-0 h-[70%] mask-[linear-gradient(to_bottom,black,transparent)]"
-      />
+    <div className="relative overflow-hidden bg-surface">
+      <NeuralField className="pointer-events-none absolute inset-0" />
 
       <Container className="relative pt-36 pb-20 sm:pt-40 sm:pb-24">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <Eyebrow tone="onDark">{eyebrow}</Eyebrow>
+          <div className="flex justify-center">
+            <Eyebrow>{eyebrow}</Eyebrow>
+          </div>
 
-          <h1 className="mt-6 text-4xl leading-[1.08] text-white sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
+          <h1 className="mt-6 text-4xl leading-[1.08] text-ink sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
             {title}
           </h1>
 
           {deck ? (
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
               {deck}
             </p>
           ) : null}

@@ -55,8 +55,8 @@ export function BookACall({
           hideEventTypeDetails: false,
           layout: "month_view",
           cssVarsPerTheme: {
-            light: { "cal-brand": "#5b5be6" },
-            dark: { "cal-brand": "#5b5be6" },
+            light: { "cal-brand": "#d6146e" },
+            dark: { "cal-brand": "#d6146e" },
           },
         });
       } catch {

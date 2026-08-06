@@ -5,6 +5,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Container, Section } from "@/components/container";
 import { Hero } from "@/components/sections/hero";
 import { TrustBar } from "@/components/sections/trust-bar";
+import { TimeEstimator } from "@/components/sections/time-estimator";
 import { SectionHeading } from "@/components/section-heading";
 import { StatsBlock } from "@/components/sections/stats-block";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
@@ -140,7 +141,7 @@ export default function HomePage() {
               <Reveal
                 key={problem.title}
                 delay={i * 60}
-                className="rounded-xl bg-surface-2 p-8"
+                className="hover-lift rounded-xl bg-surface-2 p-8"
               >
                 <p className="figure-num text-sm text-accent">
                   {problem.n} <span className="text-line-strong">—</span>
@@ -152,6 +153,10 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={200} className="mx-auto mt-10 max-w-2xl">
+            <TimeEstimator />
+          </Reveal>
         </Container>
       </Section>
 
@@ -162,7 +167,14 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="The approach"
-            title="Find the bottleneck. Implement the fix. Prove the return."
+            title={
+              <>
+                Find the bottleneck. Implement the fix.{" "}
+                <span className="text-gradient animate-gradient-shift">
+                  Prove the return.
+                </span>
+              </>
+            }
             deck="Three steps, in that order. The third one is the part most firms skip, and it's the only one that tells you whether the first two worked."
           />
 
@@ -171,7 +183,7 @@ export default function HomePage() {
               <Reveal
                 key={item.n}
                 delay={i * 70}
-                className="card-raise rounded-2xl bg-surface p-8"
+                className="card-raise hover-lift rounded-2xl bg-surface p-8"
               >
                 <span className="grid size-10 place-items-center rounded-full bg-accent text-sm font-semibold text-white">
                   {item.n}
@@ -226,7 +238,7 @@ export default function HomePage() {
               <Reveal
                 key={service.slug}
                 delay={i * 50}
-                className="card-raise rounded-xl bg-surface p-7"
+                className="card-raise hover-lift rounded-xl bg-surface p-7"
               >
                 <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
                   <ServiceIcon
@@ -325,7 +337,7 @@ export default function HomePage() {
               <Reveal
                 key={industry.name}
                 delay={i * 40}
-                className="card-raise rounded-xl bg-surface p-7"
+                className="card-raise hover-lift rounded-xl bg-surface p-7"
               >
                 <dt className="font-display text-base font-semibold text-ink">
                   {industry.name}
@@ -354,7 +366,7 @@ export default function HomePage() {
               <Reveal
                 key={item.title}
                 delay={i * 60}
-                className="flex gap-5 rounded-xl bg-surface-2 p-8"
+                className="hover-lift flex gap-5 rounded-xl bg-surface-2 p-8"
               >
                 <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-accent">
                   <Check aria-hidden className="size-4 text-white" />
