@@ -1,11 +1,8 @@
 /**
- * Brand mark: two crossing rings, blue→violet and violet→pink. Recreated as
- * inline SVG (not a raster import) so it stays crisp at any size and the
- * gradient always renders correctly regardless of surrounding theme.
- *
- * The mark keeps its own fixed blue→pink gradient even though the rest of
- * the UI runs on a single pink accent — a multi-hue mark distinct from the
- * interface palette is normal for a wordmark and reads as more "designed."
+ * Brand mark: two crossing rings, light pink→magenta and magenta→plum.
+ * Recreated as inline SVG (not a raster import) so it stays crisp at any
+ * size and the gradient always renders correctly regardless of surrounding
+ * theme.
  */
 export function LogoMark({
   size = 28,
@@ -24,13 +21,13 @@ export function LogoMark({
       className={className}
     >
       <defs>
-        <linearGradient id="logo-ring-a" x1="20" y1="90" x2="80" y2="10">
-          <stop offset="0%" stopColor="#4C7DFF" />
-          <stop offset="100%" stopColor="#9B5CF6" />
+        <linearGradient id="logo-ring-a" x1="50" y1="8" x2="50" y2="92">
+          <stop offset="0%" stopColor="#F9A8D4" />
+          <stop offset="100%" stopColor="#E0399A" />
         </linearGradient>
-        <linearGradient id="logo-ring-b" x1="8" y1="70" x2="92" y2="46">
-          <stop offset="0%" stopColor="#9B5CF6" />
-          <stop offset="100%" stopColor="#FF4FA3" />
+        <linearGradient id="logo-ring-b" x1="4" y1="58" x2="96" y2="58">
+          <stop offset="0%" stopColor="#E0399A" />
+          <stop offset="100%" stopColor="#7A1656" />
         </linearGradient>
       </defs>
 

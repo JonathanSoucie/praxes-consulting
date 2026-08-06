@@ -4,6 +4,7 @@ import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container, Section } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { NeuralField } from "@/components/sections/neural-field";
 import { Reveal } from "@/components/reveal";
 
 /**
@@ -23,9 +24,9 @@ export function CtaSection({
 }) {
   return (
     <Section tone="deep" className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="grid-rule-dark pointer-events-none absolute inset-0"
+      <NeuralField
+        tone="dark"
+        className="pointer-events-none absolute inset-0"
       />
       {/* Soft violet bloom, bottom-right */}
       <div

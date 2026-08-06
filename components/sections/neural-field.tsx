@@ -64,13 +64,26 @@ const PULSES: { edge: number; dur: number; delay: number }[] = [
   { edge: 37, dur: 5, delay: 1.7 },
 ];
 
-export function NeuralField({ className }: { className?: string }) {
+export function NeuralField({
+  className,
+  tone = "light",
+}: {
+  className?: string;
+  /** "light" for white/near-white sections, "dark" for the pink CTA bands. */
+  tone?: "light" | "dark";
+}) {
   const [motionAllowed, setMotionAllowed] = React.useState(false);
+  // Most pages render this twice (a header + the closing CTA band). Edge ids
+  // must stay unique per instance, or every <mpath> on the page resolves to
+  // whichever <path id="neuron-edge-0"> happens to come first in the DOM.
+  const uid = React.useId();
 
   React.useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
     setMotionAllowed(!query.matches);
   }, []);
+
+  const lineColor = tone === "dark" ? "#ffffff" : "var(--color-accent)";
 
   return (
     <div
@@ -88,18 +101,22 @@ export function NeuralField({ className }: { className?: string }) {
         preserveAspectRatio="xMidYMid slice"
         className="h-full w-full"
       >
-        <g stroke="var(--color-accent)" strokeOpacity="0.16" fill="none">
+        <g
+          stroke={lineColor}
+          strokeOpacity={tone === "dark" ? "0.16" : "0.16"}
+          fill="none"
+        >
           {EDGES.map(([x1, y1, cx, cy, x2, y2], i) => (
             <path
               key={i}
-              id={`neuron-edge-${i}`}
+              id={`neuron-edge-${uid}-${i}`}
               d={`M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`}
               strokeWidth="1.2"
             />
           ))}
         </g>
 
-        <g fill="var(--color-accent)" fillOpacity="0.28">
+        <g fill={lineColor} fillOpacity={tone === "dark" ? "0.3" : "0.28"}>
           {NODES.map(([x, y, r], i) => (
             <circle key={i} cx={x} cy={y} r={r} />
           ))}
@@ -113,7 +130,7 @@ export function NeuralField({ className }: { className?: string }) {
                   begin={`${delay}s`}
                   repeatCount="indefinite"
                 >
-                  <mpath href={`#neuron-edge-${edge}`} />
+                  <mpath href={`#neuron-edge-${uid}-${edge}`} />
                 </animateMotion>
                 <animate
                   attributeName="opacity"

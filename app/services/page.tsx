@@ -9,6 +9,7 @@ import { ProcessTimeline } from "@/components/sections/process-timeline";
 import { FeaturedCaseStudy } from "@/components/sections/case-study-card";
 import { StatsBlock } from "@/components/sections/stats-block";
 import { CtaSection } from "@/components/sections/cta";
+import { NeuralField } from "@/components/sections/neural-field";
 import { ServiceIcon } from "@/components/icon";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
@@ -190,9 +191,9 @@ export default function ServicesPage() {
 
           <Reveal delay={80}>
             <div className="gradient-deep relative mt-10 overflow-hidden rounded-2xl p-8 lg:p-12">
-              <div
-                aria-hidden
-                className="grid-rule-dark pointer-events-none absolute inset-0"
+              <NeuralField
+                tone="dark"
+                className="pointer-events-none absolute inset-0"
               />
               <div className="relative mx-auto max-w-3xl text-center">
                 <h3 className="text-xl text-white sm:text-2xl">

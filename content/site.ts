@@ -15,7 +15,7 @@ export const site = {
   /** Canonical origin, no trailing slash. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://praxes.consulting",
   email: "praxesconsulting.hr@gmail.com",
-  phone: "+385 91 44 55 021",
+  phone: "+1 343 997 6229",
   address: {
     locality: "Ottawa",
     region: "Ontario",

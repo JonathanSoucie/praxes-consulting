@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import type { CaseStudy } from "@/content/case-studies";
+import { NeuralField } from "@/components/sections/neural-field";
 import { cn } from "@/lib/utils";
 
 /** Index/grid card: client · problem · result metric. */
@@ -78,9 +79,9 @@ export function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
       </div>
 
       <div className="gradient-deep relative overflow-hidden p-8 sm:p-12">
-        <div
-          aria-hidden
-          className="grid-rule-dark pointer-events-none absolute inset-0"
+        <NeuralField
+          tone="dark"
+          className="pointer-events-none absolute inset-0"
         />
         <div className="relative">
           <span className="label-tech text-white/50">Measured result</span>
