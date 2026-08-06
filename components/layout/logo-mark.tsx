@@ -35,11 +35,29 @@ export function LogoMark({
       className={className}
     >
       <defs>
-        <linearGradient id={ringA} x1="50" y1="8" x2="50" y2="92">
+        {/* userSpaceOnUse: the coordinates below are viewBox units. Without
+            it they are read as bounding-box ratios (x1="50" meaning 5000%),
+            which puts the whole ramp off the shape and paints each ring a
+            flat first-stop colour. */}
+        <linearGradient
+          id={ringA}
+          gradientUnits="userSpaceOnUse"
+          x1="50"
+          y1="8"
+          x2="50"
+          y2="92"
+        >
           <stop offset="0%" stopColor="#F9A8D4" />
           <stop offset="100%" stopColor="#E0399A" />
         </linearGradient>
-        <linearGradient id={ringB} x1="4" y1="58" x2="96" y2="58">
+        <linearGradient
+          id={ringB}
+          gradientUnits="userSpaceOnUse"
+          x1="4"
+          y1="58"
+          x2="96"
+          y2="58"
+        >
           <stop offset="0%" stopColor="#E0399A" />
           <stop offset="100%" stopColor="#7A1656" />
         </linearGradient>

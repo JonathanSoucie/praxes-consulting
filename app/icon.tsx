@@ -1,29 +1,25 @@
 import { ImageResponse } from "next/og";
 
-export const size = { width: 32, height: 32 };
+import { logoMarkSvg } from "@/lib/logo-svg";
+
+export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-/** Favicon — generated so there is no binary asset to keep in sync. */
+/**
+ * Favicon — the brand mark on a white tile, generated from the shared SVG so
+ * there is no binary asset to keep in sync. White rather than transparent so
+ * the darker end of the mark still reads against a dark browser tab strip.
+ */
 export default function Icon() {
+  const svg = logoMarkSvg({ background: "#ffffff", radius: 24 });
+
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#d6146e",
-          color: "#ffffff",
-          fontSize: 21,
-          fontWeight: 700,
-          fontFamily: "system-ui, sans-serif",
-          letterSpacing: "-0.02em",
-        }}
-      >
-        P
-      </div>
+      <img
+        width={size.width}
+        height={size.height}
+        src={`data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`}
+      />
     ),
     size
   );
