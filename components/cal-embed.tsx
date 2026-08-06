@@ -38,6 +38,9 @@ function CalInline() {
       try {
         const cal = await getCalApi({ namespace: calNamespace });
         cal("ui", {
+          // Pin to light. Cal otherwise follows the visitor's OS preference
+          // and renders a dark calendar inside our light page.
+          theme: "light",
           hideEventTypeDetails: false,
           layout: "month_view",
           cssVarsPerTheme: {
@@ -57,7 +60,10 @@ function CalInline() {
         namespace={calNamespace}
         calLink={calLink}
         style={{ width: "100%", height: "100%", overflow: "scroll" }}
-        config={{ layout: "month_view" }}
+        // theme must be set on the embed config, not only via cal("ui") —
+        // the ui call alone loses the race with the iframe's first paint and
+        // the calendar renders dark inside our light page.
+        config={{ layout: "month_view", theme: "light" }}
       />
       <noscript>
         <p className="p-6 text-sm text-muted">

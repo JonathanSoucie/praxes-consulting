@@ -49,6 +49,9 @@ export function BookACall({
         const cal = await getCalApi({ namespace: calNamespace });
         if (cancelled) return;
         cal("ui", {
+          // Pin to light so the modal matches the site rather than the
+          // visitor's OS colour scheme.
+          theme: "light",
           hideEventTypeDetails: false,
           layout: "month_view",
           cssVarsPerTheme: {
@@ -84,7 +87,7 @@ export function BookACall({
         className={cn(className)}
         data-cal-namespace={calNamespace}
         data-cal-link={calLink}
-        data-cal-config={`{"layout":"month_view"}`}
+        data-cal-config={`{"layout":"month_view","theme":"light"}`}
         {...props}
       >
         {content}
