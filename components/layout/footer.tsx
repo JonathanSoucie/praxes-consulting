@@ -72,8 +72,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted">
-            © {site.founded === year ? year : `${site.founded}–${year}`}{" "}
-            {site.legalName}. All rights reserved.
+            © {year} {site.legalName}. All rights reserved.
           </p>
           <ul className="flex gap-6">
             {legalNav.map((item) => (

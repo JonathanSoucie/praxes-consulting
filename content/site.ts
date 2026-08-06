@@ -9,11 +9,12 @@ export const site = {
   /** Used in <title> templates and the footer. */
   /** Used in the <title>, OG tags and the OG card. Keep it in step with the
       Home page headline in components/sections/hero.tsx. */
-  tagline: "Identifying where AI automation creates measurable return",
+  tagline: "We'll tell you when AI isn't worth building",
   description:
-    "Praxes is an AI consulting firm. We analyse your business, find the bottleneck that is actually costing you, implement AI to fix it, and prove the return in numbers.",
-  /** Canonical origin, no trailing slash. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://praxes.consulting",
+    "Praxes is an AI consulting firm. We measure how your business actually runs, price the bottleneck nobody has costed, and build only when the numbers justify it — then re-measure at 90 days and show you the comparison.",
+  /** Canonical origin, no trailing slash. Drives canonicals, the sitemap and
+      OG URLs, so it must match the live domain. */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://praxes.io",
   email: "praxesconsulting.hr@gmail.com",
   phone: "+1 343 997 6229",
   address: {
