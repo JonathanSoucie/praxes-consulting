@@ -193,6 +193,12 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  /* The gradient only paints inside the element's box. On a display:block
+     span with tight leading the box stops above the descenders, so glyph
+     tails like "g" get no paint at all. Extend the box down and pull the
+     following content back up so layout is unchanged. */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
 }
 
 /* Numeric figures inside the built data visuals. */
