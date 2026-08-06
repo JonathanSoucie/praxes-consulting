@@ -9,25 +9,16 @@ import { cn } from "@/lib/utils";
  * Falls back to visible immediately when IntersectionObserver is unavailable
  * or the user prefers reduced motion (handled globally in globals.css).
  */
-/**
- * Ceiling on the stagger. Long grids used to reach 250ms+ on the last card,
- * which reads as the page arriving in pieces on a slow machine rather than as
- * polish. Callers keep their intent; the sequence just stops growing.
- */
-const MAX_DELAY = 120;
-
 export function Reveal({
   children,
   className,
   delay = 0,
-  id,
   as: Tag = "div",
 }: {
   children: React.ReactNode;
   className?: string;
   /** Stagger, in ms. Keep small — this should never feel like choreography. */
   delay?: number;
-  id?: string;
   as?: React.ElementType;
 }) {
   const ref = React.useRef<HTMLElement>(null);
@@ -57,10 +48,9 @@ export function Reveal({
   return (
     <Tag
       ref={ref}
-      id={id}
-      style={{ transitionDelay: `${Math.min(delay, MAX_DELAY)}ms` }}
+      style={{ transitionDelay: `${delay}ms` }}
       className={cn(
-        "transition-[opacity,transform] duration-500 ease-out-soft",
+        "transition-[opacity,transform] duration-700 ease-out-soft",
         shown ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
         className
       )}

@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, Check } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
 import { Hero } from "@/components/sections/hero";
+import { TrustBar } from "@/components/sections/trust-bar";
 import { TimeEstimator } from "@/components/sections/time-estimator";
 import { SectionHeading } from "@/components/section-heading";
 import { StatsBlock } from "@/components/sections/stats-block";
@@ -21,7 +21,6 @@ import { getFeaturedCaseStudy } from "@/content/case-studies";
 import { generalFaqs } from "@/content/faqs";
 import { headlineStats } from "@/content/stats";
 import { industries, services } from "@/content/services";
-import { team } from "@/content/team";
 import { features, site } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
 
@@ -124,6 +123,7 @@ export default function HomePage() {
     <>
       <OrganizationJsonLd />
       <Hero />
+      <TrustBar />
 
       {/* ---------------------------------------------------------------- */}
       {/* The problem                                                       */}
@@ -154,12 +154,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* scroll-mt clears the fixed navbar when the hero CTA jumps here. */}
-          <Reveal
-            id="estimator"
-            delay={200}
-            className="mx-auto mt-10 max-w-2xl scroll-mt-28"
-          >
+          <Reveal delay={200} className="mx-auto mt-10 max-w-2xl">
             <TimeEstimator />
           </Reveal>
         </Container>
@@ -263,53 +258,6 @@ export default function HomePage() {
             <Button asChild variant="soft">
               <Link href="/services">
                 All services
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Who you'd be dealing with                                         */}
-      {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
-        <Container>
-          <SectionHeading
-            eyebrow="The team"
-            title="Who you'll actually be talking to."
-            deck="A paid audit means letting us interview your staff and look at your data. Three people do that work, and one of them takes the first call — not an account manager."
-          />
-
-          <div className="mt-16 grid gap-5 sm:grid-cols-3">
-            {team.map((member, i) => (
-              <Reveal
-                as="article"
-                key={member.name}
-                delay={i * 60}
-                className="card-raise hover-lift flex flex-col items-center rounded-2xl bg-surface p-7 text-center"
-              >
-                <div className="relative size-24 overflow-hidden rounded-full bg-surface-2">
-                  <Image
-                    src={member.image}
-                    alt={`Portrait of ${member.name}`}
-                    fill
-                    sizes="96px"
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="mt-5 text-lg leading-snug">{member.name}</h3>
-                <p className="mt-1 text-sm font-medium text-accent">
-                  {member.role}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={80} className="mt-10 text-center">
-            <Button asChild variant="soft">
-              <Link href="/about">
-                Read their backgrounds
                 <ArrowRight aria-hidden />
               </Link>
             </Button>

@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-import { logoMarkSvg } from "@/lib/logo-svg";
 import { site } from "@/content/site";
 
 export const size = { width: 1200, height: 630 };
@@ -28,13 +27,22 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <img
-            width={48}
-            height={48}
-            src={`data:image/svg+xml;base64,${Buffer.from(
-              logoMarkSvg()
-            ).toString("base64")}`}
-          />
+          <div
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 12,
+              background: "rgba(255,255,255,0.15)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#ffffff",
+              fontSize: 24,
+              fontWeight: 700,
+            }}
+          >
+            P
+          </div>
           <div style={{ fontSize: 30, fontWeight: 600, color: "#ffffff" }}>
             {site.name}
           </div>
@@ -50,7 +58,7 @@ export default function OpengraphImage() {
               letterSpacing: "-0.03em",
             }}
           >
-            We&apos;ll tell you when AI
+            Identifying where AI automation
           </div>
           <div
             style={{
@@ -61,7 +69,7 @@ export default function OpengraphImage() {
               letterSpacing: "-0.03em",
             }}
           >
-            isn&apos;t worth building.
+            creates measurable return.
           </div>
         </div>
 
