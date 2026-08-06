@@ -7,7 +7,9 @@ export const site = {
   name: "Praxes",
   legalName: "Praxes Consulting",
   /** Used in <title> templates and the footer. */
-  tagline: "AI that pays for itself — measured, not promised.",
+  /** Used in the <title>, OG tags and the OG card. Keep it in step with the
+      Home page headline in components/sections/hero.tsx. */
+  tagline: "Identifying where AI automation creates measurable return",
   description:
     "Praxes is an AI consulting firm. We analyse your business, find the bottleneck that is actually costing you, implement AI to fix it, and prove the return in numbers.",
   /** Canonical origin, no trailing slash. */

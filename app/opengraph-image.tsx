@@ -51,25 +51,25 @@ export default function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              fontSize: 74,
-              lineHeight: 1.06,
+              fontSize: 64,
+              lineHeight: 1.08,
               fontWeight: 600,
               color: "#ffffff",
               letterSpacing: "-0.03em",
             }}
           >
-            AI that pays for itself.
+            Identifying where AI automation
           </div>
           <div
             style={{
-              fontSize: 74,
-              lineHeight: 1.06,
+              fontSize: 64,
+              lineHeight: 1.08,
               fontWeight: 600,
               color: "rgba(255,255,255,0.55)",
               letterSpacing: "-0.03em",
             }}
           >
-            And the numbers to prove it.
+            creates measurable return.
           </div>
         </div>
 
