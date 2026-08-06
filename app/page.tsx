@@ -310,16 +310,18 @@ export default function HomePage() {
       ) : null}
 
       {/* ---------------------------------------------------------------- */}
-      {/* Testimonials                                                      */}
+      {/* Testimonials — hidden behind features.testimonials               */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
-        <Container>
-          <SectionHeading eyebrow="Clients" title="In their words." />
-          <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
-            <TestimonialSlider testimonials={testimonials} />
-          </Reveal>
-        </Container>
-      </Section>
+      {features.testimonials ? (
+        <Section tone="wash">
+          <Container>
+            <SectionHeading eyebrow="Clients" title="In their words." />
+            <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
+              <TestimonialSlider testimonials={testimonials} />
+            </Reveal>
+          </Container>
+        </Section>
+      ) : null}
 
       {/* ---------------------------------------------------------------- */}
       {/* Industries                                                        */}

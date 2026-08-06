@@ -36,9 +36,15 @@ export const site = {
  * /case-studies index and its detail pages, the featured-study blocks on Home
  * and Services, the "Read the study" links under testimonials, and the
  * sitemap entries. The content in content/case-studies/ is left untouched.
+ *
+ * `testimonials` is off until there are real, attributable quotes to publish.
+ * Flipping it to true restores the "Clients — in their words" section on Home
+ * and on the Case Studies index. The content in content/testimonials.ts is
+ * left untouched.
  */
 export const features = {
   caseStudies: false,
+  testimonials: false,
 } as const;
 
 /** Primary navigation. Order here is the order in the navbar and footer. */
