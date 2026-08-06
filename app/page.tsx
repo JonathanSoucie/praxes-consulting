@@ -7,7 +7,6 @@ import { Hero } from "@/components/sections/hero";
 import { TrustBar } from "@/components/sections/trust-bar";
 import { TimeEstimator } from "@/components/sections/time-estimator";
 import { SectionHeading } from "@/components/section-heading";
-import { StatsBlock } from "@/components/sections/stats-block";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
 import { FeaturedCaseStudy } from "@/components/sections/case-study-card";
 import { TestimonialSlider } from "@/components/sections/testimonial-slider";
@@ -19,7 +18,6 @@ import { Button } from "@/components/ui/button";
 
 import { getFeaturedCaseStudy } from "@/content/case-studies";
 import { generalFaqs } from "@/content/faqs";
-import { headlineStats } from "@/content/stats";
 import { industries, services } from "@/content/services";
 import { features, site } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
@@ -266,23 +264,6 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Results                                                           */}
-      {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
-        <Container>
-          <SectionHeading
-            eyebrow="Results"
-            title="Measured, not projected."
-            deck="Every figure below comes from a re-measurement against the baseline established during that client's audit — same metrics, same definitions, 90 days after go-live."
-          />
-
-          <div className="mt-16">
-            <StatsBlock stats={headlineStats} tone="panel" columns={4} />
-          </div>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
       {/* Featured case study — hidden with the Case Studies section        */}
       {/* ---------------------------------------------------------------- */}
       {features.caseStudies && featured ? (
@@ -326,7 +307,10 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Industries                                                        */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      {/* wash, not the default surface — the two sections above this are
+          feature-flagged off, so Services sits directly on top of it, and two
+          default-tone sections in a row read as one undifferentiated block. */}
+      <Section tone="wash">
         <Container>
           <SectionHeading
             eyebrow="Industries"
