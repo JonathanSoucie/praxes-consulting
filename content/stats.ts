@@ -43,14 +43,6 @@ export const headlineStats: Stat[] = [
   },
 ];
 
-/** About page credibility band. */
-export const credibilityStats: Stat[] = [
-  { value: "24", label: "Engagements delivered" },
-  { value: "9", label: "Industries served" },
-  { value: "100", unit: "%", label: "Audits delivered with a written ROI model" },
-  { value: "0", label: "Software licences we resell" },
-];
-
 /** Case Studies index aggregate. */
 export const caseStudyAggregate: Stat[] = [
   { value: "4.1", unit: "×", label: "Average first-year return" },

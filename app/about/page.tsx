@@ -4,11 +4,9 @@ import type { Metadata } from "next";
 import { Container, Section } from "@/components/container";
 import { PageHeader } from "@/components/sections/page-header";
 import { SectionHeading } from "@/components/section-heading";
-import { StatsBlock } from "@/components/sections/stats-block";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
 
-import { credibilityStats } from "@/content/stats";
 import { team, values } from "@/content/team";
 import { site } from "@/content/site";
 
@@ -171,23 +169,6 @@ export default function AboutPage() {
                 </p>
               </Reveal>
             ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Credibility                                                       */}
-      {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
-        <Container>
-          <SectionHeading
-            eyebrow="By the numbers"
-            title="Where we stand."
-            deck="Working with owner-led small and mid-sized businesses across Canada."
-          />
-
-          <div className="mt-16">
-            <StatsBlock stats={credibilityStats} columns={4} />
           </div>
         </Container>
       </Section>
