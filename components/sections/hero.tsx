@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 import { BookACall, BookingNote } from "@/components/book-a-call";
-import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import { NeuralField } from "@/components/sections/neural-field";
 import { OrbitField } from "@/components/sections/orbit-field";
+import { cn } from "@/lib/utils";
 
 /**
  * Hero: a question, an answer, and the three shapes the answer takes.
@@ -43,12 +43,17 @@ export function Hero() {
     <section className="relative bg-surface">
       <OrbitField />
 
-      {/* The question — anchored low, so the screen opens on space and
-          resolves onto the type rather than the other way round. */}
-      <div className="relative flex min-h-svh items-end overflow-hidden">
+      <div className="relative flex min-h-svh items-center overflow-hidden">
         <NeuralField className="pointer-events-none absolute inset-0" />
 
-        <Container className="relative z-10 w-full pt-32 pb-20 sm:pb-24">
+        {/* Not the page Container. The rest of the site sits in a centred
+            78rem column, which on a wide screen leaves a gutter far too deep
+            for type this size to feel anchored. The hero breaks out and
+            measures from the left edge instead — and the outcomes below use
+            the same inset, so the section keeps one edge even though it no
+            longer shares the page's. pt-18 clears the overlaying navbar so
+            the copy is optically centred in the space left to it. */}
+        <HeroInset className="relative z-10 pt-18 pb-14">
           <div className="max-w-4xl">
             <Reveal>
               {/* The base step is set by the narrowest phone, not the widest:
@@ -82,16 +87,21 @@ export function Hero() {
               <BookingNote className="mt-5" />
             </Reveal>
           </div>
-        </Container>
+        </HeroInset>
       </div>
 
       {/* The answer. */}
       <div className="relative pb-24 sm:pb-28 lg:pb-32">
-        <Container className="relative z-10">
+        <HeroInset className="relative z-10">
           {/* Columns under a rule rather than cards: the hero above is
               editorial and left-aligned, and boxing the answer would break
-              the single reading edge the whole composition is built on. */}
-          <div className="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-12">
+              the single reading edge the whole composition is built on.
+
+              Capped and left-anchored so the columns stop growing on a very
+              wide screen — three lines of body text stretched across 1900px
+              stop being readable long before the grid stops being able to
+              stretch them. */}
+          <div className="grid max-w-6xl gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-12">
             {OUTCOMES.map((outcome, i) => (
               // Staggered so the three arrive as one movement read left to
               // right, rather than three separate reveals firing at once.
@@ -112,8 +122,27 @@ export function Hero() {
               </Reveal>
             ))}
           </div>
-        </Container>
+        </HeroInset>
       </div>
     </section>
+  );
+}
+
+/**
+ * The hero's own gutter: full width, measured from the left edge rather than
+ * centred on the page. Shared by the question and the outcomes so the two
+ * stay on one line even though neither sits in the page container.
+ */
+function HeroInset({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={cn("w-full px-6 sm:px-10 lg:px-16", className)}>
+      {children}
+    </div>
   );
 }
