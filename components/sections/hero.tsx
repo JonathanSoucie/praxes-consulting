@@ -1,19 +1,18 @@
 import Link from "next/link";
 
 import { BookACall, BookingNote } from "@/components/book-a-call";
+import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import { NeuralField } from "@/components/sections/neural-field";
 import { OrbitField } from "@/components/sections/orbit-field";
-import { cn } from "@/lib/utils";
 
 /**
  * Hero: a question, an answer, and the three shapes the answer takes.
  *
- * The question sits at the bottom-left of the first screen rather than
- * centred in it — the eye lands on the type, then travels down the left edge
- * into the headline and straight on into the outcomes, which share that same
- * edge. One column, one reading path, no re-centring.
+ * The question sits in the middle of the first screen, and everything below
+ * it — headline, actions, and the three outcomes — hangs off that same centre
+ * line, so the eye never has to re-find an axis on the way down.
  *
  * The outcomes are inside this section on purpose. They are the answer to the
  * question above them, and keeping them here means the orbit rings behind
@@ -46,15 +45,11 @@ export function Hero() {
       <div className="relative flex min-h-svh items-center overflow-hidden">
         <NeuralField className="pointer-events-none absolute inset-0" />
 
-        {/* Not the page Container. The rest of the site sits in a centred
-            78rem column, which on a wide screen leaves a gutter far too deep
-            for type this size to feel anchored. The hero breaks out and
-            measures from the left edge instead — and the outcomes below use
-            the same inset, so the section keeps one edge even though it no
-            longer shares the page's. pt-18 clears the overlaying navbar so
-            the copy is optically centred in the space left to it. */}
-        <HeroInset className="relative z-10 pt-18 pb-14">
-          <div className="max-w-4xl">
+        {/* pt-18 clears the overlaying navbar, so the copy is optically
+            centred in the space actually left to it rather than in the raw
+            viewport. */}
+        <Container className="relative z-10 w-full pt-18 pb-14">
+          <div className="mx-auto max-w-4xl text-center">
             <Reveal>
               {/* The base step is set by the narrowest phone, not the widest:
                   at text-5xl this line fills the gutter exactly at 390px and
@@ -69,7 +64,7 @@ export function Hero() {
             </Reveal>
 
             <Reveal delay={90}>
-              <h1 className="mt-7 max-w-2xl text-2xl leading-[1.2] font-medium text-ink sm:text-3xl lg:text-4xl">
+              <h1 className="mx-auto mt-7 max-w-2xl text-2xl leading-[1.2] font-medium text-ink sm:text-3xl lg:text-4xl">
                 We build the systems that get you there.
               </h1>
             </Reveal>
@@ -78,7 +73,7 @@ export function Hero() {
                 but a first screen with no way to act on it is a regression
                 whatever else it gets right. */}
             <Reveal delay={150}>
-              <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                 <BookACall size="lg" withArrow />
                 <Button asChild variant="outline" size="lg">
                   <Link href="/process">See how it works</Link>
@@ -87,21 +82,17 @@ export function Hero() {
               <BookingNote className="mt-5" />
             </Reveal>
           </div>
-        </HeroInset>
+        </Container>
       </div>
 
       {/* The answer. */}
       <div className="relative pb-24 sm:pb-28 lg:pb-32">
-        <HeroInset className="relative z-10">
-          {/* Columns under a rule rather than cards: the hero above is
-              editorial and left-aligned, and boxing the answer would break
-              the single reading edge the whole composition is built on.
-
-              Capped and left-anchored so the columns stop growing on a very
-              wide screen — three lines of body text stretched across 1900px
-              stop being readable long before the grid stops being able to
-              stretch them. */}
-          <div className="grid max-w-6xl gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-12">
+        <Container className="relative z-10">
+          {/* Columns under a rule rather than cards — boxing the answer would
+              put chrome around three short lines that do not need it. Centred
+              to match the question above, so the whole section shares one
+              axis instead of the eye having to re-find a new one. */}
+          <div className="mx-auto grid max-w-5xl gap-10 text-center sm:grid-cols-3 sm:gap-8 lg:gap-12">
             {OUTCOMES.map((outcome, i) => (
               // Staggered so the three arrive as one movement read left to
               // right, rather than three separate reveals firing at once.
@@ -122,27 +113,8 @@ export function Hero() {
               </Reveal>
             ))}
           </div>
-        </HeroInset>
+        </Container>
       </div>
     </section>
-  );
-}
-
-/**
- * The hero's own gutter: full width, measured from the left edge rather than
- * centred on the page. Shared by the question and the outcomes so the two
- * stay on one line even though neither sits in the page container.
- */
-function HeroInset({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className={cn("w-full px-6 sm:px-10 lg:px-16", className)}>
-      {children}
-    </div>
   );
 }
