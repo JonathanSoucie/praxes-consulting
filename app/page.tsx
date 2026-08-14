@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ArrowRight, Check } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
-import { Hero } from "@/components/sections/hero";
+import { DitheredGalaxyHero } from "@/components/sections/dithered-galaxy-hero";
 import { TrustBar } from "@/components/sections/trust-bar";
 import { TimeEstimator } from "@/components/sections/time-estimator";
 import { SectionHeading } from "@/components/section-heading";
@@ -127,7 +127,7 @@ export default function HomePage() {
           faqPageSchema(generalFaqs),
         ]}
       />
-      <Hero />
+      <DitheredGalaxyHero />
       <TrustBar />
 
       {/* ---------------------------------------------------------------- */}
