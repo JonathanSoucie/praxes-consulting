@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import {
+  Flow_Circular,
+  JetBrains_Mono,
+  Playfair_Display,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Navbar } from "@/components/layout/navbar";
@@ -10,19 +14,21 @@ import { themeInitScript } from "@/lib/theme";
 
 import "./globals.css";
 
-/* Body: highly legible sans. */
-const inter = Inter({
+/* Body: Flow Circular — NOTE this is a wireframe/placeholder face that renders
+   every glyph as a filled circle, so body copy reads as redacted blobs. */
+const flowCircular = Flow_Circular({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-flow",
   display: "swap",
+  weight: "400", // the family ships this single weight
 });
 
-/* Display: geometric sans for headings and stat figures. */
-const jakarta = Plus_Jakarta_Sans({
+/* Display: high-contrast serif for headings and stat figures. Variable font,
+   so every weight from 400-900 is available from one file. */
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-playfair",
   display: "swap",
-  weight: ["500", "600", "700"],
 });
 
 /* Mono: small technical labels inside the built data visuals only. */
@@ -94,7 +100,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jakarta.variable} ${jetBrainsMono.variable}`}
+      className={`${flowCircular.variable} ${playfair.variable} ${jetBrainsMono.variable}`}
       // The init script below writes data-theme onto this element before React
       // hydrates, so the server HTML and the live DOM legitimately differ here.
       suppressHydrationWarning

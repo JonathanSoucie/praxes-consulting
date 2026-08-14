@@ -110,10 +110,11 @@
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* Geometric sans for display, highly legible sans for body. Mono is used
-     only for small technical labels inside the built data visuals. */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* High-contrast serif (Playfair Display) for display; Flow Circular for
+     body — a wireframe face that renders text as circles. Mono is used only
+     for small technical labels inside the built data visuals. */
+  --font-sans: var(--font-flow), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-mono: var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
   /* --- Ink -------------------------------------------------------------- */
@@ -248,8 +249,12 @@
   h4 {
     font-family: var(--font-display);
     color: var(--color-ink);
+    /* 600 on the Playfair variable axis: enough stroke contrast to carry the
+       display role without the 700+ weights' heavy blacks. The old -0.022em
+       tracking was tuned for a geometric sans — a high-contrast serif sets
+       tight already, and squeezing it collides the serifs. */
     font-weight: 600;
-    letter-spacing: -0.022em;
+    letter-spacing: -0.008em;
     text-wrap: balance;
   }
 
