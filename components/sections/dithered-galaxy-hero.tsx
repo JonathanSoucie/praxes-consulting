@@ -7,6 +7,7 @@ import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { GALAXY_POSTER } from "@/components/sections/galaxy-poster";
+import { useResolvedTheme } from "@/lib/use-resolved-theme";
 import { cn } from "@/lib/utils";
 
 /**
@@ -26,16 +27,20 @@ import { cn } from "@/lib/utils";
  * hole — the dots land on the cream, which is the one part of the frame that
  * is supposed to stay bare.
  *
- * The cream you see is the canvas background colour, not a light tone: cells
- * that quantise to level 0 simply draw nothing and the ground shows through.
+ * The ground you see is the canvas background colour, not a light tone: cells
+ * that quantise to level 0 simply draw nothing and the page shows through.
+ *
+ * That is also what makes the hero theme-aware. Which cells take ink never
+ * changes — it is always the painted galaxy, never the bare canvas. Only the
+ * ground and the ink ramp swap: dark ink on white-smoke in light mode, light
+ * ink on carbon black in dark mode. Flipping the ramp rather than the tone is
+ * why the galaxy stays a galaxy in both.
  * ---------------------------------------------------------------------------
  */
 
-/** Ground colour. Empty cells are this, because nothing is drawn over it. */
-const CREAM = "#EEE8DB";
-
-/** Headline ink. Fixed rather than themed — see the panel comment below. */
-const INK_ON_CREAM = "#1A1416";
+/** Ground colour per theme — the page background, so the hero has no edge.
+    Empty cells are simply this, because nothing is drawn over them. */
+const GROUND = { light: "#f5f5f2", dark: "#181818" } as const;
 
 const PIXEL_SIZE_DESKTOP = 6;
 /** Small canvases need a *finer* grid, not a coarser one, or the arms merge. */
@@ -93,11 +98,18 @@ const FADE_SATURATE_SECONDS = 0.08;
 const FOCUS_X = 0.66;
 const FOCUS_Y = 0.62;
 
-const MAX_TWIST = 0.35; // radians, at the pointer
+/* Pointer response, deliberately near the threshold of noticing.
+   The twist is wide and very shallow, so what reads is the field breathing
+   rather than anything cursor-shaped tracking the mouse. The close-in bloom
+   no longer promotes a cell a whole tone level — that step was the loud part,
+   since a level change flips a dot's colour as well as its size — and is now
+   only a slight swell in dot radius. */
+const MAX_TWIST = 0.06; // radians, at the pointer
 const WARP_RADIUS_FACTOR = 0.6; // of the canvas's smaller dimension
 const POINTER_LERP = 0.08;
 const BLOOM_CELL_RADIUS = 2.5;
 const BLOOM_DECAY_MS = 250;
+const BLOOM_DOT_SWELL = 0.12;
 
 const HUE_BINS = 12;
 const ACHROMATIC_BIN = HUE_BINS;
@@ -105,12 +117,27 @@ const INK_SLOTS = HUE_BINS + 1;
 const MIN_SATURATION = 0.04;
 
 /**
- * Tone level -> ink. Sampling the dot colour from the source does not work
- * here: the painting's mid-tones are pale, and pale dots simply disappear
- * against the cream. The ramp carries the contrast; the source only gets to
- * push the hue (see buildInkTable).
+ * Tone level -> ink, one ramp per theme. Sampling the dot colour from the
+ * source does not work here: the painting's mid-tones are pale, and pale dots
+ * disappear against either ground. The ramp carries the contrast; the source
+ * only gets to push the hue (see buildInkTable).
+ *
+ * Both are stepped so each level roughly doubles its contrast against its own
+ * ground. Taking the palette colours in their given order instead left a hole
+ * between levels 2 and 3 — 3.9:1 straight to 10.2:1 — and the field banded
+ * visibly where tone crossed it.
+ *
+ * Light runs periwinkle -> prussian blue, hitting #c4b5fd exactly at level 1
+ * and topping out at 15.5:1.
+ *
+ * Dark runs carbon black -> powder blue, hitting #a7b1c5 exactly at level 4
+ * and stopping at 12:1 rather than carrying on to white. Bright ink on a dark
+ * ground asserts itself far harder than dark ink on a light one, and a peak at
+ * full white-smoke made the core a glare that outshone the headline sitting at
+ * 16.3:1. Capping the field below the type keeps the reading order right.
  */
-const RAMP = ["#C9B9A6", "#A8845E", "#7C5A6B", "#4A3B3F", "#1A1416"] as const;
+const RAMP_LIGHT = ["#c4b5fd", "#a686f9", "#7956dc", "#3d4386", "#0a1c3b"] as const;
+const RAMP_DARK = ["#36373a", "#575b63", "#7b828f", "#a7b1c5", "#d0d5dd"] as const;
 
 const TAU = Math.PI * 2;
 
@@ -202,14 +229,14 @@ function hslToRgb(h: number, s: number, l: number): [number, number, number] {
  * the page. Quantising the hue lets the whole table be built once, so the draw
  * loop never touches HSL.
  */
-function buildInkTable(): string[] {
+function buildInkTable(ramp: readonly string[]): string[] {
   const table: string[] = new Array(LEVELS * INK_SLOTS);
   for (let level = 0; level < LEVELS; level++) {
-    const [br, bg, bb] = hexToRgb(RAMP[level]);
+    const [br, bg, bb] = hexToRgb(ramp[level]);
     const [bh, bs, bl] = rgbToHsl(br, bg, bb);
     for (let bin = 0; bin < INK_SLOTS; bin++) {
       if (bin === ACHROMATIC_BIN) {
-        table[level * INK_SLOTS + bin] = RAMP[level];
+        table[level * INK_SLOTS + bin] = ramp[level];
         continue;
       }
       const srcHue = (bin + 0.5) / HUE_BINS;
@@ -222,7 +249,12 @@ function buildInkTable(): string[] {
   return table;
 }
 
-const INK_TABLE = buildInkTable();
+/* Both built once at module load — two arrays of 65 colour strings, so a
+   theme change is a lookup rather than a rebuild. */
+const INK_TABLES = {
+  light: buildInkTable(RAMP_LIGHT),
+  dark: buildInkTable(RAMP_DARK),
+} as const;
 
 /** Hue bucket of a source pixel, or ACHROMATIC_BIN when there's no hue to speak of. */
 function hueBinOf(r: number, g: number, b: number): number {
@@ -276,6 +308,22 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
   // being seeked while it is the thing on screen.
   const videoARef = React.useRef<HTMLVideoElement>(null);
   const videoBRef = React.useRef<HTMLVideoElement>(null);
+
+  /* The draw loop reads the theme through a ref rather than taking it as a
+     dependency: rebuilding the effect on a toggle would tear down both video
+     elements and restart playback from zero, which is a very visible way to
+     change a colour. Selecting the ground and ink table per frame costs two
+     property lookups. */
+  const theme = useResolvedTheme();
+  const themeRef = React.useRef(theme);
+  const repaintRef = React.useRef<((now: number) => void) | null>(null);
+
+  React.useEffect(() => {
+    themeRef.current = theme;
+    // Under reduced motion nothing is scheduled, so the new palette would not
+    // appear until the next resize without an explicit repaint.
+    repaintRef.current?.(performance.now());
+  }, [theme]);
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -353,7 +401,7 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
         willReadFrequently: true,
       });
       if (!bufferCtx) return null;
-      bufferCtx.fillStyle = CREAM;
+      bufferCtx.fillStyle = GROUND[themeRef.current];
       bufferCtx.fillRect(0, 0, cols, rows);
 
       const buckets: number[][] = new Array(LEVELS * INK_SLOTS);
@@ -609,11 +657,14 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
         }
       }
 
-      // 4. Ground. Empty cells are simply this. Measured in CSS pixels, since
-      //    the context is already scaled by the device pixel ratio.
+      // 4. Ground. Empty cells are simply this — the page colour, so the
+      //    hero has no edge against the section below. Measured in CSS pixels,
+      //    since the context is already scaled by the device pixel ratio.
+      const theme = themeRef.current;
+      const inkTable = INK_TABLES[theme];
       const viewW = canvas.clientWidth;
       const viewH = canvas.clientHeight;
-      ctx.fillStyle = CREAM;
+      ctx.fillStyle = GROUND[theme];
       ctx.fillRect(0, 0, viewW, viewH);
 
       for (let i = 0; i < buckets.length; i++) {
@@ -672,7 +723,6 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
           let level = (tone * LEVELS + threshold) | 0;
 
           const glow = bloom[index];
-          if (glow > 0.35 && level < LEVELS) level++;
           if (level < 1) continue;
           if (level > LEVELS) level = LEVELS;
 
@@ -681,7 +731,7 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
             0.5 *
             DOT_SCALE *
             (0.45 + (0.55 * level) / LEVELS) *
-            (1 + 0.35 * glow);
+            (1 + BLOOM_DOT_SWELL * glow);
 
           buckets[(level - 1) * INK_SLOTS + hueBinOf(r, g, b)].push(index);
         }
@@ -691,7 +741,7 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
       for (let i = 0; i < buckets.length; i++) {
         const bucket = buckets[i];
         if (!bucket.length) continue;
-        ctx.fillStyle = INK_TABLE[i];
+        ctx.fillStyle = inkTable[i];
         ctx.beginPath();
         for (let k = 0; k < bucket.length; k++) {
           const index = bucket[k];
@@ -739,8 +789,9 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
     /* ---------------------------------------------------------------- */
 
     grid = buildGrid();
+    repaintRef.current = renderFrame;
 
-    // Poster first, so the panel is never bare cream while the video decodes.
+    // Poster first, so the hero is never a bare ground while the video decodes.
     poster = new Image();
     poster.onload = () => {
       if (disposed || !grid) return;
@@ -807,6 +858,7 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
 
     return () => {
       disposed = true;
+      repaintRef.current = null;
       stop();
       window.clearTimeout(resizeTimer);
       resizeObserver.disconnect();
@@ -820,127 +872,117 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
     };
   }, []);
 
+  const ground = GROUND[theme];
+
   return (
-    <section className={cn("bg-[#0B0B0D] p-3 sm:p-4 lg:p-5", className)}>
+    /*
+      Full bleed, on the page colour, with no frame. The dither's own ground is
+      this same colour, so there is no edge anywhere: the field simply thins out
+      into the page wherever tone falls to level 0. An inset rounded panel made
+      the hero read as a picture dropped onto the site rather than the top of it.
+    */
+    <section
+      ref={panelRef}
+      className={cn("relative isolate overflow-hidden bg-surface-2", className)}
+    >
+      <canvas
+        ref={canvasRef}
+        aria-hidden
+        className="absolute inset-0 h-full w-full"
+      />
+
       {/*
-        The panel is a permanently light surface, whatever the page theme is
-        doing, because the cream is the artwork's ground rather than a themed
-        background. Pinning the theme switches to the light half here means the
-        headline and buttons inside keep resolving to their light-mode tokens
-        instead of going near-white on cream in dark mode.
+        Directional scrim. On desktop the copy sits on near-empty ground and
+        this does almost nothing, which is the intent — it is weighted to the
+        upper-left and gone by the middle. It earns its place on narrow
+        viewports, where the hero is far taller than the 16:9 source and the
+        galaxy climbs up under the subhead and the booking note. A gradient
+        rather than a backing panel: the field keeps showing through, it just
+        stops competing with the words.
       */}
       <div
-        ref={panelRef}
-        className="relative isolate overflow-hidden rounded-2xl sm:rounded-3xl"
-        style={
-          {
-            backgroundColor: CREAM,
-            "--t-light": "initial",
-            "--t-dark": " ",
-          } as React.CSSProperties
-        }
-      >
-        <canvas
-          ref={canvasRef}
-          aria-hidden
-          className="absolute inset-0 h-full w-full"
-        />
+        aria-hidden
+        className="pointer-events-none absolute inset-0 sm:hidden"
+        style={{
+          background: `linear-gradient(180deg, ${ground}F7 0%, ${ground}EE 36%, ${ground}D6 56%, ${ground}8A 70%, ${ground}00 86%)`,
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 hidden sm:block"
+        style={{
+          background: `linear-gradient(112deg, ${ground}E6 0%, ${ground}B3 26%, ${ground}4D 44%, ${ground}00 62%)`,
+        }}
+      />
 
-        {/*
-          Directional scrim. On desktop the copy sits on bare cream and this
-          does almost nothing, which is the intent — it is weighted to the
-          upper-left and gone by the middle of the panel. It earns its place
-          on narrow viewports, where the panel is far taller than the 16:9
-          source and the galaxy climbs up under the subhead and the booking
-          note. A gradient rather than a backing panel: the field keeps
-          showing through, it just stops competing with the words.
-        */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 sm:hidden"
-          style={{
-            background: `linear-gradient(180deg, ${CREAM}F7 0%, ${CREAM}EE 36%, ${CREAM}D6 56%, ${CREAM}8A 70%, ${CREAM}00 86%)`,
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 hidden sm:block"
-          style={{
-            background: `linear-gradient(112deg, ${CREAM}E6 0%, ${CREAM}B3 26%, ${CREAM}4D 44%, ${CREAM}00 62%)`,
-          }}
-        />
+      {/* The field dissolves into the page at the bottom instead of stopping on
+          a line, so the hero hands off to the section below rather than ending. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 sm:h-56"
+        style={{
+          background: `linear-gradient(180deg, ${ground}00 0%, ${ground}A6 55%, ${ground} 100%)`,
+        }}
+      />
 
-        {/* Present but invisible rather than `display: none` — a hidden video
-            is allowed to stop decoding, and these two exist only to be read
-            into the buffer. Kept at 1px in the corner, under the canvas. */}
-        <video
-          ref={videoARef}
-          className="pointer-events-none absolute top-0 left-0 -z-10 size-px opacity-0"
-          src="/galaxy.mp4"
-          muted
-          loop
-          playsInline
-          autoPlay
-          preload="auto"
-          aria-hidden
-        />
-        <video
-          ref={videoBRef}
-          className="pointer-events-none absolute top-0 left-0 -z-10 size-px opacity-0"
-          src="/galaxy.mp4"
-          muted
-          playsInline
-          preload="auto"
-          aria-hidden
-        />
+      {/* Present but invisible rather than `display: none` — a hidden video
+          is allowed to stop decoding, and these two exist only to be read
+          into the buffer. Kept at 1px in the corner, under the canvas. */}
+      <video
+        ref={videoARef}
+        className="pointer-events-none absolute top-0 left-0 -z-10 size-px opacity-0"
+        src="/galaxy.mp4"
+        muted
+        loop
+        playsInline
+        autoPlay
+        preload="auto"
+        aria-hidden
+      />
+      <video
+        ref={videoBRef}
+        className="pointer-events-none absolute top-0 left-0 -z-10 size-px opacity-0"
+        src="/galaxy.mp4"
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden
+      />
 
-        {/*
-          The source is 16:9, so the panel tracks that once there is width to
-          spare and the composition arrives uncropped. Below `lg` the copy
-          needs more vertical room than 16:9 would leave it, so min-heights
-          take over and the crop is anchored on the galaxy instead (FOCUS_X /
-          FOCUS_Y) rather than drifting off into empty sky.
-
-          pt clears the overlaying navbar; the copy sits in the upper-left
+      {/* pt clears the overlaying navbar; the copy sits in the upper-left
           negative space, which is the part of the frame the galaxy leaves
-          empty.
-        */}
-        <Container className="relative z-10 flex min-h-[32rem] flex-col justify-start pt-28 pb-16 sm:min-h-[36rem] sm:pt-32 lg:aspect-video lg:min-h-[42rem] lg:pt-36">
-          <div className="max-w-xl lg:max-w-2xl">
-            {/*
-              multiply rather than a solid fill: the dots carry on through the
-              letterforms instead of the type punching a hole in the field.
-              The ink is fixed rather than themed for the same reason the panel
-              pins its tokens — this text only ever sits on cream.
-            */}
-            <p
-              className="font-display text-[2.5rem] leading-[0.98] font-semibold uppercase sm:text-7xl lg:text-8xl"
-              style={{ color: INK_ON_CREAM, mixBlendMode: "multiply" }}
-            >
-              Time or{" "}
-              <span style={{ color: "#6D28D9" }}>growth</span>?
-            </p>
+          empty. Below `lg` there is less of that space, so the crop anchors on
+          the galaxy (FOCUS_X / FOCUS_Y) and the scrim above does the rest. */}
+      <Container className="relative z-10 flex min-h-svh flex-col justify-center pt-28 pb-32 sm:pt-32 sm:pb-40">
+        <div className="max-w-xl lg:max-w-2xl">
+          {/*
+            The type blends into the field rather than punching a hole in it —
+            multiply on the light theme, screen on the dark, which is its
+            mirror once the polarity flips. See --hero-type-blend.
 
-            <h1
-              className="mt-7 max-w-lg text-2xl leading-[1.2] font-medium sm:text-3xl lg:text-4xl"
-              style={{ color: INK_ON_CREAM, mixBlendMode: "multiply" }}
-            >
-              We build the systems that get you there.
-            </h1>
+            Colour comes from the tokens now: the hero is on the page surface,
+            so ink is just ink.
+          */}
+          <p className="hero-type font-display text-[2.5rem] leading-[0.98] font-semibold text-ink uppercase sm:text-7xl lg:text-8xl">
+            Time or <span className="text-accent-ink">growth</span>?
+          </p>
 
-            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
-              <BookACall size="lg" withArrow />
-              <Button asChild variant="outline" size="lg">
-                <Link href="/process">See how it works</Link>
-              </Button>
-            </div>
-            {/* A step darker than the usual muted grey: this line sits lowest
-                in the copy stack, which on a phone is where the dot field is
-                densest and a light secondary colour stops being readable. */}
-            <BookingNote className="mt-5 text-ink-soft" />
+          <h1 className="hero-type mt-7 max-w-lg text-2xl leading-[1.2] font-medium text-ink sm:text-3xl lg:text-4xl">
+            We build the systems that get you there.
+          </h1>
+
+          <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
+            <BookACall size="lg" withArrow />
+            <Button asChild variant="outline" size="lg">
+              <Link href="/process">See how it works</Link>
+            </Button>
           </div>
-        </Container>
-      </div>
+          {/* A step darker than the usual muted grey: this line sits lowest in
+              the copy stack, which on a phone is where the field is densest
+              and a light secondary colour stops being readable. */}
+          <BookingNote className="mt-5 text-ink-soft" />
+        </div>
+      </Container>
     </section>
   );
 }

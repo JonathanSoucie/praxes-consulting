@@ -58,11 +58,20 @@
   --shadow-a-hover: var(--t-light, 0.06) var(--t-dark, 0.36);
   --shadow-b-hover: var(--t-light, 0.28) var(--t-dark, 0.68);
 
-  /* Mid stop of the relief wash — a periwinkle tint / an indigo lift. */
-  --wash-mid: var(--t-light, #ebe6fc) var(--t-dark, #0d1d44);
+  /* Mid stop of the relief wash — a periwinkle tint on the light side; on the
+     dark side the palette's prussian blue, which is where that colour now
+     lives once the surfaces went neutral. It is the one place the dark theme
+     is allowed a cool cast, so relief sections still separate from the page. */
+  --wash-mid: var(--t-light, #ebe6fc) var(--t-dark, #040c24);
 
   /* Slider thumb face — white on light, white-smoke on dark. */
   --thumb-face: var(--t-light, #ffffff) var(--t-dark, #f5f5f2);
+
+  /* How hero type sits in the dot field behind it. Multiply keeps dark text
+     reading through a light field; on the dark theme the polarity flips and
+     screen is its mirror, letting light text blend into bright dots instead
+     of punching a hole in them. */
+  --hero-type-blend: var(--t-light, multiply) var(--t-dark, screen);
 }
 
 /* Theme change: cross-fade, don't cut.
@@ -151,13 +160,16 @@
 
   /* --- Surfaces --------------------------------------------------------- */
   /* Light: white cards over the palette's white-smoke page. Dark: the two
-     prussian blues — page #040c24, cards a step lighter at #0d2347, which is
-     how elevation reads without shadows on a dark ground. */
-  --color-surface: var(--t-light, #ffffff) var(--t-dark, #0d2347); /* cards */
-  --color-surface-2: var(--t-light, #f5f5f2) var(--t-dark, #040c24); /* page background */
-  --color-surface-3: var(--t-light, #fafaf9) var(--t-dark, #142c56);
-  --color-line: var(--t-light, #e4e6ec) var(--t-dark, #1e3560);
-  --color-line-strong: var(--t-light, #ccd1dd) var(--t-dark, #31497a);
+     carbon blacks — page #181818, cards a step lighter at #222222, which is
+     how elevation reads without shadows on a dark ground. The dark side is
+     deliberately neutral: the hero's dot field sits directly on the page
+     colour, and a blue-cast ground pulled the whole galaxy toward navy.
+     Prussian blue #040c24 stays in play as the wash trough below. */
+  --color-surface: var(--t-light, #ffffff) var(--t-dark, #222222); /* cards */
+  --color-surface-2: var(--t-light, #f5f5f2) var(--t-dark, #181818); /* page background */
+  --color-surface-3: var(--t-light, #fafaf9) var(--t-dark, #2a2a2a);
+  --color-line: var(--t-light, #e4e6ec) var(--t-dark, #2e2e2e);
+  --color-line-strong: var(--t-light, #ccd1dd) var(--t-dark, #3d3d3d);
 
   /* --- Accent ----------------------------------------------------------- */
   /* The palette's medium slate blue #8b5cf6 is 4.2:1 on white — just under
@@ -465,6 +477,11 @@
     var(--wash-mid) 45%,
     var(--color-surface-2) 100%
   );
+}
+
+/* Hero headline over the dithered field. See --hero-type-blend. */
+@utility hero-type {
+  mix-blend-mode: var(--hero-type-blend);
 }
 
 /* Faint grid, used behind built visuals so they read as an instrument panel. */
