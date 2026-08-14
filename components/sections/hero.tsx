@@ -3,70 +3,77 @@ import Link from "next/link";
 import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/reveal";
 import { NeuralField } from "@/components/sections/neural-field";
 import { OrbitField } from "@/components/sections/orbit-field";
 
 /**
- * Hero, in three beats.
+ * Hero: a question, an answer, and the three shapes the answer takes.
  *
- * The first is the page proper — headline, promise, and the two calls to
- * action, all inside the first screen. The two that follow are single
- * statements that land one at a time as you scroll on, which is what lets the
- * argument be made in the visitor's own reading rhythm instead of crammed
- * into one paragraph under the headline.
+ * The question sits at the bottom-left of the first screen rather than
+ * centred in it — the eye lands on the type, then travels down the left edge
+ * into the headline and straight on into the outcomes, which share that same
+ * edge. One column, one reading path, no re-centring.
  *
- * Deliberately *not* a pinned hero. The version this is modelled on holds you
- * in place for three viewport heights while the stages swap; that reads well
- * on a site whose job is reputation, but here it would put every call to
- * action three screens below the fold. So the beats simply scroll, and only
- * the background is continuous across them.
- *
- * That background does double duty: the neural field belongs to the first
- * screen, and the orbit rings — faint at the top where the field already has
- * the eye, stronger further down where it has ended — carry the remaining
- * two.
+ * The outcomes are inside this section on purpose. They are the answer to the
+ * question above them, and keeping them here means the orbit rings behind
+ * carry unbroken from the question into the answer instead of the two reading
+ * as unrelated bands.
  */
+
+const OUTCOMES = [
+  {
+    label: "Save time",
+    body: "Automate repetitive work and give your team hours back.",
+  },
+  {
+    label: "Get customers",
+    body: "Build systems that find, qualify and nurture better leads.",
+  },
+  {
+    label: "Grow faster",
+    body: "Connect your business with intelligent workflows that scale.",
+  },
+];
+
 export function Hero() {
-  // The surface colour belongs to the section, not to the first beat: an
-  // opaque background on the beat would paint straight over the orbit rings
-  // sitting behind it.
+  // The surface colour belongs to the section, not to the first screen: an
+  // opaque background on the screen would paint over the orbit rings behind.
   return (
     <section className="relative bg-surface">
       <OrbitField />
 
-      {/* Beat one — the whole offer, above the fold. */}
-      <div className="relative flex min-h-svh items-center overflow-hidden">
+      {/* The question — anchored low, so the screen opens on space and
+          resolves onto the type rather than the other way round. */}
+      <div className="relative flex min-h-svh items-end overflow-hidden">
         <NeuralField className="pointer-events-none absolute inset-0" />
 
-        {/* pt-18 clears the overlaying navbar so the copy is optically
-            centred in the space actually left to it, not in the raw viewport. */}
-        <Container className="relative z-10 w-full pt-18 pb-16">
-          <div className="mx-auto max-w-3xl text-center">
-            <Reveal className="flex justify-center">
-              <Eyebrow>AI consulting</Eyebrow>
-            </Reveal>
-
-            <Reveal delay={60}>
-              <h1 className="mt-6 text-6xl leading-[1.02] text-ink sm:text-7xl lg:text-8xl lg:leading-[0.98]">
-                We sell{" "}
+        <Container className="relative z-10 w-full pt-32 pb-20 sm:pb-24">
+          <div className="max-w-4xl">
+            <Reveal>
+              {/* The base step is set by the narrowest phone, not the widest:
+                  at text-5xl this line fills the gutter exactly at 390px and
+                  overflows below it. */}
+              <p className="font-display text-[2.5rem] leading-[0.98] font-semibold text-ink uppercase sm:text-7xl lg:text-8xl">
+                Time or{" "}
                 <span className="text-gradient animate-gradient-shift">
-                  Time
+                  growth
                 </span>
-              </h1>
-            </Reveal>
-
-            <Reveal delay={120}>
-              <p className="mx-auto mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-                We analyse how your business actually runs, find the bottleneck
-                that is genuinely costing you, and implement AI to fix it —
-                then measure the result against the baseline we started from.
+                ?
               </p>
             </Reveal>
 
-            <Reveal delay={180}>
-              <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <Reveal delay={90}>
+              <h1 className="mt-7 max-w-2xl text-2xl leading-[1.2] font-medium text-ink sm:text-3xl lg:text-4xl">
+                We build the systems that get you there.
+              </h1>
+            </Reveal>
+
+            {/* Kept from the previous hero. The brief did not mention them,
+                but a first screen with no way to act on it is a regression
+                whatever else it gets right. */}
+            <Reveal delay={150}>
+              <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <BookACall size="lg" withArrow />
                 <Button asChild variant="outline" size="lg">
                   <Link href="/process">See how it works</Link>
@@ -78,38 +85,35 @@ export function Hero() {
         </Container>
       </div>
 
-      <HeroBeat>
-        Automation is easy to buy and hard to justify. The difference is
-        knowing which hour you are actually buying back.
-      </HeroBeat>
-
-      <HeroBeat>
-        So we measure first, build second, and show you the one number that
-        moved.
-      </HeroBeat>
+      {/* The answer. */}
+      <div className="relative pb-24 sm:pb-28 lg:pb-32">
+        <Container className="relative z-10">
+          {/* Columns under a rule rather than cards: the hero above is
+              editorial and left-aligned, and boxing the answer would break
+              the single reading edge the whole composition is built on. */}
+          <div className="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-12">
+            {OUTCOMES.map((outcome, i) => (
+              // Staggered so the three arrive as one movement read left to
+              // right, rather than three separate reveals firing at once.
+              <Reveal
+                key={outcome.label}
+                delay={i * 110}
+                className="border-t border-line-strong pt-6"
+              >
+                <span className="label-tech text-accent-ink">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="mt-4 font-display text-xl font-semibold text-ink uppercase sm:text-2xl">
+                  {outcome.label}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
+                  {outcome.body}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </div>
     </section>
-  );
-}
-
-/**
- * A single statement, given a screen most of its own.
- *
- * Sized well below the headline: this is the argument, not the banner, and
- * type this large stops being readable if it also tries to shout.
- */
-function HeroBeat({ children }: { children: React.ReactNode }) {
-  return (
-    // Tall enough that only one statement is ever centred in the viewport.
-    // At 62svh two of them fitted on one screen, which is exactly the reading
-    // experience these beats exist to avoid.
-    <div className="relative flex min-h-[88svh] items-center py-24">
-      <Container className="relative z-10 w-full">
-        <Reveal>
-          <p className="mx-auto max-w-4xl text-center font-display text-3xl leading-[1.16] font-semibold text-balance text-ink sm:text-4xl lg:text-5xl">
-            {children}
-          </p>
-        </Reveal>
-      </Container>
-    </div>
   );
 }
