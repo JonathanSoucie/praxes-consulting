@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Flow_Circular,
-  JetBrains_Mono,
-  Playfair_Display,
-} from "next/font/google";
+import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Navbar } from "@/components/layout/navbar";
@@ -14,13 +10,12 @@ import { themeInitScript } from "@/lib/theme";
 
 import "./globals.css";
 
-/* Body: Flow Circular — NOTE this is a wireframe/placeholder face that renders
-   every glyph as a filled circle, so body copy reads as redacted blobs. */
-const flowCircular = Flow_Circular({
+/* Body: highly legible sans. Pairs with the Playfair headings — the serif
+   carries the display voice, the body stays plain and readable. */
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-flow",
+  variable: "--font-inter",
   display: "swap",
-  weight: "400", // the family ships this single weight
 });
 
 /* Display: high-contrast serif for headings and stat figures. Variable font,
@@ -100,7 +95,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${flowCircular.variable} ${playfair.variable} ${jetBrainsMono.variable}`}
+      className={`${inter.variable} ${playfair.variable} ${jetBrainsMono.variable}`}
       // The init script below writes data-theme onto this element before React
       // hydrates, so the server HTML and the live DOM legitimately differ here.
       suppressHydrationWarning

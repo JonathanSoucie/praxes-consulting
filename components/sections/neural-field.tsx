@@ -179,13 +179,11 @@ export function NeuralField({
           </filter>
         </defs>
 
-        {/* The network is ~3x denser than the original scatter, so each line
-            is drawn fainter to keep the same overall weight behind the copy. */}
-        <g
-          stroke={lineColor}
-          strokeOpacity={tone === "dark" ? "0.13" : "0.12"}
-          fill="none"
-        >
+        {/* Opacity stays at the original 0.16 despite the network being ~3x
+            denser. Dropping it to compensate for the extra strokes was a
+            mistake: it turned a legible constellation into an indistinct
+            haze. The radial mask below is what keeps it off the copy. */}
+        <g stroke={lineColor} strokeOpacity="0.16" fill="none">
           {EDGES.map(([x1, y1, cx, cy, x2, y2], i) => (
             <path
               key={i}

@@ -110,10 +110,10 @@
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* High-contrast serif (Playfair Display) for display; Flow Circular for
-     body — a wireframe face that renders text as circles. Mono is used only
-     for small technical labels inside the built data visuals. */
-  --font-sans: var(--font-flow), system-ui, -apple-system, sans-serif;
+  /* High-contrast serif (Playfair Display) for display, legible sans for
+     body. Mono is used only for small technical labels inside the built data
+     visuals. */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-mono: var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
