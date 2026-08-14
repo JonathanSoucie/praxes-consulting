@@ -3,7 +3,7 @@
 import * as React from "react";
 
 /**
- * Brand mark: two crossing rings, light pink→magenta and magenta→plum.
+ * Brand mark: two crossing rings, periwinkle→violet and violet→indigo.
  * Recreated as inline SVG (not a raster import) so it stays crisp at any
  * size and the gradient always renders correctly regardless of surrounding
  * theme.
@@ -47,8 +47,8 @@ export function LogoMark({
           x2="50"
           y2="92"
         >
-          <stop offset="0%" stopColor="#F9A8D4" />
-          <stop offset="100%" stopColor="#E0399A" />
+          <stop offset="0%" stopColor="#C4B5FD" />
+          <stop offset="100%" stopColor="#8B5CF6" />
         </linearGradient>
         <linearGradient
           id={ringB}
@@ -58,8 +58,8 @@ export function LogoMark({
           x2="96"
           y2="58"
         >
-          <stop offset="0%" stopColor="#E0399A" />
-          <stop offset="100%" stopColor="#7A1656" />
+          <stop offset="0%" stopColor="#8B5CF6" />
+          <stop offset="100%" stopColor="#243B63" />
         </linearGradient>
       </defs>
 

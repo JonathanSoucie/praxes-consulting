@@ -24,10 +24,10 @@ ${
 }
 <defs>
 <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="50" y1="8" x2="50" y2="92">
-<stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#E0399A"/>
+<stop offset="0%" stop-color="#C4B5FD"/><stop offset="100%" stop-color="#8B5CF6"/>
 </linearGradient>
 <linearGradient id="b" gradientUnits="userSpaceOnUse" x1="4" y1="58" x2="96" y2="58">
-<stop offset="0%" stop-color="#E0399A"/><stop offset="100%" stop-color="#7A1656"/>
+<stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#243B63"/>
 </linearGradient>
 </defs>
 <ellipse cx="50" cy="50" rx="26" ry="42" transform="rotate(18 50 50)" fill="none" stroke="url(#a)" stroke-width="11"/>

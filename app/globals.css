@@ -51,18 +51,18 @@
 :root {
   /* Internals that aren't colour utilities and so don't belong in @theme,
      but still have to flip with the palette. Shadows go heavier and darker on
-     the dark side, where a 4%-alpha indigo shadow is simply invisible. */
-  --shadow-tint: var(--t-light, 16 15 38) var(--t-dark, 0 0 0);
+     the dark side, where a 4%-alpha shadow is simply invisible. */
+  --shadow-tint: var(--t-light, 7 21 47) var(--t-dark, 0 0 0);
   --shadow-a: var(--t-light, 0.04) var(--t-dark, 0.3);
   --shadow-b: var(--t-light, 0.12) var(--t-dark, 0.55);
   --shadow-a-hover: var(--t-light, 0.06) var(--t-dark, 0.36);
   --shadow-b-hover: var(--t-light, 0.28) var(--t-dark, 0.68);
 
-  /* Mid stop of the relief wash. */
-  --wash-mid: var(--t-light, #fbe6f0) var(--t-dark, #17101f);
+  /* Mid stop of the relief wash — a periwinkle tint / an indigo lift. */
+  --wash-mid: var(--t-light, #ebe6fc) var(--t-dark, #0d1d44);
 
-  /* Slider thumb face — white on light, a light card on dark. */
-  --thumb-face: var(--t-light, #ffffff) var(--t-dark, #f4f4fa);
+  /* Slider thumb face — white on light, white-smoke on dark. */
+  --thumb-face: var(--t-light, #ffffff) var(--t-dark, #f5f5f2);
 }
 
 /* Theme-toggle icon swap.
@@ -118,40 +118,43 @@
   --font-mono: var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
   /* --- Ink -------------------------------------------------------------- */
-  /* Dark-side ink is deliberately off-white (#f4f4fa, not #fff): pure white
-     on a near-black surface haloes badly on OLED. */
-  --color-ink: var(--t-light, #0e0e1b) var(--t-dark, #f4f4fa); /* headings */
-  --color-ink-soft: var(--t-light, #33334a) var(--t-dark, #c8c8dc); /* body copy — 12.1:1 dark */
-  --color-muted: var(--t-light, #6e6e85) var(--t-dark, #9a9ab5); /* secondary — 6.4:1 dark */
+  /* Prussian blue / twilight indigo on the light side; white-smoke and
+     powder blue (both straight from the palette) on the dark. */
+  --color-ink: var(--t-light, #07152f) var(--t-dark, #f5f5f2); /* headings — 18.1:1 light */
+  --color-ink-soft: var(--t-light, #243b63) var(--t-dark, #a7b1c5); /* body — 11.2:1 / 7.2:1 */
+  --color-muted: var(--t-light, #5d6a88) var(--t-dark, #8492ad); /* secondary — 5.4:1 / 5.0:1 */
 
   /* --- Surfaces --------------------------------------------------------- */
-  /* The light order (cards above the page) inverts in dark: the page drops to
-     near-black and cards sit a step *lighter*, which is how elevation reads
-     without shadows on a dark ground. */
-  --color-surface: var(--t-light, #ffffff) var(--t-dark, #17172b); /* cards */
-  --color-surface-2: var(--t-light, #f5f5fb) var(--t-dark, #0d0d18); /* page background */
-  --color-surface-3: var(--t-light, #fafaff) var(--t-dark, #1d1d33);
-  --color-line: var(--t-light, #e7e7f1) var(--t-dark, #292940);
-  --color-line-strong: var(--t-light, #d3d3e4) var(--t-dark, #3d3d5c);
+  /* Light: white cards over the palette's white-smoke page. Dark: the two
+     prussian blues — page #040c24, cards a step lighter at #0d2347, which is
+     how elevation reads without shadows on a dark ground. */
+  --color-surface: var(--t-light, #ffffff) var(--t-dark, #0d2347); /* cards */
+  --color-surface-2: var(--t-light, #f5f5f2) var(--t-dark, #040c24); /* page background */
+  --color-surface-3: var(--t-light, #fafaf9) var(--t-dark, #142c56);
+  --color-line: var(--t-light, #e4e6ec) var(--t-dark, #1e3560);
+  --color-line-strong: var(--t-light, #ccd1dd) var(--t-dark, #31497a);
 
   /* --- Accent ----------------------------------------------------------- */
-  /* The light accent (#d6146e) is only 2.1:1 on the dark page, so the dark
-     side steps up to the bright pink, which lands at 6.3:1 there. */
-  --color-accent: var(--t-light, #d6146e) var(--t-dark, #ff4fa3); /* 5.0:1 light / 6.3:1 dark */
-  --color-accent-hover: var(--t-light, #b91565) var(--t-dark, #ff77b9);
-  --color-accent-ink: var(--t-light, #b91565) var(--t-dark, #ff8cc4); /* accent text on soft bg */
-  --color-accent-soft: var(--t-light, #fdf0f6) var(--t-dark, #2b1122); /* badges, tinted panels */
+  /* The palette's medium slate blue #8b5cf6 is 4.2:1 on white — just under
+     the 4.5:1 text threshold — so the functional accent darkens one step on
+     the light side and brightens one on the dark. The raw palette violet
+     lives on as --color-accent-bright, so gradients, glow and pulses still
+     carry the exact palette colour. */
+  --color-accent: var(--t-light, #7c3aed) var(--t-dark, #a78bfa); /* 5.7:1 light / 7.1:1 dark */
+  --color-accent-hover: var(--t-light, #6d28d9) var(--t-dark, #b9a3fc);
+  --color-accent-ink: var(--t-light, #6d28d9) var(--t-dark, #c4b5fd); /* accent text on soft bg */
+  --color-accent-soft: var(--t-light, #f1ecfe) var(--t-dark, #201545); /* badges, tinted panels */
   /* Foreground for anything filled with --color-accent (buttons, chips).
-     Cannot be plain white on both sides: white on the dark accent is 3.0:1,
-     which fails for the primary CTA's own label. Dark ink on that bright pink
-     gets 6.2:1, and white on the light accent 5.0:1. */
-  --color-on-accent: var(--t-light, #ffffff) var(--t-dark, #26060f);
-  --color-accent-bright: var(--t-light, #ff4fa3) var(--t-dark, #ff7ab8); /* decorative only — gradients, glow, neuron pulses. Not for body text. */
+     White on the light violet is 5.7:1; on the pale dark-mode violet white
+     fails, so the label flips to prussian blue at 6.7:1. */
+  --color-on-accent: var(--t-light, #ffffff) var(--t-dark, #07152f);
+  --color-accent-bright: var(--t-light, #8b5cf6) var(--t-dark, #c4b5fd); /* decorative only — gradients, glow, neuron pulses. Not for body text. */
 
   /* --- Deep surfaces (closing CTA band) ---------------------------------- */
-  --color-deep: #1a0410;
-  --color-deep-2: #6e1140;
-  --color-deep-3: #d6146e;
+  /* Prussian blue resolving through twilight indigo into the palette violet. */
+  --color-deep: #07152f;
+  --color-deep-2: #243b63;
+  --color-deep-3: #8b5cf6;
 
   /* --- Data marks -------------------------------------------------------
      The before/after comparison pair. Checked for >=3:1 contrast on white
@@ -159,8 +162,8 @@
      normal-vision ΔE 27.7 against the new accent), and every bar is
      direct-labelled so colour is never the only channel. Keep both
      properties if you change them. */
-  --color-chart-after: var(--t-light, #d6146e) var(--t-dark, #ff4fa3);
-  --color-chart-before: var(--t-light, #a9a9c2) var(--t-dark, #6e6e8f);
+  --color-chart-after: var(--t-light, #7c3aed) var(--t-dark, #a78bfa);
+  --color-chart-before: var(--t-light, #a7b1c5) var(--t-dark, #5d6c92);
 
   /* --- Shape ------------------------------------------------------------ */
   --radius-sm: 8px;
@@ -296,7 +299,7 @@
   padding-inline: 1.5rem;
 }
 
-/* Pink gradient text — for the one or two words per page that should carry
+/* Violet gradient text — for the one or two words per page that should carry
    the brand accent. Use sparingly; most headline text stays solid ink. The
    background slowly drifts (animate-gradient-shift) for a faint shimmer,
    frozen automatically under prefers-reduced-motion (see the base layer). */
@@ -336,7 +339,7 @@
   text-transform: uppercase;
 }
 
-/* Deep band used for the closing CTA — near-black plum resolving into the
+/* Deep band used for the closing CTA — prussian blue resolving into the
    vivid accent. References the token triplet directly (not literal hex)
    so a palette change here always follows --color-deep*. */
 @utility gradient-deep {
@@ -348,7 +351,7 @@
   );
 }
 
-/* Soft pink wash for relief sections. */
+/* Soft periwinkle wash for relief sections. */
 @utility gradient-wash {
   background-image: linear-gradient(
     180deg,

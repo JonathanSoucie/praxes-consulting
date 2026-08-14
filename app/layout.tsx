@@ -82,8 +82,8 @@ export const viewport: Viewport = {
   // Matches --color-surface-2 in each theme, so the mobile browser chrome
   // blends with the page instead of staying white behind a dark site.
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f5fb" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0d18" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#040c24" },
   ],
   width: "device-width",
   initialScale: 1,
