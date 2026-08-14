@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 
 import { LegalPage, LegalSection } from "@/components/sections/legal-page";
 import { site } from "@/content/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms",
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Use",
   description: `Terms governing the use of the ${site.legalName} website.`,
-  alternates: { canonical: "/terms" },
-  robots: { index: true, follow: false },
-};
+  path: "/terms",
+  // follow: true — see the note in app/privacy/page.tsx.
+  robots: { index: true, follow: true },
+});
 
 export default function TermsPage() {
   return (

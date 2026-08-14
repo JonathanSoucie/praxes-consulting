@@ -43,7 +43,7 @@ export function CaseStudyGrid({
               className={cn(
                 "rounded-full px-4 py-2 text-sm transition-colors",
                 selected
-                  ? "bg-accent text-white"
+                  ? "bg-accent text-on-accent"
                   : "border border-line bg-surface text-muted hover:border-accent hover:text-accent"
               )}
             >

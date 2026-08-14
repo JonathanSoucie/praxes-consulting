@@ -12,12 +12,16 @@ import { Reveal } from "@/components/reveal";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { NeuralField } from "@/components/sections/neural-field";
 
+import { JsonLd } from "@/components/json-ld";
+
 import {
   caseStudies,
   getCaseStudy,
   getRelatedCaseStudies,
 } from "@/content/case-studies";
 import { features } from "@/content/site";
+import { articleSchema, breadcrumbSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -40,16 +44,12 @@ export async function generateMetadata({
     return { title: "Case study not found", robots: { index: false } };
   }
 
-  return {
+  return pageMetadata({
     title: `${study.client} — ${study.headline}`,
     description: study.summary,
-    alternates: { canonical: `/case-studies/${study.slug}` },
-    openGraph: {
-      title: `${study.client} — ${study.headline}`,
-      description: study.summary,
-      type: "article",
-    },
-  };
+    path: `/case-studies/${study.slug}`,
+    type: "article",
+  });
 }
 
 export default async function CaseStudyPage({ params }: PageProps) {
@@ -64,6 +64,21 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   return (
     <>
+      <JsonLd
+        schema={[
+          articleSchema({
+            headline: `${study.client} — ${study.headline}`,
+            description: study.summary,
+            path: `/case-studies/${study.slug}`,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Case Studies", path: "/case-studies" },
+            { name: study.client, path: `/case-studies/${study.slug}` },
+          ]),
+        ]}
+      />
+
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                              */}
       {/* ---------------------------------------------------------------- */}

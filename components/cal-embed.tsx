@@ -12,6 +12,7 @@ import {
   calNamespace,
 } from "@/lib/booking";
 import { Button } from "@/components/ui/button";
+import { useResolvedTheme } from "@/lib/use-resolved-theme";
 
 /**
  * Inline booking widget for the Contact page.
@@ -33,26 +34,28 @@ export function BookingEmbed() {
 }
 
 function CalInline() {
+  // Follow the site's theme rather than Cal's own default, which tracks the OS
+  // and so ignores the toggle.
+  const theme = useResolvedTheme();
+
   React.useEffect(() => {
     (async () => {
       try {
         const cal = await getCalApi({ namespace: calNamespace });
         cal("ui", {
-          // Pin to light. Cal otherwise follows the visitor's OS preference
-          // and renders a dark calendar inside our light page.
-          theme: "light",
+          theme,
           hideEventTypeDetails: false,
           layout: "month_view",
           cssVarsPerTheme: {
             light: { "cal-brand": "#d6146e" },
-            dark: { "cal-brand": "#d6146e" },
+            dark: { "cal-brand": "#ff4fa3" },
           },
         });
       } catch {
         // Non-fatal: the static fallback link below remains available.
       }
     })();
-  }, []);
+  }, [theme]);
 
   return (
     <div className="card-raise overflow-hidden rounded-2xl bg-surface p-2">
@@ -62,8 +65,8 @@ function CalInline() {
         style={{ width: "100%", height: "100%", overflow: "scroll" }}
         // theme must be set on the embed config, not only via cal("ui") —
         // the ui call alone loses the race with the iframe's first paint and
-        // the calendar renders dark inside our light page.
-        config={{ layout: "month_view", theme: "light" }}
+        // the calendar renders with the wrong palette inside our page.
+        config={{ layout: "month_view", theme }}
       />
       <noscript>
         <p className="p-6 text-sm text-muted">

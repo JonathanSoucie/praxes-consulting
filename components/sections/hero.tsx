@@ -23,10 +23,10 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={60}>
-            <h1 className="mt-6 text-4xl leading-[1.08] text-ink sm:text-5xl lg:text-6xl lg:leading-[1.05]">
-              Identifying where AI automation
-              <span className="text-gradient animate-gradient-shift block">
-                creates measurable return.
+            <h1 className="mt-6 text-6xl leading-[1.02] text-ink sm:text-7xl lg:text-8xl lg:leading-[0.98]">
+              We sell{" "}
+              <span className="text-gradient animate-gradient-shift">
+                Time
               </span>
             </h1>
           </Reveal>

@@ -5,6 +5,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { site } from "@/content/site";
+import { siteKeywords } from "@/lib/seo";
+import { themeInitScript } from "@/lib/theme";
 
 import "./globals.css";
 
@@ -39,6 +41,14 @@ export const metadata: Metadata = {
   },
   description: site.description,
   applicationName: site.name,
+  keywords: [...siteKeywords],
+  authors: [{ name: site.legalName, url: site.url }],
+  creator: site.legalName,
+  publisher: site.legalName,
+  category: "Business Consulting",
+  // Stops iOS Safari turning bare numbers in body copy into tel: links, which
+  // it styles itself and which breaks the type colour.
+  formatDetection: { telephone: false, address: false, email: false },
   openGraph: {
     type: "website",
     siteName: site.name,
@@ -52,11 +62,28 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      // Let Google use full-length snippets, large image previews and full
+      // video previews rather than its conservative defaults.
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  // Matches --color-surface-2 in each theme, so the mobile browser chrome
+  // blends with the page instead of staying white behind a dark site.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f5fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0d18" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -68,7 +95,17 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${jakarta.variable} ${jetBrainsMono.variable}`}
+      // The init script below writes data-theme onto this element before React
+      // hydrates, so the server HTML and the live DOM legitimately differ here.
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          // Must run before first paint to avoid a flash of the wrong theme,
+          // which rules out next/script — see lib/theme.ts.
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
+      </head>
       <body className="min-h-screen bg-surface-2 antialiased">
         <a
           href="#main"

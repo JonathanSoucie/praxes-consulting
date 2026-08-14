@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 
 import { LegalPage, LegalSection } from "@/components/sections/legal-page";
 import { site } from "@/content/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description: `How ${site.legalName} collects, uses and protects personal data submitted through this website.`,
-  alternates: { canonical: "/privacy" },
-  robots: { index: true, follow: false },
-};
+  path: "/privacy",
+  // follow: true — these pages link back into the site, and blocking that
+  // discards internal link signal for no benefit.
+  robots: { index: true, follow: true },
+});
 
 export default function PrivacyPage() {
   return (

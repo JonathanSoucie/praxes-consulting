@@ -16,18 +16,28 @@ import {
   getCaseStudyIndustries,
   getFeaturedCaseStudy,
 } from "@/content/case-studies";
+import { JsonLd } from "@/components/json-ld";
+
 import { caseStudyAggregate } from "@/content/stats";
 import { testimonials } from "@/content/testimonials";
 import { features } from "@/content/site";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Case Studies",
+export const metadata: Metadata = pageMetadata({
+  title: "AI Automation Case Studies",
   description:
     "Measured outcomes from AI engagements across accounting, hospitality, logistics, healthcare and property — including the audit that recommended not building.",
-  alternates: { canonical: "/case-studies" },
+  path: "/case-studies",
+  keywords: [
+    "AI case studies",
+    "AI automation results",
+    "AI ROI examples",
+    "business automation case study",
+  ],
   // Hidden for now — don't let search engines index it while it's off.
   robots: features.caseStudies ? undefined : { index: false, follow: false },
-};
+});
 
 export default function CaseStudiesPage() {
   // Hidden until there are real engagements to publish. See content/site.ts.
@@ -38,6 +48,22 @@ export default function CaseStudiesPage() {
 
   return (
     <>
+      <JsonLd
+        schema={[
+          webPageSchema({
+            type: "CollectionPage",
+            name: "AI Automation Case Studies",
+            description:
+              "Measured outcomes from Praxes AI engagements, each stated against its original baseline.",
+            path: "/case-studies",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Case Studies", path: "/case-studies" },
+          ]),
+        ]}
+      />
+
       <PageHeader
         eyebrow="Case Studies"
         title="What the measurement actually showed."

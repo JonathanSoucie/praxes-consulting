@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
@@ -6,6 +7,12 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { BookACall } from "@/components/book-a-call";
 import { NeuralField } from "@/components/sections/neural-field";
 import { nav } from "@/content/site";
+
+/* Next emits the noindex directive for this route itself — repeating it here
+   only produces a second, duplicate robots tag. Title only. */
+export const metadata: Metadata = {
+  title: "Page not found",
+};
 
 export default function NotFound() {
   return (

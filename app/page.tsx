@@ -16,48 +16,48 @@ import { ServiceIcon } from "@/components/icon";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 
+import { JsonLd } from "@/components/json-ld";
+
 import { getFeaturedCaseStudy } from "@/content/case-studies";
 import { generalFaqs } from "@/content/faqs";
 import { industries, services } from "@/content/services";
 import { features, site } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
+import {
+  faqPageSchema,
+  organizationSchema,
+  websiteSchema,
+} from "@/lib/schema";
+import { ogImage, pageMetadata, siteKeywords } from "@/lib/seo";
+
+/* Home leads with the brand rather than taking the "— Praxes" suffix, so its
+   titles are set absolutely instead of going through the shared helper. */
+const homeTitle = `${site.name} — ${site.tagline}`;
 
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.tagline}`,
-  description: site.description,
-  alternates: { canonical: "/" },
-};
-
-/** Organization schema — helps search engines resolve the firm as an entity. */
-function OrganizationJsonLd() {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: site.legalName,
-    alternateName: site.name,
-    url: site.url,
-    email: site.email,
-    telephone: site.phone,
+  ...pageMetadata({
+    title: site.tagline,
     description: site.description,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: site.address.locality,
-      addressRegion: site.address.region,
-      addressCountry: site.address.country,
-    },
-    sameAs: [site.social.linkedin],
-    areaServed: industries.map((industry) => industry.name),
-    knowsAbout: services.map((service) => service.title),
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      // Static, author-controlled content — no user input reaches this string.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
+    path: "",
+    keywords: siteKeywords,
+  }),
+  title: { absolute: homeTitle },
+  openGraph: {
+    type: "website",
+    url: site.url,
+    siteName: site.name,
+    locale: "en_US",
+    title: homeTitle,
+    description: site.description,
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: homeTitle,
+    description: site.description,
+    images: [ogImage],
+  },
+};
 
 const problems = [
   {
@@ -119,7 +119,14 @@ export default function HomePage() {
 
   return (
     <>
-      <OrganizationJsonLd />
+      <JsonLd
+        schema={[
+          organizationSchema(),
+          websiteSchema(),
+          // Valid because <FaqList> below renders these exact items.
+          faqPageSchema(generalFaqs),
+        ]}
+      />
       <Hero />
       <TrustBar />
 
@@ -183,7 +190,7 @@ export default function HomePage() {
                 delay={i * 70}
                 className="card-raise hover-lift rounded-2xl bg-surface p-8"
               >
-                <span className="grid size-10 place-items-center rounded-full bg-accent text-sm font-semibold text-white">
+                <span className="grid size-10 place-items-center rounded-full bg-accent text-sm font-semibold text-on-accent">
                   {item.n}
                 </span>
                 <h3 className="mt-6 text-xl sm:text-2xl">{item.title}</h3>
@@ -228,7 +235,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Services"
-            title="What we build, once we know what's actually in the way."
+            title="What we build with AI, once we know what's actually in the way."
           />
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -314,7 +321,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Industries"
-            title="Where we work."
+            title="Industries we work in."
             deck="Mixed verticals, one common shape: an established business with a repetitive, high-volume process that has never been properly costed."
           />
 
@@ -355,7 +362,7 @@ export default function HomePage() {
                 className="hover-lift flex gap-5 rounded-xl bg-surface-2 p-8"
               >
                 <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-accent">
-                  <Check aria-hidden className="size-4 text-white" />
+                  <Check aria-hidden className="size-4 text-on-accent" />
                 </span>
                 <div>
                   <h3 className="text-lg">{item.title}</h3>

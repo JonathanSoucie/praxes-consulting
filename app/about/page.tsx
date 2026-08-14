@@ -6,20 +6,48 @@ import { PageHeader } from "@/components/sections/page-header";
 import { SectionHeading } from "@/components/section-heading";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
+import { ProseLink } from "@/components/ui/prose-link";
+
+import { JsonLd } from "@/components/json-ld";
 
 import { team, values } from "@/content/team";
 import { site } from "@/content/site";
+import { breadcrumbSchema, personSchema, webPageSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata: Metadata = pageMetadata({
+  title: "About Our AI Consulting Team",
   description:
     "Praxes is an AI consulting firm for Canadian small and mid-sized businesses, built around one commitment: measure the business honestly, and say so when AI isn't the answer. Meet the team and how we think.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+  keywords: [
+    "AI consulting firm Canada",
+    "AI consultants Ottawa",
+    "about Praxes",
+    "AI consulting team",
+  ],
+});
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        schema={[
+          webPageSchema({
+            type: "AboutPage",
+            name: "About Our AI Consulting Team",
+            description:
+              "Who Praxes is, how the firm thinks, and the three people who do the work.",
+            path: "/about",
+          }),
+          ...team.map(personSchema),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+          ]),
+        ]}
+      />
+
       <PageHeader
         eyebrow="About"
         title="Built to give Canadian businesses a straight answer on AI."
@@ -63,11 +91,14 @@ export default function AboutPage() {
                 got lucky. Most quietly stopped using what they bought.
               </p>
               <p className="text-base leading-relaxed text-muted">
-                Praxes exists to close that gap. We bring the same method to a
+                Praxes exists to close that gap. We bring{" "}
+                <ProseLink href="/process">the same method</ProseLink> to a
                 twenty-person practice that a bank would expect for a
-                seven-figure programme: find the constraint, price it, build
-                only what the numbers justify, then re-measure and report what
-                actually happened. It is not a novel idea. It is ordinary
+                seven-figure programme: find the constraint, price it,{" "}
+                <ProseLink href="/services">
+                  build only what the numbers justify
+                </ProseLink>
+                , then re-measure and report what actually happened. It is not a novel idea. It is ordinary
                 engineering discipline applied to a field that currently runs on
                 enthusiasm — and applied for businesses that have rarely been
                 offered it.

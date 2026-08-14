@@ -13,18 +13,34 @@ import { NeuralField } from "@/components/sections/neural-field";
 import { ServiceIcon } from "@/components/icon";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
+import { ProseLink } from "@/components/ui/prose-link";
+
+import { JsonLd } from "@/components/json-ld";
 
 import { getFeaturedCaseStudy } from "@/content/case-studies";
 import { headlineStats } from "@/content/stats";
 import { services } from "@/content/services";
 import { features } from "@/content/site";
+import {
+  breadcrumbSchema,
+  serviceListSchema,
+  webPageSchema,
+} from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Services",
+export const metadata: Metadata = pageMetadata({
+  title: "AI Automation Services",
   description:
-    "We start from your bottleneck, not from a product. Document intake, client communication, knowledge retrieval, reporting and workflow integration — each with a measured baseline and a proven return.",
-  alternates: { canonical: "/services" },
-};
+    "AI automation services for Canadian businesses. We start from your bottleneck, not from a product: document intake, client communication, knowledge retrieval, reporting and workflow integration — each with a measured baseline and a proven return.",
+  path: "/services",
+  keywords: [
+    "AI automation services",
+    "AI bottleneck audit",
+    "document processing automation",
+    "workflow automation consulting",
+    "AI ROI analysis",
+  ],
+});
 
 /** The differentiator section — this gets the most weight on the page. */
 const measurement = [
@@ -55,10 +71,34 @@ export default function ServicesPage() {
 
   return (
     <>
+      <JsonLd
+        schema={[
+          webPageSchema({
+            type: "CollectionPage",
+            name: "AI Automation Services",
+            description:
+              "AI automation services for Canadian small and mid-sized businesses, each scoped from a measured bottleneck.",
+            path: "/services",
+          }),
+          serviceListSchema(services),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+          ]),
+        ]}
+      />
+
       <PageHeader
         eyebrow="Services"
         title="We don't sell a product. We start from what's in your way."
-        deck="Every engagement below begins the same way: measure the process, price the waste, then build only what the numbers justify. The service categories are what that build usually turns out to be."
+        deck={
+          <>
+            Every engagement below begins the same way:{" "}
+            <ProseLink href="/process">measure the process</ProseLink>, price
+            the waste, then build only what the numbers justify. The service
+            categories are what that build usually turns out to be.
+          </>
+        }
       />
 
       {/* ---------------------------------------------------------------- */}
@@ -81,7 +121,7 @@ export default function ServicesPage() {
               </p>
               <p className="text-base leading-relaxed text-muted">
                 We start from the constraint. Which process, measured in hours
-                and euros, is actually costing you the most? What would removing
+                and dollars, is actually costing you the most? What would removing
                 it be worth? Only once that has a number do we decide what to
                 build — and sometimes the answer is that nothing should be
                 built, which is a legitimate outcome of the work.
@@ -178,7 +218,7 @@ export default function ServicesPage() {
                 delay={i * 60}
                 className="card-raise rounded-2xl bg-surface p-8 lg:p-9"
               >
-                <span className="grid size-10 place-items-center rounded-full bg-accent text-sm font-semibold text-white">
+                <span className="grid size-10 place-items-center rounded-full bg-accent text-sm font-semibold text-on-accent">
                   {item.n}
                 </span>
                 <h3 className="mt-5 text-xl">{item.title}</h3>

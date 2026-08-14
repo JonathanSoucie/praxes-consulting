@@ -10,14 +10,25 @@ import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
 import { BookACall, BookingNote } from "@/components/book-a-call";
 
-import { processFaqs } from "@/content/faqs";
+import { JsonLd } from "@/components/json-ld";
 
-export const metadata: Metadata = {
-  title: "Process",
+import { processFaqs } from "@/content/faqs";
+import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Our AI Consulting Process",
   description:
     "Five steps from a free 15-minute discovery call to a measured go-live: discovery, deep-dive analysis, a paid ROI audit, build and integration, then go-live with measurement against the original baseline.",
-  alternates: { canonical: "/process" },
-};
+  path: "/process",
+  keywords: [
+    "AI consulting process",
+    "AI audit",
+    "AI implementation steps",
+    "AI discovery call",
+    "AI ROI audit",
+  ],
+});
 
 /**
  * What the engagement asks of the client. Sits under the steps to answer the
@@ -50,6 +61,24 @@ const clientInputs = [
 export default function ProcessPage() {
   return (
     <>
+      <JsonLd
+        schema={[
+          webPageSchema({
+            type: "WebPage",
+            name: "Our AI Consulting Process",
+            description:
+              "The five-step Praxes engagement, from free discovery call to measured go-live.",
+            path: "/process",
+          }),
+          // Valid because <FaqList> below renders these exact items.
+          faqPageSchema(processFaqs),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Process", path: "/process" },
+          ]),
+        ]}
+      />
+
       <PageHeader
         eyebrow="Process"
         title="A sequence designed so you can stop at any point."

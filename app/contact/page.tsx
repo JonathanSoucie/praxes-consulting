@@ -9,15 +9,25 @@ import { ContactForm } from "@/components/contact-form";
 import { FaqList } from "@/components/sections/faq";
 import { Reveal } from "@/components/reveal";
 
+import { JsonLd } from "@/components/json-ld";
+
 import { contactFaqs } from "@/content/faqs";
 import { site } from "@/content/site";
+import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact",
+export const metadata: Metadata = pageMetadata({
+  title: "Book a Free AI Consultation",
   description:
-    "Book your free 15-minute discovery call with Praxes, or send us a message. We reply to everything within one business day.",
-  alternates: { canonical: "/contact" },
-};
+    "Book your free 15-minute AI discovery call with Praxes, or send us a message. We reply to everything within one business day.",
+  path: "/contact",
+  keywords: [
+    "AI consultation",
+    "free AI discovery call",
+    "AI consultant Ottawa",
+    "contact AI consultant",
+  ],
+});
 
 const expectations = [
   {
@@ -40,6 +50,24 @@ const expectations = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        schema={[
+          webPageSchema({
+            type: "ContactPage",
+            name: "Book a Free AI Consultation",
+            description:
+              "Book a free 15-minute AI discovery call with Praxes, or send a message.",
+            path: "/contact",
+          }),
+          // Valid because <FaqList> below renders these exact items.
+          faqPageSchema(contactFaqs),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ]),
+        ]}
+      />
+
       <PageHeader
         eyebrow="Contact"
         title="Book your free 15-minute discovery call."
