@@ -65,6 +65,31 @@
   --thumb-face: var(--t-light, #ffffff) var(--t-dark, #f5f5f2);
 }
 
+/* Theme change: cross-fade, don't cut.
+
+   Flipping `data-theme` repaints every token on the same frame, which on a
+   full page is an abrupt full-field brightness jump — the one thing to avoid
+   even for visitors who have not asked for reduced motion. Easing it over a
+   quarter second reads as the lights changing rather than a cut.
+
+   The attribute is set by components/theme-toggle.tsx for the length of the
+   transition only, so this never applies during normal interaction (where a
+   blanket colour transition on `*` would smear every hover). It is kept under
+   reduced motion on purpose: a colour cross-fade is not vestibular, and the
+   hard cut is the thing that actually hurts. */
+:root[data-theme-shifting],
+:root[data-theme-shifting] *,
+:root[data-theme-shifting] *::before,
+:root[data-theme-shifting] *::after {
+  transition:
+    background-color 260ms var(--ease-out-soft),
+    border-color 260ms var(--ease-out-soft),
+    color 260ms var(--ease-out-soft),
+    fill 260ms var(--ease-out-soft),
+    stroke 260ms var(--ease-out-soft),
+    box-shadow 260ms var(--ease-out-soft) !important;
+}
+
 /* Theme-toggle icon swap.
 
    Both icons are always in the DOM and CSS picks the visible one, so the
@@ -172,6 +197,33 @@
   --radius-xl: 22px;
   --radius-2xl: 28px;
 
+  /* --- Tracking --------------------------------------------------------- */
+  /* Tracking is a function of size, never one value for the whole page. As
+     type grows the counters and sidebearings grow with it, so large text
+     reads *too loose* at the tracking that suits body copy; small text reads
+     too tight at the tracking that suits a headline. Attaching the value to
+     the size utility means every `text-*` class carries the right one and no
+     component has to remember.
+
+     The ramp is deliberately gentler than it would be for a geometric sans:
+     the display face here is Playfair, a high-contrast serif that already
+     sets tight, and squeezing it collides the serifs (which is what the
+     earlier flat -0.022em got wrong). Body sizes take a small *positive*
+     value, which is what keeps small text legible. */
+  --text-xs--letter-spacing: 0.01em;
+  --text-sm--letter-spacing: 0.006em;
+  --text-base--letter-spacing: 0em;
+  --text-lg--letter-spacing: -0.003em;
+  --text-xl--letter-spacing: -0.006em;
+  --text-2xl--letter-spacing: -0.009em;
+  --text-3xl--letter-spacing: -0.011em;
+  --text-4xl--letter-spacing: -0.013em;
+  --text-5xl--letter-spacing: -0.015em;
+  --text-6xl--letter-spacing: -0.017em;
+  --text-7xl--letter-spacing: -0.019em;
+  --text-8xl--letter-spacing: -0.021em;
+  --text-9xl--letter-spacing: -0.022em;
+
   /* --- Motion ----------------------------------------------------------- */
   --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
 
@@ -253,10 +305,11 @@
     font-family: var(--font-display);
     color: var(--color-ink);
     /* 600 on the Playfair variable axis: enough stroke contrast to carry the
-       display role without the 700+ weights' heavy blacks. The old -0.022em
-       tracking was tuned for a geometric sans — a high-contrast serif sets
-       tight already, and squeezing it collides the serifs. */
+       display role without the 700+ weights' heavy blacks. */
     font-weight: 600;
+    /* Fallback only, for a heading that carries no `text-*` size utility.
+       Anything sized explicitly gets the size-matched value from the tracking
+       ramp in @theme, which takes precedence over this. */
     letter-spacing: -0.008em;
     text-wrap: balance;
   }
@@ -272,6 +325,14 @@
     color: var(--color-ink);
   }
 
+  /* Reduced motion is not "no feedback" — it is feedback with the vestibular
+     part removed. The blunt version of this block (transition-duration:
+     0.001ms on everything) also killed the colour and opacity changes that
+     tell you a press registered or a panel opened, which is a real loss of
+     comprehension, not a kindness.
+
+     So: looping and travelling animations stop, positional transforms
+     collapse, and everything else cross-fades instead. */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -282,8 +343,53 @@
     *::after {
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
+      /* Transform is absent from this list on purpose: a transform still
+         *applies*, it just arrives instantly rather than sliding. Nothing on
+         this site positions itself with transform (checked), so the only
+         casualties are decorative rises and lifts. */
+      transition-property: opacity, color, background-color, border-color,
+        box-shadow, fill, stroke !important;
+      transition-duration: 160ms !important;
     }
+
+    /* The decorative travel itself, neutralised at the source. */
+    .hover-lift:hover {
+      transform: none !important;
+    }
+  }
+
+  /* Frosted chrome depends on a blur that some people have switched off. Make
+     those surfaces solid rather than leaving translucent-but-unblurred fill,
+     which is the one combination that is genuinely hard to read. */
+  @media (prefers-reduced-transparency: reduce) {
+    .supports-frost {
+      background-color: var(--color-surface) !important;
+      backdrop-filter: none !important;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .supports-frost {
+      background-color: var(--color-surface) !important;
+      backdrop-filter: none !important;
+      border-color: var(--color-line-strong) !important;
+    }
+
+    :focus-visible {
+      outline-width: 3px;
+    }
+  }
+
+  /* Kill the ~300ms tap delay on everything that can be pressed. Response is
+     the foundation the rest of the motion work sits on — a third of a second
+     of nothing undoes all of it. */
+  a,
+  button,
+  label,
+  summary,
+  [role="button"],
+  input[type="range"] {
+    touch-action: manipulation;
   }
 }
 
@@ -420,6 +526,36 @@
     height: 6px;
     border-radius: 999px;
     background: transparent;
+  }
+}
+
+/* Scroll edge, not a divider.
+
+   Where content passes beneath floating chrome, a 1px rule drawn across the
+   whole page announces "there is a bar here" as a piece of structure. Fading
+   the bar's own material down into the content instead says the same thing
+   as a property of the material, and only where the overlap actually is.
+
+   Hidden by default; the navbar raises it once content is behind the bar. */
+@utility scroll-edge {
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    height: 1.5rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms var(--ease-out-soft);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-surface) 70%, transparent),
+      transparent
+    );
+  }
+
+  &[data-scrolled]::after {
+    opacity: 1;
   }
 }
 

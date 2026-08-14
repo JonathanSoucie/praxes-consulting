@@ -32,7 +32,7 @@ function AccordionTrigger({
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
         className={cn(
-          "group flex flex-1 items-start justify-between gap-6 px-6 py-5 text-left font-display text-base font-medium text-ink transition-colors hover:text-accent sm:text-lg",
+          "group flex flex-1 items-start justify-between gap-6 px-6 py-5 text-left font-display text-base font-medium text-ink transition-colors duration-150 hover:text-accent active:bg-accent-soft/40 active:text-accent sm:text-lg",
           className
         )}
         {...props}
@@ -40,7 +40,7 @@ function AccordionTrigger({
         {children}
         <span
           aria-hidden
-          className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-accent-soft transition-transform duration-200 group-data-[state=open]:rotate-45"
+          className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-accent-soft transition-transform duration-200 ease-out-soft group-active:scale-90 group-data-[state=open]:rotate-45"
         >
           <Plus className="size-3.5 text-accent-ink" />
         </span>

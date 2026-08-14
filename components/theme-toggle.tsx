@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -18,7 +19,19 @@ import { THEME_STORAGE_KEY } from "@/lib/theme";
  * Until someone presses this, no `data-theme` is set and the site simply
  * follows the OS.
  */
+/** Must outlast the 260ms transition in globals.css. */
+const SHIFT_MS = 320;
+
 export function ThemeToggle({ className }: { className?: string }) {
+  const shiftTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(
+    () => () => {
+      if (shiftTimer.current) clearTimeout(shiftTimer.current);
+    },
+    []
+  );
+
   const toggle = () => {
     const root = document.documentElement;
     // Read the live value rather than a cached one: the visitor may have
@@ -29,6 +42,16 @@ export function ThemeToggle({ className }: { className?: string }) {
         ? "dark"
         : "light");
     const next = current === "dark" ? "light" : "dark";
+
+    // Arm the cross-fade before the repaint that changes the palette, and
+    // disarm it once the fade is done — a permanent colour transition on `*`
+    // would smear every hover on the page.
+    root.dataset.themeShifting = "";
+    if (shiftTimer.current) clearTimeout(shiftTimer.current);
+    shiftTimer.current = setTimeout(() => {
+      delete root.dataset.themeShifting;
+      shiftTimer.current = null;
+    }, SHIFT_MS);
 
     root.dataset.theme = next;
 
@@ -50,7 +73,10 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label="Toggle light or dark theme"
       title="Toggle light or dark theme"
       className={cn(
-        "inline-flex size-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-accent-soft hover:text-accent-ink",
+        // The press state is not decoration: on touch there is no hover at
+        // all, so without `active:` this button gives no acknowledgement
+        // whatsoever between the tap and the palette changing.
+        "inline-flex size-10 items-center justify-center rounded-full text-muted transition-[background-color,color,transform] duration-150 ease-out-soft hover:bg-accent-soft hover:text-accent-ink active:scale-90 active:bg-accent-soft active:text-accent-ink",
         className
       )}
     >

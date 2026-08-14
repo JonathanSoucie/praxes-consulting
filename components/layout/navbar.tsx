@@ -43,12 +43,11 @@ export function Navbar() {
 
   return (
     <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 bg-surface/85 backdrop-blur-md transition-[border-color,box-shadow] duration-300",
-        scrolled || open
-          ? "border-b border-line shadow-[0_1px_0_rgba(4,12,36,0.02)]"
-          : "border-b border-transparent"
-      )}
+      // `supports-frost` is the hook for the reduced-transparency and
+      // increased-contrast rules in globals.css, which make this bar solid
+      // for anyone who has asked for that.
+      data-scrolled={scrolled || open ? "" : undefined}
+      className="supports-frost scroll-edge fixed inset-x-0 top-0 z-50 bg-surface/85 backdrop-blur-md"
     >
       <Container>
         <div className="flex h-18 items-center justify-between gap-8">
@@ -62,10 +61,10 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "rounded-full px-3.5 py-2 text-sm transition-colors",
+                      "rounded-full px-3.5 py-2 text-sm transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.97]",
                       isActive(item.href)
                         ? "bg-accent-soft text-accent-ink"
-                        : "text-muted hover:text-ink"
+                        : "text-muted hover:bg-accent-soft/60 hover:text-ink active:bg-accent-soft active:text-accent-ink"
                     )}
                   >
                     {item.label}
@@ -84,7 +83,7 @@ export function Navbar() {
               aria-expanded={open}
               aria-controls="mobile-nav"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="-mr-2 inline-flex size-10 items-center justify-center rounded-full text-ink lg:hidden"
+              className="-mr-2 inline-flex size-10 items-center justify-center rounded-full text-ink transition-[background-color,transform] duration-150 ease-out-soft active:scale-90 active:bg-accent-soft lg:hidden"
             >
               {open ? (
                 <X aria-hidden className="size-5" />
@@ -96,33 +95,49 @@ export function Navbar() {
         </div>
       </Container>
 
-      {/* Mobile sheet */}
+      {/* Mobile sheet.
+
+          Opens and closes along the same path — it grows down out of the bar
+          it belongs to and retracts back into it, rather than being switched
+          out of existence with `hidden`. The grid-rows 0fr/1fr pair is what
+          makes that animatable without hard-coding a height that would be
+          wrong the moment a nav item is added.
+
+          It stays in the DOM and uses `inert` while closed, so it is properly
+          removed from the tab order and the accessibility tree without
+          costing the transition. And it carries the header's own material
+          instead of an opaque fill, because it is the same surface. */}
       <div
         id="mobile-nav"
-        hidden={!open}
-        className="border-t border-line bg-surface lg:hidden"
+        inert={!open}
+        className={cn(
+          "supports-frost grid overflow-hidden bg-surface/85 backdrop-blur-md transition-[grid-template-rows,opacity] duration-300 ease-out-soft lg:hidden",
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        )}
       >
-        <Container className="py-5">
-          <ul className="space-y-1">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  className={cn(
-                    "flex items-center rounded-lg px-4 py-3.5 font-display text-lg font-medium transition-colors",
-                    isActive(item.href)
-                      ? "bg-accent-soft text-accent-ink"
-                      : "text-ink hover:bg-surface-2"
-                  )}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <BookACall size="lg" className="mt-4 w-full" withArrow />
-        </Container>
+        <div className="min-h-0">
+          <Container className="py-5">
+            <ul className="space-y-1">
+              {nav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className={cn(
+                      "flex items-center rounded-lg px-4 py-3.5 font-display text-lg font-medium transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.99]",
+                      isActive(item.href)
+                        ? "bg-accent-soft text-accent-ink"
+                        : "text-ink hover:bg-surface-2 active:bg-accent-soft active:text-accent-ink"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <BookACall size="lg" className="mt-4 w-full" withArrow />
+          </Container>
+        </div>
       </div>
     </header>
   );
