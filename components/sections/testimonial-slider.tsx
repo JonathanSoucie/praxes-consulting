@@ -323,7 +323,7 @@ function SliderButton({
       onClick={onClick}
       aria-label={label}
       className={cn(
-        "inline-flex size-10 items-center justify-center rounded-full border transition-[background-color,border-color,color,transform] duration-150 ease-out-soft active:scale-90",
+        "inline-flex size-10 items-center justify-center rounded-sm border transition-[background-color,border-color,color,transform] duration-150 ease-out-soft active:scale-90",
         inverse
           ? "border-white/25 text-white hover:bg-white/15 active:bg-white/25"
           : "border-line-strong text-ink hover:border-accent hover:text-accent active:bg-accent-soft active:text-accent-ink",

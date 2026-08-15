@@ -76,7 +76,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         // The press state is not decoration: on touch there is no hover at
         // all, so without `active:` this button gives no acknowledgement
         // whatsoever between the tap and the palette changing.
-        "inline-flex size-10 items-center justify-center rounded-full text-muted transition-[background-color,color,transform] duration-150 ease-out-soft hover:bg-accent-soft hover:text-accent-ink active:scale-90 active:bg-accent-soft active:text-accent-ink",
+        "inline-flex size-10 items-center justify-center rounded-sm text-muted transition-[background-color,color,transform] duration-150 ease-out-soft hover:bg-accent-soft hover:text-accent-ink active:scale-90 active:bg-accent-soft active:text-accent-ink",
         className,
       )}
     >
