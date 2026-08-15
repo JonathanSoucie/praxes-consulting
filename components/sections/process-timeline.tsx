@@ -27,13 +27,11 @@ export function ProcessTimeline({
             delay={i * 60}
             className="card-raise flex h-full flex-col rounded-xl bg-surface p-7"
           >
-            <span className="grid size-9 place-items-center rounded-full bg-accent-soft">
-              <span className="figure-num text-sm text-accent-ink">
-                {step.n}
-              </span>
+            <span className="label-tech text-muted">
+              <span>{step.n}</span>
             </span>
 
-            <h3 className="mt-5 text-lg">{step.title}</h3>
+            <h3 className="card-title mt-5 text-lg">{step.title}</h3>
             {step.tag ? (
               <p className="mt-1 text-xs text-accent">{step.tag}</p>
             ) : null}
@@ -68,7 +66,7 @@ export function ProcessTimeline({
 
             <div>
               <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                <h3 className="text-xl sm:text-2xl">
+                <h3 className="card-title text-xl sm:text-2xl">
                   {step.title}
                   {step.tag ? (
                     <span className="ml-3 text-base font-normal text-accent">

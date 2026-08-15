@@ -1,5 +1,4 @@
 import { Container } from "@/components/container";
-import { PageCard } from "@/components/layout/page-card";
 import { PageHeader } from "@/components/sections/page-header";
 
 /**
@@ -36,19 +35,16 @@ export function LegalPage({
           </>
         }
       />
-      <PageCard>
-        <Container className="py-16 sm:py-20">
-          <div className="card-raise mx-auto max-w-3xl space-y-10 rounded-2xl bg-surface p-8 sm:p-12">
-            <div className="rounded-xl bg-accent-soft p-5 text-sm leading-relaxed text-accent-ink">
-              <strong className="text-ink">Template notice.</strong> This
-              document is a starting point, not legal advice. Have it reviewed
-              against your jurisdiction and actual data practices before you
-              rely on it.
-            </div>
-            {children}
+      <Container className="py-16 sm:py-20">
+        <div className="card-raise mx-auto max-w-3xl space-y-10 rounded-2xl bg-surface p-8 sm:p-12">
+          <div className="rounded-xl bg-accent-soft p-5 text-sm leading-relaxed text-accent-ink">
+            <strong className="text-ink">Template notice.</strong> This document
+            is a starting point, not legal advice. Have it reviewed against your
+            jurisdiction and actual data practices before you rely on it.
           </div>
-        </Container>
-      </PageCard>
+          {children}
+        </div>
+      </Container>
     </>
   );
 }

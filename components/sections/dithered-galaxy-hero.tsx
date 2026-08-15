@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
 import { cn } from "@/lib/utils";
 
@@ -10,14 +11,14 @@ import { cn } from "@/lib/utils";
  * The home hero: the dithered galaxy at full height, with the copy in the
  * upper-left negative space the galaxy leaves empty.
  *
- * Everything that draws is in <DitheredGalaxyField>. This file is only the
- * composition — which is the whole reason the field was split out, since the
- * page mastheads now sit on the same background at a different size and with
- * the copy somewhere else entirely.
+ * Laid out to the reference: a bordered label chip, an oversized uppercase
+ * display headline set in the accent and broken deliberately across three
+ * lines, two short paragraphs rather than one, and a filled/outlined pair of
+ * actions. The artwork sits to the right, which is where the galaxy already
+ * is, so the copy and the subject never fight for the same space.
  *
- * Full bleed, on the page colour, with no frame. The field's own ground is
- * that same colour, so there is no edge anywhere: it simply thins out into the
- * page wherever tone falls to level 0.
+ * Everything that draws is in <DitheredGalaxyField>. This file is only the
+ * composition.
  */
 export function DitheredGalaxyHero({ className }: { className?: string }) {
   return (
@@ -28,19 +29,36 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
 
       {/* pt clears the overlaying navbar. */}
       <Container className="relative z-10 flex min-h-svh flex-col justify-center pt-28 pb-32 sm:pt-32 sm:pb-40">
-        <div className="max-w-xl lg:max-w-2xl">
-          {/*
-            The type blends into the field rather than punching a hole in it —
-            multiply on the light theme, screen on the dark, which is its
-            mirror once the polarity flips. See --hero-type-blend.
-          */}
-          <p className="hero-type font-display text-[2.5rem] leading-[0.98] font-semibold text-ink uppercase sm:text-7xl lg:text-8xl">
-            Time or <span className="text-accent-ink">growth</span>?
-          </p>
+        <div className="max-w-xl lg:max-w-3xl">
+          <Eyebrow className="mb-7">Praxes</Eyebrow>
 
-          <h1 className="hero-type mt-7 max-w-lg text-2xl leading-[1.2] font-medium text-ink sm:text-3xl lg:text-4xl">
-            We build the systems that get you there.
+          {/*
+            The headline blends into the field rather than punching a hole in
+            it — multiply on the light theme, screen on the dark, which is its
+            mirror once the polarity flips. See --hero-type-blend.
+
+            Line breaks are authored, not left to the measure: the reference
+            sets three roughly equal lines, and letting this wrap naturally
+            gave a long first line and an orphan.
+          */}
+          <h1 className="hero-type font-display text-[2.75rem] leading-[0.95] font-semibold text-accent uppercase sm:text-6xl lg:text-7xl xl:text-8xl">
+            Find the
+            <br />
+            bottleneck.
+            <br />
+            Prove the return.
           </h1>
+
+          <div className="mt-9 max-w-lg space-y-4">
+            <p className="text-base leading-relaxed text-ink-soft sm:text-lg">
+              The constraint is rarely where the team believes it is.
+            </p>
+            <p className="text-base leading-relaxed text-muted">
+              We measure the process, build only what the numbers justify, and
+              re-measure against the same baseline at 30 and 90 days — so you
+              find out whether it worked, flattering or not.
+            </p>
+          </div>
 
           <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
             <BookACall size="lg" withArrow />

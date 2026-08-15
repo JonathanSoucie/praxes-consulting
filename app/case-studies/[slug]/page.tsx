@@ -11,7 +11,6 @@ import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
-import { PageCard } from "@/components/layout/page-card";
 
 import { JsonLd } from "@/components/json-ld";
 
@@ -110,153 +109,146 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </Reveal>
         </Container>
       </div>
-      <PageCard>
-        {/* ---------------------------------------------------------------- */}
-        {/* Challenge                                                         */}
-        {/* ---------------------------------------------------------------- */}
-        <Section>
-          <Container>
-            <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
-              <SectionHeading
-                align="left"
-                eyebrow="The challenge"
-                title="What they came to us with."
-              />
-              <Reveal delay={60} className="max-w-2xl space-y-5">
-                {study.challenge.map((paragraph) => (
-                  <p
-                    key={paragraph.slice(0, 40)}
-                    className="text-base leading-relaxed text-muted"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </Reveal>
-            </div>
-          </Container>
-        </Section>
-
-        {/* ---------------------------------------------------------------- */}
-        {/* The bottleneck we found                                           */}
-        {/* ---------------------------------------------------------------- */}
-        <Section tone="card">
-          <Container>
-            <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
-              <SectionHeading
-                align="left"
-                eyebrow="The bottleneck"
-                title="What the audit found."
-              />
-              <Reveal delay={60} className="max-w-2xl space-y-5">
-                {study.bottleneck.map((paragraph) => (
-                  <p
-                    key={paragraph.slice(0, 40)}
-                    className="text-base leading-relaxed text-muted"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </Reveal>
-            </div>
-          </Container>
-        </Section>
-
-        {/* ---------------------------------------------------------------- */}
-        {/* What we built                                                     */}
-        {/* ---------------------------------------------------------------- */}
-        <Section>
-          <Container>
+      {/* ---------------------------------------------------------------- */}
+      {/* Challenge                                                         */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
             <SectionHeading
-              eyebrow="What we built"
-              title="The implementation."
+              align="left"
+              eyebrow="The challenge"
+              title="What they came to us with."
             />
-
-            <ol className="mt-16 grid gap-5 sm:grid-cols-2">
-              {study.built.map((item, i) => (
-                <Reveal
-                  as="li"
-                  key={item.title}
-                  delay={i * 60}
-                  className="card-raise rounded-xl bg-surface p-8"
+            <Reveal delay={60} className="max-w-2xl space-y-5">
+              {study.challenge.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className="text-base leading-relaxed text-muted"
                 >
-                  <span className="grid size-9 place-items-center rounded-full bg-accent-soft text-sm font-semibold text-accent-ink">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-5 text-lg">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
-                    {item.detail}
-                  </p>
-                </Reveal>
+                  {paragraph}
+                </p>
               ))}
-            </ol>
+            </Reveal>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* The bottleneck we found                                           */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
+            <SectionHeading
+              align="left"
+              eyebrow="The bottleneck"
+              title="What the audit found."
+            />
+            <Reveal delay={60} className="max-w-2xl space-y-5">
+              {study.bottleneck.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 40)}
+                  className="text-base leading-relaxed text-muted"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </Reveal>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* What we built                                                     */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <SectionHeading eyebrow="What we built" title="The implementation." />
+
+          <ol className="mt-16 grid gap-5 sm:grid-cols-2">
+            {study.built.map((item, i) => (
+              <Reveal
+                as="li"
+                key={item.title}
+                delay={i * 60}
+                className="card-raise rounded-xl bg-surface p-8"
+              >
+                <span className="label-tech text-muted">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="card-title mt-5 text-lg">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {item.detail}
+                </p>
+              </Reveal>
+            ))}
+          </ol>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* The ROI                                                           */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <SectionHeading
+            eyebrow="The return"
+            title="Measured against the audit baseline."
+            deck="Same metrics, same definitions, re-measured 90 days after go-live."
+          />
+
+          <div className="mt-16">
+            <StatsBlock stats={study.results} tone="panel" />
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Client quote                                                      */}
+      {/* ---------------------------------------------------------------- */}
+      {study.quote ? (
+        <Section>
+          <Container>
+            <Reveal className="mx-auto max-w-3xl text-center">
+              <Quote aria-hidden className="mx-auto size-8 text-accent/40" />
+              <blockquote className="mt-7">
+                <p className="font-display text-2xl leading-snug font-medium text-balance text-ink sm:text-3xl sm:leading-[1.36]">
+                  {study.quote.text}
+                </p>
+                <footer className="mt-8">
+                  <cite className="text-sm font-medium not-italic text-ink">
+                    {study.quote.name}
+                  </cite>
+                  <p className="mt-1 text-sm text-muted">{study.quote.title}</p>
+                </footer>
+              </blockquote>
+            </Reveal>
           </Container>
         </Section>
+      ) : null}
 
-        {/* ---------------------------------------------------------------- */}
-        {/* The ROI                                                           */}
-        {/* ---------------------------------------------------------------- */}
-        <Section tone="wash">
+      {/* ---------------------------------------------------------------- */}
+      {/* Related                                                           */}
+      {/* ---------------------------------------------------------------- */}
+      {related.length ? (
+        <Section>
           <Container>
-            <SectionHeading
-              eyebrow="The return"
-              title="Measured against the audit baseline."
-              deck="Same metrics, same definitions, re-measured 90 days after go-live."
-            />
-
-            <div className="mt-16">
-              <StatsBlock stats={study.results} tone="panel" />
+            <SectionHeading eyebrow="Related" title="Other engagements." />
+            <div className="mt-14 grid gap-5 sm:grid-cols-2">
+              {related.map((item) => (
+                <CaseStudyCard key={item.slug} study={item} />
+              ))}
             </div>
           </Container>
         </Section>
+      ) : null}
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Client quote                                                      */}
-        {/* ---------------------------------------------------------------- */}
-        {study.quote ? (
-          <Section tone="card">
-            <Container>
-              <Reveal className="mx-auto max-w-3xl text-center">
-                <Quote aria-hidden className="mx-auto size-8 text-accent/40" />
-                <blockquote className="mt-7">
-                  <p className="font-display text-2xl leading-snug font-medium text-balance text-ink sm:text-3xl sm:leading-[1.36]">
-                    {study.quote.text}
-                  </p>
-                  <footer className="mt-8">
-                    <cite className="text-sm font-medium not-italic text-ink">
-                      {study.quote.name}
-                    </cite>
-                    <p className="mt-1 text-sm text-muted">
-                      {study.quote.title}
-                    </p>
-                  </footer>
-                </blockquote>
-              </Reveal>
-            </Container>
-          </Section>
-        ) : null}
-
-        {/* ---------------------------------------------------------------- */}
-        {/* Related                                                           */}
-        {/* ---------------------------------------------------------------- */}
-        {related.length ? (
-          <Section tone={study.quote ? "default" : "card"}>
-            <Container>
-              <SectionHeading eyebrow="Related" title="Other engagements." />
-              <div className="mt-14 grid gap-5 sm:grid-cols-2">
-                {related.map((item) => (
-                  <CaseStudyCard key={item.slug} study={item} />
-                ))}
-              </div>
-            </Container>
-          </Section>
-        ) : null}
-
-        <CtaSection
-          title="What would your readout say?"
-          body="The only way to know is to measure it. Start with fifteen free minutes and an honest read on whether there's a case here."
-          secondary={{ href: "/case-studies", label: "More case studies" }}
-        />
-      </PageCard>
+      <CtaSection
+        title="What would your readout say?"
+        body="The only way to know is to measure it. Start with fifteen free minutes and an honest read on whether there's a case here."
+        secondary={{ href: "/case-studies", label: "More case studies" }}
+      />
     </>
   );
 }

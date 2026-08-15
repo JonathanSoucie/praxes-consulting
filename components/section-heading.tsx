@@ -38,10 +38,13 @@ export function SectionHeading({
         </Eyebrow>
       ) : null}
 
+      {/* Uppercase display serif in the accent, per the reference layout.
+          --color-accent is the text-safe accent (5.7:1 light / 7.1:1 dark),
+          not --color-accent-bright, which is documented decoration-only. */}
       <h2
         className={cn(
-          "text-3xl leading-[1.14] sm:text-4xl lg:text-[2.875rem] lg:leading-[1.1]",
-          inverse && "text-white",
+          "font-display text-3xl leading-[1.06] uppercase sm:text-4xl lg:text-[2.875rem]",
+          inverse ? "text-white" : "text-accent",
         )}
       >
         {title}

@@ -31,9 +31,7 @@ export function CaseStudyCard({
         />
       </div>
 
-      <h3 className="mt-5 text-xl transition-colors group-hover:text-accent">
-        {study.client}
-      </h3>
+      <h3 className="card-title mt-5 text-xl">{study.client}</h3>
 
       <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
         {study.summary}

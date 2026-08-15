@@ -8,7 +8,11 @@ const buttonVariants = cva(
   // `rounded-sm`, not `rounded-none`: it resolves through the --radius-* scale,
   // which is zeroed site-wide, so buttons are square for the same reason the
   // cards are and go back to rounding with them if that decision is reversed.
-  "inline-flex items-center justify-center gap-2 rounded-sm text-sm font-medium whitespace-nowrap transition-[background-color,color,border-color,box-shadow,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  //
+  // Tracked uppercase mono, matching the reference layout's actions. The size
+  // steps below drop their own font-size for the same reason — at this
+  // tracking a 15px label on the large size overflowed its box.
+  "inline-flex items-center justify-center gap-2 rounded-sm font-mono text-xs tracking-[0.12em] whitespace-nowrap uppercase transition-[background-color,color,border-color,box-shadow,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -32,7 +36,7 @@ const buttonVariants = cva(
       size: {
         sm: "h-9 px-4",
         md: "h-11 px-5",
-        lg: "h-12.5 px-7 text-[0.9375rem]",
+        lg: "h-12.5 px-7 text-[0.8125rem]",
       },
     },
     defaultVariants: {

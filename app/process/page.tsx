@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import { Container, Section } from "@/components/container";
-import { PageCard } from "@/components/layout/page-card";
 import { PageHeader } from "@/components/sections/page-header";
 import { SectionHeading } from "@/components/section-heading";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
@@ -90,90 +89,88 @@ export default function ProcessPage() {
           <BookingNote />
         </div>
       </PageHeader>
-      <PageCard>
-        {/* ---------------------------------------------------------------- */}
-        {/* The five steps                                                    */}
-        {/* ---------------------------------------------------------------- */}
-        <Section>
-          <Container>
-            <SectionHeading
-              eyebrow="The engagement"
-              title="Five stages. Commitment increases only after the case is established."
-              deck="What happens at each stage, what you receive, and how long it typically takes."
-            />
+      {/* ---------------------------------------------------------------- */}
+      {/* The five steps                                                    */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <SectionHeading
+            eyebrow="The engagement"
+            title="Five stages. Commitment increases only after the case is established."
+            deck="What happens at each stage, what you receive, and how long it typically takes."
+          />
 
-            <div className="mt-16">
-              <ProcessTimeline variant="full" />
-            </div>
+          <div className="mt-16">
+            <ProcessTimeline variant="full" />
+          </div>
 
-            <Reveal delay={60} className="mt-6">
-              <EngagementTimeline />
-            </Reveal>
-          </Container>
-        </Section>
+          <Reveal delay={60} className="mt-6">
+            <EngagementTimeline />
+          </Reveal>
+        </Container>
+      </Section>
 
-        {/* ---------------------------------------------------------------- */}
-        {/* What we need from you                                             */}
-        {/* ---------------------------------------------------------------- */}
-        <Section tone="card">
-          <Container>
-            <SectionHeading
-              eyebrow="Your side"
-              title="What we need from you."
-              deck="Not much, and almost all of it lands in the audit week. The most common worry we hear is that this will become another project your team has to carry. It doesn't."
-            />
+      {/* ---------------------------------------------------------------- */}
+      {/* What we need from you                                             */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <SectionHeading
+            eyebrow="Your side"
+            title="What we need from you."
+            deck="Not much, and almost all of it lands in the audit week. The most common worry we hear is that this will become another project your team has to carry. It doesn't."
+          />
 
-            <div className="mt-16 grid gap-5 sm:grid-cols-2">
-              {clientInputs.map((item, i) => (
-                <Reveal
-                  key={item.title}
-                  delay={i * 60}
-                  className="border border-line bg-surface-2 p-8"
-                >
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="text-lg">{item.title}</h3>
-                    <span className="figure-num shrink-0 text-xs text-accent">
-                      {item.cost}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
-                    {item.body}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
+          <div className="mt-16 grid gap-5 sm:grid-cols-2">
+            {clientInputs.map((item, i) => (
+              <Reveal
+                key={item.title}
+                delay={i * 60}
+                className="border border-line bg-surface p-8"
+              >
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="card-title text-lg">{item.title}</h3>
+                  <span className="figure-num shrink-0 text-xs text-accent">
+                    {item.cost}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {item.body}
+                </p>
+              </Reveal>
+            ))}
+          </div>
 
-            <Reveal delay={80}>
-              <p className="mx-auto mt-10 max-w-2xl rounded-2xl bg-accent-soft p-7 text-center text-sm leading-relaxed text-accent-ink">
-                If at any point we need more of your team&apos;s time than this,
-                we&apos;ll tell you before it happens and explain why. Surprise
-                effort is how internal projects lose their sponsor.
-              </p>
-            </Reveal>
-          </Container>
-        </Section>
+          <Reveal delay={80}>
+            <p className="mx-auto mt-10 max-w-2xl rounded-2xl bg-accent-soft p-7 text-center text-sm leading-relaxed text-accent-ink">
+              If at any point we need more of your team&apos;s time than this,
+              we&apos;ll tell you before it happens and explain why. Surprise
+              effort is how internal projects lose their sponsor.
+            </p>
+          </Reveal>
+        </Container>
+      </Section>
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Process FAQ                                                       */}
-        {/* ---------------------------------------------------------------- */}
-        <Section>
-          <Container>
-            <SectionHeading
-              eyebrow="Questions"
-              title="Process questions, answered plainly."
-            />
-            <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
-              <FaqList items={processFaqs} />
-            </Reveal>
-          </Container>
-        </Section>
+      {/* ---------------------------------------------------------------- */}
+      {/* Process FAQ                                                       */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <SectionHeading
+            eyebrow="Questions"
+            title="Process questions, answered plainly."
+          />
+          <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
+            <FaqList items={processFaqs} />
+          </Reveal>
+        </Container>
+      </Section>
 
-        <CtaSection
-          title="Start with the free fifteen minutes."
-          body="No preparation, no deck, no pricing conversation. Just a straight read on whether there's something here worth measuring."
-          secondary={{ href: "/services", label: "What we build" }}
-        />
-      </PageCard>
+      <CtaSection
+        title="Start with the free fifteen minutes."
+        body="No preparation, no deck, no pricing conversation. Just a straight read on whether there's something here worth measuring."
+        secondary={{ href: "/services", label: "What we build" }}
+      />
     </>
   );
 }

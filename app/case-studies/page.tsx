@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Container, Section } from "@/components/container";
-import { PageCard } from "@/components/layout/page-card";
 import { PageHeader } from "@/components/sections/page-header";
 import { SectionHeading } from "@/components/section-heading";
 import { StatsBlock } from "@/components/sections/stats-block";
@@ -70,64 +69,62 @@ export default function CaseStudiesPage() {
         title="What the measurement actually showed."
         deck="Each study states the baseline we started from, what the audit found, what we built, and the re-measured result at 90 days. Including one engagement where the answer was to build nothing."
       />
-      <PageCard>
-        {/* Aggregate stats — lifted into the seam under the header */}
-        <Container className="relative -mt-12 pb-4">
-          <Reveal>
-            <StatsBlock stats={caseStudyAggregate} tone="panel" columns={3} />
+      {/* Aggregate stats — lifted into the seam under the header */}
+      <Container className="relative -mt-12 pb-4">
+        <Reveal>
+          <StatsBlock stats={caseStudyAggregate} tone="panel" columns={3} />
+        </Reveal>
+      </Container>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Filterable grid                                                   */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <SectionHeading eyebrow="All studies" title="Filter by industry." />
+
+          <Reveal className="mt-14">
+            <CaseStudyGrid studies={caseStudies} industries={industries} />
           </Reveal>
         </Container>
+      </Section>
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Filterable grid                                                   */}
-        {/* ---------------------------------------------------------------- */}
+      {/* ---------------------------------------------------------------- */}
+      {/* Featured                                                          */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <SectionHeading
+            eyebrow="Featured"
+            title="The one that changed the brief."
+            deck="The client asked us to build document extraction. The measurement said the extraction was a third of the problem — so we sequenced it last."
+          />
+
+          <Reveal className="mt-16">
+            <FeaturedCaseStudy study={featured} />
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Testimonials — hidden behind features.testimonials               */}
+      {/* ---------------------------------------------------------------- */}
+      {features.testimonials ? (
         <Section>
           <Container>
-            <SectionHeading eyebrow="All studies" title="Filter by industry." />
-
-            <Reveal className="mt-14">
-              <CaseStudyGrid studies={caseStudies} industries={industries} />
+            <SectionHeading eyebrow="Clients" title="In their words." />
+            <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
+              <TestimonialSlider testimonials={testimonials} />
             </Reveal>
           </Container>
         </Section>
+      ) : null}
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Featured                                                          */}
-        {/* ---------------------------------------------------------------- */}
-        <Section tone="card">
-          <Container>
-            <SectionHeading
-              eyebrow="Featured"
-              title="The one that changed the brief."
-              deck="The client asked us to build document extraction. The measurement said the extraction was a third of the problem — so we sequenced it last."
-            />
-
-            <Reveal className="mt-16">
-              <FeaturedCaseStudy study={featured} />
-            </Reveal>
-          </Container>
-        </Section>
-
-        {/* ---------------------------------------------------------------- */}
-        {/* Testimonials — hidden behind features.testimonials               */}
-        {/* ---------------------------------------------------------------- */}
-        {features.testimonials ? (
-          <Section tone="wash">
-            <Container>
-              <SectionHeading eyebrow="Clients" title="In their words." />
-              <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
-                <TestimonialSlider testimonials={testimonials} />
-              </Reveal>
-            </Container>
-          </Section>
-        ) : null}
-
-        <CtaSection
-          title="Curious what your own numbers would look like?"
-          body="The discovery call is fifteen minutes and costs nothing. If there's no case, you'll hear that on the call rather than after an invoice."
-          secondary={{ href: "/process", label: "How the audit works" }}
-        />
-      </PageCard>
+      <CtaSection
+        title="Curious what your own numbers would look like?"
+        body="The discovery call is fifteen minutes and costs nothing. If there's no case, you'll hear that on the call rather than after an invoice."
+        secondary={{ href: "/process", label: "How the audit works" }}
+      />
     </>
   );
 }

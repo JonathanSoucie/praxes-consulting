@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Small label above a section headline: a soft pulsing dot plus tracked
- * uppercase text. No pill background — just an indicator glyph, the same
- * device the reference site uses ahead of its own section labels.
+ * Small label above a headline: a bordered chip carrying a glyph and tracked
+ * uppercase mono, matching the reference layout's section and hero labels.
+ *
+ * Square, hairline, no fill — the same card language as everything else.
  */
 export function Eyebrow({
   children,
@@ -17,26 +18,21 @@ export function Eyebrow({
   return (
     <p
       className={cn(
-        "inline-flex items-center gap-2.5 text-xs font-medium tracking-[0.14em] uppercase",
-        tone === "onDark" ? "text-white/60" : "text-muted",
+        "inline-flex items-center gap-2 border px-2.5 py-1.5 font-mono text-[0.6875rem] tracking-[0.14em] uppercase",
+        tone === "onDark"
+          ? "border-white/25 text-white/70"
+          : "border-line-strong text-accent",
         className,
       )}
     >
-      <span className="relative inline-flex size-1.5 shrink-0">
-        <span
-          aria-hidden
-          className={cn(
-            "absolute inline-flex size-full animate-eyebrow-ping rounded-full",
-            tone === "onDark" ? "bg-white/60" : "bg-accent",
-          )}
-        />
-        <span
-          className={cn(
-            "relative inline-flex size-1.5 rounded-full",
-            tone === "onDark" ? "bg-white/80" : "bg-accent",
-          )}
-        />
-      </span>
+      {/* Four-point star, the reference's own label glyph. Decorative. */}
+      <svg
+        aria-hidden
+        viewBox="0 0 12 12"
+        className="size-2.5 shrink-0 fill-current"
+      >
+        <path d="M6 0 7.2 4.8 12 6 7.2 7.2 6 12 4.8 7.2 0 6l4.8-1.2Z" />
+      </svg>
       {children}
     </p>
   );
