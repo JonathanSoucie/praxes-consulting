@@ -115,7 +115,7 @@ export default function AboutPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Team                                                              */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="Team"
@@ -176,7 +176,7 @@ export default function AboutPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Values                                                            */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="How we think"

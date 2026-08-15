@@ -138,7 +138,7 @@ export default function ServicesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Service categories                                                */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="Capabilities"
@@ -151,7 +151,7 @@ export default function ServicesPage() {
                 as="article"
                 key={service.slug}
                 delay={i * 40}
-                className="rounded-2xl bg-surface-2 p-8 lg:p-10"
+                className="card-raise rounded-2xl bg-surface p-8 lg:p-10"
               >
                 <div className="grid gap-8 lg:grid-cols-[0.55fr_1.45fr] lg:gap-14">
                   <div>
@@ -203,7 +203,7 @@ export default function ServicesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* How we measure ROI — the differentiator                           */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="The differentiator"
@@ -257,7 +257,7 @@ export default function ServicesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Process teaser                                                    */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
+      <Section>
         <Container>
           <SectionHeading eyebrow="Process" title="How an engagement runs." />
 

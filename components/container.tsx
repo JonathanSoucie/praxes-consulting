@@ -11,25 +11,27 @@ export function Container({
 /**
  * A full-width band with consistent vertical rhythm.
  *
+ * Sections no longer carry a background of their own. The page is one colour
+ * throughout — surface-2 — and elevation is expressed by cards sitting on it
+ * rather than by alternating full-width bands. Banding gave every page a
+ * different colour depending on where you happened to be scrolled, which is
+ * exactly what made the site feel like several sites.
+ *
  * tone:
- *   default — the lavender page background
- *   card    — a white band, for sections that should feel lifted
- *   wash    — a soft lavender gradient, used as relief between white bands
- *   deep    — the dark indigo gradient (closing CTA)
+ *   default — inherits the page colour
+ *   deep    — the dark indigo gradient, kept for the closing CTA only
  */
 export function Section({
   className,
   tone = "default",
   ...props
 }: React.ComponentProps<"section"> & {
-  tone?: "default" | "card" | "wash" | "deep";
+  tone?: "default" | "deep";
 }) {
   return (
     <section
       className={cn(
         "py-20 sm:py-24 lg:py-28",
-        tone === "card" && "bg-surface",
-        tone === "wash" && "gradient-wash",
         tone === "deep" && "gradient-deep text-white",
         className
       )}

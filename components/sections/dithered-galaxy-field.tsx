@@ -98,18 +98,27 @@ const FADE_SATURATE_SECONDS = 0.08;
 const FOCUS_X = 0.66;
 const FOCUS_Y = 0.62;
 
-/* Pointer response, deliberately near the threshold of noticing.
-   The twist is wide and very shallow, so what reads is the field breathing
-   rather than anything cursor-shaped tracking the mouse. The close-in bloom
-   no longer promotes a cell a whole tone level — that step was the loud part,
-   since a level change flips a dot's colour as well as its size — and is now
-   only a slight swell in dot radius. */
-const MAX_TWIST = 0.06; // radians, at the pointer
-const WARP_RADIUS_FACTOR = 0.6; // of the canvas's smaller dimension
-const POINTER_LERP = 0.08;
-const BLOOM_CELL_RADIUS = 2.5;
+/* Pointer response: a small patch of the field moves under the cursor, and
+   nothing else does.
+
+   The warp is a rotation of the *sampling* coordinates about the pointer, so
+   it costs nothing per frame — the grid itself never moves, it just reads from
+   somewhere slightly different.
+
+   What matters here is the radius, not the angle. Spread over 60% of the
+   canvas the displacement is real but the gradient across any few centimetres
+   is far too shallow to see, which is why the previous setting looked like
+   nothing was happening at all. Concentrated into ~64px it peaks at about two
+   cells of travel roughly 27px out from the cursor, and reads as the dots
+   right under the pointer shifting. */
+const WARP_RADIUS_PX = 64;
+const MAX_TWIST = 0.7; // radians, at the pointer
+/* Tight, because the effect is meant to sit under the cursor rather than
+   trail behind it. */
+const POINTER_LERP = 0.3;
+const BLOOM_CELL_RADIUS = 5;
 const BLOOM_DECAY_MS = 250;
-const BLOOM_DOT_SWELL = 0.12;
+const BLOOM_DOT_SWELL = 0.18;
 
 const HUE_BINS = 12;
 const ACHROMATIC_BIN = HUE_BINS;
@@ -688,7 +697,7 @@ export function DitheredGalaxyField({
         if (buckets[i].length) buckets[i].length = 0;
       }
 
-      const warpRadius = WARP_RADIUS_FACTOR * Math.min(viewW, viewH);
+      const warpRadius = WARP_RADIUS_PX;
       const cell = pixelSize * (1 - SPACING);
       const half = pixelSize / 2;
       const levelSpan = 1 / Math.max(levelHi - levelLo, 1e-6);
@@ -854,23 +863,46 @@ export function DitheredGalaxyField({
     };
     document.addEventListener("visibilitychange", onVisibility);
 
+    /* Bound to the window, not to this element.
+
+       Two reasons, both of which silently killed the interaction when the
+       field was split out of the hero. The field's own root is
+       `pointer-events: none` — it has to be, since it covers the whole
+       section — so it never receives a pointer event at all. And it is now a
+       *sibling* of the copy rather than an ancestor of it, so nothing bubbles
+       up from the headline or the buttons either.
+
+       Listening on the window and testing the canvas rect sidesteps both, and
+       keeps working whatever a consumer layers on top. */
     const onPointerMove = (event: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
-      targetX = event.clientX - rect.left;
-      targetY = event.clientY - rect.top;
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+        pointerInside = false;
+        return;
+      }
+      targetX = x;
+      targetY = y;
       if (!pointerInside) {
+        // Snap on entry rather than easing in from wherever it last was,
+        // which would drag a visible ripple across the field.
         pointerInside = true;
-        pointerX = targetX;
-        pointerY = targetY;
+        pointerX = x;
+        pointerY = y;
       }
     };
+    // Pointer left the document entirely; no further moves will arrive, so the
+    // effect would otherwise freeze wherever it was last seen.
     const onPointerLeave = () => {
       pointerInside = false;
     };
 
     if (pointerEnabled) {
-      panel.addEventListener("pointermove", onPointerMove, { passive: true });
-      panel.addEventListener("pointerleave", onPointerLeave, { passive: true });
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      document.addEventListener("pointerleave", onPointerLeave, {
+        passive: true,
+      });
     }
 
     return () => {
@@ -883,8 +915,8 @@ export function DitheredGalaxyField({
       document.removeEventListener("visibilitychange", onVisibility);
       primary.removeEventListener("loadeddata", onLoaded);
       if (pointerEnabled) {
-        panel.removeEventListener("pointermove", onPointerMove);
-        panel.removeEventListener("pointerleave", onPointerLeave);
+        window.removeEventListener("pointermove", onPointerMove);
+        document.removeEventListener("pointerleave", onPointerLeave);
       }
     };
   }, []);

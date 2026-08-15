@@ -120,7 +120,7 @@ export default function ContactPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Contact form                                                      */}
       {/* ---------------------------------------------------------------- */}
-      <Section id="contact-form" tone="card" className="scroll-mt-24">
+      <Section id="contact-form" className="scroll-mt-24">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
             <div>
@@ -170,7 +170,7 @@ export default function ContactPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Quick FAQ                                                         */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
+      <Section>
         <Container>
           <SectionHeading eyebrow="Questions" title="Before you book." />
           <Reveal delay={80} className="mx-auto mt-14 max-w-3xl">

@@ -133,7 +133,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* The problem                                                       */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="The problem"
@@ -146,7 +146,7 @@ export default function HomePage() {
               <Reveal
                 key={problem.title}
                 delay={i * 60}
-                className="hover-lift rounded-xl bg-surface-2 p-8"
+                className="hover-lift rounded-xl bg-surface p-8"
               >
                 <p className="figure-num text-sm text-accent">
                   {problem.n} <span className="text-line-strong">—</span>
@@ -168,7 +168,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* The solution                                                      */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="The approach"
@@ -206,7 +206,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Process overview                                                  */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="Process"
@@ -274,7 +274,7 @@ export default function HomePage() {
       {/* Featured case study — hidden with the Case Studies section        */}
       {/* ---------------------------------------------------------------- */}
       {features.caseStudies && featured ? (
-        <Section tone="wash">
+        <Section>
           <Container>
             <SectionHeading
               eyebrow="Case study"
@@ -301,7 +301,7 @@ export default function HomePage() {
       {/* Testimonials — hidden behind features.testimonials               */}
       {/* ---------------------------------------------------------------- */}
       {features.testimonials ? (
-        <Section tone="wash">
+        <Section>
           <Container>
             <SectionHeading eyebrow="Clients" title="In their words." />
             <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
@@ -317,7 +317,7 @@ export default function HomePage() {
       {/* wash, not the default surface — the two sections above this are
           feature-flagged off, so Services sits directly on top of it, and two
           default-tone sections in a row read as one undifferentiated block. */}
-      <Section tone="wash">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="Industries"
@@ -347,7 +347,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Why Praxes                                                        */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="Why Praxes"
@@ -359,7 +359,7 @@ export default function HomePage() {
               <Reveal
                 key={item.title}
                 delay={i * 60}
-                className="hover-lift flex gap-5 rounded-xl bg-surface-2 p-8"
+                className="hover-lift flex gap-5 rounded-xl bg-surface p-8"
               >
                 <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-accent">
                   <Check aria-hidden className="size-4 text-on-accent" />
@@ -379,7 +379,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* FAQ                                                               */}
       {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
+      <Section>
         <Container>
           <SectionHeading
             eyebrow="Questions"

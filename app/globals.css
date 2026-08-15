@@ -58,12 +58,6 @@
   --shadow-a-hover: var(--t-light, 0.06) var(--t-dark, 0.36);
   --shadow-b-hover: var(--t-light, 0.28) var(--t-dark, 0.68);
 
-  /* Mid stop of the relief wash — a periwinkle tint on the light side; on the
-     dark side the palette's prussian blue, which is where that colour now
-     lives once the surfaces went neutral. It is the one place the dark theme
-     is allowed a cool cast, so relief sections still separate from the page. */
-  --wash-mid: var(--t-light, #ebe6fc) var(--t-dark, #040c24);
-
   /* Slider thumb face — white on light, white-smoke on dark. */
   --thumb-face: var(--t-light, #ffffff) var(--t-dark, #f5f5f2);
 
@@ -484,16 +478,6 @@
     var(--color-deep) 0%,
     var(--color-deep-2) 55%,
     var(--color-deep-3) 100%
-  );
-}
-
-/* Soft periwinkle wash for relief sections. */
-@utility gradient-wash {
-  background-image: linear-gradient(
-    180deg,
-    var(--color-surface-2) 0%,
-    var(--wash-mid) 45%,
-    var(--color-surface-2) 100%
   );
 }
 
