@@ -15,25 +15,12 @@ export function Container({
  * hero down, and elevation is expressed by bordered cards sitting on it rather
  * than by alternating full-width bands.
  *
- * tone:
- *   default — inherits the page colour
- *   deep    — the dark indigo gradient, kept for the closing CTA only
  */
 export function Section({
   className,
-  tone = "default",
   ...props
-}: React.ComponentProps<"section"> & {
-  tone?: "default" | "deep";
-}) {
+}: React.ComponentProps<"section">) {
   return (
-    <section
-      className={cn(
-        "py-20 sm:py-24 lg:py-28",
-        tone === "deep" && "bg-deep-ground text-white",
-        className,
-      )}
-      {...props}
-    />
+    <section className={cn("py-20 sm:py-24 lg:py-28", className)} {...props} />
   );
 }

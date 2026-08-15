@@ -231,19 +231,18 @@ export default function ServicesPage() {
           </div>
 
           <Reveal delay={80}>
-            <div className="relative isolate mt-10 overflow-hidden bg-deep-ground p-8 lg:p-12">
+            <div className="relative isolate mt-10 overflow-hidden border border-line bg-surface-2 p-8 lg:p-12">
               <DitheredGalaxyField
-                ground="dark"
                 scrim="center"
                 intensity={0.5}
                 fadeBottom={false}
               />
               <div className="relative z-10 mx-auto max-w-3xl text-center">
-                <h3 className="text-xl text-white sm:text-2xl">
+                <h3 className="text-xl text-ink sm:text-2xl">
                   What we don&apos;t do: guarantee a number before we&apos;ve
                   measured anything.
                 </h3>
-                <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70">
+                <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted">
                   A firm that promises a specific ROI on a first call is either
                   guessing or selling. We commit to something narrower and more
                   useful: the measurement will be honest, the assumptions will

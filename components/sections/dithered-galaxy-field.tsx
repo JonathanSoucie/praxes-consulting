@@ -329,7 +329,6 @@ export function DitheredGalaxyField({
   scrim = "upper-left",
   fadeBottom = true,
   intensity = 1,
-  ground = "page",
 }: {
   className?: string;
   /** "upper-left" for copy in the corner, "center" for a centred masthead. */
@@ -339,12 +338,6 @@ export function DitheredGalaxyField({
   /** 0-1. Below 1 the dots fade toward the ground, so the field reads as
       texture rather than subject — used by the shorter page mastheads. */
   intensity?: number;
-  /**
-   * "page" follows the theme. "dark" pins the field to its dark ground and
-   * light ink ramp whatever the theme is doing — for the bands that are
-   * deliberately dark in both themes and carry white type on top of them.
-   */
-  ground?: "page" | "dark";
 }) {
   const rootRef = React.useRef<HTMLDivElement>(null);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -358,8 +351,7 @@ export function DitheredGalaxyField({
      elements and restart playback from zero, which is a very visible way to
      change a colour. Selecting the ground and ink table per frame costs two
      property lookups. */
-  const resolvedTheme = useResolvedTheme();
-  const theme = ground === "dark" ? "dark" : resolvedTheme;
+  const theme = useResolvedTheme();
   const themeRef = React.useRef(theme);
   const repaintRef = React.useRef<((now: number) => void) | null>(null);
 

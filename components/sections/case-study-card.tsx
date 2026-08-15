@@ -76,29 +76,28 @@ export function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
         </Link>
       </div>
 
-      <div className="relative isolate overflow-hidden bg-deep-ground p-8 sm:p-12">
+      <div className="relative isolate overflow-hidden border-t border-line bg-surface-2 p-8 sm:p-12">
         <DitheredGalaxyField
-          ground="dark"
           scrim="center"
           intensity={0.5}
           fadeBottom={false}
         />
         <div className="relative z-10">
-          <span className="label-tech text-white/50">Measured result</span>
+          <span className="label-tech text-muted">Measured result</span>
           <dl className="mt-6 space-y-6">
             {study.results.slice(0, 3).map((result) => (
               <div key={result.label}>
                 <dt className="sr-only">{result.label}</dt>
                 <dd>
-                  <span className="figure-num text-3xl text-white">
+                  <span className="figure-num text-3xl text-accent">
                     {result.value}
                   </span>
                   {result.unit ? (
-                    <span className="figure-num ml-1 text-base text-white/60">
+                    <span className="figure-num ml-1 text-base text-muted">
                       {result.unit}
                     </span>
                   ) : null}
-                  <span className="mt-1 block text-sm text-white/70">
+                  <span className="mt-1 block text-sm text-muted">
                     {result.label}
                   </span>
                 </dd>

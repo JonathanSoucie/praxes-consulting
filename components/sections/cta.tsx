@@ -23,35 +23,35 @@ export function CtaSection({
   secondary?: { href: string; label: string };
 }) {
   return (
-    <Section tone="deep" className="relative isolate overflow-hidden">
-      {/* Pinned dark: this band stays dark in both themes and the type on it
-          is white, so the field must not follow the page theme here. The
-          blurred violet bloom that used to sit here is gone — a soft glow on
-          top of a crisp dot grid was two different languages at once. */}
-      <DitheredGalaxyField ground="dark" scrim="center" intensity={0.5} />
+    <Section className="relative isolate overflow-hidden">
+      {/* Follows the theme like every other field on the site: dark ink on
+          the light ground, light ink on the dark one. The band used to be
+          pinned dark in both themes, which left it as the one place the light
+          theme went black. */}
+      <DitheredGalaxyField scrim="center" intensity={0.5} />
 
       <Container className="relative z-10">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <Eyebrow tone="onDark">{eyebrow}</Eyebrow>
+          <Eyebrow>{eyebrow}</Eyebrow>
 
-          <h2 className="mt-6 text-3xl leading-[1.12] text-white sm:text-4xl lg:text-[2.875rem] lg:leading-[1.08]">
+          <h2 className="mt-6 text-3xl leading-[1.12] text-accent sm:text-4xl lg:text-[2.875rem] lg:leading-[1.08]">
             {title}
           </h2>
 
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
             {body}
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <BookACall size="lg" variant="onDark" withArrow />
+            <BookACall size="lg" withArrow />
             {secondary ? (
-              <Button asChild variant="onDarkGhost" size="lg">
+              <Button asChild variant="outline" size="lg">
                 <Link href={secondary.href}>{secondary.label}</Link>
               </Button>
             ) : null}
           </div>
 
-          <BookingNote className="mt-5 text-white/50" />
+          <BookingNote className="mt-5" />
         </Reveal>
       </Container>
     </Section>
