@@ -67,11 +67,29 @@
   /* Slider thumb face — white on light, white-smoke on dark. */
   --thumb-face: var(--t-light, #ffffff) var(--t-dark, #f5f5f2);
 
+  /* Thickness of the fixed frame that mats the page (components/layout/
+     frame.tsx). One source of truth: the frame uses it as a border width and
+     the navbar as its top offset, so the bar always sits exactly on the
+     frame's inner edge. */
+  --frame: 10px;
+
   /* How hero type sits in the dot field behind it. Multiply keeps dark text
      reading through a light field; on the dark theme the polarity flips and
      screen is its mirror, letting light text blend into bright dots instead
      of punching a hole in them. */
   --hero-type-blend: var(--t-light, multiply) var(--t-dark, screen);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --frame: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --frame: 18px;
+  }
 }
 
 /* Theme change: cross-fade, don't cut.

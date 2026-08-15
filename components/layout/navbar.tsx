@@ -13,21 +13,24 @@ import { nav } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 /**
- * Overlay navbar. Every page top is now a light (white/neuron-field)
- * background, so the bar stays light and frosted throughout — no more
- * dark-hero colour flip. Scroll only adds a hairline border for separation.
+ * The navbar sits at the top of the document and scrolls away with it.
+ *
+ * It is `absolute`, not `fixed`: the permanent chrome is now the frame in
+ * components/layout/frame.tsx, and a sticky bar on top of a fixed frame gave
+ * the page two competing edges. Because it no longer follows the scroll it
+ * also needs no material of its own — no fill, no blur, no hairline that
+ * appears once you move — so it carries the background of whatever it sits
+ * over. On the home page that is the hero's dot field, uninterrupted.
+ *
+ * `top` is the frame's own thickness, so the bar lands exactly on the frame's
+ * inner edge rather than being tucked under it.
+ *
+ * Type is the display serif, uppercase and tracked out, matching the hero
+ * headline it sits above.
  */
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
-
-  React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   React.useEffect(() => setOpen(false), [pathname]);
 
@@ -43,28 +46,29 @@ export function Navbar() {
 
   return (
     <header
-      // `supports-frost` is the hook for the reduced-transparency and
-      // increased-contrast rules in globals.css, which make this bar solid
-      // for anyone who has asked for that.
-      data-scrolled={scrolled || open ? "" : undefined}
-      className="supports-frost scroll-edge fixed inset-x-0 top-0 z-50 bg-surface/85 backdrop-blur-md"
+      className="absolute inset-x-0 z-50"
+      style={{ top: "var(--frame)" }}
     >
       <Container>
         <div className="flex h-18 items-center justify-between gap-8">
-          <Logo />
+          <Logo className="tracking-[0.14em] uppercase" />
 
           <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-1">
+            <ul className="flex items-center gap-8">
               {nav.map((item) => (
                 <li key={item.href}>
+                  {/* No pill, no fill. At this size a filled active state is
+                      heavier than the wordmark next to it; colour alone
+                      carries the state, with an underline for anyone who
+                      cannot rely on colour. */}
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "rounded-full px-3.5 py-2 text-sm transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.97]",
+                      "font-display text-[0.8125rem] font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
                       isActive(item.href)
-                        ? "bg-accent-soft text-accent-ink"
-                        : "text-muted hover:bg-accent-soft/60 hover:text-ink active:bg-accent-soft active:text-accent-ink"
+                        ? "text-ink underline decoration-1 underline-offset-[6px]"
+                        : "text-muted hover:text-ink"
                     )}
                   >
                     {item.label}
@@ -105,13 +109,16 @@ export function Navbar() {
 
           It stays in the DOM and uses `inert` while closed, so it is properly
           removed from the tab order and the accessibility tree without
-          costing the transition. And it carries the header's own material
-          instead of an opaque fill, because it is the same surface. */}
+          costing the transition.
+
+          Unlike the bar, this does need a fill: it opens over live page
+          content, and the links have to stay readable against whatever is
+          behind them. */}
       <div
         id="mobile-nav"
         inert={!open}
         className={cn(
-          "supports-frost grid overflow-hidden bg-surface/85 backdrop-blur-md transition-[grid-template-rows,opacity] duration-300 ease-out-soft lg:hidden",
+          "supports-frost grid overflow-hidden bg-surface/95 backdrop-blur-md transition-[grid-template-rows,opacity] duration-300 ease-out-soft lg:hidden",
           open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         )}
       >
@@ -124,7 +131,7 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "flex items-center rounded-lg px-4 py-3.5 font-display text-lg font-medium transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.99]",
+                      "flex items-center rounded-lg px-4 py-3.5 font-display text-base font-semibold tracking-[0.1em] uppercase transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.99]",
                       isActive(item.href)
                         ? "bg-accent-soft text-accent-ink"
                         : "text-ink hover:bg-surface-2 active:bg-accent-soft active:text-accent-ink"

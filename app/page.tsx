@@ -4,7 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
 import { DitheredGalaxyHero } from "@/components/sections/dithered-galaxy-hero";
-import { TrustBar } from "@/components/sections/trust-bar";
+import { Outcomes } from "@/components/sections/outcomes";
 import { TimeEstimator } from "@/components/sections/time-estimator";
 import { SectionHeading } from "@/components/section-heading";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
@@ -128,7 +128,7 @@ export default function HomePage() {
         ]}
       />
       <DitheredGalaxyHero />
-      <TrustBar />
+      <Outcomes />
 
       {/* ---------------------------------------------------------------- */}
       {/* The problem                                                       */}
