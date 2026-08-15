@@ -30,7 +30,7 @@ export function Section({
     <section
       className={cn(
         "py-20 sm:py-24 lg:py-28",
-        tone === "deep" && "gradient-deep text-white",
+        tone === "deep" && "bg-deep-ground text-white",
         className,
       )}
       {...props}

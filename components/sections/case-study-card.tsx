@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import type { CaseStudy } from "@/content/case-studies";
-import { NeuralField } from "@/components/sections/neural-field";
+import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
 import { cn } from "@/lib/utils";
 
 /** Index/grid card: client · problem · result metric. */
@@ -76,12 +76,14 @@ export function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
         </Link>
       </div>
 
-      <div className="gradient-deep relative overflow-hidden p-8 sm:p-12">
-        <NeuralField
-          tone="dark"
-          className="pointer-events-none absolute inset-0"
+      <div className="relative isolate overflow-hidden bg-deep-ground p-8 sm:p-12">
+        <DitheredGalaxyField
+          ground="dark"
+          scrim="center"
+          intensity={0.5}
+          fadeBottom={false}
         />
-        <div className="relative">
+        <div className="relative z-10">
           <span className="label-tech text-white/50">Measured result</span>
           <dl className="mt-6 space-y-6">
             {study.results.slice(0, 3).map((result) => (

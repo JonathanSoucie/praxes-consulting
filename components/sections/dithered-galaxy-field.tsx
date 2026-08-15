@@ -329,6 +329,7 @@ export function DitheredGalaxyField({
   scrim = "upper-left",
   fadeBottom = true,
   intensity = 1,
+  ground = "page",
 }: {
   className?: string;
   /** "upper-left" for copy in the corner, "center" for a centred masthead. */
@@ -338,6 +339,12 @@ export function DitheredGalaxyField({
   /** 0-1. Below 1 the dots fade toward the ground, so the field reads as
       texture rather than subject — used by the shorter page mastheads. */
   intensity?: number;
+  /**
+   * "page" follows the theme. "dark" pins the field to its dark ground and
+   * light ink ramp whatever the theme is doing — for the bands that are
+   * deliberately dark in both themes and carry white type on top of them.
+   */
+  ground?: "page" | "dark";
 }) {
   const rootRef = React.useRef<HTMLDivElement>(null);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -351,7 +358,8 @@ export function DitheredGalaxyField({
      elements and restart playback from zero, which is a very visible way to
      change a colour. Selecting the ground and ink table per frame costs two
      property lookups. */
-  const theme = useResolvedTheme();
+  const resolvedTheme = useResolvedTheme();
+  const theme = ground === "dark" ? "dark" : resolvedTheme;
   const themeRef = React.useRef(theme);
   const repaintRef = React.useRef<((now: number) => void) | null>(null);
 
@@ -949,7 +957,7 @@ export function DitheredGalaxyField({
     };
   }, []);
 
-  const ground = GROUND[theme];
+  const groundColor = GROUND[theme];
 
   return (
     <div
@@ -979,13 +987,13 @@ export function DitheredGalaxyField({
           <div
             className="absolute inset-0 sm:hidden"
             style={{
-              background: `linear-gradient(180deg, ${ground}F7 0%, ${ground}EE 36%, ${ground}D6 56%, ${ground}8A 70%, ${ground}00 86%)`,
+              background: `linear-gradient(180deg, ${groundColor}F7 0%, ${groundColor}EE 36%, ${groundColor}D6 56%, ${groundColor}8A 70%, ${groundColor}00 86%)`,
             }}
           />
           <div
             className="absolute inset-0 hidden sm:block"
             style={{
-              background: `linear-gradient(112deg, ${ground}E6 0%, ${ground}B3 26%, ${ground}4D 44%, ${ground}00 62%)`,
+              background: `linear-gradient(112deg, ${groundColor}E6 0%, ${groundColor}B3 26%, ${groundColor}4D 44%, ${groundColor}00 62%)`,
             }}
           />
         </>
@@ -995,7 +1003,7 @@ export function DitheredGalaxyField({
         <div
           className="absolute inset-0"
           style={{
-            background: `radial-gradient(ellipse 78% 88% at 50% 52%, ${ground}F2 0%, ${ground}E0 34%, ${ground}99 58%, ${ground}00 82%)`,
+            background: `radial-gradient(ellipse 78% 88% at 50% 52%, ${groundColor}F2 0%, ${groundColor}E0 34%, ${groundColor}99 58%, ${groundColor}00 82%)`,
           }}
         />
       ) : null}
@@ -1006,7 +1014,7 @@ export function DitheredGalaxyField({
         <div
           className="absolute inset-x-0 bottom-0 h-24 sm:h-40"
           style={{
-            background: `linear-gradient(180deg, ${ground}00 0%, ${ground}A6 55%, ${ground} 100%)`,
+            background: `linear-gradient(180deg, ${groundColor}00 0%, ${groundColor}A6 55%, ${groundColor} 100%)`,
           }}
         />
       ) : null}

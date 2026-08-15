@@ -4,7 +4,7 @@ import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container, Section } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { NeuralField } from "@/components/sections/neural-field";
+import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
 import { Reveal } from "@/components/reveal";
 
 /**
@@ -23,18 +23,14 @@ export function CtaSection({
   secondary?: { href: string; label: string };
 }) {
   return (
-    <Section tone="deep" className="relative overflow-hidden">
-      <NeuralField
-        tone="dark"
-        className="pointer-events-none absolute inset-0"
-      />
-      {/* Soft violet bloom, bottom-right */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-40 -bottom-40 size-125 rounded-full bg-accent/30 blur-3xl"
-      />
+    <Section tone="deep" className="relative isolate overflow-hidden">
+      {/* Pinned dark: this band stays dark in both themes and the type on it
+          is white, so the field must not follow the page theme here. The
+          blurred violet bloom that used to sit here is gone — a soft glow on
+          top of a crisp dot grid was two different languages at once. */}
+      <DitheredGalaxyField ground="dark" scrim="center" intensity={0.5} />
 
-      <Container className="relative">
+      <Container className="relative z-10">
         <Reveal className="mx-auto max-w-3xl text-center">
           <Eyebrow tone="onDark">{eyebrow}</Eyebrow>
 

@@ -204,6 +204,12 @@
   --color-accent: var(--t-light, #7c3aed) var(--t-dark, #a78bfa); /* 5.7:1 light / 7.1:1 dark */
   --color-accent-hover: var(--t-light, #6d28d9) var(--t-dark, #b9a3fc);
   --color-accent-ink: var(--t-light, #6d28d9) var(--t-dark, #c4b5fd); /* accent text on soft bg */
+  /* The permanently-dark band behind the CTA and the two inset panels. Not a
+     themed pair: those bands stay dark in both themes and carry white type, so
+     this has to match the dithered field's own dark ground exactly or the
+     canvas has a visible edge against the section it sits in. */
+  --color-deep-ground: #181818;
+
   --color-accent-soft: var(--t-light, #f1ecfe) var(--t-dark, #201545); /* badges, tinted panels */
   /* Foreground for anything filled with --color-accent (buttons, chips).
      White on the light violet is 5.7:1; on the pale dark-mode violet white
@@ -494,18 +500,6 @@
   line-height: 1;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-}
-
-/* Deep band used for the closing CTA — prussian blue resolving into the
-   vivid accent. References the token triplet directly (not literal hex)
-   so a palette change here always follows --color-deep*. */
-@utility gradient-deep {
-  background-image: linear-gradient(
-    160deg,
-    var(--color-deep) 0%,
-    var(--color-deep-2) 55%,
-    var(--color-deep-3) 100%
-  );
 }
 
 /* Hero headline over the dithered field. See --hero-type-blend. */
