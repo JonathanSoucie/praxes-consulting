@@ -65,10 +65,15 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "font-display text-[0.8125rem] font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
+                      "font-display text-[0.9375rem] font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
                       isActive(item.href)
                         ? "text-ink underline decoration-1 underline-offset-[6px]"
-                        : "text-muted hover:text-ink"
+                        // Ink at 72%, not --color-muted. Muted is a slate
+                        // that reads grey-blue against the dot field; ink is
+                        // the near-white on the dark theme and the near-black
+                        // on the light one, so this brightens the bar in the
+                        // dark without inverting it in the light.
+                        : "text-ink/72 hover:text-ink"
                     )}
                   >
                     {item.label}
