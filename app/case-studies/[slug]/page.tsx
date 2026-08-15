@@ -138,7 +138,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       {/* The bottleneck we found                                           */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section tone="card">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
             <SectionHeading
@@ -191,7 +191,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       {/* The ROI                                                           */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section tone="wash">
         <Container>
           <SectionHeading
             eyebrow="The return"
@@ -209,7 +209,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Client quote                                                      */}
       {/* ---------------------------------------------------------------- */}
       {study.quote ? (
-        <Section>
+        <Section tone="card">
           <Container>
             <Reveal className="mx-auto max-w-3xl text-center">
               <Quote aria-hidden className="mx-auto size-8 text-accent/40" />
@@ -232,10 +232,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       {/* Related                                                           */}
       {/* ---------------------------------------------------------------- */}
-      {/* This used to alternate its band against the quote section above it.
-          There are no bands now, so there is nothing to alternate. */}
       {related.length ? (
-        <Section>
+        <Section tone={study.quote ? "default" : "card"}>
           <Container>
             <SectionHeading eyebrow="Related" title="Other engagements." />
             <div className="mt-14 grid gap-5 sm:grid-cols-2">

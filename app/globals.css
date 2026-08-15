@@ -58,14 +58,32 @@
   --shadow-a-hover: var(--t-light, 0.06) var(--t-dark, 0.36);
   --shadow-b-hover: var(--t-light, 0.28) var(--t-dark, 0.68);
 
+  /* Mid stop of the relief wash — a periwinkle tint on the light side; on the
+     dark side the palette's prussian blue, which is where that colour now
+     lives once the surfaces went neutral. It is the one place the dark theme
+     is allowed a cool cast, so relief sections still separate from the page. */
+  --wash-mid: var(--t-light, #ebe6fc) var(--t-dark, #040c24);
+
   /* Slider thumb face — white on light, white-smoke on dark. */
   --thumb-face: var(--t-light, #ffffff) var(--t-dark, #f5f5f2);
 
   /* Thickness of the fixed frame that mats the page (components/layout/
-     frame.tsx). One source of truth: the frame uses it as a border width and
-     the navbar as its top offset, so the bar always sits exactly on the
-     frame's inner edge. */
-  --frame: 10px;
+     frame.tsx). One source of truth: the frame uses these as its border
+     widths, the navbar as its top offset, and container-page as its minimum
+     gutter — so the bar and the copy always sit inside the mat rather than
+     under it.
+
+     The mat stays thin and even. It is viewport chrome, so anything it gains
+     it takes from *everything* — including the hero and the navbar, which are
+     meant to run wide. The generous side margins live on --gutter below, which
+     only the body content uses. */
+  --frame-y: 10px;
+  --frame-x: 10px;
+
+  /* Side margin for body content. This is the "much larger" one — but it is a
+     container gutter, not viewport chrome, so the full-bleed hero, the page
+     mastheads and the navbar can opt out of it via <Container wide>. */
+  --gutter: 1.5rem;
 
   /* How hero type sits in the dot field behind it. Multiply keeps dark text
      reading through a light field; on the dark theme the polarity flips and
@@ -76,13 +94,23 @@
 
 @media (min-width: 640px) {
   :root {
-    --frame: 14px;
+    --frame-y: 14px;
+    --frame-x: 14px;
+    --gutter: 2.75rem;
   }
 }
 
 @media (min-width: 1024px) {
   :root {
-    --frame: 18px;
+    --frame-y: 18px;
+    --frame-x: 18px;
+    --gutter: 4.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --gutter: 6.5rem;
   }
 }
 
@@ -422,11 +450,24 @@
    ========================================================================== */
 
 /* Page gutter + max width. Every section body sits inside this. */
+/* Body content: the wide side margins. */
 @utility container-page {
   width: 100%;
   margin-inline: auto;
   max-width: 78rem;
-  padding-inline: 1.5rem;
+  /* Never less than the mat plus a little air, or content would slide under
+     the frame on viewports narrower than the max-width. */
+  padding-inline: max(var(--gutter), calc(var(--frame-x) + 0.75rem));
+}
+
+/* Full-width contexts — the navbar, the home hero, the page mastheads. Same
+   max-width, but only enough gutter to clear the mat, so these keep running
+   edge to edge while the body copy sits well inside. */
+@utility container-wide {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 78rem;
+  padding-inline: max(1.5rem, calc(var(--frame-x) + 0.75rem));
 }
 
 /* Violet gradient text — for the one or two words per page that should carry
@@ -478,6 +519,16 @@
     var(--color-deep) 0%,
     var(--color-deep-2) 55%,
     var(--color-deep-3) 100%
+  );
+}
+
+/* Soft periwinkle wash for relief sections. */
+@utility gradient-wash {
+  background-image: linear-gradient(
+    180deg,
+    var(--color-surface-2) 0%,
+    var(--wash-mid) 45%,
+    var(--color-surface-2) 100%
   );
 }
 

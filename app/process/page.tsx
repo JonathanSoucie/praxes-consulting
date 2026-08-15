@@ -114,7 +114,7 @@ export default function ProcessPage() {
       {/* ---------------------------------------------------------------- */}
       {/* What we need from you                                             */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section tone="card">
         <Container>
           <SectionHeading
             eyebrow="Your side"
@@ -127,7 +127,7 @@ export default function ProcessPage() {
               <Reveal
                 key={item.title}
                 delay={i * 60}
-                className="card-raise rounded-2xl bg-surface p-8"
+                className="rounded-2xl bg-surface-2 p-8"
               >
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="text-lg">{item.title}</h3>

@@ -1,6 +1,10 @@
 /**
  * The fixed frame that mats the page.
  *
+ * The side bands are much heavier than the top and bottom (see --frame-x /
+ * --frame-y): even on all four edges it reads as a border, weighted on the
+ * verticals it reads as a margin the page sits within.
+ *
  * A single element pinned to the viewport whose *border* — not its background
  * — is painted in the page colour. That leaves the middle transparent, so the
  * document scrolls underneath and is clipped by a constant band on all four
@@ -20,7 +24,7 @@ export function Frame() {
     <div
       aria-hidden
       className="pointer-events-none fixed inset-0 z-[60] border-surface-2"
-      style={{ borderWidth: "var(--frame)" }}
+      style={{ borderWidth: "var(--frame-y) var(--frame-x)" }}
     />
   );
 }

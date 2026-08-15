@@ -47,9 +47,9 @@ export function Navbar() {
   return (
     <header
       className="absolute inset-x-0 z-50"
-      style={{ top: "var(--frame)" }}
+      style={{ top: "var(--frame-y)" }}
     >
-      <Container>
+      <Container wide>
         <div className="flex h-18 items-center justify-between gap-8">
           <Logo className="tracking-[0.14em] uppercase" />
 
@@ -128,7 +128,7 @@ export function Navbar() {
         )}
       >
         <div className="min-h-0">
-          <Container className="py-5">
+          <Container wide className="py-5">
             <ul className="space-y-1">
               {nav.map((item) => (
                 <li key={item.href}>

@@ -93,7 +93,7 @@ export default function CaseStudiesPage() {
       {/* ---------------------------------------------------------------- */}
       {/* Featured                                                          */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section tone="card">
         <Container>
           <SectionHeading
             eyebrow="Featured"
@@ -111,7 +111,7 @@ export default function CaseStudiesPage() {
       {/* Testimonials — hidden behind features.testimonials               */}
       {/* ---------------------------------------------------------------- */}
       {features.testimonials ? (
-        <Section>
+        <Section tone="wash">
           <Container>
             <SectionHeading eyebrow="Clients" title="In their words." />
             <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
