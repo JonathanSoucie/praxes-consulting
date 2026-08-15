@@ -10,7 +10,7 @@ import { CaseStudyCard } from "@/components/sections/case-study-card";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { NeuralField } from "@/components/sections/neural-field";
+import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
 
 import { JsonLd } from "@/components/json-ld";
 
@@ -82,10 +82,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                              */}
       {/* ---------------------------------------------------------------- */}
-      <div className="relative overflow-hidden bg-surface">
-        <NeuralField className="pointer-events-none absolute inset-0" />
+      <div className="relative isolate overflow-hidden bg-surface-2">
+        <DitheredGalaxyField scrim="upper-left" intensity={0.55} />
 
-        <Container className="relative pt-32 pb-20 sm:pt-36 sm:pb-24">
+        <Container className="relative z-10 pt-32 pb-20 sm:pt-36 sm:pb-24">
           <Link
             href="/case-studies"
             className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"

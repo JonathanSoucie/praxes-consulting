@@ -5,7 +5,7 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { BookACall } from "@/components/book-a-call";
-import { NeuralField } from "@/components/sections/neural-field";
+import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
 import { nav } from "@/content/site";
 
 /* Next emits the noindex directive for this route itself — repeating it here
@@ -16,10 +16,10 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="relative overflow-hidden bg-surface">
-      <NeuralField className="pointer-events-none absolute inset-0" />
+    <div className="relative isolate overflow-hidden bg-surface-2">
+      <DitheredGalaxyField scrim="center" intensity={0.55} />
 
-      <Container className="relative pt-40 pb-28 text-center sm:pt-44 sm:pb-32">
+      <Container className="relative z-10 pt-40 pb-28 text-center sm:pt-44 sm:pb-32">
         <div className="mx-auto max-w-2xl">
           <div className="flex justify-center">
             <Eyebrow>Error 404</Eyebrow>
