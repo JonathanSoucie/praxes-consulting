@@ -133,7 +133,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="The problem"
-            title="Most businesses don't have an AI problem. They have a bottleneck nobody has priced."
+            title="A bottleneck nobody priced."
             deck="The constraint is usually mundane, absent from the reporting, and expensive. It is rarely the thing people complain about."
           />
 
@@ -168,9 +168,9 @@ export default function HomePage() {
             eyebrow="The approach"
             title={
               <>
-                Find the bottleneck. Implement the fix.{" "}
+                Measure. Build.{" "}
                 <span className="text-gradient animate-gradient-shift">
-                  Prove the return.
+                  Prove it.
                 </span>
               </>
             }
@@ -204,7 +204,8 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Process"
-            title="Five stages. Commitment increases only after the case is established."
+            title="Five stages."
+            deck="Commitment increases only after the case is established."
           />
 
           <div className="mt-16">
@@ -229,7 +230,8 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Services"
-            title="What we build with AI, once we know what's actually in the way."
+            title="What we build."
+            deck="Once we know what is actually in the way."
           />
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -272,7 +274,8 @@ export default function HomePage() {
           <Container>
             <SectionHeading
               eyebrow="Case study"
-              title="When the bottleneck isn't where the client thought it was."
+              title="Not where they thought."
+              deck="The bottleneck the client was sure they had, and the one the audit found instead."
             />
 
             <Reveal className="mt-16">
@@ -315,7 +318,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Industries"
-            title="Industries we work in."
+            title="Where we work."
             deck="Mixed verticals, one common shape: an established business with a repetitive, high-volume process that has never been properly costed."
           />
 
@@ -345,7 +348,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Why Praxes"
-            title="We are trying to be the firm that tells you the truth about your numbers."
+            title="The truth about your numbers."
           />
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2">
@@ -375,10 +378,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       <Section>
         <Container>
-          <SectionHeading
-            eyebrow="Questions"
-            title="What people ask before booking."
-          />
+          <SectionHeading eyebrow="Questions" title="Common questions." />
           <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
             <FaqList items={generalFaqs} />
           </Reveal>

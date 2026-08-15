@@ -59,7 +59,7 @@ export function TimeEstimator({ className }: { className?: string }) {
       </p>
 
       <h2 className="mt-4 text-2xl sm:text-[1.75rem]">
-        Where is your time going?
+        Where does the time go?
       </h2>
       <p className="mt-2 text-sm text-muted">
         Three inputs, one honest range. Assumptions shown, not hidden.

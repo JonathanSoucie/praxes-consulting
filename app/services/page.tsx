@@ -90,7 +90,7 @@ export default function ServicesPage() {
 
       <PageHeader
         eyebrow="Services"
-        title="We don't sell a product. We start from what's in your way."
+        title="Start from what's in the way."
         deck={
           <>
             Every engagement below begins the same way:{" "}
@@ -208,7 +208,7 @@ export default function ServicesPage() {
         <Container>
           <SectionHeading
             eyebrow="The differentiator"
-            title="How we measure ROI, and why you can check us on it."
+            title="How we measure ROI."
             deck="Anyone can put a return figure on a slide. The question worth asking a consultant is what that figure is measured against, and what happens when it misses. Here is our answer, in full."
           />
 
@@ -298,7 +298,7 @@ export default function ServicesPage() {
       </Section>
 
       <CtaSection
-        title="Which of these applies to you? Let's find out properly."
+        title="Which one is yours?"
         body="Fifteen free minutes to work out whether there's a bottleneck here worth measuring — and which of the above, if any, would address it."
         secondary={{ href: "/process", label: "How an engagement runs" }}
       />

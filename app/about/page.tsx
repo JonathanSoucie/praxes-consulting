@@ -50,7 +50,7 @@ export default function AboutPage() {
 
       <PageHeader
         eyebrow="About"
-        title="Built to give Canadian businesses a straight answer on AI."
+        title="A straight answer on AI."
         deck="Praxes makes a narrower promise than most consultancies: we will measure your business honestly, show you the numbers behind our recommendation, and tell you when the answer is no."
       />
       {/* ---------------------------------------------------------------- */}
@@ -176,10 +176,7 @@ export default function AboutPage() {
       {/* ---------------------------------------------------------------- */}
       <Section>
         <Container>
-          <SectionHeading
-            eyebrow="How we think"
-            title="Four commitments we'd rather be held to."
-          />
+          <SectionHeading eyebrow="How we think" title="Four commitments." />
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2">
             {values.map((value, i) => (
@@ -203,7 +200,7 @@ export default function AboutPage() {
       </Section>
 
       <CtaSection
-        title="Talk to the people who'd actually do the work."
+        title="Talk to the team."
         body="No account manager, no discovery deck. Fifteen minutes with the person who would run your audit."
         secondary={{ href: "/process", label: "See the process" }}
       />

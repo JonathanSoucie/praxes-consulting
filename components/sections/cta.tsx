@@ -13,7 +13,7 @@ import { Reveal } from "@/components/reveal";
  */
 export function CtaSection({
   eyebrow = "Next step",
-  title = "Find out what your bottleneck is costing you.",
+  title = "What is it costing you?",
   body = "Fifteen minutes, no preparation needed. We'll tell you whether there's a case worth measuring — including when there isn't.",
   secondary,
 }: {

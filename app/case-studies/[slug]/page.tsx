@@ -118,7 +118,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <SectionHeading
               align="left"
               eyebrow="The challenge"
-              title="What they came to us with."
+              title="The starting point."
             />
             <Reveal delay={60} className="max-w-2xl space-y-5">
               {study.challenge.map((paragraph) => (
@@ -194,7 +194,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
         <Container>
           <SectionHeading
             eyebrow="The return"
-            title="Measured against the audit baseline."
+            title="Against the baseline."
             deck="Same metrics, same definitions, re-measured 90 days after go-live."
           />
 
@@ -245,7 +245,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       ) : null}
 
       <CtaSection
-        title="What would your readout say?"
+        title="What would yours say?"
         body="The only way to know is to measure it. Start with fifteen free minutes and an honest read on whether there's a case here."
         secondary={{ href: "/case-studies", label: "More case studies" }}
       />

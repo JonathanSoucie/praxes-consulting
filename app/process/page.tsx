@@ -81,7 +81,7 @@ export default function ProcessPage() {
 
       <PageHeader
         eyebrow="Process"
-        title="A sequence designed so you can stop at any point."
+        title="Stop at any point."
         deck="A free conversation, then a paid audit you keep regardless of what you decide, then a fixed-scope build. Your exposure grows only after the case for it has been measured."
       >
         <div className="mt-10 flex flex-col items-center gap-4">
@@ -96,7 +96,7 @@ export default function ProcessPage() {
         <Container>
           <SectionHeading
             eyebrow="The engagement"
-            title="Five stages. Commitment increases only after the case is established."
+            title="Five stages."
             deck="What happens at each stage, what you receive, and how long it typically takes."
           />
 
@@ -156,10 +156,7 @@ export default function ProcessPage() {
       {/* ---------------------------------------------------------------- */}
       <Section>
         <Container>
-          <SectionHeading
-            eyebrow="Questions"
-            title="Process questions, answered plainly."
-          />
+          <SectionHeading eyebrow="Questions" title="Process questions." />
           <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
             <FaqList items={processFaqs} />
           </Reveal>
@@ -167,7 +164,7 @@ export default function ProcessPage() {
       </Section>
 
       <CtaSection
-        title="Start with the free fifteen minutes."
+        title="Start with fifteen minutes."
         body="No preparation, no deck, no pricing conversation. Just a straight read on whether there's something here worth measuring."
         secondary={{ href: "/services", label: "What we build" }}
       />

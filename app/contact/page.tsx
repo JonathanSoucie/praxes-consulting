@@ -70,7 +70,7 @@ export default function ContactPage() {
 
       <PageHeader
         eyebrow="Contact"
-        title="Book your free 15-minute discovery call."
+        title="Fifteen free minutes."
         deck="Pick a time that suits you below. If you'd rather write first, the form further down reaches us directly."
       />
       {/* ---------------------------------------------------------------- */}
@@ -87,10 +87,7 @@ export default function ContactPage() {
       {/* ---------------------------------------------------------------- */}
       <Section className="py-16 sm:py-20">
         <Container>
-          <SectionHeading
-            eyebrow="What to expect"
-            title="What happens on the call."
-          />
+          <SectionHeading eyebrow="What to expect" title="On the call." />
 
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
             {expectations.map((item, i) => (

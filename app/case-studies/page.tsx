@@ -66,7 +66,7 @@ export default function CaseStudiesPage() {
 
       <PageHeader
         eyebrow="Case Studies"
-        title="What the measurement actually showed."
+        title="What the numbers showed."
         deck="Each study states the baseline we started from, what the audit found, what we built, and the re-measured result at 90 days. Including one engagement where the answer was to build nothing."
       />
       {/* Aggregate stats — lifted into the seam under the header */}
@@ -96,7 +96,7 @@ export default function CaseStudiesPage() {
         <Container>
           <SectionHeading
             eyebrow="Featured"
-            title="The one that changed the brief."
+            title="When the brief changed."
             deck="The client asked us to build document extraction. The measurement said the extraction was a third of the problem — so we sequenced it last."
           />
 
@@ -121,7 +121,7 @@ export default function CaseStudiesPage() {
       ) : null}
 
       <CtaSection
-        title="Curious what your own numbers would look like?"
+        title="What would yours show?"
         body="The discovery call is fifteen minutes and costs nothing. If there's no case, you'll hear that on the call rather than after an invoice."
         secondary={{ href: "/process", label: "How the audit works" }}
       />
