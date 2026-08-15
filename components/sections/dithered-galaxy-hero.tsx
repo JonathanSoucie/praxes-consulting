@@ -37,21 +37,27 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
             it — multiply on the light theme, screen on the dark, which is its
             mirror once the polarity flips. See --hero-type-blend.
 
-            Line breaks are authored, not left to the measure: the reference
-            sets three roughly equal lines, and letting this wrap naturally
-            gave a long first line and an orphan.
+            Line breaks are authored, not left to the measure: at these sizes
+            the question sets to two balanced lines, where wrapping it
+            naturally would break after "or" and leave "growth?" stranded.
+
+            Sentence case in the markup — the caps come from `uppercase`, so
+            the accessible name and the page source stay readable.
           */}
           <h1 className="hero-type font-display text-[2.75rem] leading-[0.95] font-semibold text-accent uppercase sm:text-6xl lg:text-7xl xl:text-8xl">
-            Find the
+            Time or
             <br />
-            bottleneck.
-            <br />
-            Prove the return.
+            growth?
           </h1>
 
           <div className="mt-9 max-w-lg space-y-4">
+            {/* Two sentences, one thought — the break is authored so "You
+                choose." lands on its own line and the promise answers it
+                underneath. */}
             <p className="text-base leading-relaxed text-ink-soft sm:text-lg">
-              The constraint is rarely where the team believes it is.
+              You choose.
+              <br />
+              We build the systems that get you there.
             </p>
             <p className="text-base leading-relaxed text-muted">
               We measure the process, build only what the numbers justify, and
