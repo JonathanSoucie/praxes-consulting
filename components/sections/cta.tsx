@@ -28,7 +28,7 @@ export function CtaSection({
           the light ground, light ink on the dark one. The band used to be
           pinned dark in both themes, which left it as the one place the light
           theme went black. */}
-      <DitheredGalaxyField scrim="center" intensity={0.5} />
+      <DitheredGalaxyField scrim="center" intensity={0.85} zoom={1.45} />
 
       <Container className="relative z-10">
         <Reveal className="mx-auto max-w-3xl text-center">

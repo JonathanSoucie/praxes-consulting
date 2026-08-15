@@ -79,7 +79,8 @@ export function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
       <div className="relative isolate overflow-hidden border-t border-line bg-surface-2 p-8 sm:p-12">
         <DitheredGalaxyField
           scrim="center"
-          intensity={0.5}
+          intensity={0.85}
+          zoom={1.45}
           fadeBottom={false}
         />
         <div className="relative z-10">

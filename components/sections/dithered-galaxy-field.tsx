@@ -329,6 +329,7 @@ export function DitheredGalaxyField({
   scrim = "upper-left",
   fadeBottom = true,
   intensity = 1,
+  zoom = 1,
 }: {
   className?: string;
   /** "upper-left" for copy in the corner, "center" for a centred masthead. */
@@ -338,6 +339,13 @@ export function DitheredGalaxyField({
   /** 0-1. Below 1 the dots fade toward the ground, so the field reads as
       texture rather than subject — used by the shorter page mastheads. */
   intensity?: number;
+  /**
+   * Multiplier on the cover scale. Above 1 the source is drawn larger than the
+   * box, so the galaxy fills more of it. Short, wide bands need this: a plain
+   * cover fit puts the whole 16:9 frame across the width and leaves the
+   * subject as a smear at one end.
+   */
+  zoom?: number;
 }) {
   const rootRef = React.useRef<HTMLDivElement>(null);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -566,7 +574,7 @@ export function DitheredGalaxyField({
       rows: number,
     ) {
       if (!sw || !sh) return;
-      const scale = Math.max(cols / sw, rows / sh);
+      const scale = Math.max(cols / sw, rows / sh) * zoom;
       const w = sw * scale;
       const h = sh * scale;
       target.drawImage(
@@ -970,9 +978,14 @@ export function DitheredGalaxyField({
         dots keep showing through, they just stop competing.
 
         "upper-left" is the home hero, whose copy sits in the corner the
-        galaxy leaves empty. "center" is the page mastheads, where the copy is
-        centred and has no empty corner to sit in, so the calm has to be put
-        in the middle instead.
+        galaxy leaves empty. "center" is the page mastheads and the short
+        bands, where the copy is centred and has no empty corner to sit in.
+
+        That one is deliberately tight rather than wide: it needs to be opaque
+        where the words are and gone everywhere else. Spread across the full
+        box it protected the text but erased the field with it, leaving dots
+        only in the corners — and light text over bright dots measures 1.5:1,
+        so simply weakening it is not an option either.
       */}
       {scrim === "upper-left" ? (
         <>
@@ -995,7 +1008,7 @@ export function DitheredGalaxyField({
         <div
           className="absolute inset-0"
           style={{
-            background: `radial-gradient(ellipse 78% 88% at 50% 52%, ${groundColor}F2 0%, ${groundColor}E0 34%, ${groundColor}99 58%, ${groundColor}00 82%)`,
+            background: `radial-gradient(ellipse 50% 62% at 50% 48%, ${groundColor}F2 0%, ${groundColor}DB 44%, ${groundColor}8C 70%, ${groundColor}00 94%)`,
           }}
         />
       ) : null}

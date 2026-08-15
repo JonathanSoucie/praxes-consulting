@@ -234,7 +234,8 @@ export default function ServicesPage() {
             <div className="relative isolate mt-10 overflow-hidden border border-line bg-surface-2 p-8 lg:p-12">
               <DitheredGalaxyField
                 scrim="center"
-                intensity={0.5}
+                intensity={0.85}
+                zoom={1.45}
                 fadeBottom={false}
               />
               <div className="relative z-10 mx-auto max-w-3xl text-center">
