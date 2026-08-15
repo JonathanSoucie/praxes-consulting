@@ -50,19 +50,15 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
             growth?
           </h1>
 
-          <div className="mt-9 max-w-lg space-y-4">
-            {/* Two sentences, one thought — the break is authored so "You
-                choose." lands on its own line and the promise answers it
-                underneath. */}
+          {/* Two sentences, one thought — the break is authored so "You
+              choose." lands on its own line and the promise answers it
+              underneath. The wrapper is a plain div now: with the second
+              paragraph gone there is nothing left for space-y-4 to space. */}
+          <div className="mt-9 max-w-lg">
             <p className="text-base leading-relaxed text-ink-soft sm:text-lg">
               You choose.
               <br />
               We build the systems that get you there.
-            </p>
-            <p className="text-base leading-relaxed text-muted">
-              We measure the process, build only what the numbers justify, and
-              re-measure against the same baseline at 30 and 90 days — so you
-              find out whether it worked, flattering or not.
             </p>
           </div>
 
