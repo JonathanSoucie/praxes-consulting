@@ -75,15 +75,12 @@
 
      The mat stays thin and even. It is viewport chrome, so anything it gains
      it takes from *everything* — including the hero and the navbar, which are
-     meant to run wide. The generous side margins live on --gutter below, which
-     only the body content uses. */
+     meant to run wide. The generous side margin below the hero is not this: it
+     is the inset on the content card (components/layout/page-card.tsx), which
+     is painted in this same colour so the two read as one continuous margin. */
   --frame-y: 10px;
   --frame-x: 10px;
 
-  /* Side margin for body content. This is the "much larger" one — but it is a
-     container gutter, not viewport chrome, so the full-bleed hero, the page
-     mastheads and the navbar can opt out of it via <Container wide>. */
-  --gutter: 1.5rem;
 
   /* How hero type sits in the dot field behind it. Multiply keeps dark text
      reading through a light field; on the dark theme the polarity flips and
@@ -96,7 +93,6 @@
   :root {
     --frame-y: 14px;
     --frame-x: 14px;
-    --gutter: 2.75rem;
   }
 }
 
@@ -104,15 +100,9 @@
   :root {
     --frame-y: 18px;
     --frame-x: 18px;
-    --gutter: 4.5rem;
   }
 }
 
-@media (min-width: 1280px) {
-  :root {
-    --gutter: 6.5rem;
-  }
-}
 
 /* Theme change: cross-fade, don't cut.
 
@@ -450,24 +440,25 @@
    ========================================================================== */
 
 /* Page gutter + max width. Every section body sits inside this. */
-/* Body content: the wide side margins. */
 @utility container-page {
   width: 100%;
   margin-inline: auto;
   max-width: 78rem;
   /* Never less than the mat plus a little air, or content would slide under
      the frame on viewports narrower than the max-width. */
-  padding-inline: max(var(--gutter), calc(var(--frame-x) + 0.75rem));
+  padding-inline: max(1.5rem, calc(var(--frame-x) + 0.75rem));
 }
 
-/* Full-width contexts — the navbar, the home hero, the page mastheads. Same
-   max-width, but only enough gutter to clear the mat, so these keep running
-   edge to edge while the body copy sits well inside. */
-@utility container-wide {
-  width: 100%;
-  margin-inline: auto;
-  max-width: 78rem;
-  padding-inline: max(1.5rem, calc(var(--frame-x) + 0.75rem));
+/* Inside the big content card the surface scale shifts up one step: the card
+   itself becomes the field that sections sit on, and anything that sits *on*
+   that field steps again so it still reads against it. Scoping the tokens is
+   what lets every existing section and card keep working unchanged — without
+   it, every `bg-surface` card would be the same colour as the card it is on. */
+@utility card-surfaces {
+  --color-surface-2: var(--t-light, #ffffff) var(--t-dark, #222222);
+  --color-surface: var(--t-light, #f5f5f2) var(--t-dark, #2a2a2a);
+  --color-surface-3: var(--t-light, #ffffff) var(--t-dark, #333333);
+  --wash-mid: var(--t-light, #f3f0fb) var(--t-dark, #262626);
 }
 
 /* Violet gradient text — for the one or two words per page that should carry

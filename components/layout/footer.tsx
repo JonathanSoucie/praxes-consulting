@@ -8,7 +8,11 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-surface">
+    // The page colour, not the card colour: the footer sits outside and below
+    // the content card, on the same margin that surrounds it. Filling it with
+    // the card colour would put a full-bleed slab under the card and undo the
+    // sheet-on-a-desk read.
+    <footer className="bg-surface-2">
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="max-w-sm">

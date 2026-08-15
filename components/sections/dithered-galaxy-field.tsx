@@ -145,8 +145,20 @@ const MIN_SATURATION = 0.04;
  * full white-smoke made the core a glare that outshone the headline sitting at
  * 16.3:1. Capping the field below the type keeps the reading order right.
  */
-const RAMP_LIGHT = ["#c4b5fd", "#a686f9", "#7956dc", "#3d4386", "#0a1c3b"] as const;
-const RAMP_DARK = ["#36373a", "#575b63", "#7b828f", "#a7b1c5", "#d0d5dd"] as const;
+const RAMP_LIGHT = [
+  "#c4b5fd",
+  "#a686f9",
+  "#7956dc",
+  "#3d4386",
+  "#0a1c3b",
+] as const;
+const RAMP_DARK = [
+  "#36373a",
+  "#575b63",
+  "#7b828f",
+  "#a7b1c5",
+  "#d0d5dd",
+] as const;
 
 const TAU = Math.PI * 2;
 
@@ -215,7 +227,7 @@ function hslToRgb(h: number, s: number, l: number): [number, number, number] {
   const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
   const p = 2 * l - q;
   const channel = (t: number) => {
-    t = (t % 1 + 1) % 1;
+    t = ((t % 1) + 1) % 1;
     if (t < 1 / 6) return p + (q - p) * 6 * t;
     if (t < 1 / 2) return q;
     if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
@@ -286,8 +298,7 @@ function hueBinOf(r: number, g: number, b: number): number {
 /* -------------------------------------------------------------------------- */
 
 /** Contrast factor, the standard -255..255 curve. */
-const CONTRAST_F =
-  (259 * (CONTRAST + 255)) / (255 * (259 - CONTRAST));
+const CONTRAST_F = (259 * (CONTRAST + 255)) / (255 * (259 - CONTRAST));
 
 /** cos/sin of the twist, sampled over the falloff so the loop does no trig. */
 const TWIST_LUT_SIZE = 64;
@@ -362,7 +373,7 @@ export function DitheredGalaxyField({
     if (!ctx) return;
 
     const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
     // No hover means no cursor to react to; the warp would only ever fire on
     // tap, which reads as a glitch rather than a response.
@@ -478,7 +489,10 @@ export function DitheredGalaxyField({
         probe.onerror = () => reject(new Error("probe failed"));
       });
       const timeout = new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error("probe timed out")), LEVEL_SAMPLE_TIMEOUT_MS)
+        setTimeout(
+          () => reject(new Error("probe timed out")),
+          LEVEL_SAMPLE_TIMEOUT_MS,
+        ),
       );
 
       try {
@@ -504,7 +518,7 @@ export function DitheredGalaxyField({
             0,
             0,
             scratch.width,
-            scratch.height
+            scratch.height,
           );
           for (let p = 0; p < data.length; p += 4) {
             const luma =
@@ -549,13 +563,19 @@ export function DitheredGalaxyField({
       sw: number,
       sh: number,
       cols: number,
-      rows: number
+      rows: number,
     ) {
       if (!sw || !sh) return;
       const scale = Math.max(cols / sw, rows / sh);
       const w = sw * scale;
       const h = sh * scale;
-      target.drawImage(source, (cols - w) * FOCUS_X, (rows - h) * FOCUS_Y, w, h);
+      target.drawImage(
+        source,
+        (cols - w) * FOCUS_X,
+        (rows - h) * FOCUS_Y,
+        w,
+        h,
+      );
     }
 
     /**
@@ -591,7 +611,8 @@ export function DitheredGalaxyField({
         }
         fadeAlpha = Math.min(
           1,
-          (t - fadeStart) / Math.max(FADE_SECONDS - FADE_SATURATE_SECONDS, 0.01)
+          (t - fadeStart) /
+            Math.max(FADE_SECONDS - FADE_SATURATE_SECONDS, 0.01),
         );
 
         if (t >= duration - 0.05 || primary.ended) {
@@ -631,7 +652,7 @@ export function DitheredGalaxyField({
           primary.videoWidth,
           primary.videoHeight,
           cols,
-          rows
+          rows,
         );
         if (fading && fadeAlpha > 0 && secondary.readyState >= 2) {
           bufferCtx.globalAlpha = fadeAlpha;
@@ -641,12 +662,19 @@ export function DitheredGalaxyField({
             secondary.videoWidth,
             secondary.videoHeight,
             cols,
-            rows
+            rows,
           );
           bufferCtx.globalAlpha = 1;
         }
       } else if (poster) {
-        drawCover(bufferCtx, poster, poster.naturalWidth, poster.naturalHeight, cols, rows);
+        drawCover(
+          bufferCtx,
+          poster,
+          poster.naturalWidth,
+          poster.naturalHeight,
+          cols,
+          rows,
+        );
       } else {
         return;
       }
@@ -853,7 +881,7 @@ export function DitheredGalaxyField({
         if (onScreen && !document.hidden) start();
         else stop();
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
     intersectionObserver.observe(panel);
 

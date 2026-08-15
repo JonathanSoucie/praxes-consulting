@@ -29,7 +29,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     () => () => {
       if (shiftTimer.current) clearTimeout(shiftTimer.current);
     },
-    []
+    [],
   );
 
   const toggle = () => {
@@ -77,7 +77,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         // all, so without `active:` this button gives no acknowledgement
         // whatsoever between the tap and the palette changing.
         "inline-flex size-10 items-center justify-center rounded-full text-muted transition-[background-color,color,transform] duration-150 ease-out-soft hover:bg-accent-soft hover:text-accent-ink active:scale-90 active:bg-accent-soft active:text-accent-ink",
-        className
+        className,
       )}
     >
       {/* Each icon shows the theme you'd be switching *to*, not the one you

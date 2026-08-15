@@ -10,7 +10,7 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
         "placeholder:text-muted focus-visible:border-accent focus-visible:bg-surface",
         "aria-invalid:border-red-500",
         "disabled:cursor-not-allowed disabled:opacity-50",
-        className
+        className,
       )}
       {...props}
     />

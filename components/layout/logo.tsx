@@ -21,7 +21,7 @@ export function Logo({
       className={cn(
         "group inline-flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight transition-opacity hover:opacity-80",
         inverse ? "text-white" : "text-ink",
-        className
+        className,
       )}
     >
       <LogoMark size={30} />

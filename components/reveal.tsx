@@ -38,7 +38,7 @@ export function Reveal({
           observer.disconnect();
         }
       },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.05 },
     );
 
     observer.observe(el);
@@ -52,7 +52,7 @@ export function Reveal({
       className={cn(
         "transition-[opacity,transform] duration-700 ease-out-soft",
         shown ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
-        className
+        className,
       )}
     >
       {children}

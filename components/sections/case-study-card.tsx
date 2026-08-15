@@ -18,7 +18,7 @@ export function CaseStudyCard({
       href={`/case-studies/${study.slug}`}
       className={cn(
         "group card-raise flex h-full flex-col rounded-xl bg-surface p-7 transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:card-float",
-        className
+        className,
       )}
     >
       <div className="flex items-start justify-between gap-4">

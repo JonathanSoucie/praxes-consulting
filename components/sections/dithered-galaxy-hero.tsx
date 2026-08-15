@@ -27,7 +27,7 @@ export function DitheredGalaxyHero({ className }: { className?: string }) {
       <DitheredGalaxyField scrim="upper-left" />
 
       {/* pt clears the overlaying navbar. */}
-      <Container wide className="relative z-10 flex min-h-svh flex-col justify-center pt-28 pb-32 sm:pt-32 sm:pb-40">
+      <Container className="relative z-10 flex min-h-svh flex-col justify-center pt-28 pb-32 sm:pt-32 sm:pb-40">
         <div className="max-w-xl lg:max-w-2xl">
           {/*
             The type blends into the field rather than punching a hole in it —

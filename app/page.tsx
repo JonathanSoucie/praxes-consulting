@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ArrowRight, Check } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
+import { PageCard } from "@/components/layout/page-card";
 import { DitheredGalaxyHero } from "@/components/sections/dithered-galaxy-hero";
 import { Outcomes } from "@/components/sections/outcomes";
 import { TimeEstimator } from "@/components/sections/time-estimator";
@@ -23,11 +24,7 @@ import { generalFaqs } from "@/content/faqs";
 import { industries, services } from "@/content/services";
 import { features, site } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
-import {
-  faqPageSchema,
-  organizationSchema,
-  websiteSchema,
-} from "@/lib/schema";
+import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/schema";
 import { ogImage, pageMetadata, siteKeywords } from "@/lib/seo";
 
 /* Home leads with the brand rather than taking the "— Praxes" suffix, so its
@@ -128,270 +125,274 @@ export default function HomePage() {
         ]}
       />
       <DitheredGalaxyHero />
-      <Outcomes />
+      <PageCard>
+        <Outcomes />
 
-      {/* ---------------------------------------------------------------- */}
-      {/* The problem                                                       */}
-      {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
-        <Container>
-          <SectionHeading
-            eyebrow="The problem"
-            title="Most businesses don't have an AI problem. They have a bottleneck nobody has priced."
-            deck="The constraint is usually mundane, absent from the reporting, and expensive. It is rarely the thing people complain about."
-          />
+        {/* ---------------------------------------------------------------- */}
+        {/* The problem                                                       */}
+        {/* ---------------------------------------------------------------- */}
+        <Section tone="card">
+          <Container>
+            <SectionHeading
+              eyebrow="The problem"
+              title="Most businesses don't have an AI problem. They have a bottleneck nobody has priced."
+              deck="The constraint is usually mundane, absent from the reporting, and expensive. It is rarely the thing people complain about."
+            />
 
-          <div className="mt-16 grid gap-5 lg:grid-cols-3">
-            {problems.map((problem, i) => (
-              <Reveal
-                key={problem.title}
-                delay={i * 60}
-                className="hover-lift rounded-xl bg-surface-2 p-8"
-              >
-                <p className="figure-num text-sm text-accent">
-                  {problem.n} <span className="text-line-strong">—</span>
-                </p>
-                <h3 className="mt-3 text-lg">{problem.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {problem.body}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+            <div className="mt-16 grid gap-5 lg:grid-cols-3">
+              {problems.map((problem, i) => (
+                <Reveal
+                  key={problem.title}
+                  delay={i * 60}
+                  className="hover-lift rounded-xl bg-surface-2 p-8"
+                >
+                  <p className="figure-num text-sm text-accent">
+                    {problem.n} <span className="text-line-strong">—</span>
+                  </p>
+                  <h3 className="mt-3 text-lg">{problem.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">
+                    {problem.body}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
 
-          <Reveal delay={200} className="mx-auto mt-10 max-w-2xl">
-            <TimeEstimator />
-          </Reveal>
-        </Container>
-      </Section>
+            <Reveal delay={200} className="mx-auto mt-10 max-w-2xl">
+              <TimeEstimator />
+            </Reveal>
+          </Container>
+        </Section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* The solution                                                      */}
-      {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
-        <Container>
-          <SectionHeading
-            eyebrow="The approach"
-            title={
-              <>
-                Find the bottleneck. Implement the fix.{" "}
-                <span className="text-gradient animate-gradient-shift">
-                  Prove the return.
-                </span>
-              </>
-            }
-            deck="Three steps, in that order. The third one is the part most firms skip, and it's the only one that tells you whether the first two worked."
-          />
-
-          <div className="mt-16 grid gap-5 lg:grid-cols-3">
-            {solution.map((item, i) => (
-              <Reveal
-                key={item.n}
-                delay={i * 70}
-                className="card-raise hover-lift rounded-2xl bg-surface p-8"
-              >
-                <span className="grid size-10 place-items-center rounded-full bg-accent text-sm font-semibold text-on-accent">
-                  {item.n}
-                </span>
-                <h3 className="mt-6 text-xl sm:text-2xl">{item.title}</h3>
-                <p className="mt-4 text-base leading-relaxed text-muted">
-                  {item.body}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Process overview                                                  */}
-      {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
-        <Container>
-          <SectionHeading
-            eyebrow="Process"
-            title="Five stages. Commitment increases only after the case is established."
-          />
-
-          <div className="mt-16">
-            <ProcessTimeline variant="overview" />
-          </div>
-
-          <Reveal delay={80} className="mt-10 text-center">
-            <Button asChild variant="soft">
-              <Link href="/process">
-                See the full process
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Services snapshot                                                 */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
-        <Container>
-          <SectionHeading
-            eyebrow="Services"
-            title="What we build with AI, once we know what's actually in the way."
-          />
-
-          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, i) => (
-              <Reveal
-                key={service.slug}
-                delay={i * 50}
-                className="card-raise hover-lift rounded-xl bg-surface p-7"
-              >
-                <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
-                  <ServiceIcon
-                    name={service.icon}
-                    className="size-5 text-accent"
-                  />
-                </span>
-                <h3 className="mt-5 text-lg">{service.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {service.summary}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={80} className="mt-10 text-center">
-            <Button asChild variant="soft">
-              <Link href="/services">
-                All services
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Featured case study — hidden with the Case Studies section        */}
-      {/* ---------------------------------------------------------------- */}
-      {features.caseStudies && featured ? (
+        {/* ---------------------------------------------------------------- */}
+        {/* The solution                                                      */}
+        {/* ---------------------------------------------------------------- */}
         <Section tone="wash">
           <Container>
             <SectionHeading
-              eyebrow="Case study"
-              title="When the bottleneck isn't where the client thought it was."
+              eyebrow="The approach"
+              title={
+                <>
+                  Find the bottleneck. Implement the fix.{" "}
+                  <span className="text-gradient animate-gradient-shift">
+                    Prove the return.
+                  </span>
+                </>
+              }
+              deck="Three steps, in that order. The third one is the part most firms skip, and it's the only one that tells you whether the first two worked."
             />
 
-            <Reveal className="mt-16">
-              <FeaturedCaseStudy study={featured} />
-            </Reveal>
+            <div className="mt-16 grid gap-5 lg:grid-cols-3">
+              {solution.map((item, i) => (
+                <Reveal
+                  key={item.n}
+                  delay={i * 70}
+                  className="card-raise hover-lift rounded-2xl bg-surface p-8"
+                >
+                  <span className="grid size-10 place-items-center rounded-full bg-accent text-sm font-semibold text-on-accent">
+                    {item.n}
+                  </span>
+                  <h3 className="mt-6 text-xl sm:text-2xl">{item.title}</h3>
+                  <p className="mt-4 text-base leading-relaxed text-muted">
+                    {item.body}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+          </Container>
+        </Section>
+
+        {/* ---------------------------------------------------------------- */}
+        {/* Process overview                                                  */}
+        {/* ---------------------------------------------------------------- */}
+        <Section tone="card">
+          <Container>
+            <SectionHeading
+              eyebrow="Process"
+              title="Five stages. Commitment increases only after the case is established."
+            />
+
+            <div className="mt-16">
+              <ProcessTimeline variant="overview" />
+            </div>
 
             <Reveal delay={80} className="mt-10 text-center">
               <Button asChild variant="soft">
-                <Link href="/case-studies">
-                  All case studies
+                <Link href="/process">
+                  See the full process
                   <ArrowRight aria-hidden />
                 </Link>
               </Button>
             </Reveal>
           </Container>
         </Section>
-      ) : null}
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Testimonials — hidden behind features.testimonials               */}
-      {/* ---------------------------------------------------------------- */}
-      {features.testimonials ? (
-        <Section tone="wash">
+        {/* ---------------------------------------------------------------- */}
+        {/* Services snapshot                                                 */}
+        {/* ---------------------------------------------------------------- */}
+        <Section>
           <Container>
-            <SectionHeading eyebrow="Clients" title="In their words." />
-            <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
-              <TestimonialSlider testimonials={testimonials} />
+            <SectionHeading
+              eyebrow="Services"
+              title="What we build with AI, once we know what's actually in the way."
+            />
+
+            <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {services.map((service, i) => (
+                <Reveal
+                  key={service.slug}
+                  delay={i * 50}
+                  className="card-raise hover-lift rounded-xl bg-surface p-7"
+                >
+                  <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
+                    <ServiceIcon
+                      name={service.icon}
+                      className="size-5 text-accent"
+                    />
+                  </span>
+                  <h3 className="mt-5 text-lg">{service.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">
+                    {service.summary}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal delay={80} className="mt-10 text-center">
+              <Button asChild variant="soft">
+                <Link href="/services">
+                  All services
+                  <ArrowRight aria-hidden />
+                </Link>
+              </Button>
             </Reveal>
           </Container>
         </Section>
-      ) : null}
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Industries                                                        */}
-      {/* ---------------------------------------------------------------- */}
-      {/* wash, not the default surface — the two sections above this are
+        {/* ---------------------------------------------------------------- */}
+        {/* Featured case study — hidden with the Case Studies section        */}
+        {/* ---------------------------------------------------------------- */}
+        {features.caseStudies && featured ? (
+          <Section tone="wash">
+            <Container>
+              <SectionHeading
+                eyebrow="Case study"
+                title="When the bottleneck isn't where the client thought it was."
+              />
+
+              <Reveal className="mt-16">
+                <FeaturedCaseStudy study={featured} />
+              </Reveal>
+
+              <Reveal delay={80} className="mt-10 text-center">
+                <Button asChild variant="soft">
+                  <Link href="/case-studies">
+                    All case studies
+                    <ArrowRight aria-hidden />
+                  </Link>
+                </Button>
+              </Reveal>
+            </Container>
+          </Section>
+        ) : null}
+
+        {/* ---------------------------------------------------------------- */}
+        {/* Testimonials — hidden behind features.testimonials               */}
+        {/* ---------------------------------------------------------------- */}
+        {features.testimonials ? (
+          <Section tone="wash">
+            <Container>
+              <SectionHeading eyebrow="Clients" title="In their words." />
+              <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
+                <TestimonialSlider testimonials={testimonials} />
+              </Reveal>
+            </Container>
+          </Section>
+        ) : null}
+
+        {/* ---------------------------------------------------------------- */}
+        {/* Industries                                                        */}
+        {/* ---------------------------------------------------------------- */}
+        {/* wash, not the default surface — the two sections above this are
           feature-flagged off, so Services sits directly on top of it, and two
           default-tone sections in a row read as one undifferentiated block. */}
-      <Section tone="wash">
-        <Container>
-          <SectionHeading
-            eyebrow="Industries"
-            title="Industries we work in."
-            deck="Mixed verticals, one common shape: an established business with a repetitive, high-volume process that has never been properly costed."
-          />
+        <Section tone="wash">
+          <Container>
+            <SectionHeading
+              eyebrow="Industries"
+              title="Industries we work in."
+              deck="Mixed verticals, one common shape: an established business with a repetitive, high-volume process that has never been properly costed."
+            />
 
-          <dl className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {industries.map((industry, i) => (
-              <Reveal
-                key={industry.name}
-                delay={i * 40}
-                className="card-raise hover-lift rounded-xl bg-surface p-7"
-              >
-                <dt className="font-display text-base font-semibold text-ink">
-                  {industry.name}
-                </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-muted">
-                  {industry.note}
-                </dd>
-              </Reveal>
-            ))}
-          </dl>
-        </Container>
-      </Section>
+            <dl className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {industries.map((industry, i) => (
+                <Reveal
+                  key={industry.name}
+                  delay={i * 40}
+                  className="card-raise hover-lift rounded-xl bg-surface p-7"
+                >
+                  <dt className="font-display text-base font-semibold text-ink">
+                    {industry.name}
+                  </dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-muted">
+                    {industry.note}
+                  </dd>
+                </Reveal>
+              ))}
+            </dl>
+          </Container>
+        </Section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Why Praxes                                                        */}
-      {/* ---------------------------------------------------------------- */}
-      <Section tone="card">
-        <Container>
-          <SectionHeading
-            eyebrow="Why Praxes"
-            title="We are trying to be the firm that tells you the truth about your numbers."
-          />
+        {/* ---------------------------------------------------------------- */}
+        {/* Why Praxes                                                        */}
+        {/* ---------------------------------------------------------------- */}
+        <Section tone="card">
+          <Container>
+            <SectionHeading
+              eyebrow="Why Praxes"
+              title="We are trying to be the firm that tells you the truth about your numbers."
+            />
 
-          <div className="mt-16 grid gap-5 sm:grid-cols-2">
-            {differentiators.map((item, i) => (
-              <Reveal
-                key={item.title}
-                delay={i * 60}
-                className="hover-lift flex gap-5 rounded-xl bg-surface-2 p-8"
-              >
-                <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-accent">
-                  <Check aria-hidden className="size-4 text-on-accent" />
-                </span>
-                <div>
-                  <h3 className="text-lg">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
-                    {item.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </Section>
+            <div className="mt-16 grid gap-5 sm:grid-cols-2">
+              {differentiators.map((item, i) => (
+                <Reveal
+                  key={item.title}
+                  delay={i * 60}
+                  className="hover-lift flex gap-5 rounded-xl bg-surface-2 p-8"
+                >
+                  <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-accent">
+                    <Check aria-hidden className="size-4 text-on-accent" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-muted">
+                      {item.body}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </Container>
+        </Section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* FAQ                                                               */}
-      {/* ---------------------------------------------------------------- */}
-      <Section tone="wash">
-        <Container>
-          <SectionHeading
-            eyebrow="Questions"
-            title="What people ask before booking."
-          />
-          <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
-            <FaqList items={generalFaqs} />
-          </Reveal>
-        </Container>
-      </Section>
+        {/* ---------------------------------------------------------------- */}
+        {/* FAQ                                                               */}
+        {/* ---------------------------------------------------------------- */}
+        <Section tone="wash">
+          <Container>
+            <SectionHeading
+              eyebrow="Questions"
+              title="What people ask before booking."
+            />
+            <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
+              <FaqList items={generalFaqs} />
+            </Reveal>
+          </Container>
+        </Section>
 
-      <CtaSection secondary={{ href: "/process", label: "See the process" }} />
+        <CtaSection
+          secondary={{ href: "/process", label: "See the process" }}
+        />
+      </PageCard>
     </>
   );
 }

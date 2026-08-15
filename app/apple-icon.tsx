@@ -13,13 +13,11 @@ export default function AppleIcon() {
   const svg = logoMarkSvg({ background: "#ffffff" });
 
   return new ImageResponse(
-    (
-      <img
-        width={size.width}
-        height={size.height}
-        src={`data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`}
-      />
-    ),
-    size
+    <img
+      width={size.width}
+      height={size.height}
+      src={`data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`}
+    />,
+    size,
   );
 }

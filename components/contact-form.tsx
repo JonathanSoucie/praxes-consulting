@@ -52,7 +52,7 @@ export function ContactForm() {
         if (result.errors) setErrors(result.errors as FieldErrors);
         setFormError(
           result.error ??
-            "Something went wrong. Please check the fields and try again."
+            "Something went wrong. Please check the fields and try again.",
         );
         setStatus("error");
         return;
@@ -61,7 +61,7 @@ export function ContactForm() {
       setStatus("sent");
     } catch {
       setFormError(
-        `We couldn't reach the server. Please email us at ${site.email}.`
+        `We couldn't reach the server. Please email us at ${site.email}.`,
       );
       setStatus("error");
     }
@@ -141,7 +141,10 @@ export function ContactForm() {
       </Field>
 
       {/* Honeypot — hidden from people, irresistible to bots. */}
-      <div aria-hidden className="absolute left-[-9999px] h-px w-px overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute left-[-9999px] h-px w-px overflow-hidden"
+      >
         <label htmlFor="website">Website</label>
         <input id="website" name="website" tabIndex={-1} autoComplete="off" />
       </div>

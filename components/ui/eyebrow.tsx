@@ -19,7 +19,7 @@ export function Eyebrow({
       className={cn(
         "inline-flex items-center gap-2.5 text-xs font-medium tracking-[0.14em] uppercase",
         tone === "onDark" ? "text-white/60" : "text-muted",
-        className
+        className,
       )}
     >
       <span className="relative inline-flex size-1.5 shrink-0">
@@ -27,13 +27,13 @@ export function Eyebrow({
           aria-hidden
           className={cn(
             "absolute inline-flex size-full animate-eyebrow-ping rounded-full",
-            tone === "onDark" ? "bg-white/60" : "bg-accent"
+            tone === "onDark" ? "bg-white/60" : "bg-accent",
           )}
         />
         <span
           className={cn(
             "relative inline-flex size-1.5 rounded-full",
-            tone === "onDark" ? "bg-white/80" : "bg-accent"
+            tone === "onDark" ? "bg-white/80" : "bg-accent",
           )}
         />
       </span>

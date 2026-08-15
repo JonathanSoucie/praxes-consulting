@@ -63,7 +63,9 @@ export function EngagementTimeline({ className }: { className?: string }) {
   const total = phases.reduce((sum, phase) => sum + phase.span, 0);
 
   return (
-    <div className={cn("card-raise rounded-2xl bg-surface p-7 sm:p-9", className)}>
+    <div
+      className={cn("card-raise rounded-2xl bg-surface p-7 sm:p-9", className)}
+    >
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <p className="font-display text-base font-semibold text-ink">
           Typical engagement
@@ -91,7 +93,7 @@ export function EngagementTimeline({ className }: { className?: string }) {
                 phase.fill,
                 // The open end: monitoring doesn't stop.
                 phase.duration === "Ongoing" &&
-                  "mask-[linear-gradient(to_right,black_65%,transparent)]"
+                  "mask-[linear-gradient(to_right,black_65%,transparent)]",
               )}
             />
             <p className="mt-4 text-sm font-medium text-ink">{phase.label}</p>
@@ -110,7 +112,10 @@ export function EngagementTimeline({ className }: { className?: string }) {
         {phases.map((phase) => (
           <li key={phase.label} className="flex items-start gap-3.5">
             <span
-              className={cn("mt-1.5 h-2.5 w-8 shrink-0 rounded-full", phase.fill)}
+              className={cn(
+                "mt-1.5 h-2.5 w-8 shrink-0 rounded-full",
+                phase.fill,
+              )}
             />
             <div className="min-w-0">
               <p className="text-sm font-medium text-ink">{phase.label}</p>

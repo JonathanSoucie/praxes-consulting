@@ -91,7 +91,10 @@ export function ProcessTimeline({
                   {step.deliverables.map((item) => (
                     <li key={item} className="flex gap-3 text-sm text-ink">
                       <span className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full bg-accent">
-                        <Check aria-hidden className="size-2.5 text-on-accent" />
+                        <Check
+                          aria-hidden
+                          className="size-2.5 text-on-accent"
+                        />
                       </span>
                       <span className="leading-relaxed">{item}</span>
                     </li>

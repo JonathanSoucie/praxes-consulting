@@ -31,7 +31,7 @@ export function StatsBlock({
         cols === 4 && "sm:grid-cols-2 lg:grid-cols-4",
         "divide-y sm:divide-y-0 sm:divide-x",
         inverse ? "divide-white/15" : "divide-line",
-        className
+        className,
       )}
     >
       {stats.map((stat, i) => (
@@ -40,7 +40,7 @@ export function StatsBlock({
             <span
               className={cn(
                 "figure-num text-4xl lg:text-5xl",
-                inverse ? "text-white" : "text-accent"
+                inverse ? "text-white" : "text-accent",
               )}
             >
               {stat.value}
@@ -49,7 +49,7 @@ export function StatsBlock({
               <span
                 className={cn(
                   "figure-num text-lg lg:text-xl",
-                  inverse ? "text-white/60" : "text-accent/60"
+                  inverse ? "text-white/60" : "text-accent/60",
                 )}
               >
                 {stat.unit}
@@ -60,7 +60,7 @@ export function StatsBlock({
           <p
             className={cn(
               "mt-3 text-sm font-medium",
-              inverse ? "text-white" : "text-ink"
+              inverse ? "text-white" : "text-ink",
             )}
           >
             {stat.label}
@@ -70,7 +70,7 @@ export function StatsBlock({
             <p
               className={cn(
                 "mt-1.5 text-xs leading-relaxed",
-                inverse ? "text-white/55" : "text-muted"
+                inverse ? "text-white/55" : "text-muted",
               )}
             >
               {stat.note}

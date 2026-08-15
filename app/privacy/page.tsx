@@ -15,17 +15,13 @@ export const metadata: Metadata = pageMetadata({
 
 export default function PrivacyPage() {
   return (
-    <LegalPage
-      eyebrow="Legal"
-      title="Privacy Policy"
-      updated="2026-08-03"
-    >
+    <LegalPage eyebrow="Legal" title="Privacy Policy" updated="2026-08-03">
       <LegalSection heading="Who we are">
         <p>
           {site.legalName} ({site.name}) is an AI consulting firm based in{" "}
-          {site.address.locality}, {site.address.region},{" "}
-          {site.address.country}. We are the data controller for personal data
-          collected through this website. You can reach us at{" "}
+          {site.address.locality}, {site.address.region}, {site.address.country}
+          . We are the data controller for personal data collected through this
+          website. You can reach us at{" "}
           <a href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
       </LegalSection>
@@ -85,10 +81,9 @@ export default function PrivacyPage() {
         <p>
           Under the GDPR you may request access to your personal data, ask us to
           correct or erase it, object to or restrict its processing, and request
-          portability. Email{" "}
-          <a href={`mailto:${site.email}`}>{site.email}</a> and we will respond
-          within one month. You also have the right to complain to your national
-          supervisory authority.
+          portability. Email <a href={`mailto:${site.email}`}>{site.email}</a>{" "}
+          and we will respond within one month. You also have the right to
+          complain to your national supervisory authority.
         </p>
       </LegalSection>
 

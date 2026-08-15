@@ -14,13 +14,11 @@ export default function Icon() {
   const svg = logoMarkSvg({ background: "#ffffff", radius: 24 });
 
   return new ImageResponse(
-    (
-      <img
-        width={size.width}
-        height={size.height}
-        src={`data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`}
-      />
-    ),
-    size
+    <img
+      width={size.width}
+      height={size.height}
+      src={`data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`}
+    />,
+    size,
   );
 }

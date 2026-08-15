@@ -29,7 +29,7 @@ export function SectionHeading({
     <Reveal
       className={cn(
         centered ? "mx-auto max-w-3xl text-center" : "max-w-2xl",
-        className
+        className,
       )}
     >
       {eyebrow ? (
@@ -41,7 +41,7 @@ export function SectionHeading({
       <h2
         className={cn(
           "text-3xl leading-[1.14] sm:text-4xl lg:text-[2.875rem] lg:leading-[1.1]",
-          inverse && "text-white"
+          inverse && "text-white",
         )}
       >
         {title}
@@ -52,7 +52,7 @@ export function SectionHeading({
           className={cn(
             "mt-5 text-base leading-relaxed sm:text-lg",
             centered ? "mx-auto max-w-2xl" : "max-w-xl",
-            inverse ? "text-white/70" : "text-muted"
+            inverse ? "text-white/70" : "text-muted",
           )}
         >
           {deck}

@@ -35,7 +35,7 @@ export function PageHeader({
     <div className="relative isolate overflow-hidden bg-surface-2">
       <DitheredGalaxyField scrim="center" intensity={0.55} />
 
-      <Container wide className="relative z-10 pt-36 pb-20 sm:pt-40 sm:pb-24">
+      <Container className="relative z-10 pt-36 pb-20 sm:pt-40 sm:pb-24">
         <Reveal className="mx-auto max-w-3xl text-center">
           <div className="flex justify-center">
             <Eyebrow>{eyebrow}</Eyebrow>

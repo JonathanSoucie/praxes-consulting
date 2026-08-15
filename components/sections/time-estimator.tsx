@@ -51,7 +51,7 @@ export function TimeEstimator({ className }: { className?: string }) {
     <div
       className={cn(
         "card-float rounded-2xl bg-surface p-7 text-left sm:p-9",
-        className
+        className,
       )}
     >
       <p className="text-xs font-medium tracking-[0.14em] text-muted uppercase">
@@ -92,7 +92,10 @@ export function TimeEstimator({ className }: { className?: string }) {
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <Figure label="Hours in scope / year" value={nf.format(hoursInScope)} />
-        <Figure label="What that time costs / year" value={cf.format(annualCost)} />
+        <Figure
+          label="What that time costs / year"
+          value={cf.format(annualCost)}
+        />
         <Figure
           label="Plausibly recoverable"
           value={`${nf.format(low)}–${nf.format(high)} hrs`}
@@ -106,9 +109,9 @@ export function TimeEstimator({ className }: { className?: string }) {
 
       <p className="mt-7 border-t border-line pt-5 text-xs leading-relaxed text-muted">
         Assumes {WEEKS_PER_YEAR} weeks and a {RECOVERY_LOW * 100}–
-        {RECOVERY_HIGH * 100}% reduction band typical of well-scoped
-        automation, applied to a loaded cost you supply. An audit replaces
-        this estimate with measurement.
+        {RECOVERY_HIGH * 100}% reduction band typical of well-scoped automation,
+        applied to a loaded cost you supply. An audit replaces this estimate
+        with measurement.
       </p>
 
       {/* The estimate is the highest-intent moment on the page — the next
@@ -200,7 +203,7 @@ function Figure({
       <p
         className={cn(
           "figure-num mt-2 text-xl sm:text-2xl",
-          accent ? "text-accent" : "text-ink"
+          accent ? "text-accent" : "text-ink",
         )}
       >
         {value}

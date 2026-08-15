@@ -16,7 +16,7 @@ function AccordionItem({
     <AccordionPrimitive.Item
       className={cn(
         "card-raise overflow-hidden rounded-xl bg-surface transition-shadow",
-        className
+        className,
       )}
       {...props}
     />
@@ -33,7 +33,7 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         className={cn(
           "group flex flex-1 items-start justify-between gap-6 px-6 py-5 text-left font-display text-base font-medium text-ink transition-colors duration-150 hover:text-accent active:bg-accent-soft/40 active:text-accent sm:text-lg",
-          className
+          className,
         )}
         {...props}
       >
@@ -62,7 +62,7 @@ function AccordionContent({
       <div
         className={cn(
           "max-w-[68ch] px-6 pb-6 text-sm leading-relaxed text-muted",
-          className
+          className,
         )}
       >
         {children}

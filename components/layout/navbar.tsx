@@ -49,7 +49,7 @@ export function Navbar() {
       className="absolute inset-x-0 z-50"
       style={{ top: "var(--frame-y)" }}
     >
-      <Container wide>
+      <Container>
         <div className="flex h-18 items-center justify-between gap-8">
           <Logo className="tracking-[0.14em] uppercase" />
 
@@ -68,12 +68,12 @@ export function Navbar() {
                       "font-display text-[0.9375rem] font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
                       isActive(item.href)
                         ? "text-ink underline decoration-1 underline-offset-[6px]"
-                        // Ink at 72%, not --color-muted. Muted is a slate
-                        // that reads grey-blue against the dot field; ink is
-                        // the near-white on the dark theme and the near-black
-                        // on the light one, so this brightens the bar in the
-                        // dark without inverting it in the light.
-                        : "text-ink/72 hover:text-ink"
+                        : // Ink at 72%, not --color-muted. Muted is a slate
+                          // that reads grey-blue against the dot field; ink is
+                          // the near-white on the dark theme and the near-black
+                          // on the light one, so this brightens the bar in the
+                          // dark without inverting it in the light.
+                          "text-ink/72 hover:text-ink",
                     )}
                   >
                     {item.label}
@@ -124,11 +124,11 @@ export function Navbar() {
         inert={!open}
         className={cn(
           "supports-frost grid overflow-hidden bg-surface/95 backdrop-blur-md transition-[grid-template-rows,opacity] duration-300 ease-out-soft lg:hidden",
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
         )}
       >
         <div className="min-h-0">
-          <Container wide className="py-5">
+          <Container className="py-5">
             <ul className="space-y-1">
               {nav.map((item) => (
                 <li key={item.href}>
@@ -139,7 +139,7 @@ export function Navbar() {
                       "flex items-center rounded-lg px-4 py-3.5 font-display text-base font-semibold tracking-[0.1em] uppercase transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.99]",
                       isActive(item.href)
                         ? "bg-accent-soft text-accent-ink"
-                        : "text-ink hover:bg-surface-2 active:bg-accent-soft active:text-accent-ink"
+                        : "text-ink hover:bg-surface-2 active:bg-accent-soft active:text-accent-ink",
                     )}
                   >
                     {item.label}

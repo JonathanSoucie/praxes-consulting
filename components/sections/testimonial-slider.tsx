@@ -93,7 +93,7 @@ export function TestimonialSlider({
       setX(target, duration);
       setIndex(i);
     },
-    [setX]
+    [setX],
   );
 
   const go = (next: number) => settle((next + count) % count);
@@ -198,7 +198,7 @@ export function TestimonialSlider({
     <div
       className={cn(
         "rounded-2xl p-8 sm:p-10",
-        inverse ? "bg-white/8 backdrop-blur-sm" : "card-raise bg-surface"
+        inverse ? "bg-white/8 backdrop-blur-sm" : "card-raise bg-surface",
       )}
     >
       <Quote
@@ -221,7 +221,7 @@ export function TestimonialSlider({
           ref={trackRef}
           className={cn(
             "flex items-stretch",
-            count > 1 && "cursor-grab active:cursor-grabbing"
+            count > 1 && "cursor-grab active:cursor-grabbing",
           )}
         >
           {testimonials.map((t, i) => (
@@ -235,7 +235,7 @@ export function TestimonialSlider({
               <p
                 className={cn(
                   "font-display text-xl leading-snug font-medium text-balance select-none sm:text-2xl lg:text-[1.6rem] lg:leading-[1.42]",
-                  inverse ? "text-white" : "text-ink"
+                  inverse ? "text-white" : "text-ink",
                 )}
               >
                 {t.quote}
@@ -245,7 +245,7 @@ export function TestimonialSlider({
                 <cite
                   className={cn(
                     "font-medium not-italic",
-                    inverse ? "text-white" : "text-ink"
+                    inverse ? "text-white" : "text-ink",
                   )}
                 >
                   {t.name}
@@ -292,7 +292,7 @@ export function TestimonialSlider({
             aria-live="polite"
             className={cn(
               "figure-num text-xs",
-              inverse ? "text-white/50" : "text-muted"
+              inverse ? "text-white/50" : "text-muted",
             )}
           >
             <span className="sr-only">Testimonial </span>
@@ -326,7 +326,7 @@ function SliderButton({
         "inline-flex size-10 items-center justify-center rounded-full border transition-[background-color,border-color,color,transform] duration-150 ease-out-soft active:scale-90",
         inverse
           ? "border-white/25 text-white hover:bg-white/15 active:bg-white/25"
-          : "border-line-strong text-ink hover:border-accent hover:text-accent active:bg-accent-soft active:text-accent-ink"
+          : "border-line-strong text-ink hover:border-accent hover:text-accent active:bg-accent-soft active:text-accent-ink",
       )}
     >
       {children}
