@@ -79,6 +79,27 @@ const FALLBACK_HI = 0.8082;
 const LEVEL_SAMPLE_COUNT = 10;
 const LEVEL_SAMPLE_TIMEOUT_MS = 2500;
 
+/**
+ * Playback speed. The clip is four seconds long, which as an ambient
+ * background cycled fast enough to read as motion rather than as drift. At a
+ * quarter speed the same loop takes about fourteen seconds wall-clock.
+ *
+ * The wrap logic below is all in media time (currentTime), so it is unaffected
+ * by this — the crossfade just takes proportionally longer in real seconds,
+ * which suits it.
+ */
+const PLAYBACK_RATE = 0.25;
+
+/**
+ * Time constant for the per-cell temporal smoothing, in milliseconds.
+ *
+ * Ordered dither quantises into a handful of levels, so any cell whose tone
+ * sits near a threshold flips level between consecutive frames and the field
+ * crawls. Averaging each cell's luma over roughly this long damps that without
+ * visibly lagging the motion. Set to 0 to disable.
+ */
+const FLICKER_DAMPING_MS = 120;
+
 /** Crossfade length at the wrap, in seconds. */
 const FADE_SECONDS = 0.7;
 
@@ -318,6 +339,10 @@ type Grid = {
   bufferCtx: CanvasRenderingContext2D;
   radii: Float32Array;
   bloom: Float32Array;
+  /** Per-cell running average of luma — see FLICKER_DAMPING_MS. */
+  lumaEma: Float32Array;
+  /** False until the first frame has seeded lumaEma with real values. */
+  emaSeeded: boolean;
   buckets: number[][];
 };
 
@@ -410,6 +435,7 @@ export function DitheredGalaxyField({
 
     let onScreen = true;
     let poster: HTMLImageElement | null = null;
+    let lastFrameUsedPoster = true;
 
     /* ---------------------------------------------------------------- */
     /* Grid                                                              */
@@ -460,6 +486,8 @@ export function DitheredGalaxyField({
         bufferCtx,
         radii: new Float32Array(cols * rows),
         bloom: new Float32Array(cols * rows),
+        lumaEma: new Float32Array(cols * rows),
+        emaSeeded: false,
         buckets,
       };
     };
@@ -615,6 +643,7 @@ export function DitheredGalaxyField({
         if (!fading) {
           fading = true;
           secondary.currentTime = 0;
+          secondary.playbackRate = PLAYBACK_RATE;
           void secondary.play().catch(() => {});
         }
         fadeAlpha = Math.min(
@@ -646,12 +675,28 @@ export function DitheredGalaxyField({
 
     const renderFrame = (now: number) => {
       if (!grid) return;
-      const { cols, rows, pixelSize, bufferCtx, radii, bloom, buckets } = grid;
-
+      const {
+        cols,
+        rows,
+        pixelSize,
+        bufferCtx,
+        radii,
+        bloom,
+        buckets,
+        lumaEma,
+      } = grid;
+      // lastFrameTime is zeroed by start(), so this is true on the first frame
+      // of every run — including after the tab or the observer paused us.
+      const resumed = lastFrameTime === 0;
       const dt = lastFrameTime ? Math.min(now - lastFrameTime, 100) : 16;
       lastFrameTime = now;
+      // Framerate-independent: the same wall-clock smoothing whether the
+      // browser is serving 60fps or throttling to 30.
+      const emaK =
+        FLICKER_DAMPING_MS > 0 ? 1 - Math.exp(-dt / FLICKER_DAMPING_MS) : 1;
 
       // 1. Compose the source into the small buffer.
+      let usedPoster = false;
       const ready = primary.readyState >= 2;
       if (ready) {
         drawCover(
@@ -674,7 +719,9 @@ export function DitheredGalaxyField({
           );
           bufferCtx.globalAlpha = 1;
         }
+        usedPoster = false;
       } else if (poster) {
+        usedPoster = true;
         drawCover(
           bufferCtx,
           poster,
@@ -688,6 +735,16 @@ export function DitheredGalaxyField({
       }
 
       const source = bufferCtx.getImageData(0, 0, cols, rows).data;
+
+      /* Snap rather than average when the running value cannot be trusted: on
+         the first frame of a run, and on the handover from the low-resolution
+         poster to the video. Crawling 13% per frame out of a stale value left
+         the field looking washed out for the first few hundred milliseconds —
+         and under reduced motion, where exactly one frame is ever drawn, it
+         would have stayed that way. */
+      const sourceChanged = usedPoster !== lastFrameUsedPoster;
+      lastFrameUsedPoster = usedPoster;
+      const emaSeeded = grid.emaSeeded && !resumed && !sourceChanged;
 
       // 2. Pointer easing, so the field lags the cursor slightly.
       if (pointerEnabled && pointerInside) {
@@ -771,7 +828,15 @@ export function DitheredGalaxyField({
           const g = source[p + 1];
           const b = source[p + 2];
 
-          const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          const rawLuma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          // Damp on the way in, so the smoothing happens in continuous luma
+          // rather than after quantisation — averaging discrete levels would
+          // just trade flicker for smearing.
+          const luma = emaSeeded
+            ? lumaEma[index] + (rawLuma - lumaEma[index]) * emaK
+            : rawLuma;
+          lumaEma[index] = luma;
+
           let n = (luma / 255 - levelLo) * levelSpan;
           n = n < 0 ? 0 : n > 1 ? 1 : n;
 
@@ -798,6 +863,8 @@ export function DitheredGalaxyField({
           buckets[(level - 1) * INK_SLOTS + hueBinOf(r, g, b)].push(index);
         }
       }
+
+      grid.emaSeeded = true;
 
       // 6. One fillStyle and one path per ink per frame, rather than per dot.
       for (let i = 0; i < buckets.length; i++) {
@@ -832,6 +899,7 @@ export function DitheredGalaxyField({
 
     function start() {
       if (disposed || reduceMotion || frameId) return;
+      primary.playbackRate = PLAYBACK_RATE;
       void primary.play().catch(() => {});
       lastFrameTime = 0;
       frameId = requestAnimationFrame(tick);
@@ -861,8 +929,21 @@ export function DitheredGalaxyField({
     };
     poster.src = GALAXY_POSTER;
 
+    /* `autoPlay` starts the element on its own, before start() ever runs, so
+       setting the rate only there left the first pass playing at 1x. Both
+       elements get it as soon as they can accept it, and start() re-applies
+       it because a load() resets the property. */
+    const applyRate = () => {
+      videoA.playbackRate = PLAYBACK_RATE;
+      videoB.playbackRate = PLAYBACK_RATE;
+    };
+    applyRate();
+    videoA.addEventListener("loadedmetadata", applyRate);
+    videoB.addEventListener("loadedmetadata", applyRate);
+
     const onLoaded = () => {
       if (disposed) return;
+      applyRate();
       renderFrame(performance.now());
       if (!reduceMotion && onScreen && !document.hidden) start();
     };
@@ -950,6 +1031,8 @@ export function DitheredGalaxyField({
       intersectionObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       primary.removeEventListener("loadeddata", onLoaded);
+      videoA.removeEventListener("loadedmetadata", applyRate);
+      videoB.removeEventListener("loadedmetadata", applyRate);
       if (pointerEnabled) {
         window.removeEventListener("pointermove", onPointerMove);
         document.removeEventListener("pointerleave", onPointerLeave);
