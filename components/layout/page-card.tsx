@@ -26,7 +26,7 @@ export function PageCard({
   return (
     <div
       className={cn(
-        "mx-2.5 mb-2.5 overflow-hidden rounded-2xl bg-surface sm:mx-5 sm:mb-5 sm:rounded-3xl lg:mx-9 lg:mb-9 xl:mx-14 xl:mb-14",
+        "mx-2.5 mb-2.5 overflow-hidden bg-surface sm:mx-5 sm:mb-5 lg:mx-9 lg:mb-9 xl:mx-14 xl:mb-14",
         className,
       )}
     >

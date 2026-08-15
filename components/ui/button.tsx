@@ -9,8 +9,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        /* Violet — the booking CTA and form submits. */
-        primary: "bg-accent text-on-accent hover:bg-accent-hover card-raise",
+        /* Violet — the booking CTA and form submits. Fill only: `card-raise`
+           is a hairline now rather than a shadow, and a grey line around a
+           solid violet pill reads as a rendering artefact. */
+        primary: "bg-accent text-on-accent hover:bg-accent-hover",
         /* On the dark gradient: solid white pill. The label is `text-deep`,
            not `text-ink` — the deep band stays dark in both themes, so ink
            (which flips to near-white in dark) would render white-on-white. */

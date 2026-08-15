@@ -233,11 +233,14 @@
   --color-chart-before: var(--t-light, #a7b1c5) var(--t-dark, #5d6c92);
 
   /* --- Shape ------------------------------------------------------------ */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 22px;
-  --radius-2xl: 28px;
+  /* Square. Elevation is carried by a hairline border and a fill change, not
+     by rounding and shadow — see card-raise below. `rounded-full` does not go
+     through these, so pills and circular badges are unaffected. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
 
   /* --- Tracking --------------------------------------------------------- */
   /* Tracking is a function of size, never one value for the whole page. As
@@ -621,30 +624,33 @@
 }
 
 /* Card elevation. Soft and low — one step, never stacked shadows. */
+/* A card is a fill plus a hairline, with nothing floating above the page.
+   Redefining the utility rather than editing every call site keeps all 24
+   existing cards consistent and makes the treatment reversible in one place. */
 @utility card-raise {
-  box-shadow:
-    0 1px 2px rgb(var(--shadow-tint) / var(--shadow-a)),
-    0 8px 24px -12px rgb(var(--shadow-tint) / var(--shadow-b));
+  border: 1px solid var(--color-line);
 }
 
 /* Shared hover motion for the repeating card grids — a small lift plus a
    step up in elevation. Cheap and consistent rather than one-off per grid. */
+/* Hover firms the edge instead of lifting the card off the page. The travel
+   is kept but halved: with no shadow under it, a 3px rise read as a glitch
+   rather than as depth. */
 @utility hover-lift {
+  border: 1px solid var(--color-line);
   transition:
     transform 220ms var(--ease-out-soft),
-    box-shadow 220ms var(--ease-out-soft),
+    border-color 220ms var(--ease-out-soft),
     background-color 220ms var(--ease-out-soft);
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow:
-      0 2px 4px rgb(var(--shadow-tint) / var(--shadow-a-hover)),
-      0 18px 48px -18px rgb(var(--shadow-tint) / var(--shadow-b-hover));
+    transform: translateY(-1px);
+    border-color: var(--color-line-strong);
   }
 }
 
+/* The one card that used to sit highest. Same hairline, one step stronger, so
+   it still reads as the most prominent thing without reintroducing a shadow. */
 @utility card-float {
-  box-shadow:
-    0 2px 4px rgb(var(--shadow-tint) / var(--shadow-a-hover)),
-    0 18px 48px -18px rgb(var(--shadow-tint) / var(--shadow-b-hover));
+  border: 1px solid var(--color-line-strong);
 }

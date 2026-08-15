@@ -128,7 +128,7 @@ export default function ProcessPage() {
                 <Reveal
                   key={item.title}
                   delay={i * 60}
-                  className="rounded-2xl bg-surface-2 p-8"
+                  className="border border-line bg-surface-2 p-8"
                 >
                   <div className="flex items-baseline justify-between gap-4">
                     <h3 className="text-lg">{item.title}</h3>

@@ -152,7 +152,7 @@ export default function ServicesPage() {
                   as="article"
                   key={service.slug}
                   delay={i * 40}
-                  className="rounded-2xl bg-surface-2 p-8 lg:p-10"
+                  className="border border-line bg-surface-2 p-8 lg:p-10"
                 >
                   <div className="grid gap-8 lg:grid-cols-[0.55fr_1.45fr] lg:gap-14">
                     <div>
