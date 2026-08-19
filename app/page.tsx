@@ -73,6 +73,33 @@ const problems = [
   },
 ];
 
+/* The other pole. The Blackhole section above is about hours leaving; this one
+   is only about demand arriving — marketing, pipeline and the numbers behind
+   both. Nothing here is a time saving, or the two sections collapse into each
+   other. */
+const growth = [
+  {
+    n: "01",
+    title: "Demand that does not rely on remembering",
+    body: "Campaigns, follow-ups and nurture sequences that run on a schedule rather than on whoever thinks of them. Marketing stops being the thing that slips in a busy week, because nobody has to be free for it to go out.",
+  },
+  {
+    n: "02",
+    title: "Leads qualified before they reach a person",
+    body: "Enquiries enriched, scored against what your good customers actually looked like, and routed to whoever should answer. Your team spends its attention on the ones worth a conversation instead of sorting the list first.",
+  },
+  {
+    n: "03",
+    title: "Follow-up that does not go cold",
+    body: "Most pipeline is lost to silence rather than to a no. Sequenced, personal follow-up keeps a lead warm for as long as the deal is realistically alive, and hands it back the moment they re-engage.",
+  },
+  {
+    n: "04",
+    title: "Channels measured on revenue, not clicks",
+    body: "Spend tracked to closed business rather than to traffic, so the budget moves toward what is actually producing customers. Growth is only compounding if you can tell which part of it to feed.",
+  },
+];
+
 const solution = [
   {
     n: "01",
@@ -156,6 +183,37 @@ export default function HomePage() {
           <Reveal delay={200} className="mx-auto mt-10 max-w-2xl">
             <TimeEstimator />
           </Reveal>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Growth                                                            */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          <SectionHeading
+            eyebrow="Growth"
+            title="The Rocket"
+            deck="The opposite direction, and the one the saved hours are for. Marketing and pipeline built as systems, so growth comes from something that runs every week rather than from a push somebody has to find the energy for."
+          />
+
+          <div className="mt-16 grid gap-5 sm:grid-cols-2">
+            {growth.map((item, i) => (
+              <Reveal
+                key={item.n}
+                delay={i * 60}
+                className="card-raise hover-lift rounded-2xl bg-surface p-8"
+              >
+                <span className="label-tech text-muted">{item.n}</span>
+                <h3 className="card-title mt-6 text-xl sm:text-2xl">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-base leading-relaxed text-muted">
+                  {item.body}
+                </p>
+              </Reveal>
+            ))}
+          </div>
         </Container>
       </Section>
 
