@@ -14,7 +14,7 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: "We're not a tech company. Does that matter?",
-    a: "No. Most of our clients are accounting practices, clinics, clubs, logistics operators and property managers. What matters is that a process is repetitive, high-volume and measurable — not that your team is technical.",
+    a: "No. We work in every industry — accounting practices, clinics, clubs, logistics operators, property managers, trades, and plenty that look nothing like any of those. What matters is that a process is repetitive, high-volume and measurable, not that your team is technical.",
   },
   {
     q: "What if the audit concludes AI won't help us?",
