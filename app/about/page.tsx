@@ -93,10 +93,7 @@ export default function AboutPage() {
                 <ProseLink href="/process">the same method</ProseLink> to a
                 twenty-person practice that a bank would expect for a
                 seven-figure programme: find the constraint, price it,{" "}
-                <ProseLink href="/services">
-                  build only what the numbers justify
-                </ProseLink>
-                , then re-measure and report what actually happened. It is not a
+                build only what the numbers justify, then re-measure and report what actually happened. It is not a
                 novel idea. It is ordinary engineering discipline applied to a
                 field that currently runs on enthusiasm — and applied for
                 businesses that have rarely been offered it.

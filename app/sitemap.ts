@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes: { path: string; priority: number }[] = [
     { path: "", priority: 1 },
-    { path: "/services", priority: 0.9 },
     { path: "/process", priority: 0.9 },
     // Case Studies is omitted entirely while hidden — see content/site.ts.
     ...(features.caseStudies

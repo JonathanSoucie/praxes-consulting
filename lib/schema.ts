@@ -1,5 +1,4 @@
 import type { Faq } from "@/content/faqs";
-import type { Service } from "@/content/services";
 import type { TeamMember } from "@/content/team";
 import { industries, services } from "@/content/services";
 import { site } from "@/content/site";
@@ -125,27 +124,6 @@ export function breadcrumbSchema(
       position: i + 1,
       name: crumb.name,
       item: `${site.url}${crumb.path}`,
-    })),
-  };
-}
-
-/** The service catalogue as an ordered list, for the Services page. */
-export function serviceListSchema(items: readonly Service[]): Json {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "AI consulting services",
-    itemListElement: items.map((service, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: {
-        "@type": "Service",
-        name: service.title,
-        description: service.summary,
-        serviceType: service.title,
-        provider: { "@id": ORG_ID },
-        areaServed: { "@type": "Country", name: "Canada" },
-      },
     })),
   };
 }

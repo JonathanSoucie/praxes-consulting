@@ -166,7 +166,7 @@ export default function ProcessPage() {
       <CtaSection
         title="Start with fifteen minutes."
         body="No preparation, no deck, no pricing conversation. Just a straight read on whether there's something here worth measuring."
-        secondary={{ href: "/services", label: "What we build" }}
+        secondary={{ href: "/about", label: "Who you\u2019d work with" }}
       />
     </>
   );
