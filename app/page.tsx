@@ -11,7 +11,6 @@ import { FeaturedCaseStudy } from "@/components/sections/case-study-card";
 import { TestimonialSlider } from "@/components/sections/testimonial-slider";
 import { FaqList } from "@/components/sections/faq";
 import { CtaSection } from "@/components/sections/cta";
-import { ServiceIcon } from "@/components/icon";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 
@@ -19,7 +18,6 @@ import { JsonLd } from "@/components/json-ld";
 
 import { getFeaturedCaseStudy } from "@/content/case-studies";
 import { generalFaqs } from "@/content/faqs";
-import { industries, services } from "@/content/services";
 import { features, site } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/schema";
@@ -199,49 +197,6 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Services snapshot                                                 */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
-        <Container>
-          <SectionHeading
-            eyebrow="Services"
-            title="What we build."
-            deck="Once we know what is actually in the way."
-          />
-
-          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, i) => (
-              <Reveal
-                key={service.slug}
-                delay={i * 50}
-                className="card-raise hover-lift rounded-xl bg-surface p-7"
-              >
-                <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
-                  <ServiceIcon
-                    name={service.icon}
-                    className="size-5 text-accent"
-                  />
-                </span>
-                <h3 className="card-title mt-5 text-lg">{service.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {service.summary}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={80} className="mt-10 text-center">
-            <Button asChild variant="soft">
-              <Link href="/services">
-                All services
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
       {/* Featured case study — hidden with the Case Studies section        */}
       {/* ---------------------------------------------------------------- */}
       {features.caseStudies && featured ? (
@@ -282,39 +237,6 @@ export default function HomePage() {
           </Container>
         </Section>
       ) : null}
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Industries                                                        */}
-      {/* ---------------------------------------------------------------- */}
-      {/* wash, not the default surface — the two sections above this are
-          feature-flagged off, so Services sits directly on top of it, and two
-          default-tone sections in a row read as one undifferentiated block. */}
-      <Section>
-        <Container>
-          <SectionHeading
-            eyebrow="Industries"
-            title="Where we work."
-            deck="Mixed verticals, one common shape: an established business with a repetitive, high-volume process that has never been properly costed."
-          />
-
-          <dl className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {industries.map((industry, i) => (
-              <Reveal
-                key={industry.name}
-                delay={i * 40}
-                className="card-raise hover-lift rounded-xl bg-surface p-7"
-              >
-                <dt className="font-display text-base font-semibold text-ink">
-                  {industry.name}
-                </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-muted">
-                  {industry.note}
-                </dd>
-              </Reveal>
-            ))}
-          </dl>
-        </Container>
-      </Section>
 
       {/* ---------------------------------------------------------------- */}
       {/* Why Praxes                                                        */}
