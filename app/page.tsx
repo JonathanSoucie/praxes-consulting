@@ -59,7 +59,7 @@ const problems = [
   {
     n: "01",
     title: "Queues nobody is watching",
-    body: "The cost is not the task. It is the hours or days a file spends waiting for someone to become free. That delay appears on no timesheet and in no budget line.",
+    body: "The cost is not the task. It is the hours or days a file spends waiting for someone to become free. Those hours cross an event horizon: they appear on no timesheet and in no budget line, and nothing comes back out.",
   },
   {
     n: "02",
@@ -133,8 +133,8 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="The problem"
-            title="A bottleneck nobody priced."
-            deck="The constraint is usually mundane, absent from the reporting, and expensive. It is rarely the thing people complain about."
+            title="The Blackhole"
+            deck="Every business has one. It is usually mundane, absent from the reporting, and expensive — rarely the thing people complain about, and steadily pulling hours in whether anyone is looking at it or not."
           />
 
           <div className="mt-16 grid gap-5 lg:grid-cols-3">
