@@ -7,7 +7,6 @@ import { Menu, X } from "lucide-react";
 
 import { Logo } from "@/components/layout/logo";
 import { BookACall } from "@/components/book-a-call";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Container } from "@/components/container";
 import { nav } from "@/content/site";
 import { cn } from "@/lib/utils";
@@ -84,7 +83,6 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ThemeToggle className="-mr-1" />
             <BookACall size="sm" className="hidden sm:inline-flex" />
             <button
               type="button"

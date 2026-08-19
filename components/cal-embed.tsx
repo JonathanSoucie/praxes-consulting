@@ -12,7 +12,7 @@ import {
   calNamespace,
 } from "@/lib/booking";
 import { Button } from "@/components/ui/button";
-import { useResolvedTheme } from "@/lib/use-resolved-theme";
+import { SITE_THEME } from "@/lib/theme";
 
 /**
  * Inline booking widget for the Contact page.
@@ -34,16 +34,12 @@ export function BookingEmbed() {
 }
 
 function CalInline() {
-  // Follow the site's theme rather than Cal's own default, which tracks the OS
-  // and so ignores the toggle.
-  const theme = useResolvedTheme();
-
   React.useEffect(() => {
     (async () => {
       try {
         const cal = await getCalApi({ namespace: calNamespace });
         cal("ui", {
-          theme,
+          theme: SITE_THEME,
           hideEventTypeDetails: false,
           layout: "month_view",
           cssVarsPerTheme: {
@@ -55,7 +51,7 @@ function CalInline() {
         // Non-fatal: the static fallback link below remains available.
       }
     })();
-  }, [theme]);
+  }, []);
 
   return (
     <div className="card-raise overflow-hidden rounded-2xl bg-surface p-2">
@@ -66,7 +62,7 @@ function CalInline() {
         // theme must be set on the embed config, not only via cal("ui") —
         // the ui call alone loses the race with the iframe's first paint and
         // the calendar renders with the wrong palette inside our page.
-        config={{ layout: "month_view", theme }}
+        config={{ layout: "month_view", theme: SITE_THEME }}
       />
       <noscript>
         <p className="p-6 text-sm text-muted">

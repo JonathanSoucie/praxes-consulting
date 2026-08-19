@@ -1,51 +1,24 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Theme switching.
+   Palette selection.
 
-   Two switch variables select which half of every token pair applies. Exactly
-   one of them is `initial` at a time; the other is empty. A token written as
+   The site is dark only. Tokens are still written as pairs —
 
      --color-ink: var(--t-light, #0e0e1b) var(--t-dark, #f4f4fa);
 
-   therefore resolves to whichever side is currently live, because a var()
-   whose variable is empty contributes nothing.
-
-   This looks like a long way round `light-dark()`, and it is deliberate.
-   Lightning CSS (which Tailwind v4 runs) downlevels `light-dark()` to this
-   exact pattern but keys it *only* on `@media (prefers-color-scheme: dark)`,
-   ignoring the `color-scheme` property. An explicit choice would then set
-   `color-scheme` and change nothing, so the toggle would appear to work only
-   on machines whose OS already agreed with it. Owning the switch keeps the
-   OS default and makes the override real.
-
-   `data-theme` is written by components/theme-toggle.tsx and pre-applied by
-   the inline script in app/layout.tsx. Absent, we follow the OS.
+   — because a var() whose variable is empty contributes nothing, so pinning
+   the two switch variables below picks one half of every pair in a single
+   place. The light halves are kept as the record of what each token means and
+   as the way back if a light theme is ever wanted again; nothing reads them
+   while --t-light is empty.
    ========================================================================== */
 :root {
-  --t-light: initial;
-  --t-dark: ;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --t-light: ;
-    --t-dark: initial;
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
   --t-light: ;
   --t-dark: initial;
+  /* Tells the UA to render form controls, scrollbars and the canvas dark, and
+     stops the browser offering to auto-darken anything. */
   color-scheme: dark;
-}
-
-:root[data-theme="light"] {
-  --t-light: initial;
-  --t-dark: ;
-  color-scheme: light;
 }
 
 :root {
@@ -94,67 +67,6 @@
     --frame-y: 18px;
     --frame-x: 18px;
   }
-}
-
-/* Theme change: cross-fade, don't cut.
-
-   Flipping `data-theme` repaints every token on the same frame, which on a
-   full page is an abrupt full-field brightness jump — the one thing to avoid
-   even for visitors who have not asked for reduced motion. Easing it over a
-   quarter second reads as the lights changing rather than a cut.
-
-   The attribute is set by components/theme-toggle.tsx for the length of the
-   transition only, so this never applies during normal interaction (where a
-   blanket colour transition on `*` would smear every hover). It is kept under
-   reduced motion on purpose: a colour cross-fade is not vestibular, and the
-   hard cut is the thing that actually hurts. */
-:root[data-theme-shifting],
-:root[data-theme-shifting] *,
-:root[data-theme-shifting] *::before,
-:root[data-theme-shifting] *::after {
-  transition:
-    background-color 260ms var(--ease-out-soft),
-    border-color 260ms var(--ease-out-soft),
-    color 260ms var(--ease-out-soft),
-    fill 260ms var(--ease-out-soft),
-    stroke 260ms var(--ease-out-soft),
-    box-shadow 260ms var(--ease-out-soft) !important;
-}
-
-/* Theme-toggle icon swap.
-
-   Both icons are always in the DOM and CSS picks the visible one, so the
-   button renders correctly on the server and on first paint. Deriving it from
-   React state instead would mean either a hydration mismatch or a frame with
-   the wrong icon, since the server cannot know the visitor's OS preference. */
-[data-theme-icon="dark"] {
-  display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) [data-theme-icon="dark"] {
-    display: block;
-  }
-
-  :root:not([data-theme="light"]) [data-theme-icon="light"] {
-    display: none;
-  }
-}
-
-:root[data-theme="dark"] [data-theme-icon="dark"] {
-  display: block;
-}
-
-:root[data-theme="dark"] [data-theme-icon="light"] {
-  display: none;
-}
-
-:root[data-theme="light"] [data-theme-icon="light"] {
-  display: block;
-}
-
-:root[data-theme="light"] [data-theme-icon="dark"] {
-  display: none;
 }
 
 /* ==========================================================================

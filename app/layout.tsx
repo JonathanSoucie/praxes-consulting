@@ -7,7 +7,6 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { site } from "@/content/site";
 import { siteKeywords } from "@/lib/seo";
-import { themeInitScript } from "@/lib/theme";
 
 import "./globals.css";
 
@@ -80,12 +79,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Matches --color-surface-2 in each theme, so the mobile browser chrome
-  // blends with the page instead of staying white behind a dark site.
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f5f2" },
-    { media: "(prefers-color-scheme: dark)", color: "#181818" },
-  ],
+  // Matches --color-surface-2, so the mobile browser chrome blends with the
+  // page instead of staying white above a dark site.
+  themeColor: "#181818",
   width: "device-width",
   initialScale: 1,
 };
@@ -97,17 +93,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${playfair.variable} ${jetBrainsMono.variable}`}
-      // The init script below writes data-theme onto this element before React
-      // hydrates, so the server HTML and the live DOM legitimately differ here.
-      suppressHydrationWarning
     >
-      <head>
-        <script
-          // Must run before first paint to avoid a flash of the wrong theme,
-          // which rules out next/script — see lib/theme.ts.
-          dangerouslySetInnerHTML={{ __html: themeInitScript }}
-        />
-      </head>
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a
           href="#main"

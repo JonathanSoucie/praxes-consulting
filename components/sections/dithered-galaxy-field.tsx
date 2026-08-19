@@ -3,7 +3,6 @@
 import * as React from "react";
 
 import { GALAXY_POSTER } from "@/components/sections/galaxy-poster";
-import { useResolvedTheme } from "@/lib/use-resolved-theme";
 import { cn } from "@/lib/utils";
 
 /**
@@ -30,17 +29,17 @@ import { cn } from "@/lib/utils";
  * The ground you see is the canvas background colour, not a light tone: cells
  * that quantise to level 0 simply draw nothing and the page shows through.
  *
- * That is also what makes the hero theme-aware. Which cells take ink never
- * changes — it is always the painted galaxy, never the bare canvas. Only the
- * ground and the ink ramp swap: dark ink on white-smoke in light mode, light
- * ink on carbon black in dark mode. Flipping the ramp rather than the tone is
- * why the galaxy stays a galaxy in both.
+ * Which cells take ink never changes — it is always the painted galaxy, never
+ * the bare canvas. The ramp is what carries the tone: light ink rising out of
+ * carbon black, so the galaxy reads as a galaxy rather than as an inverted
+ * negative of one.
  * ---------------------------------------------------------------------------
  */
 
-/** Ground colour per theme — the page background, so the hero has no edge.
-    Empty cells are simply this, because nothing is drawn over them. */
-const GROUND = { light: "#f5f5f2", dark: "#181818" } as const;
+/** Ground colour — the page background, so the hero has no edge. Empty cells
+    are simply this, because nothing is drawn over them. Tracks
+    --color-surface-2. */
+const GROUND = "#181818";
 
 const PIXEL_SIZE_DESKTOP = 6;
 /** Small canvases need a *finer* grid, not a coarser one, or the arms merge. */
@@ -147,33 +146,23 @@ const INK_SLOTS = HUE_BINS + 1;
 const MIN_SATURATION = 0.04;
 
 /**
- * Tone level -> ink, one ramp per theme. Sampling the dot colour from the
- * source does not work here: the painting's mid-tones are pale, and pale dots
- * disappear against either ground. The ramp carries the contrast; the source
- * only gets to push the hue (see buildInkTable).
+ * Tone level -> ink. Sampling the dot colour from the source does not work
+ * here: the painting's mid-tones are pale, and pale dots disappear against the
+ * ground. The ramp carries the contrast; the source only gets to push the hue
+ * (see buildInkTable).
  *
- * Both are stepped so each level roughly doubles its contrast against its own
- * ground. Taking the palette colours in their given order instead left a hole
- * between levels 2 and 3 — 3.9:1 straight to 10.2:1 — and the field banded
- * visibly where tone crossed it.
+ * Stepped so each level roughly doubles its contrast against the ground.
+ * Taking the palette colours in their given order instead left a hole between
+ * levels 2 and 3 — 3.9:1 straight to 10.2:1 — and the field banded visibly
+ * where tone crossed it.
  *
- * Light runs periwinkle -> prussian blue, hitting #c4b5fd exactly at level 1
- * and topping out at 15.5:1.
- *
- * Dark runs carbon black -> powder blue, hitting #a7b1c5 exactly at level 4
- * and stopping at 12:1 rather than carrying on to white. Bright ink on a dark
- * ground asserts itself far harder than dark ink on a light one, and a peak at
- * full white-smoke made the core a glare that outshone the headline sitting at
- * 16.3:1. Capping the field below the type keeps the reading order right.
+ * It runs carbon black -> powder blue, hitting #a7b1c5 exactly at level 4 and
+ * stopping at 12:1 rather than carrying on to white. Bright ink on a dark
+ * ground asserts itself hard, and a peak at full white-smoke made the core a
+ * glare that outshone the headline sitting at 16.3:1. Capping the field below
+ * the type keeps the reading order right.
  */
-const RAMP_LIGHT = [
-  "#c4b5fd",
-  "#a686f9",
-  "#7956dc",
-  "#3d4386",
-  "#0a1c3b",
-] as const;
-const RAMP_DARK = [
+const RAMP = [
   "#36373a",
   "#575b63",
   "#7b828f",
@@ -291,12 +280,9 @@ function buildInkTable(ramp: readonly string[]): string[] {
   return table;
 }
 
-/* Both built once at module load — two arrays of 65 colour strings, so a
-   theme change is a lookup rather than a rebuild. */
-const INK_TABLES = {
-  light: buildInkTable(RAMP_LIGHT),
-  dark: buildInkTable(RAMP_DARK),
-} as const;
+/* Built once at module load — 65 colour strings, so drawing a cell is a lookup
+   rather than a mix. */
+const INK_TABLE = buildInkTable(RAMP);
 
 /** Hue bucket of a source pixel, or ACHROMATIC_BIN when there's no hue to speak of. */
 function hueBinOf(r: number, g: number, b: number): number {
@@ -379,22 +365,6 @@ export function DitheredGalaxyField({
   const videoARef = React.useRef<HTMLVideoElement>(null);
   const videoBRef = React.useRef<HTMLVideoElement>(null);
 
-  /* The draw loop reads the theme through a ref rather than taking it as a
-     dependency: rebuilding the effect on a toggle would tear down both video
-     elements and restart playback from zero, which is a very visible way to
-     change a colour. Selecting the ground and ink table per frame costs two
-     property lookups. */
-  const theme = useResolvedTheme();
-  const themeRef = React.useRef(theme);
-  const repaintRef = React.useRef<((now: number) => void) | null>(null);
-
-  React.useEffect(() => {
-    themeRef.current = theme;
-    // Under reduced motion nothing is scheduled, so the new palette would not
-    // appear until the next resize without an explicit repaint.
-    repaintRef.current?.(performance.now());
-  }, [theme]);
-
   React.useEffect(() => {
     const canvas = canvasRef.current;
     const panel = rootRef.current;
@@ -472,7 +442,7 @@ export function DitheredGalaxyField({
         willReadFrequently: true,
       });
       if (!bufferCtx) return null;
-      bufferCtx.fillStyle = GROUND[themeRef.current];
+      bufferCtx.fillStyle = GROUND;
       bufferCtx.fillRect(0, 0, cols, rows);
 
       const buckets: number[][] = new Array(LEVELS * INK_SLOTS);
@@ -779,11 +749,9 @@ export function DitheredGalaxyField({
       // 4. Ground. Empty cells are simply this — the page colour, so the
       //    hero has no edge against the section below. Measured in CSS pixels,
       //    since the context is already scaled by the device pixel ratio.
-      const theme = themeRef.current;
-      const inkTable = INK_TABLES[theme];
       const viewW = canvas.clientWidth;
       const viewH = canvas.clientHeight;
-      ctx.fillStyle = GROUND[theme];
+      ctx.fillStyle = GROUND;
       ctx.fillRect(0, 0, viewW, viewH);
 
       for (let i = 0; i < buckets.length; i++) {
@@ -870,7 +838,7 @@ export function DitheredGalaxyField({
       for (let i = 0; i < buckets.length; i++) {
         const bucket = buckets[i];
         if (!bucket.length) continue;
-        ctx.fillStyle = inkTable[i];
+        ctx.fillStyle = INK_TABLE[i];
         ctx.beginPath();
         for (let k = 0; k < bucket.length; k++) {
           const index = bucket[k];
@@ -919,7 +887,6 @@ export function DitheredGalaxyField({
     /* ---------------------------------------------------------------- */
 
     grid = buildGrid();
-    repaintRef.current = renderFrame;
 
     // Poster first, so the hero is never a bare ground while the video decodes.
     poster = new Image();
@@ -1024,7 +991,6 @@ export function DitheredGalaxyField({
 
     return () => {
       disposed = true;
-      repaintRef.current = null;
       stop();
       window.clearTimeout(resizeTimer);
       resizeObserver.disconnect();
@@ -1040,7 +1006,6 @@ export function DitheredGalaxyField({
     };
   }, []);
 
-  const groundColor = GROUND[theme];
 
   return (
     <div
@@ -1075,13 +1040,13 @@ export function DitheredGalaxyField({
           <div
             className="absolute inset-0 sm:hidden"
             style={{
-              background: `linear-gradient(180deg, ${groundColor}F7 0%, ${groundColor}EE 36%, ${groundColor}D6 56%, ${groundColor}8A 70%, ${groundColor}00 86%)`,
+              background: `linear-gradient(180deg, ${GROUND}F7 0%, ${GROUND}EE 36%, ${GROUND}D6 56%, ${GROUND}8A 70%, ${GROUND}00 86%)`,
             }}
           />
           <div
             className="absolute inset-0 hidden sm:block"
             style={{
-              background: `linear-gradient(112deg, ${groundColor}E6 0%, ${groundColor}B3 26%, ${groundColor}4D 44%, ${groundColor}00 62%)`,
+              background: `linear-gradient(112deg, ${GROUND}E6 0%, ${GROUND}B3 26%, ${GROUND}4D 44%, ${GROUND}00 62%)`,
             }}
           />
         </>
@@ -1091,7 +1056,7 @@ export function DitheredGalaxyField({
         <div
           className="absolute inset-0"
           style={{
-            background: `radial-gradient(ellipse 50% 62% at 50% 48%, ${groundColor}F2 0%, ${groundColor}DB 44%, ${groundColor}8C 70%, ${groundColor}00 94%)`,
+            background: `radial-gradient(ellipse 50% 62% at 50% 48%, ${GROUND}F2 0%, ${GROUND}DB 44%, ${GROUND}8C 70%, ${GROUND}00 94%)`,
           }}
         />
       ) : null}
@@ -1102,7 +1067,7 @@ export function DitheredGalaxyField({
         <div
           className="absolute inset-x-0 bottom-0 h-24 sm:h-40"
           style={{
-            background: `linear-gradient(180deg, ${groundColor}00 0%, ${groundColor}A6 55%, ${groundColor} 100%)`,
+            background: `linear-gradient(180deg, ${GROUND}00 0%, ${GROUND}A6 55%, ${GROUND} 100%)`,
           }}
         />
       ) : null}

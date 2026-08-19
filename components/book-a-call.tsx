@@ -14,14 +14,13 @@ import {
 } from "@/lib/booking";
 import { primaryCta } from "@/content/site";
 import { cn } from "@/lib/utils";
-import { useResolvedTheme, type ResolvedTheme } from "@/lib/use-resolved-theme";
+import { SITE_THEME } from "@/lib/theme";
 
 /**
- * Cal's UI is global, so it only needs configuring once per theme — not once
- * per button, of which a page has several. Tracks the theme it was last
- * configured with so a toggle re-applies it, and nothing else does.
+ * Cal's UI is global, so it only needs configuring once per page — not once
+ * per button, of which a page has several.
  */
-let calUiTheme: ResolvedTheme | null = null;
+let calUiConfigured = false;
 
 /**
  * The single "Book a Call" CTA used everywhere on the site.
@@ -42,12 +41,10 @@ export function BookACall({
   withArrow?: boolean;
 }) {
   const useCalModal = bookingProvider === "cal" && bookingConfigured;
-  // The modal matches the site rather than the visitor's OS colour scheme.
-  const theme = useResolvedTheme();
 
   React.useEffect(() => {
-    if (!useCalModal || calUiTheme === theme) return;
-    calUiTheme = theme;
+    if (!useCalModal || calUiConfigured) return;
+    calUiConfigured = true;
 
     let cancelled = false;
     (async () => {
@@ -56,7 +53,8 @@ export function BookACall({
         const cal = await getCalApi({ namespace: calNamespace });
         if (cancelled) return;
         cal("ui", {
-          theme,
+          // The modal matches the site rather than the visitor's OS scheme.
+          theme: SITE_THEME,
           hideEventTypeDetails: false,
           layout: "month_view",
           cssVarsPerTheme: {
@@ -66,14 +64,14 @@ export function BookACall({
         });
       } catch {
         // Embed script blocked or offline — the href fallback below still works.
-        calUiTheme = null;
+        calUiConfigured = false;
       }
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [useCalModal, theme]);
+  }, [useCalModal]);
 
   const content = (
     <>
@@ -92,7 +90,10 @@ export function BookACall({
         className={cn(className)}
         data-cal-namespace={calNamespace}
         data-cal-link={calLink}
-        data-cal-config={JSON.stringify({ layout: "month_view", theme })}
+        data-cal-config={JSON.stringify({
+          layout: "month_view",
+          theme: SITE_THEME,
+        })}
         {...props}
       >
         {content}
