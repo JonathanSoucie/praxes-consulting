@@ -7,7 +7,6 @@ import { DitheredGalaxyHero } from "@/components/sections/dithered-galaxy-hero";
 import { Outcomes } from "@/components/sections/outcomes";
 import { TimeEstimator } from "@/components/sections/time-estimator";
 import { SectionHeading } from "@/components/section-heading";
-import { ProcessTimeline } from "@/components/sections/process-timeline";
 import { FeaturedCaseStudy } from "@/components/sections/case-study-card";
 import { TestimonialSlider } from "@/components/sections/testimonial-slider";
 import { FaqList } from "@/components/sections/faq";
@@ -97,24 +96,6 @@ const growth = [
     n: "04",
     title: "Channels measured on revenue, not clicks",
     body: "Spend tracked to closed business rather than to traffic, so the budget moves toward what is actually producing customers. Growth is only compounding if you can tell which part of it to feed.",
-  },
-];
-
-const solution = [
-  {
-    n: "01",
-    title: "Find the bottleneck",
-    body: "We measure the process rather than take the brief at face value. The constraint is frequently not where the team believes it to be, and the discrepancy is where the return sits.",
-  },
-  {
-    n: "02",
-    title: "Implement the fix",
-    body: "We build against the audit scope, integrate into the systems you already run, and validate it on your real historical data before it touches live work.",
-  },
-  {
-    n: "03",
-    title: "Prove the return",
-    body: "We re-measure against the baseline at 30 and 90 days, using the same definitions, and give you the comparison in writing — flattering or not.",
   },
 ];
 
@@ -214,70 +195,6 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* The solution                                                      */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
-        <Container>
-          <SectionHeading
-            eyebrow="The approach"
-            title={
-              <>
-                Measure. Build.{" "}
-                <span className="text-gradient animate-gradient-shift">
-                  Prove it.
-                </span>
-              </>
-            }
-            deck="Three steps, in that order. The third one is the part most firms skip, and it's the only one that tells you whether the first two worked."
-          />
-
-          <div className="mt-16 grid gap-5 lg:grid-cols-3">
-            {solution.map((item, i) => (
-              <Reveal
-                key={item.n}
-                delay={i * 70}
-                className="card-raise hover-lift rounded-2xl bg-surface p-8"
-              >
-                <span className="label-tech text-muted">{item.n}</span>
-                <h3 className="card-title mt-6 text-xl sm:text-2xl">
-                  {item.title}
-                </h3>
-                <p className="mt-4 text-base leading-relaxed text-muted">
-                  {item.body}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Process overview                                                  */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
-        <Container>
-          <SectionHeading
-            eyebrow="Process"
-            title="Five stages."
-            deck="Commitment increases only after the case is established."
-          />
-
-          <div className="mt-16">
-            <ProcessTimeline variant="overview" />
-          </div>
-
-          <Reveal delay={80} className="mt-10 text-center">
-            <Button asChild variant="soft">
-              <Link href="/process">
-                See the full process
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-          </Reveal>
         </Container>
       </Section>
 
