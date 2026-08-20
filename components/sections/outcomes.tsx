@@ -9,6 +9,10 @@ import { Reveal } from "@/components/reveal";
  * shortest possible statement of the two long sections further down the page:
  * the black hole that takes the time, and the rocket that spends it on growth.
  *
+ * Both bodies are written to the same shape — one statement, then two short
+ * fragments — so the columns balance instead of one running three lines past
+ * the other, and the pair reads as two halves of one choice.
+ *
  * Columns under a rule rather than cards — boxing two short paragraphs would
  * put chrome around copy that does not need it, and the hero above now
  * dissolves into the page rather than ending on an edge, so a row of boxes
@@ -23,7 +27,7 @@ const OUTCOMES = [
   },
   {
     label: "Grow",
-    body: "Growth pulls the other way. Marketing that runs without being remembered, leads that get found and followed up, and a pipeline that keeps moving while you work on the business.",
+    body: "Growth pulls the other way — the rocket, not the black hole. Campaigns going out on their own. Leads found and followed up.",
   },
 ];
 
