@@ -2,13 +2,24 @@
 
 import * as React from "react";
 
+import {
+  LOGO_ARMS,
+  LOGO_CORE,
+  LOGO_STOPS,
+  LOGO_TRANSFORM,
+  LOGO_VIEWBOX,
+} from "@/lib/logo-svg";
+
 /**
- * Brand mark: two crossing rings, periwinkle→violet and violet→indigo.
- * Recreated as inline SVG (not a raster import) so it stays crisp at any
- * size and the gradient always renders correctly regardless of surrounding
- * theme.
+ * Brand mark: the spiral galaxy, in the delivered pink→crimson gradient.
  *
- * Gradient ids are namespaced per instance. Every page renders this at least
+ * Inline SVG rather than an <img> of the file in public/, for two reasons.
+ * The delivered artwork has its background tile baked in, which would paint a
+ * black square onto every surface it sits on; and inline geometry stays crisp
+ * at any size and can be sized by CSS. The file itself is untouched — the
+ * geometry it shares with the generated icons lives in lib/logo-svg.ts.
+ *
+ * The gradient id is namespaced per instance. Every page renders this at least
  * twice (navbar + footer), and a `url(#id)` paint reference resolves to the
  * first matching element in the document — so with shared ids, every mark on
  * the page paints from the navbar's gradient. If that first copy ever sits in
@@ -16,71 +27,54 @@ import * as React from "react";
  */
 export function LogoMark({
   size = 28,
+  variant = "onDark",
   className,
 }: {
   size?: number;
+  /** Brighter stops for dark grounds, deeper for light. */
+  variant?: keyof typeof LOGO_STOPS;
   className?: string;
 }) {
   const uid = React.useId();
-  const ringA = `logo-ring-a-${uid}`;
-  const ringB = `logo-ring-b-${uid}`;
+  const gradient = `logo-galaxy-${uid}`;
+  const [from, mid, to] = LOGO_STOPS[variant];
 
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 100 100"
+      viewBox={LOGO_VIEWBOX}
       fill="none"
       aria-hidden
       className={className}
     >
       <defs>
-        {/* userSpaceOnUse: the coordinates below are viewBox units. Without
-            it they are read as bounding-box ratios (x1="50" meaning 5000%),
-            which puts the whole ramp off the shape and paints each ring a
-            flat first-stop colour. */}
-        <linearGradient
-          id={ringA}
-          gradientUnits="userSpaceOnUse"
-          x1="50"
-          y1="8"
-          x2="50"
-          y2="92"
-        >
-          <stop offset="0%" stopColor="#C4B5FD" />
-          <stop offset="100%" stopColor="#8B5CF6" />
-        </linearGradient>
-        <linearGradient
-          id={ringB}
-          gradientUnits="userSpaceOnUse"
-          x1="4"
-          y1="58"
-          x2="96"
-          y2="58"
-        >
-          <stop offset="0%" stopColor="#8B5CF6" />
-          <stop offset="100%" stopColor="#243B63" />
+        {/* Left in objectBoundingBox units and set on the group below, which
+            is how the artwork is authored: each arm resolves the ramp against
+            its own box, so the three run the gradient individually rather
+            than sharing one across the whole mark. */}
+        <linearGradient id={gradient} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor={from} />
+          <stop offset="48%" stopColor={mid} />
+          <stop offset="100%" stopColor={to} />
         </linearGradient>
       </defs>
 
-      <ellipse
-        cx="50"
-        cy="50"
-        rx="26"
-        ry="42"
-        transform="rotate(18 50 50)"
-        stroke={`url(#${ringA})`}
-        strokeWidth="11"
-      />
-      <ellipse
-        cx="50"
-        cy="58"
-        rx="46"
-        ry="18"
-        transform="rotate(-14 50 58)"
-        stroke={`url(#${ringB})`}
-        strokeWidth="11"
-      />
+      <g transform={LOGO_TRANSFORM}>
+        <g fill={`url(#${gradient})`}>
+          {LOGO_ARMS.map((d) => (
+            <path key={d.slice(0, 24)} d={d} />
+          ))}
+        </g>
+        <ellipse
+          cx={LOGO_CORE.cx}
+          cy={LOGO_CORE.cy}
+          rx={LOGO_CORE.rx}
+          ry={LOGO_CORE.ry}
+          transform={`rotate(${LOGO_CORE.rotate} ${LOGO_CORE.cx} ${LOGO_CORE.cy})`}
+          fill={`url(#${gradient})`}
+        />
+      </g>
     </svg>
   );
 }

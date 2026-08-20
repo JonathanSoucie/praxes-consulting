@@ -10,7 +10,7 @@ export const contentType = "image/png";
  * so a radius here would be clipped twice and read as a dark seam.
  */
 export default function AppleIcon() {
-  const svg = logoMarkSvg({ background: "#ffffff" });
+  const svg = logoMarkSvg({ background: "#ffffff", variant: "onLight" });
 
   return new ImageResponse(
     <img

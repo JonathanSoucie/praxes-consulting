@@ -11,7 +11,7 @@ export const contentType = "image/png";
  * the darker end of the mark still reads against a dark browser tab strip.
  */
 export default function Icon() {
-  const svg = logoMarkSvg({ background: "#ffffff", radius: 24 });
+  const svg = logoMarkSvg({ background: "#ffffff", radius: 150, variant: "onLight" });
 
   return new ImageResponse(
     <img
