@@ -36,7 +36,7 @@ export function BuildExamples({
   return (
     <div className="mt-16">
       <Reveal>
-        <p className="label-tech text-muted">{eyebrow}</p>
+        <p className="label-section text-muted">{eyebrow}</p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
           Examples, not a menu. What gets built is whatever the audit says is
           actually in the way.

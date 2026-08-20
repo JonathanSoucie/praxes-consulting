@@ -408,6 +408,18 @@
   text-transform: uppercase;
 }
 
+/* The same label, sized to head a section rather than to annotate a card.
+   At 10px these read as captions on something above them; the ones that open
+   a block — Outcomes, What we build — need to announce it. Tracking eases off
+   as the size grows, per the note on --tracking-* above. */
+@utility label-section {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
 /* Hero headline over the dithered field. See --hero-type-blend. */
 @utility hero-type {
   mix-blend-mode: var(--hero-type-blend);

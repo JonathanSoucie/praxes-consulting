@@ -35,7 +35,7 @@ export function Outcomes() {
   return (
     <div className="bg-surface-2 pt-4 pb-20 sm:pb-24">
       <Container>
-        <p className="label-tech text-muted">Outcomes</p>
+        <p className="label-section text-muted">Outcomes</p>
 
         {/* Held to max-w-4xl: across the full page width two columns stretch to
             a measure that reads as a wall of text rather than two statements. */}
