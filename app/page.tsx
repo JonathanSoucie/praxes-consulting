@@ -97,6 +97,27 @@ const growth = [
   },
 ];
 
+/* The case for staying small. Sits between The Rocket and the differentiators
+   because it is what the two poles add up to: hours back plus demand arriving
+   is a small team running an output that used to need a department. */
+const smallTeam = [
+  {
+    n: "01",
+    title: "The cost base stops tracking the workload",
+    body: "Headcount is the largest line in most small businesses, and it steps up in whole people. A system that handles the repetitive half costs a fraction of a salary, doesn't step up when volume does, and takes no holiday.",
+  },
+  {
+    n: "02",
+    title: "Output stops being tied to how many of you there are",
+    body: "One person can run intake, follow-up, reporting and campaigns at a volume that used to need a department — because their day goes on the judgement calls and none of it goes on the mechanics.",
+  },
+  {
+    n: "03",
+    title: "You keep the thing scale usually costs you",
+    body: "No layers, no handoff between four people, no week of scheduling before a decision. A small team with systems behind it moves at a speed a large one structurally cannot, and that advantage grows rather than fades.",
+  },
+];
+
 const differentiators = [
   {
     title: "Honest ROI, including when it's negative",
@@ -192,6 +213,44 @@ export default function HomePage() {
                 </p>
               </Reveal>
             ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Small teams                                                       */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          {/* Left-aligned and two-column on purpose: three centred card grids
+              in a row flattens the page, and this section is an argument
+              rather than a list, so the heading stays beside it. */}
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+            <SectionHeading
+              align="left"
+              eyebrow="The shift"
+              title="Small is the advantage"
+              deck="Running solo or with a handful of people is not the compromise it was five years ago. The repetitive half of the work no longer needs a person, which means a small team is no longer a smaller version of a big one — it is a cheaper, faster shape than the big one, doing the same volume."
+              className="lg:sticky lg:top-28 lg:self-start"
+            />
+
+            <div className="grid gap-8">
+              {smallTeam.map((item, i) => (
+                <Reveal
+                  key={item.n}
+                  delay={i * 70}
+                  className="border-t border-line-strong pt-6"
+                >
+                  <span className="label-tech text-accent-ink">{item.n}</span>
+                  <h3 className="card-title mt-3 text-lg sm:text-xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
+                    {item.body}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </Container>
       </Section>
