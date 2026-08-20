@@ -131,6 +131,35 @@ const growth = [
 /* The case for staying small. Sits between The Rocket and the differentiators
    because it is what the two poles add up to: hours back plus demand arriving
    is a small team running an output that used to need a department. */
+/* The Rocket's answer to the same question. Campaign machinery specifically —
+   paid, outbound, organic and the follow-up behind all three. */
+const marketingBuilds = [
+  {
+    title: "Meta and Google ad campaigns",
+    body: "Creative variants generated and rotated, audiences rebuilt from your own customer list rather than guessed at, and spend reported against closed business instead of against clicks.",
+  },
+  {
+    title: "Cold email that gets replies",
+    body: "Lists built and verified, sequences personalised from what is actually true about each account, sending warmed and paced so the domain survives it. Replies land in a human inbox with the thread and the research attached.",
+  },
+  {
+    title: "Social post generation",
+    body: "A week of posts drafted in your voice from the material you already have — jobs done, questions answered, things you have written — queued for approval rather than published blind, and scheduled across the channels you actually use.",
+  },
+  {
+    title: "Lead capture to first response",
+    body: "An enquiry from any source enriched, scored, written into the CRM and answered within minutes, at whatever hour it arrives. Speed to first reply is the single most reliable predictor of whether it converts.",
+  },
+  {
+    title: "Nurture and re-engagement",
+    body: "Sequences that keep a lead warm for as long as the deal is realistically alive, and that go quiet the moment the lead re-engages so a person picks up a live conversation rather than a running campaign.",
+  },
+  {
+    title: "Reviews, referrals and reactivation",
+    body: "Review requests at the point a customer is happiest, referral asks that don't need remembering, and campaigns back into the customers you already have — the cheapest demand available to any business.",
+  },
+];
+
 const smallTeam = [
   {
     n: "01",
@@ -247,6 +276,8 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+
+          <BuildExamples items={marketingBuilds} />
         </Container>
       </Section>
 
