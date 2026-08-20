@@ -108,9 +108,10 @@ const workflowBuilds = [
   },
 ];
 
-/* The case for staying small. Sits between The Rocket and the differentiators
-   because it is what the two poles add up to: hours back plus demand arriving
-   is a small team running an output that used to need a department. */
+/* The case for staying small. Sits ahead of both poles: it is the premise the
+   rest of the page argues from — a small team can now run the output of a
+   department — and The Blackhole and The Rocket are then the two halves of
+   how that is done. */
 /* The Rocket's answer to the same question. Campaign machinery specifically —
    paid, outbound, organic and the follow-up behind all three. */
 const marketingBuilds = [
@@ -200,6 +201,44 @@ export default function HomePage() {
       <Outcomes />
 
       {/* ---------------------------------------------------------------- */}
+      {/* Small teams                                                       */}
+      {/* ---------------------------------------------------------------- */}
+      <Section>
+        <Container>
+          {/* Left-aligned and two-column on purpose: it opens the page's
+              argument, and the two centred sections that follow it read
+              better against something that is not shaped like them. */}
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+            <SectionHeading
+              align="left"
+              eyebrow="The shift"
+              title="Small is the advantage"
+              deck="Running solo or with a handful of people is not the compromise it was five years ago. The repetitive half of the work no longer needs a person, which means a small team is no longer a smaller version of a big one — it is a cheaper, faster shape than the big one, doing the same volume."
+              className="lg:sticky lg:top-28 lg:self-start"
+            />
+
+            <div className="grid gap-8">
+              {smallTeam.map((item, i) => (
+                <Reveal
+                  key={item.n}
+                  delay={i * 70}
+                  className="border-t border-line-strong pt-6"
+                >
+                  <span className="label-tech text-accent-ink">{item.n}</span>
+                  <h3 className="card-title mt-3 text-lg sm:text-xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
+                    {item.body}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
       {/* The problem                                                       */}
       {/* ---------------------------------------------------------------- */}
       <Section>
@@ -230,44 +269,6 @@ export default function HomePage() {
           />
 
           <BuildExamples items={marketingBuilds} />
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Small teams                                                       */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
-        <Container>
-          {/* Left-aligned and two-column on purpose: three centred card grids
-              in a row flattens the page, and this section is an argument
-              rather than a list, so the heading stays beside it. */}
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-            <SectionHeading
-              align="left"
-              eyebrow="The shift"
-              title="Small is the advantage"
-              deck="Running solo or with a handful of people is not the compromise it was five years ago. The repetitive half of the work no longer needs a person, which means a small team is no longer a smaller version of a big one — it is a cheaper, faster shape than the big one, doing the same volume."
-              className="lg:sticky lg:top-28 lg:self-start"
-            />
-
-            <div className="grid gap-8">
-              {smallTeam.map((item, i) => (
-                <Reveal
-                  key={item.n}
-                  delay={i * 70}
-                  className="border-t border-line-strong pt-6"
-                >
-                  <span className="label-tech text-accent-ink">{item.n}</span>
-                  <h3 className="card-title mt-3 text-lg sm:text-xl">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
-                    {item.body}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
         </Container>
       </Section>
 
