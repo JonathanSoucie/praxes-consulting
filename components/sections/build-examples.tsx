@@ -48,13 +48,29 @@ export function BuildExamples({
           <Reveal
             key={item.title}
             delay={i * 50}
-            className="card-raise hover-lift rounded-xl bg-surface p-7"
+            className="hover-lift flex flex-col bg-surface p-8"
           >
-            <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
-              <Icon aria-hidden strokeWidth={1.5} className="size-5 text-accent" />
+            {/* Icon on its own line. Beside the title it looked tighter in
+                the abstract, but these titles run to three and four words and
+                wrapped to three lines in a squeezed column, with the icon
+                floating against the middle of them. */}
+            <span className="grid size-11 shrink-0 place-items-center bg-accent-soft">
+              <Icon
+                aria-hidden
+                strokeWidth={1.5}
+                className="size-5 text-accent"
+              />
             </span>
-            <h3 className="card-title mt-5 text-lg">{item.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
+
+            <h3 className="card-title mt-6 text-lg text-balance sm:text-xl">
+              {item.title}
+            </h3>
+
+            {/* A step up in size and a step lighter than the muted grey these
+                started at. Six cards of dense copy is the most reading on the
+                page, and --color-muted is a secondary tone meant for single
+                lines, not for paragraphs somebody has to get through. */}
+            <p className="mt-4 text-[0.9375rem] leading-[1.7] text-ink-soft">
               {item.body}
             </p>
           </Reveal>
