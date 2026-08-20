@@ -111,28 +111,38 @@
   --color-line-strong: var(--t-light, #ccd1dd) var(--t-dark, #3d3d3d);
 
   /* --- Accent ----------------------------------------------------------- */
-  /* Taken from the logo, which runs #FF6E9E -> #F8206D -> #B5115B. The mark's
-     hot middle, #F8206D, is 4.1:1 on the card surface — under the threshold
-     for body-sized text — so the functional accent is the light end of the
-     ramp and the hot middle lives on as --color-accent-bright, where it
-     paints gradients, glow and pulses but never a small word.
+  /* Three colours, straight off the logo: #FF6E9E, #F8206D, #B5115B. Nothing
+     here is a fourth pink — every accent token below is one of those three,
+     and the two that are not (the label on a filled button, and the tinted
+     panel) are a foreground and a background, which cannot be pink at all if
+     pink is going to sit on them.
 
-     Ratios are quoted against the dark surfaces, page #181818 and card
-     #222222, since those are the only ones that render. */
-  --color-accent: var(--t-light, #c11a5b) var(--t-dark, #ff6e9e); /* 6.7:1 page / 6.0:1 card */
-  --color-accent-hover: var(--t-light, #a3134d) var(--t-dark, #ff8cb3);
-  --color-accent-ink: var(--t-light, #a3134d) var(--t-dark, #ff9cbd); /* accent text on soft bg — 8.5:1 */
-  --color-accent-soft: var(--t-light, #feecf2) var(--t-dark, #3a0d22); /* badges, tinted panels */
+     Which of the three does what is decided by contrast, against the dark
+     surfaces — page #181818, card #222222 — since those are the only ones
+     that render.
+
+       #FF6E9E  6.7:1 page / 6.0:1 card  -> everything made of words
+       #F8206D  4.6:1 page / 4.1:1 card  -> hover, and decoration
+       #B5115B  2.7:1 page               -> never type; grounds only */
+  --color-accent: var(--t-light, #b5115b) var(--t-dark, #ff6e9e);
+  /* Hover darkens rather than lightens: on a filled button the label still
+     clears at 4.9:1, and going paler would have washed the button out. */
+  --color-accent-hover: var(--t-light, #f8206d) var(--t-dark, #f8206d);
+  --color-accent-ink: var(--t-light, #b5115b) var(--t-dark, #ff6e9e); /* accent text on soft bg — 5.7:1 */
+  /* Badges and tinted panels. #B5115B itself is far too light to sit behind
+     pink type — accent on it is 2.5:1 — so this is that colour at 28% over
+     the page, which is the deepest the ramp can go and still be a ground. */
+  --color-accent-soft: var(--t-light, #feecf2) var(--t-dark, #44162b);
   /* Foreground for anything filled with --color-accent (buttons, chips).
-     White fails on a pink this light, so the label goes to near-black with
-     the accent's own hue in it, at 7.3:1. */
+     White fails on a pink this pale, so the label goes to near-black carrying
+     the accent's own hue, at 7.3:1. */
   --color-on-accent: var(--t-light, #ffffff) var(--t-dark, #1f0712);
-  --color-accent-bright: var(--t-light, #f8206d) var(--t-dark, #f8206d); /* the logo's hot middle — decorative only: gradients, glow, pulses. Not for body text. */
+  --color-accent-bright: var(--t-light, #f8206d) var(--t-dark, #f8206d); /* the logo's hot middle — decorative: gradients, glow, pulses. Not for body text. */
 
   /* --- Deep surfaces (closing CTA band) ---------------------------------- */
   /* Near-black resolving through the logo's deep end into its hot middle. */
   --color-deep: #1b0712;
-  --color-deep-2: #6b0c39;
+  --color-deep-2: #b5115b;
   --color-deep-3: #f8206d;
 
   /* --- Data marks -------------------------------------------------------
@@ -141,7 +151,7 @@
      normal-vision ΔE 27.7 against the new accent), and every bar is
      direct-labelled so colour is never the only channel. Keep both
      properties if you change them. */
-  --color-chart-after: var(--t-light, #c11a5b) var(--t-dark, #ff6e9e);
+  --color-chart-after: var(--t-light, #b5115b) var(--t-dark, #ff6e9e);
   --color-chart-before: var(--t-light, #b3aab0) var(--t-dark, #6b646a);
 
   /* --- Shape ------------------------------------------------------------ */
@@ -369,17 +379,16 @@
    background slowly drifts (animate-gradient-shift) for a faint shimmer,
    frozen automatically under prefers-reduced-motion (see the base layer). */
 @utility text-gradient {
-  /* Ends at the pale end of the logo's ramp, middle at its hot one. Between
-     --color-accent and --color-accent-bright the two are four steps apart and
-     the word read as flat pink with a slight dip in it; from accent-hover the
-     travel is visible without either end leaving the legible range. The
-     logo's third stop, #B5115B, is 2.7:1 on the page and cannot be in here at
-     any size. */
+  /* Pale ends, hot middle — the two ends of the ramp that are legible as
+     type. The logo's third stop, #B5115B, is 2.7:1 on the page and cannot be
+     in here at any size, so the travel is the distance between #FF6E9E and
+     #F8206D and no further. Stops pulled to the edges so more of the word
+     sits at one end or the other rather than in the blend between them. */
   background-image: linear-gradient(
     100deg,
-    var(--color-accent-hover) 8%,
+    var(--color-accent) 2%,
     var(--color-accent-bright) 50%,
-    var(--color-accent-hover) 92%
+    var(--color-accent) 98%
   );
   background-size: 200% 100%;
   background-clip: text;
