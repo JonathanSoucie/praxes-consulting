@@ -6,15 +6,19 @@ import { Reveal } from "@/components/reveal";
  * "What we build" — the concrete answer under an argument section.
  *
  * The Blackhole and The Rocket both make a case and then have to answer the
- * obvious next question, so they share one component. Same rules, same
- * rhythm, different contents: whichever section a visitor reads first, the
- * second one's list is already familiar.
+ * obvious next question, so they share one component.
  *
- * Cards rather than the ruled rows this started as. The arguments above are
- * prose now, so these are the only boxes in either section and there is
- * nothing left for a grid of them to compete with — and six items with an
- * icon each are far easier to scan for the one that describes your business
- * than six paragraphs under hairlines.
+ * Each card is a line and a list, not a paragraph. Six cards of prose in a
+ * grid is more continuous reading than anyone does at this point on a page:
+ * the visitor is scanning for the one that describes their business, and a
+ * block of text gives them nothing to scan. So the sentence says what the
+ * thing is, and the three specifics under it — which are what actually
+ * distinguish one card from the next — sit where the eye can pick them off
+ * without reading.
+ *
+ * The icon is bare. It was a filled square chip, which put a heavy block of
+ * accent at the top of every card and made a grid of six read as a wall
+ * before a single word was read.
  */
 
 export type BuildExample = {
@@ -23,7 +27,11 @@ export type BuildExample = {
       boundary and there is no lookup table to keep in sync. */
   icon: LucideIcon;
   title: string;
-  body: string;
+  /** One line. If it needs two sentences, it belongs in the points. */
+  summary: string;
+  /** Two to four, two to four words each. Long enough to be specific, short
+      enough that the column reads as a list rather than as more prose. */
+  points: readonly string[];
 };
 
 export function BuildExamples({
@@ -48,31 +56,45 @@ export function BuildExamples({
           <Reveal
             key={item.title}
             delay={i * 50}
-            className="hover-lift flex flex-col bg-surface p-8"
+            className="hover-lift flex flex-col bg-surface p-7"
           >
-            {/* Icon on its own line. Beside the title it looked tighter in
-                the abstract, but these titles run to three and four words and
-                wrapped to three lines in a squeezed column, with the icon
-                floating against the middle of them. */}
-            <span className="grid size-11 shrink-0 place-items-center bg-accent-soft">
+            {/* Icon and title on one line now that the title is the only
+                thing on it — the summary moved below, so there is no long
+                heading left to squeeze into half a column. */}
+            <div className="flex items-start gap-3">
+              {/* Aligned to the first line rather than centred: most titles
+                  here run to two lines, and centring left the icon floating
+                  at the midpoint between them instead of next to where the
+                  reading starts. mt-px optically centres it on the cap
+                  height of that first line. */}
               <Icon
                 aria-hidden
                 strokeWidth={1.5}
-                className="size-5 text-accent"
+                className="mt-px size-5 shrink-0 text-accent"
               />
-            </span>
+              <h3 className="card-title text-base sm:text-lg">{item.title}</h3>
+            </div>
 
-            <h3 className="card-title mt-6 text-lg text-balance sm:text-xl">
-              {item.title}
-            </h3>
-
-            {/* A step up in size and a step lighter than the muted grey these
-                started at. Six cards of dense copy is the most reading on the
-                page, and --color-muted is a secondary tone meant for single
-                lines, not for paragraphs somebody has to get through. */}
-            <p className="mt-4 text-[0.9375rem] leading-[1.7] text-ink-soft">
-              {item.body}
+            <p className="mt-4 text-[0.9375rem] leading-[1.6] text-ink-soft">
+              {item.summary}
             </p>
+
+            {/* Ruled off from the sentence above. The list is the part that
+                gets scanned, so it wants a visible edge of its own rather
+                than just more space. */}
+            <ul className="mt-5 space-y-2 border-t border-line pt-4">
+              {item.points.map((point) => (
+                <li key={point} className="flex gap-2.5 text-sm text-muted">
+                  {/* A rule, not a bullet — a dot at this size reads as
+                      punctuation left behind by accident. */}
+                  <span
+                    aria-hidden
+                    className="mt-2.5 h-px w-2.5 shrink-0 bg-accent"
+                  />
+                  {point}
+                </li>
+              ))}
+            </ul>
           </Reveal>
         ))}
       </div>

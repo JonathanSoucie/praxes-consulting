@@ -79,32 +79,68 @@ const workflowBuilds = [
   {
     icon: FileStack,
     title: "Document and invoice intake",
-    body: "PDFs and email attachments read on arrival, the fields pulled out, checked against what they should look like, and written into the ledger or the case file. Anything ambiguous goes to a person; the other 90% never becomes a task.",
+    summary:
+      "Files read the moment they arrive and written straight into the system of record.",
+    points: [
+      "Email and portal attachments",
+      "Fields checked on the way in",
+      "Exceptions go to a person",
+    ],
   },
   {
     icon: Workflow,
-    title: "Systems that don't talk to each other",
-    body: "The CRM, the accounting package and the scheduler kept in step without anyone retyping between them. This is the most common thing we build, because it is the most common thing being done by hand.",
+    title: "Systems that don't talk",
+    summary:
+      "Your CRM, accounting package and scheduler kept in step without anyone retyping.",
+    points: [
+      "Two-way sync",
+      "Rules for which side wins",
+      "The most common thing we build",
+    ],
   },
   {
     icon: ListChecks,
     title: "Queue and approval routing",
-    body: "Work assigned to whoever should have it, and escalated when it has been sitting too long. The hours a file spends waiting are the ones nobody is measuring, so this is usually where the recoverable time turns out to be.",
+    summary:
+      "Work assigned to whoever should have it, and escalated when it has sat too long.",
+    points: [
+      "Automatic assignment",
+      "Alerts on ageing work",
+      "Approvals that don't stall",
+    ],
   },
   {
     icon: FileSpreadsheet,
-    title: "Recurring reports and reconciliations",
-    body: "The month-end pack, the payment reconciliation, the compliance export — assembled from the source systems on a schedule and delivered finished, rather than rebuilt by hand every cycle.",
+    title: "Reports and reconciliations",
+    summary:
+      "The month-end pack assembled from source on a schedule and delivered finished.",
+    points: [
+      "Pulled from the live systems",
+      "Same definitions every cycle",
+      "Discrepancies flagged",
+    ],
   },
   {
     icon: Inbox,
     title: "Inbox and enquiry triage",
-    body: "Incoming mail read, categorised, and routed with the relevant history attached, so the first person to see it is the right person and they see it with context.",
+    summary:
+      "Incoming mail sorted, categorised and routed with the history already attached.",
+    points: [
+      "Sorted by what it actually is",
+      "Straight to the right person",
+      "Context attached on arrival",
+    ],
   },
   {
     icon: DatabaseZap,
     title: "Data entry and record hygiene",
-    body: "Forms, spreadsheets and portals filled from the record you already hold, plus the duplicate-and-typo cleanup that otherwise quietly corrupts every report built on top of it.",
+    summary:
+      "Forms and portals filled from the record you already hold, then kept clean.",
+    points: [
+      "No retyping what you have",
+      "Duplicates merged",
+      "Typos caught before reporting",
+    ],
   },
 ];
 
@@ -117,33 +153,69 @@ const workflowBuilds = [
 const marketingBuilds = [
   {
     icon: Megaphone,
-    title: "Meta and Google ad campaigns",
-    body: "Creative variants generated and rotated, audiences rebuilt from your own customer list rather than guessed at, and spend reported against closed business instead of against clicks.",
+    title: "Meta and Google ads",
+    summary:
+      "Creative generated and rotated, with audiences built from your own customer list.",
+    points: [
+      "Variants tested continuously",
+      "Audiences from real customers",
+      "Judged on revenue",
+    ],
   },
   {
     icon: Send,
     title: "Cold email that gets replies",
-    body: "Lists built and verified, sequences personalised from what is actually true about each account, sending warmed and paced so the domain survives it. Replies land in a human inbox with the thread and the research attached.",
+    summary:
+      "Verified lists, personalised per account, paced so your domain survives it.",
+    points: [
+      "Lists built and verified",
+      "Research per account",
+      "Replies land with a human",
+    ],
   },
   {
     icon: PenLine,
     title: "Social post generation",
-    body: "A week of posts drafted in your voice from the material you already have — jobs done, questions answered, things you have written — queued for approval rather than published blind, and scheduled across the channels you actually use.",
+    summary:
+      "A week of posts drafted in your voice from work you have already done.",
+    points: [
+      "Written from your own material",
+      "Approval before it posts",
+      "Scheduled across your channels",
+    ],
   },
   {
     icon: Zap,
-    title: "Lead capture to first response",
-    body: "An enquiry from any source enriched, scored, written into the CRM and answered within minutes, at whatever hour it arrives. Speed to first reply is the single most reliable predictor of whether it converts.",
+    title: "Lead capture to first reply",
+    summary:
+      "Every enquiry enriched, scored and answered within minutes, at whatever hour it arrives.",
+    points: [
+      "Enriched and scored on arrival",
+      "Written into the CRM",
+      "Minutes, not next morning",
+    ],
   },
   {
     icon: MessagesSquare,
     title: "Nurture and re-engagement",
-    body: "Sequences that keep a lead warm for as long as the deal is realistically alive, and that go quiet the moment the lead re-engages so a person picks up a live conversation rather than a running campaign.",
+    summary:
+      "Sequences that keep a lead warm for as long as the deal is realistically alive.",
+    points: [
+      "Paced to the stage they're at",
+      "Stops the moment they reply",
+      "Win-backs on old pipeline",
+    ],
   },
   {
     icon: Star,
-    title: "Reviews, referrals and reactivation",
-    body: "Review requests at the point a customer is happiest, referral asks that don't need remembering, and campaigns back into the customers you already have — the cheapest demand available to any business.",
+    title: "Reviews and referrals",
+    summary:
+      "Asks that go out when a customer is happiest, without anyone remembering to send them.",
+    points: [
+      "Timed to the work finishing",
+      "Referral prompts built in",
+      "Win-backs on past customers",
+    ],
   },
 ];
 
