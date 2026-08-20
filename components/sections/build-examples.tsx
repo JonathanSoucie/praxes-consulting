@@ -1,20 +1,27 @@
+import type { LucideIcon } from "lucide-react";
+
 import { Reveal } from "@/components/reveal";
 
 /**
- * "What we build" — the concrete list under an argument section.
+ * "What we build" — the concrete answer under an argument section.
  *
  * The Blackhole and The Rocket both make a case and then have to answer the
  * obvious next question, so they share one component. Same rules, same
  * rhythm, different contents: whichever section a visitor reads first, the
  * second one's list is already familiar.
  *
- * A ruled list rather than another card grid. These sit *inside* a section
- * that is already cards, and a second grid of boxes inside the first reads as
- * two unrelated sections rather than as a list belonging to the argument
- * above it.
+ * Cards rather than the ruled rows this started as. The arguments above are
+ * prose now, so these are the only boxes in either section and there is
+ * nothing left for a grid of them to compete with — and six items with an
+ * icon each are far easier to scan for the one that describes your business
+ * than six paragraphs under hairlines.
  */
 
 export type BuildExample = {
+  /** Lucide icon, passed as the component rather than a name — both this and
+      its callers are server components, so nothing crosses a client
+      boundary and there is no lookup table to keep in sync. */
+  icon: LucideIcon;
   title: string;
   body: string;
 };
@@ -36,20 +43,18 @@ export function BuildExamples({
         </p>
       </Reveal>
 
-      {/* Hairline between rows only — the top rule comes from the row itself,
-          so the list opens with a line under the label above rather than
-          floating free of it. */}
-      <div className="mt-8 grid gap-x-12 sm:grid-cols-2">
-        {items.map((item, i) => (
+      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map(({ icon: Icon, ...item }, i) => (
           <Reveal
             key={item.title}
             delay={i * 50}
-            className="border-t border-line py-5"
+            className="card-raise hover-lift rounded-xl bg-surface p-7"
           >
-            <h4 className="font-display text-base font-semibold text-ink">
-              {item.title}
-            </h4>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
+            <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
+              <Icon aria-hidden strokeWidth={1.5} className="size-5 text-accent" />
+            </span>
+            <h3 className="card-title mt-5 text-lg">{item.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
               {item.body}
             </p>
           </Reveal>
