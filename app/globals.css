@@ -95,11 +95,23 @@
   /* Near-neutral with a trace of the accent's warmth. These were blue-cast
      greys, which sat correctly under a violet accent and read cold under a
      pink one — body copy in powder blue beneath a hot-pink heading looks like
-     two palettes sharing a page. Ratios quoted against the dark surfaces,
+     two palettes sharing a page.
+
+     Both secondary tones are a step lighter than the ratios a contrast
+     checker would call sufficient. On a near-black ground, passing is not the
+     same as comfortable: dark grey on black technically clears 4.5:1 and
+     still reads as something the page is trying to hide, because the eye is
+     adapted to the light text elsewhere on the screen rather than to the
+     ground. --color-muted carries most of the running copy here — decks,
+     list items, the line under every section label — so it is the one that
+     had to move most, from 5.9:1 to 7.7:1.
+
+     The three stay a step apart from each other, which is the only reason a
+     hierarchy of them reads at all. Ratios quoted against the dark surfaces,
      which are the only ones that render. */
-  --color-ink: var(--t-light, #1b0712) var(--t-dark, #f5f3f4); /* headings — 16.1:1 dark */
-  --color-ink-soft: var(--t-light, #43303a) var(--t-dark, #b5aeb2); /* body — 7.3:1 dark */
-  --color-muted: var(--t-light, #6b5f66) var(--t-dark, #999298); /* secondary — 5.2:1 dark */
+  --color-ink: var(--t-light, #1b0712) var(--t-dark, #f5f3f4); /* headings — 16.1:1 page */
+  --color-ink-soft: var(--t-light, #3a2831) var(--t-dark, #cbc5c9); /* body — 10.5:1 page / 9.4:1 card */
+  --color-muted: var(--t-light, #5c515a) var(--t-dark, #b0a9ae); /* secondary — 7.7:1 page / 6.9:1 card */
 
   /* --- Surfaces --------------------------------------------------------- */
   /* Light: white cards over the palette's white-smoke page. Dark: the two
