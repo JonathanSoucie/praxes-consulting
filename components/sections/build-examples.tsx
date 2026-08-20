@@ -72,7 +72,9 @@ export function BuildExamples({
                 strokeWidth={1.5}
                 className="mt-px size-5 shrink-0 text-accent"
               />
-              <h3 className="card-title text-base sm:text-lg">{item.title}</h3>
+              <h3 className="card-title text-lg text-balance sm:text-xl">
+                {item.title}
+              </h3>
             </div>
 
             <p className="mt-4 text-[0.9375rem] leading-[1.6] text-ink-soft">

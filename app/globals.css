@@ -408,7 +408,19 @@
 @utility card-title {
   font-family: var(--font-display);
   text-transform: uppercase;
-  line-height: 1.05;
+  /* Playfair is a high-contrast face: its thins are hairlines, and at the
+     size a card heading runs they were dropping out entirely — worse in the
+     accent on a dark ground, where a thin light stroke has the least to hold
+     on to. 600 thickens those hairlines without making the face heavy.
+
+     Uppercase also needs air that lower case does not: the letters have no
+     ascenders or descenders to separate them, so at 0 tracking a card title
+     set as one block. And 1.05 leading is a display value — it exists to
+     stop a 46px headline drifting apart, and it crushes a two-line heading
+     at a fifth of that size. */
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  line-height: 1.2;
   color: var(--color-accent);
 }
 
