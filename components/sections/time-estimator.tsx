@@ -15,6 +15,14 @@ import { cn } from "@/lib/utils";
  *
  * Every figure here is derived from the visitor's own three inputs — none of
  * it is a claim about our results.
+ *
+ * Laid out as a band, not a widget. It used to be a bordered card held to
+ * max-w-2xl and centred, which on a page where every other section runs the
+ * full container read as something embedded from somewhere else — the eye hit
+ * a narrow box in the middle of a wide page and the column of the argument
+ * broke. Now it is two columns under a rule, the same shape the small-team
+ * section uses: what you set on the left, what it comes to on the right, and
+ * no frame around either.
  */
 
 /** Weeks per year used for the annualisation. */
@@ -48,80 +56,97 @@ export function TimeEstimator({ className }: { className?: string }) {
   const highCost = high * rate;
 
   return (
-    <div
-      className={cn(
-        "card-float rounded-2xl bg-surface p-7 text-left sm:p-9",
-        className,
-      )}
-    >
-      <p className="text-xs font-medium tracking-[0.14em] text-muted uppercase">
-        Estimator
-      </p>
+    <div className={cn("text-left", className)}>
+      {/* Ruled off from the cards above rather than boxed — the same edge the
+          outcomes and the small-team list open on. */}
+      <div className="grid gap-10 border-t border-line-strong pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
+        {/* What you set. */}
+        <div>
+          <p className="label-section text-muted">Estimator</p>
 
-      <h2 className="mt-4 text-2xl sm:text-[1.75rem]">
-        Where does the time go?
-      </h2>
-      <p className="mt-2 text-sm text-muted">
-        Three inputs, one honest range. Assumptions shown, not hidden.
-      </p>
+          <h3 className="card-title mt-5 text-2xl sm:text-[1.75rem]">
+            Where does the time go?
+          </h3>
+          <p className="mt-4 max-w-md leading-relaxed text-muted">
+            Three inputs, one honest range. Assumptions shown, not hidden.
+          </p>
 
-      <div className="mt-8 space-y-6">
-        <Slider
-          id="est-people"
-          label="People affected"
-          value={people}
-          onChange={setPeople}
-          {...PEOPLE}
-        />
-        <Slider
-          id="est-hours"
-          label="Manual hrs / week each"
-          value={hours}
-          onChange={setHours}
-          {...HOURS}
-        />
-        <Slider
-          id="est-rate"
-          label="Loaded hourly cost"
-          value={rate}
-          format={(v) => cf.format(v)}
-          onChange={setRate}
-          {...RATE}
-        />
-      </div>
+          <div className="mt-9 space-y-6">
+            <Slider
+              id="est-people"
+              label="People affected"
+              value={people}
+              onChange={setPeople}
+              {...PEOPLE}
+            />
+            <Slider
+              id="est-hours"
+              label="Manual hrs / week each"
+              value={hours}
+              onChange={setHours}
+              {...HOURS}
+            />
+            <Slider
+              id="est-rate"
+              label="Loaded hourly cost"
+              value={rate}
+              format={(v) => cf.format(v)}
+              onChange={setRate}
+              {...RATE}
+            />
+          </div>
+        </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        <Figure label="Hours in scope / year" value={nf.format(hoursInScope)} />
-        <Figure
-          label="What that time costs / year"
-          value={cf.format(annualCost)}
-        />
-        <Figure
-          label="Plausibly recoverable"
-          value={`${nf.format(low)}–${nf.format(high)} hrs`}
-        />
-        <Figure
-          label="Recoverable / year"
-          value={`${cf.format(lowCost)}–${cf.format(highCost)}`}
-          accent
-        />
-      </div>
+        {/* What it comes to. */}
+        <div className="flex flex-col">
+          {/* gap-px over the line colour, so the four figures are divided by
+              hairlines rather than floating apart — the page rules things
+              off, it does not space them out. */}
+          <div className="grid gap-px bg-line sm:grid-cols-2">
+            <Figure
+              label="Hours in scope / year"
+              value={nf.format(hoursInScope)}
+            />
+            <Figure
+              label="What that time costs / year"
+              value={cf.format(annualCost)}
+            />
+            <Figure
+              label="Plausibly recoverable"
+              value={`${nf.format(low)}–${nf.format(high)} hrs`}
+            />
+            <Figure
+              label="Recoverable / year"
+              value={`${cf.format(lowCost)}–${cf.format(highCost)}`}
+              accent
+            />
+          </div>
 
-      <p className="mt-7 border-t border-line pt-5 text-xs leading-relaxed text-muted">
-        Assumes {WEEKS_PER_YEAR} weeks and a {RECOVERY_LOW * 100}–
-        {RECOVERY_HIGH * 100}% reduction band typical of well-scoped automation,
-        applied to a loaded cost you supply. An audit replaces this estimate
-        with measurement.
-      </p>
+          <p className="mt-6 text-xs leading-relaxed text-muted">
+            Assumes {WEEKS_PER_YEAR} weeks and a {RECOVERY_LOW * 100}–
+            {RECOVERY_HIGH * 100}% reduction band typical of well-scoped
+            automation, applied to a loaded cost you supply. An audit replaces
+            this estimate with measurement.
+          </p>
 
-      {/* The estimate is the highest-intent moment on the page — the next
-          step belongs here, not only in the band at the bottom. */}
-      <div className="mt-7 flex flex-col items-start gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:gap-5">
-        <BookACall label="Get this measured, not estimated" withArrow />
-        <p className="text-xs leading-relaxed text-muted">
-          Fifteen minutes. We&apos;ll tell you whether these assumptions hold
-          for your operation.
-        </p>
+          {/* The estimate is the highest-intent moment on the page — the next
+              step belongs here, not only in the band at the bottom. mt-auto
+              pins it to the foot of the column, so on a wide screen it lands
+              level with the last slider rather than halfway up beside it.
+
+              Stacked, not side by side. This column is half the width the
+              estimator had as a centred card, and a nowrap button that long
+              beside a sentence overflowed it — the button held its width, the
+              note collapsed to its longest word, and the row ran past the
+              column edge. */}
+          <div className="mt-auto flex flex-col items-start gap-4 border-t border-line pt-6">
+            <BookACall label="Get this measured, not estimated" withArrow />
+            <p className="text-xs leading-relaxed text-muted">
+              Fifteen minutes. We&apos;ll tell you whether these assumptions
+              hold for your operation.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -196,13 +221,16 @@ function Figure({
   accent?: boolean;
 }) {
   return (
-    <div className="rounded-xl bg-surface-2 p-5">
+    <div className="bg-surface p-6">
       <p className="text-xs text-muted">{label}</p>
       {/* Sized for the longest value this can hold — a currency range like
-          "$33,700–$67,400" — so the figures never wrap mid-number. */}
+          "$33,700–$67,400" — so the figures never wrap mid-number. Two of
+          these now sit side by side in half the width they had as a centred
+          card, which is why the display step is gone: at text-2xl the range
+          broke across two lines and took the tile's height with it. */}
       <p
         className={cn(
-          "figure-num mt-2 text-xl sm:text-2xl",
+          "figure-num mt-2 text-xl",
           accent ? "text-accent" : "text-ink",
         )}
       >

@@ -324,7 +324,7 @@ export default function HomePage() {
 
           <BuildExamples items={workflowBuilds} />
 
-          <Reveal delay={200} className="mx-auto mt-16 max-w-2xl">
+          <Reveal delay={120} className="mt-20">
             <TimeEstimator />
           </Reveal>
         </Container>
