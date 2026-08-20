@@ -1,10 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Inter,
-  JetBrains_Mono,
-  Playfair_Display,
-  Space_Grotesk,
-} from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Frame } from "@/components/layout/frame";
@@ -15,28 +10,23 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Body: highly legible sans. Pairs with the Playfair headings — the serif
-   carries the display voice, the body stays plain and readable. */
+/* Body: highly legible sans. Sits under the display grotesk without
+   competing with it — the two are close in colour, so the contrast between
+   heading and body is carried by size, weight and case rather than by a
+   change of voice. */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });
 
-/* Display: high-contrast serif for headings and stat figures. Variable font,
-   so every weight from 400-900 is available from one file. */
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
-});
-
-/* Small headings: card and list titles, where Playfair's hairlines drop out.
-   A grotesk with squared-off details that answer the logo's wordmark, and one
-   that was drawn to stay legible at UI sizes rather than at poster sizes. */
+/* Display: every heading on the site, plus the stat figures and the nav. A
+   grotesk with squared-off details that answer the logo's wordmark, and one
+   drawn to stay legible at UI sizes as well as poster sizes — which is the
+   whole reason it replaced the serif that used to hold this role. */
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-heading-family",
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
@@ -106,7 +96,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a

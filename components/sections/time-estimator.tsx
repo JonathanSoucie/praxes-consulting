@@ -221,13 +221,14 @@ function Figure({
   accent?: boolean;
 }) {
   return (
-    <div className="bg-surface p-6">
+    <div className="bg-surface p-5">
       <p className="text-xs text-muted">{label}</p>
       {/* Sized for the longest value this can hold — a currency range like
           "$33,700–$67,400" — so the figures never wrap mid-number. Two of
-          these now sit side by side in half the width they had as a centred
-          card, which is why the display step is gone: at text-2xl the range
-          broke across two lines and took the tile's height with it. */}
+          these sit side by side in half the width they had as a centred card,
+          which is what sets the ceiling: the display step went first, and the
+          padding came in a notch when the display face changed, because the
+          grotesk's figures are wider than the serif's at the same size. */}
       <p
         className={cn(
           "figure-num mt-2 text-xl",

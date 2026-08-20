@@ -78,16 +78,13 @@
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* High-contrast serif (Playfair Display) for display, legible sans for
+  /* One display grotesk (Space Grotesk) for every heading, a legible sans for
      body. Mono is used only for small technical labels inside the built data
      visuals. */
   --font-sans:
     var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  /* Small headings only. The display serif keeps the big ones — the split is
-     by size, not by importance. */
-  --font-heading:
-    var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
@@ -188,24 +185,26 @@
      the size utility means every `text-*` class carries the right one and no
      component has to remember.
 
-     The ramp is deliberately gentler than it would be for a geometric sans:
-     the display face here is Playfair, a high-contrast serif that already
-     sets tight, and squeezing it collides the serifs (which is what the
-     earlier flat -0.022em got wrong). Body sizes take a small *positive*
-     value, which is what keeps small text legible. */
+     The large end is steeper than it was. It was tuned around Playfair, a
+     high-contrast serif that already sets tight and collides its serifs if
+     you squeeze it; the display face is now a grotesk with even sidebearings,
+     which holds a tighter setting and looks slack at the serif's values once
+     it passes about 30px. Body sizes are unchanged — they are set in Inter,
+     which none of this affects — and keep a small *positive* value, which is
+     what keeps small text legible. */
   --text-xs--letter-spacing: 0.01em;
   --text-sm--letter-spacing: 0.006em;
   --text-base--letter-spacing: 0em;
   --text-lg--letter-spacing: -0.003em;
   --text-xl--letter-spacing: -0.006em;
   --text-2xl--letter-spacing: -0.009em;
-  --text-3xl--letter-spacing: -0.011em;
-  --text-4xl--letter-spacing: -0.013em;
-  --text-5xl--letter-spacing: -0.015em;
-  --text-6xl--letter-spacing: -0.017em;
-  --text-7xl--letter-spacing: -0.019em;
-  --text-8xl--letter-spacing: -0.021em;
-  --text-9xl--letter-spacing: -0.022em;
+  --text-3xl--letter-spacing: -0.014em;
+  --text-4xl--letter-spacing: -0.018em;
+  --text-5xl--letter-spacing: -0.021em;
+  --text-6xl--letter-spacing: -0.024em;
+  --text-7xl--letter-spacing: -0.027em;
+  --text-8xl--letter-spacing: -0.030em;
+  --text-9xl--letter-spacing: -0.032em;
 
   /* --- Motion ----------------------------------------------------------- */
   --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -287,8 +286,9 @@
   h4 {
     font-family: var(--font-display);
     color: var(--color-ink);
-    /* 600 on the Playfair variable axis: enough stroke contrast to carry the
-       display role without the 700+ weights' heavy blacks. */
+    /* 600 on the Space Grotesk variable axis. Its 700 is the top of the axis
+       and reads as a shout at display sizes; 600 carries the weight without
+       it. */
     font-weight: 600;
     /* Fallback only, for a heading that carries no `text-*` size utility.
        Anything sized explicitly gets the size-matched value from the tracking
@@ -422,15 +422,12 @@
    layout. Applied to card and list-item headings only — not to status
    messages or people's names, where setting a name in caps reads wrong. */
 @utility card-title {
-  /* Space Grotesk rather than the display serif. Playfair is high-contrast:
-     its thins are hairlines, which is why it looks right at 46px and stops
-     working at 18 — the hairlines drop out, worst in the accent on a dark
-     ground. This face carries an even stroke all the way down.
-
-     It still needs tracking, because uppercase always does: the letters have
-     no ascenders or descenders to separate them. And 1.05 leading is a
+  /* Same face as every other heading now, so this utility is only about the
+     things that change with size: uppercase always needs tracking, because
+     the letters have no ascenders or descenders to separate them, and it
+     needs more of it at card size than a headline does. 1.05 leading is a
      display value that crushes a two-line heading at a fifth of that size. */
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.045em;
