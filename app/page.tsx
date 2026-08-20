@@ -5,6 +5,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Container, Section } from "@/components/container";
 import { DitheredGalaxyHero } from "@/components/sections/dithered-galaxy-hero";
 import { Outcomes } from "@/components/sections/outcomes";
+import { BuildExamples } from "@/components/sections/build-examples";
 import { TimeEstimator } from "@/components/sections/time-estimator";
 import { SectionHeading } from "@/components/section-heading";
 import { FeaturedCaseStudy } from "@/components/sections/case-study-card";
@@ -74,6 +75,36 @@ const problems = [
    is only about demand arriving — marketing, pipeline and the numbers behind
    both. Nothing here is a time saving, or the two sections collapse into each
    other. */
+/* The Blackhole's answer to "so what do you actually build?". Workflow
+   automation, described by the job it removes rather than by the tool that
+   does it — the tool is an audit outcome, not a promise made up front. */
+const workflowBuilds = [
+  {
+    title: "Document and invoice intake",
+    body: "PDFs and email attachments read on arrival, the fields pulled out, checked against what they should look like, and written into the ledger or the case file. Anything ambiguous goes to a person; the other 90% never becomes a task.",
+  },
+  {
+    title: "Systems that don't talk to each other",
+    body: "The CRM, the accounting package and the scheduler kept in step without anyone retyping between them. This is the most common thing we build, because it is the most common thing being done by hand.",
+  },
+  {
+    title: "Queue and approval routing",
+    body: "Work assigned to whoever should have it, and escalated when it has been sitting too long. The hours a file spends waiting are the ones nobody is measuring, so this is usually where the recoverable time turns out to be.",
+  },
+  {
+    title: "Recurring reports and reconciliations",
+    body: "The month-end pack, the payment reconciliation, the compliance export — assembled from the source systems on a schedule and delivered finished, rather than rebuilt by hand every cycle.",
+  },
+  {
+    title: "Inbox and enquiry triage",
+    body: "Incoming mail read, categorised, and routed with the relevant history attached, so the first person to see it is the right person and they see it with context.",
+  },
+  {
+    title: "Data entry and record hygiene",
+    body: "Forms, spreadsheets and portals filled from the record you already hold, plus the duplicate-and-typo cleanup that otherwise quietly corrupts every report built on top of it.",
+  },
+];
+
 const growth = [
   {
     n: "01",
@@ -180,7 +211,9 @@ export default function HomePage() {
             ))}
           </div>
 
-          <Reveal delay={200} className="mx-auto mt-10 max-w-2xl">
+          <BuildExamples items={workflowBuilds} />
+
+          <Reveal delay={200} className="mx-auto mt-16 max-w-2xl">
             <TimeEstimator />
           </Reveal>
         </Container>
