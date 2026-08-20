@@ -84,6 +84,10 @@
   --font-sans:
     var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  /* Small headings only. The display serif keeps the big ones — the split is
+     by size, not by importance. */
+  --font-heading:
+    var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
@@ -406,9 +410,19 @@
    layout. Applied to card and list-item headings only — not to status
    messages or people's names, where setting a name in caps reads wrong. */
 @utility card-title {
-  font-family: var(--font-display);
+  /* Space Grotesk rather than the display serif. Playfair is high-contrast:
+     its thins are hairlines, which is why it looks right at 46px and stops
+     working at 18 — the hairlines drop out, worst in the accent on a dark
+     ground. This face carries an even stroke all the way down.
+
+     It still needs tracking, because uppercase always does: the letters have
+     no ascenders or descenders to separate them. And 1.05 leading is a
+     display value that crushes a two-line heading at a fifth of that size. */
+  font-family: var(--font-heading);
   text-transform: uppercase;
-  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  line-height: 1.25;
   color: var(--color-accent);
 }
 

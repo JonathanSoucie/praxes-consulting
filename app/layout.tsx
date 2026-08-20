@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import {
+  Inter,
+  JetBrains_Mono,
+  Playfair_Display,
+  Space_Grotesk,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Frame } from "@/components/layout/frame";
@@ -23,6 +28,15 @@ const inter = Inter({
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+  display: "swap",
+});
+
+/* Small headings: card and list titles, where Playfair's hairlines drop out.
+   A grotesk with squared-off details that answer the logo's wordmark, and one
+   that was drawn to stay legible at UI sizes rather than at poster sizes. */
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-heading-family",
   display: "swap",
 });
 
@@ -92,7 +106,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${jetBrainsMono.variable}`}
+      className={`${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a

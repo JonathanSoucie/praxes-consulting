@@ -409,7 +409,7 @@ export default function HomePage() {
                   <Check aria-hidden className="size-4 text-on-accent" />
                 </span>
                 <div>
-                  <h3 className="card-title text-lg">{item.title}</h3>
+                  <h3 className="card-title text-xl">{item.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted">
                     {item.body}
                   </p>
