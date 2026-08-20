@@ -246,7 +246,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="The problem"
             title="The Blackhole"
-            deck="Every business has one, and it is rarely the thing people complain about: files waiting in a queue for someone to be free, capable people retyping and reconciling, decisions made on numbers that are already weeks old. None of it appears on a timesheet or in a budget line, and it pulls hours in whether anyone is watching or not."
+            deck="Every business has one, and it is never the thing people complain about. Files waiting in a queue. Capable people retyping and reconciling. Decisions made on numbers that are weeks old. It appears on no timesheet, and it pulls hours in whether anyone is watching or not."
           />
 
           <BuildExamples items={workflowBuilds} />
