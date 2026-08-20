@@ -317,6 +317,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="The problem"
+            gradient
             title="The Blackhole"
             deck="Every business has one, and it is never the thing people complain about. Files waiting in a queue. Capable people retyping and reconciling. Decisions made on numbers that are weeks old. It appears on no timesheet, and it pulls hours in whether anyone is watching or not."
           />
@@ -336,6 +337,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Growth"
+            gradient
             title="The Rocket"
             deck="The opposite direction, and what the saved hours are for: campaigns that go out on schedule rather than when someone remembers, enquiries qualified and routed before they reach a person, follow-up that keeps a lead warm instead of losing it to silence, and spend judged on closed business rather than on clicks. Growth compounds when it comes from something that runs every week."
           />

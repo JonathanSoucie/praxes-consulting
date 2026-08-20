@@ -88,11 +88,14 @@
     var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
   /* --- Ink -------------------------------------------------------------- */
-  /* Prussian blue / twilight indigo on the light side; white-smoke and
-     powder blue (both straight from the palette) on the dark. */
-  --color-ink: var(--t-light, #07152f) var(--t-dark, #f5f5f2); /* headings — 18.1:1 light */
-  --color-ink-soft: var(--t-light, #243b63) var(--t-dark, #a7b1c5); /* body — 11.2:1 / 7.2:1 */
-  --color-muted: var(--t-light, #5d6a88) var(--t-dark, #8492ad); /* secondary — 5.4:1 / 5.0:1 */
+  /* Near-neutral with a trace of the accent's warmth. These were blue-cast
+     greys, which sat correctly under a violet accent and read cold under a
+     pink one — body copy in powder blue beneath a hot-pink heading looks like
+     two palettes sharing a page. Ratios quoted against the dark surfaces,
+     which are the only ones that render. */
+  --color-ink: var(--t-light, #1b0712) var(--t-dark, #f5f3f4); /* headings — 16.1:1 dark */
+  --color-ink-soft: var(--t-light, #43303a) var(--t-dark, #b5aeb2); /* body — 7.3:1 dark */
+  --color-muted: var(--t-light, #6b5f66) var(--t-dark, #999298); /* secondary — 5.2:1 dark */
 
   /* --- Surfaces --------------------------------------------------------- */
   /* Light: white cards over the palette's white-smoke page. Dark: the two
@@ -108,26 +111,29 @@
   --color-line-strong: var(--t-light, #ccd1dd) var(--t-dark, #3d3d3d);
 
   /* --- Accent ----------------------------------------------------------- */
-  /* The palette's medium slate blue #8b5cf6 is 4.2:1 on white — just under
-     the 4.5:1 text threshold — so the functional accent darkens one step on
-     the light side and brightens one on the dark. The raw palette violet
-     lives on as --color-accent-bright, so gradients, glow and pulses still
-     carry the exact palette colour. */
-  --color-accent: var(--t-light, #7c3aed) var(--t-dark, #a78bfa); /* 5.7:1 light / 7.1:1 dark */
-  --color-accent-hover: var(--t-light, #6d28d9) var(--t-dark, #b9a3fc);
-  --color-accent-ink: var(--t-light, #6d28d9) var(--t-dark, #c4b5fd); /* accent text on soft bg */
-  --color-accent-soft: var(--t-light, #f1ecfe) var(--t-dark, #201545); /* badges, tinted panels */
+  /* Taken from the logo, which runs #FF6E9E -> #F8206D -> #B5115B. The mark's
+     hot middle, #F8206D, is 4.1:1 on the card surface — under the threshold
+     for body-sized text — so the functional accent is the light end of the
+     ramp and the hot middle lives on as --color-accent-bright, where it
+     paints gradients, glow and pulses but never a small word.
+
+     Ratios are quoted against the dark surfaces, page #181818 and card
+     #222222, since those are the only ones that render. */
+  --color-accent: var(--t-light, #c11a5b) var(--t-dark, #ff6e9e); /* 6.7:1 page / 6.0:1 card */
+  --color-accent-hover: var(--t-light, #a3134d) var(--t-dark, #ff8cb3);
+  --color-accent-ink: var(--t-light, #a3134d) var(--t-dark, #ff9cbd); /* accent text on soft bg — 8.5:1 */
+  --color-accent-soft: var(--t-light, #feecf2) var(--t-dark, #3a0d22); /* badges, tinted panels */
   /* Foreground for anything filled with --color-accent (buttons, chips).
-     White on the light violet is 5.7:1; on the pale dark-mode violet white
-     fails, so the label flips to prussian blue at 6.7:1. */
-  --color-on-accent: var(--t-light, #ffffff) var(--t-dark, #07152f);
-  --color-accent-bright: var(--t-light, #8b5cf6) var(--t-dark, #c4b5fd); /* decorative only — gradients, glow, neuron pulses. Not for body text. */
+     White fails on a pink this light, so the label goes to near-black with
+     the accent's own hue in it, at 7.3:1. */
+  --color-on-accent: var(--t-light, #ffffff) var(--t-dark, #1f0712);
+  --color-accent-bright: var(--t-light, #f8206d) var(--t-dark, #f8206d); /* the logo's hot middle — decorative only: gradients, glow, pulses. Not for body text. */
 
   /* --- Deep surfaces (closing CTA band) ---------------------------------- */
-  /* Prussian blue resolving through twilight indigo into the palette violet. */
-  --color-deep: #07152f;
-  --color-deep-2: #243b63;
-  --color-deep-3: #8b5cf6;
+  /* Near-black resolving through the logo's deep end into its hot middle. */
+  --color-deep: #1b0712;
+  --color-deep-2: #6b0c39;
+  --color-deep-3: #f8206d;
 
   /* --- Data marks -------------------------------------------------------
      The before/after comparison pair. Checked for >=3:1 contrast on white
@@ -135,8 +141,8 @@
      normal-vision ΔE 27.7 against the new accent), and every bar is
      direct-labelled so colour is never the only channel. Keep both
      properties if you change them. */
-  --color-chart-after: var(--t-light, #7c3aed) var(--t-dark, #a78bfa);
-  --color-chart-before: var(--t-light, #a7b1c5) var(--t-dark, #5d6c92);
+  --color-chart-after: var(--t-light, #c11a5b) var(--t-dark, #ff6e9e);
+  --color-chart-before: var(--t-light, #b3aab0) var(--t-dark, #6b646a);
 
   /* --- Shape ------------------------------------------------------------ */
   /* Square. Elevation is carried by a hairline border and a fill change, not
@@ -363,11 +369,17 @@
    background slowly drifts (animate-gradient-shift) for a faint shimmer,
    frozen automatically under prefers-reduced-motion (see the base layer). */
 @utility text-gradient {
+  /* Ends at the pale end of the logo's ramp, middle at its hot one. Between
+     --color-accent and --color-accent-bright the two are four steps apart and
+     the word read as flat pink with a slight dip in it; from accent-hover the
+     travel is visible without either end leaving the legible range. The
+     logo's third stop, #B5115B, is 2.7:1 on the page and cannot be in here at
+     any size. */
   background-image: linear-gradient(
     100deg,
-    var(--color-accent) 10%,
-    var(--color-accent-bright) 45%,
-    var(--color-accent) 90%
+    var(--color-accent-hover) 8%,
+    var(--color-accent-bright) 50%,
+    var(--color-accent-hover) 92%
   );
   background-size: 200% 100%;
   background-clip: text;

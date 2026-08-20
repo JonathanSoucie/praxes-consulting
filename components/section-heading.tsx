@@ -13,6 +13,7 @@ export function SectionHeading({
   deck,
   align = "center",
   tone = "default",
+  gradient = false,
   className,
 }: {
   eyebrow?: string;
@@ -20,6 +21,11 @@ export function SectionHeading({
   deck?: React.ReactNode;
   align?: "left" | "center";
   tone?: "default" | "inverse";
+  /** Paints the title in the logo's ramp instead of the flat accent. For the
+      headings that name something — The Blackhole, The Rocket — not for the
+      ones that merely label a section, which would spend the effect on
+      "Common questions." and leave nothing to distinguish the two. */
+  gradient?: boolean;
   className?: string;
 }) {
   const inverse = tone === "inverse";
@@ -44,7 +50,11 @@ export function SectionHeading({
       <h2
         className={cn(
           "font-display text-3xl leading-[1.06] uppercase sm:text-4xl lg:text-[2.875rem]",
-          inverse ? "text-white" : "text-accent",
+          inverse
+            ? "text-white"
+            : gradient
+              ? "text-gradient animate-gradient-shift"
+              : "text-accent",
         )}
       >
         {title}
