@@ -589,3 +589,165 @@
 @utility card-float {
   border: 1px solid var(--color-line-strong);
 }
+
+/* ==========================================================================
+   The flight (home page only).
+
+   Glass here is not decoration for its own sake: the page has a live canvas
+   behind every panel, and an opaque card would punch a hole in the thing the
+   page is about. A blurred, barely-tinted surface lets the disk keep moving
+   underneath while the copy stays readable on top of it.
+   ========================================================================== */
+.flight {
+  /* Deeper than --color-surface-2. The disk is drawn in light on this, and
+     every step darker is a step more glow. Mirrors VOID in black-hole.tsx. */
+  --void: #050406;
+  /* Tinted from the void, not from white. A 5%-white pane is beautiful over a
+     quiet backdrop and illegible over this one: at the problem beat the disk
+     fills the frame, and its streaks are bright, thin and high-frequency —
+     exactly what a blur does least for. The panel has to carry most of the
+     contrast itself, with the blur softening what shows through rather than
+     being the only thing separating copy from artwork. */
+  --glass: rgb(6 5 8 / 0.78);
+  --glass-lit: rgb(14 11 16 / 0.86);
+  --glass-line: rgb(255 255 255 / 0.13);
+  --glass-blur: blur(18px) saturate(150%);
+  background: var(--void);
+}
+
+.glass-panel,
+.glass-row,
+.glass-pill {
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 18px 50px rgb(0 0 0 / 0.45);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.glass-pill {
+  border-radius: 999px;
+}
+
+/* Cards that fly. Opaque and unblurred while they move — backdrop-filter on a
+   moving element makes the compositor re-sample the blur every frame, twelve
+   at a time — then handed the real material once they have stopped. */
+.glass-card {
+  position: fixed;
+  padding: 15px 17px 16px;
+  border: 1px solid var(--glass-line);
+  background: rgb(8 6 10 / 0.86);
+  will-change: transform, opacity;
+  transition:
+    background-color 180ms var(--ease-out-soft),
+    border-color 180ms var(--ease-out-soft);
+}
+.glass-card.is-settled {
+  background: var(--glass-lit);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+.glass-card.is-live {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.glass-card.is-live:hover,
+.glass-card.is-live:focus-visible {
+  background: var(--glass-lit);
+  border-color: rgb(255 255 255 / 0.22);
+}
+.glass-card-edge {
+  position: absolute;
+  top: 17px;
+  left: 0;
+  width: 3px;
+  height: 20px;
+  background: var(--color-accent);
+}
+.glass-card[data-family="marketing"] .glass-card-edge {
+  background: #a07cff;
+}
+/* Marketing is the violet family, wherever it appears — the card, and the
+   panel that card opens. Two selectors rather than one shared class because
+   the panel is not a card and should not inherit a card's geometry. */
+.glass-card[data-family="marketing"] .card-title,
+.glass-card-family[data-family="marketing"] .card-title {
+  color: #c3b0ff;
+}
+
+/* The horizon. White through the accent, so the bloom is the disk's own
+   colour taken to its limit rather than an unrelated flash of light. */
+.flash {
+  background: radial-gradient(
+    circle at 50% 50%,
+    #fff 0%,
+    #fff 28%,
+    #ffd9e6 50%,
+    var(--color-accent-bright) 80%,
+    #b5115b 100%
+  );
+}
+
+.rail-dot::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--color-line-strong);
+  transition:
+    width 200ms var(--ease-out-soft),
+    height 200ms var(--ease-out-soft),
+    background-color 200ms var(--ease-out-soft);
+}
+.rail-dot:hover::after,
+.rail-dot[aria-current="true"]::after {
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+}
+.rail-label {
+  position: absolute;
+  right: 26px;
+  white-space: nowrap;
+  color: var(--color-muted);
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out-soft);
+}
+.rail-dot:hover .rail-label,
+.rail-dot[aria-current="true"] .rail-label {
+  opacity: 1;
+}
+
+/* Reduced motion keeps the page, drops the ride: the flash never fires (see
+   flight.tsx), the scroll is not eased, and nothing that moves is blurred. */
+@media (prefers-reduced-motion: reduce) {
+  .glass-card {
+    transition: none;
+  }
+}
+
+/* The navbar is absolutely positioned so it scrolls away, which is right for
+   a document and wrong for a timeline — on the flight it would be gone for
+   the whole page after the first screen. Scoped with :has() so no other page
+   changes and the component keeps one implementation. */
+body:has(.flight) header {
+  position: fixed;
+}
+
+/* A directional scrim behind left-aligned copy. The glass covers panels, but
+   the problem and shift beats set their copy straight onto the field, and the
+   field is at its densest exactly there. Weighted to the copy side and gone
+   before the middle, so it lifts the words without flattening the disk. */
+.beat-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgb(5 4 6 / 0.92) 0%,
+    rgb(5 4 6 / 0.82) 26%,
+    rgb(5 4 6 / 0.42) 48%,
+    rgb(5 4 6 / 0) 68%
+  );
+}

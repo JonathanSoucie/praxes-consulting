@@ -43,7 +43,16 @@ const cf = new Intl.NumberFormat("en-CA", {
   maximumFractionDigits: 0,
 });
 
-export function TimeEstimator({ className }: { className?: string }) {
+export function TimeEstimator({
+  className,
+  /** The rule that separates the estimator from the cards above it on a page.
+      Inside a panel of its own there is nothing above it to separate from,
+      and the rule reads as a stray line across the top. */
+  divider = true,
+}: {
+  className?: string;
+  divider?: boolean;
+}) {
   const [people, setPeople] = React.useState(PEOPLE.initial);
   const [hours, setHours] = React.useState(HOURS.initial);
   const [rate, setRate] = React.useState(RATE.initial);
@@ -59,7 +68,12 @@ export function TimeEstimator({ className }: { className?: string }) {
     <div className={cn("text-left", className)}>
       {/* Ruled off from the cards above rather than boxed — the same edge the
           outcomes and the small-team list open on. */}
-      <div className="grid gap-10 border-t border-line-strong pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
+      <div
+        className={cn(
+          "grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16",
+          divider && "border-t border-line-strong pt-10",
+        )}
+      >
         {/* What you set. */}
         <div>
           <p className="label-section text-muted">Estimator</p>
