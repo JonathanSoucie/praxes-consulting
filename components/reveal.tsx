@@ -5,9 +5,18 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Subtle scroll reveal: a short fade + 8px rise, once, on first intersection.
- * Falls back to visible immediately when IntersectionObserver is unavailable
- * or the user prefers reduced motion (handled globally in globals.css).
+ * Scroll reveal.
+ *
+ * One IntersectionObserver, one data attribute, and the transition itself
+ * lives in the `reveal` utility in globals.css. No animation library: this is
+ * an opacity and a translate, and the observer below is the entire mechanism.
+ *
+ * It unobserves on first intersection, so an element never animates twice —
+ * content re-fading every time it scrolls back into view reads as a glitch
+ * rather than as polish.
+ *
+ * `delay` staggers items in a grid. Keep it under ~250ms total across a row;
+ * beyond that the last card arrives after the reader has already looked at it.
  */
 export function Reveal({
   children,
@@ -17,43 +26,52 @@ export function Reveal({
 }: {
   children: React.ReactNode;
   className?: string;
-  /** Stagger, in ms. Keep small — this should never feel like choreography. */
   delay?: number;
-  as?: React.ElementType;
+  as?: "div" | "li" | "section" | "article" | "header";
 }) {
   const ref = React.useRef<HTMLElement>(null);
-  const [shown, setShown] = React.useState(false);
 
   React.useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      setShown(true);
+    if (!el) return;
+
+    // Anything at or above the fold on mount is shown immediately, without
+    // going through the observer at all. This covers two cases that both end
+    // in permanently invisible content:
+    //
+    //   - above-the-fold content, which would otherwise sit at opacity 0
+    //     waiting for a scroll that may never come;
+    //   - a hash landing (/#how-it-works, or a back-navigation restoring
+    //     scroll), where everything above the landing point is off the top of
+    //     the viewport, never intersects, and stays hidden even as the reader
+    //     scrolls up into it.
+    //
+    // The second case is why the test is `top < innerHeight` rather than a
+    // visibility check: an element the reader has already passed should be
+    // shown, not animated in.
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      el.dataset.shown = "true";
       return;
     }
 
-    const observer = new IntersectionObserver(
+    const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true);
-          observer.disconnect();
-        }
+        if (!entry.isIntersecting) return;
+        el.dataset.shown = "true";
+        io.disconnect();
       },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.05 },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.01 },
     );
 
-    observer.observe(el);
-    return () => observer.disconnect();
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
   return (
     <Tag
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={cn(
-        "transition-[opacity,transform] duration-700 ease-out-soft",
-        shown ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
-        className,
-      )}
+      ref={ref as never}
+      className={cn("reveal", className)}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
     </Tag>

@@ -15,6 +15,19 @@ import {
 } from "lucide-react";
 
 /**
+ * ⚠️ NOT USED BY THE LIVE SITE.
+ *
+ * This file is a dependency of the archived flight home page (archive/flight/)
+ * and nothing else. The material in it now lives as `examples` on the two
+ * automation services in content/services.ts, which is what the site renders.
+ *
+ * It is kept here rather than moved into archive/ because the archived
+ * components import it by its `@/content/builds` path, and rewriting those
+ * imports would mean the archive no longer restores by moving one directory.
+ * Delete this file if and when archive/flight/ goes.
+ *
+ * ---
+ *
  * The systems we build, in the two families the home page flies you through.
  *
  * Operations gets the week back; marketing puts it to work. The order is the

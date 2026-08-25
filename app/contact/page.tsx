@@ -7,19 +7,19 @@ import { SectionHeading } from "@/components/section-heading";
 import { BookingEmbed } from "@/components/cal-embed";
 import { ContactForm } from "@/components/contact-form";
 import { FaqList } from "@/components/sections/faq";
-import { Reveal } from "@/components/reveal";
-
 import { JsonLd } from "@/components/json-ld";
-
+import { Reveal } from "@/components/reveal";
 import { contactFaqs } from "@/content/faqs";
 import { site } from "@/content/site";
 import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
+const description =
+  "Book a free 15-minute call with Praxes, or send a message. We reply to everything within one business day — including when the answer is that we cannot help.";
+
 export const metadata: Metadata = pageMetadata({
-  title: "Book a Free AI Consultation",
-  description:
-    "Book your free 15-minute AI discovery call with Praxes, or send us a message. We reply to everything within one business day.",
+  title: "Contact",
+  description,
   path: "/contact",
   keywords: [
     "AI consultation",
@@ -33,17 +33,17 @@ const expectations = [
   {
     icon: Clock,
     title: "Fifteen minutes, and we keep to it",
-    body: "A structured conversation about how your operation runs and where work backs up. No presentation, no preparation needed from you.",
+    body: "A structured conversation about how your operation runs and where work backs up. No presentation, and nothing to prepare.",
   },
   {
     icon: Scale,
     title: "A straight read, including 'no'",
-    body: "If we can't see a credible case, you'll hear that on the call. We'd rather spend fifteen minutes than take you through a process that won't pay back.",
+    body: "If we cannot see a credible case, you will hear that on the call rather than in a proposal three weeks later.",
   },
   {
     icon: MessageSquare,
-    title: "No pricing pressure",
-    body: "Nothing is quoted on this call. The only possible next step is a longer analysis conversation, and only if there's something worth analysing.",
+    title: "Nothing is quoted on the call",
+    body: "The only possible next step is the audit, and only if there is something worth measuring. No pricing pressure and no follow-up sequence.",
   },
 ];
 
@@ -54,107 +54,89 @@ export default function ContactPage() {
         schema={[
           webPageSchema({
             type: "ContactPage",
-            name: "Book a Free AI Consultation",
-            description:
-              "Book a free 15-minute AI discovery call with Praxes, or send a message.",
+            name: "Contact",
+            description,
             path: "/contact",
           }),
-          // Valid because <FaqList> below renders these exact items.
-          faqPageSchema(contactFaqs),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Contact", path: "/contact" },
           ]),
+          faqPageSchema(contactFaqs),
         ]}
       />
 
       <PageHeader
         eyebrow="Contact"
-        title="Fifteen free minutes."
-        deck="Pick a time that suits you below. If you'd rather write first, the form further down reaches us directly."
-      />
-      {/* ---------------------------------------------------------------- */}
-      {/* Booking widget — lifted into the seam under the header            */}
-      {/* ---------------------------------------------------------------- */}
-      <Container className="relative -mt-12 pb-4">
-        <Reveal>
-          <BookingEmbed />
-        </Reveal>
-      </Container>
+        title="Fifteen minutes. Then you will know if there is"
+        accent="anything here."
+        standfirst="Book the call, or write to us. Either way you get a straight answer about whether your operation has a case worth measuring."
+        breadcrumbs={[{ label: "Contact", href: "/contact" }]}
+      >
+        <dl className="grid gap-px border-t border-line sm:grid-cols-3">
+          {expectations.map((item) => (
+            <div key={item.title} className="pt-8 sm:pr-8">
+              <item.icon aria-hidden className="size-5 text-pink-ink" />
+              <dt className="mt-5 font-display text-lg">{item.title}</dt>
+              <dd className="mt-3 text-ink-soft">{item.body}</dd>
+            </div>
+          ))}
+        </dl>
+      </PageHeader>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* What to expect                                                    */}
-      {/* ---------------------------------------------------------------- */}
-      <Section className="py-16 sm:py-20">
+      <Section size="sm" id="book">
         <Container>
-          <SectionHeading eyebrow="What to expect" title="On the call." />
-
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
-            {expectations.map((item, i) => (
-              <Reveal
-                key={item.title}
-                delay={i * 60}
-                className="card-raise rounded-xl bg-surface p-7"
-              >
-                <span className="grid size-11 place-items-center rounded-xl bg-accent-soft">
-                  <item.icon
-                    aria-hidden
-                    strokeWidth={1.8}
-                    className="size-5 text-accent"
-                  />
-                </span>
-                <h3 className="card-title mt-5 text-lg">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {item.body}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal>
+            <div className="border-t border-line pt-14 lg:pt-20">
+              <SectionHeading
+                eyebrow="Book directly"
+                title="Pick a"
+                accent="time."
+                size="md"
+              />
+              <div className="mt-10">
+                <BookingEmbed />
+              </div>
+            </div>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Contact form                                                      */}
-      {/* ---------------------------------------------------------------- */}
-      <Section id="contact-form" className="scroll-mt-24">
+      <Section size="sm" id="contact-form">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-            <div>
-              <SectionHeading
-                align="left"
-                eyebrow="Or write to us"
-                title="Prefer email?"
-                deck="Tell us roughly what's slowing you down. We reply to everything within one business day."
-              />
-
-              <Reveal delay={80} className="mt-10 space-y-5 text-sm">
-                <div>
-                  <p className="text-xs font-medium text-muted">Email</p>
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="mt-1.5 block text-ink transition-colors hover:text-accent"
-                  >
-                    {site.email}
-                  </a>
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-muted">Phone</p>
-                  <a
-                    href={`tel:${site.phone.replace(/\s/g, "")}`}
-                    className="mt-1.5 block text-ink transition-colors hover:text-accent"
-                  >
-                    {site.phone}
-                  </a>
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-muted">Based in</p>
-                  <p className="mt-1.5 text-ink">
+          <div className="grid gap-14 border-t border-line pt-14 lg:grid-cols-[1fr_1.3fr] lg:gap-24 lg:pt-20">
+            <Reveal>
+              <div className="lg:sticky lg:top-32">
+                <SectionHeading
+                  eyebrow="Or write to us"
+                  title="Send a"
+                  accent="message."
+                  size="md"
+                />
+                <div className="mt-10 space-y-1.5 text-ink-soft">
+                  <p>
+                    <a
+                      href={`mailto:${site.email}`}
+                      className="link-underline transition-colors hover:text-ink"
+                    >
+                      {site.email}
+                    </a>
+                  </p>
+                  <p>
+                    <a
+                      href={`tel:${site.phone.replace(/\s/g, "")}`}
+                      className="link-underline transition-colors hover:text-ink"
+                    >
+                      {site.phone}
+                    </a>
+                  </p>
+                  <p className="pt-3 text-muted">
                     {site.address.locality}, {site.address.region},{" "}
                     {site.address.country}
                   </p>
                 </div>
-              </Reveal>
-            </div>
+              </div>
+            </Reveal>
 
             <Reveal delay={100}>
               <ContactForm />
@@ -163,15 +145,20 @@ export default function ContactPage() {
         </Container>
       </Section>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Quick FAQ                                                         */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section tone="deep">
         <Container>
-          <SectionHeading eyebrow="Questions" title="Before you book." />
-          <Reveal delay={80} className="mx-auto mt-14 max-w-3xl">
-            <FaqList items={contactFaqs} />
-          </Reveal>
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-24">
+            <Reveal>
+              <SectionHeading
+                eyebrow="Before you book"
+                title="The usual"
+                accent="questions."
+              />
+            </Reveal>
+            <Reveal delay={100}>
+              <FaqList items={contactFaqs} />
+            </Reveal>
+          </div>
         </Container>
       </Section>
     </>

@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
 
-import { Flight } from "@/components/flight/flight";
 import { JsonLd } from "@/components/json-ld";
+import { Hero } from "@/components/home/hero";
+import { VideoBand } from "@/components/home/video-band";
+import { Problem } from "@/components/home/problem";
+import { Audience } from "@/components/home/audience";
+import { Offer } from "@/components/home/offer";
+import { Results } from "@/components/home/results";
+import { QuoteBand } from "@/components/home/quote-band";
+import { HowItWorks } from "@/components/home/how-it-works";
+import { Systems } from "@/components/home/systems";
+import { DataPractice } from "@/components/home/data-practice";
+import { Cta } from "@/components/sections/cta";
 import { site } from "@/content/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { ogImage, pageMetadata, siteKeywords } from "@/lib/seo";
@@ -22,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
     url: site.url,
     siteName: site.name,
-    locale: "en_US",
+    locale: "en_CA",
     title: homeTitle,
     description: site.description,
     images: [ogImage],
@@ -36,21 +46,42 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home: the flight.
+ * Home.
  *
- * Everything visible is rendered by one client component, because the whole
- * page is driven by a single scroll value and splitting that across server
- * boundaries would buy nothing. The metadata and the structured data stay
- * here, on the server, where they belong.
+ * The order is the argument, and it is worth stating because it is easy to
+ * rearrange into something worse:
  *
- * The FAQ schema is gone with the FAQ list: FAQPage markup is only valid on a
- * page that actually shows those questions, and this one no longer does.
+ *   hero        — the enemy is named in the first six words
+ *   film        — the same thing, for people who would rather watch it
+ *   problem     — the enemy, with stakes attached (the black ground)
+ *   audience    — who this is and is not for, including a real exclusion
+ *   offer       — the three things, numbered, because the order matters
+ *   results     — numbers, one of which does not flatter us
+ *   quote       — a named person at a named company
+ *   how         — the commercial mechanics, before anyone has to ask
+ *   systems     — connects to what you already run, with products named
+ *   data        — what happens to your material
+ *   cta         — one action
+ *
+ * The two black bands (problem, results) and the dark closers are what carry
+ * the metaphor structurally: the page falls into the black hole twice and
+ * comes back out into the white both times.
  */
 export default function HomePage() {
   return (
     <>
       <JsonLd schema={[organizationSchema(), websiteSchema()]} />
-      <Flight />
+      <Hero />
+      <VideoBand />
+      <Problem />
+      <Audience />
+      <Offer />
+      <Results />
+      <QuoteBand />
+      <HowItWorks />
+      <Systems />
+      <DataPractice />
+      <Cta />
     </>
   );
 }

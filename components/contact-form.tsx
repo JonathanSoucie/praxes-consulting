@@ -69,12 +69,12 @@ export function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="card-raise rounded-2xl bg-surface p-10 text-center">
-        <span className="mx-auto grid size-12 place-items-center rounded-full bg-accent-soft">
-          <Check aria-hidden className="size-5 text-accent" />
+      <div className="card p-10 text-center">
+        <span className="mx-auto grid size-12 place-items-center rounded-full bg-pink-soft">
+          <Check aria-hidden className="size-5 text-pink-ink" />
         </span>
-        <h3 className="mt-5 text-xl">Message received</h3>
-        <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted">
+        <h3 className="mt-5 font-display text-2xl">Message received</h3>
+        <p className="mx-auto mt-3 max-w-sm text-ink-soft">
           We reply to everything within one business day. If it's urgent, book
           the 15-minute call above and take the first slot that suits you.
         </p>
@@ -86,9 +86,9 @@ export function ContactForm() {
     <form
       onSubmit={onSubmit}
       noValidate
-      className="card-raise space-y-6 rounded-2xl bg-surface p-7 sm:p-9"
+      className="space-y-8"
     >
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-8 sm:grid-cols-2">
         <Field id="name" label="Name" error={errors.name}>
           <Input
             id="name"
@@ -150,7 +150,7 @@ export function ContactForm() {
       </div>
 
       {formError ? (
-        <p role="alert" className="text-sm text-red-700">
+        <p role="alert" className="text-sm text-pink-ink">
           {formError}
         </p>
       ) : null}
@@ -170,7 +170,7 @@ export function ContactForm() {
           Or email{" "}
           <a
             href={`mailto:${site.email}`}
-            className="text-accent underline-offset-4 hover:underline"
+            className="link-underline text-pink-ink"
           >
             {site.email}
           </a>
@@ -194,9 +194,9 @@ function Field({
   return (
     <div>
       <Label htmlFor={id}>{label}</Label>
-      <div className="mt-2">{children}</div>
+      <div className="mt-1">{children}</div>
       {error ? (
-        <p id={`${id}-error`} className="mt-2 text-xs text-red-700">
+        <p id={`${id}-error`} className="mt-2 text-xs text-pink-ink">
           {error}
         </p>
       ) : null}

@@ -1,13 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Inter,
-  JetBrains_Mono,
-  Playfair_Display,
-  Space_Grotesk,
-} from "next/font/google";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
-import { Frame } from "@/components/layout/frame";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { site } from "@/content/site";
@@ -15,37 +9,15 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Body: highly legible sans. Pairs with the Playfair headings — the serif
-   carries the display voice, the body stays plain and readable. */
+/* Body text. Standing in for Helvetica Now, which is a Monotype licence —
+   see the note above the @font-face block in globals.css, where the display
+   face (Supreme) is declared. Inter is the substitute rather than a system
+   Helvetica stack because that stack is only Helvetica on Apple hardware and
+   is Arial everywhere else. */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-});
-
-/* Display: high-contrast serif for headings and stat figures. Variable font,
-   so every weight from 400-900 is available from one file. */
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
-});
-
-/* Small headings: card and list titles, where Playfair's hairlines drop out.
-   A grotesk with squared-off details that answer the logo's wordmark, and one
-   that was drawn to stay legible at UI sizes rather than at poster sizes. */
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-heading-family",
-  display: "swap",
-});
-
-/* Mono: small technical labels inside the built data visuals only. */
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono-label",
-  display: "swap",
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -67,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: site.name,
-    locale: "en_US",
+    locale: "en_CA",
     url: site.url,
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
@@ -83,8 +55,8 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      // Let Google use full-length snippets, large image previews and full
-      // video previews rather than its conservative defaults.
+      // Full-length snippets and large image previews rather than Google's
+      // conservative defaults.
       "max-snippet": -1,
       "max-image-preview": "large",
       "max-video-preview": -1,
@@ -93,9 +65,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Matches --color-surface-2, so the mobile browser chrome blends with the
-  // page instead of staying white above a dark site.
-  themeColor: "#181818",
+  // Matches --color-page, so the mobile browser chrome blends into the site
+  // rather than sitting as a white bar above a white page with a seam.
+  themeColor: "#fafafa",
   width: "device-width",
   initialScale: 1,
 };
@@ -104,24 +76,41 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
-    >
-      <body className="relative min-h-screen bg-surface-2 antialiased">
+    <html lang="en-CA" className={inter.variable}>
+      <head>
+        {/* Marks the document as script-enabled before first paint, which is
+            what gates the scroll-reveal hidden state (see .reveal in
+            globals.css). Inline and blocking on purpose: as a deferred
+            script it would land after paint and every revealed element would
+            flash in visible and then hide itself. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute("data-js","")`,
+          }}
+        />
+        {/* The display face is self-hosted and every heading on every page is
+            set in it, so it is worth the preload — without it the first
+            paint shows a fallback and reflows once Supreme arrives, which at
+            these type sizes is a very visible jump. Only the 500 is
+            preloaded: it is the weight every heading uses. */}
+        <link
+          rel="preload"
+          href="/fonts/Supreme-500.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body className="min-h-screen bg-page antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-sm focus:bg-ink focus:px-5 focus:py-2.5 focus:text-sm focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:bg-ink focus:px-5 focus:py-2.5 focus:text-sm focus:text-page"
         >
           Skip to content
         </a>
-        {/* The navbar overlays the page rather than sitting in flow, so the
-            hero runs behind it. Page tops reserve space with pt-*. It scrolls
-            away; <Frame> is the chrome that stays. */}
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
-        <Frame />
         <Analytics />
       </body>
     </html>

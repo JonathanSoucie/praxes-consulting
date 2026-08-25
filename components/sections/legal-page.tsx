@@ -1,9 +1,13 @@
-import { Container } from "@/components/container";
+import { Container, Section } from "@/components/container";
 import { PageHeader } from "@/components/sections/page-header";
 
 /**
- * Shared shell for /privacy and /terms. Narrow measure, plain typography —
- * these pages are for reading, not for selling.
+ * Shared shell for /privacy and /terms.
+ *
+ * Legal copy is the one place on this site where the type gets smaller rather
+ * than larger. Everything else is set to be read across a room; this is set
+ * to be read closely, at a comfortable measure, with the headings doing the
+ * navigating and nothing competing for attention.
  */
 export function LegalPage({
   eyebrow,
@@ -22,29 +26,28 @@ export function LegalPage({
       <PageHeader
         eyebrow={eyebrow}
         title={title}
-        deck={
-          <>
-            Last updated{" "}
-            <time dateTime={updated} className="text-ink">
-              {new Date(updated).toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </time>
-          </>
-        }
+        standfirst={`Last updated ${new Date(`${updated}T12:00:00Z`).toLocaleDateString(
+          "en-GB",
+          { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" },
+        )}.`}
       />
-      <Container className="py-16 sm:py-20">
-        <div className="card-raise mx-auto max-w-3xl space-y-10 rounded-2xl bg-surface p-8 sm:p-12">
-          <div className="rounded-xl bg-accent-soft p-5 text-sm leading-relaxed text-accent-ink">
-            <strong className="text-ink">Template notice.</strong> This document
-            is a starting point, not legal advice. Have it reviewed against your
-            jurisdiction and actual data practices before you rely on it.
+
+      <Section size="sm">
+        <Container>
+          <div className="measure-wide">
+            {/* Kept, and kept prominent. These documents are templates and
+                shipping them as though they were reviewed advice is the
+                actual risk here. */}
+            <p className="border border-line bg-white p-6 text-ink-soft">
+              <strong>Template notice.</strong> This document is a starting
+              point, not legal advice. Have it reviewed against your
+              jurisdiction and your actual data practices before you rely on
+              it.
+            </p>
+            <div className="mt-14 space-y-14">{children}</div>
           </div>
-          {children}
-        </div>
-      </Container>
+        </Container>
+      </Section>
     </>
   );
 }
@@ -58,8 +61,8 @@ export function LegalSection({
 }) {
   return (
     <section>
-      <h2 className="text-xl sm:text-2xl">{heading}</h2>
-      <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted [&_a]:text-accent [&_a]:underline-offset-4 hover:[&_a]:underline [&_li]:leading-relaxed [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
+      <h2 className="font-display text-2xl">{heading}</h2>
+      <div className="mt-5 space-y-5 leading-[1.7] text-ink-soft [&_a]:link-underline [&_a]:text-pink-ink [&_li]:leading-[1.7] [&_ul]:list-disc [&_ul]:space-y-3 [&_ul]:pl-5">
         {children}
       </div>
     </section>

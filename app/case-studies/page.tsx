@@ -1,50 +1,32 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
-import { PageHeader } from "@/components/sections/page-header";
-import { SectionHeading } from "@/components/section-heading";
-import { StatsBlock } from "@/components/sections/stats-block";
-import { CaseStudyGrid } from "@/components/sections/case-study-grid";
-import { FeaturedCaseStudy } from "@/components/sections/case-study-card";
-import { TestimonialSlider } from "@/components/sections/testimonial-slider";
-import { CtaSection } from "@/components/sections/cta";
-import { Reveal } from "@/components/reveal";
-
-import {
-  caseStudies,
-  getCaseStudyIndustries,
-  getFeaturedCaseStudy,
-} from "@/content/case-studies";
+import { Cta } from "@/components/sections/cta";
 import { JsonLd } from "@/components/json-ld";
-
+import { PageHeader } from "@/components/sections/page-header";
+import { Reveal } from "@/components/reveal";
+import { SectionHeading } from "@/components/section-heading";
+import { caseStudies } from "@/content/case-studies";
+import { features } from "@/content/site";
 import { caseStudyAggregate } from "@/content/stats";
 import { testimonials } from "@/content/testimonials";
-import { features } from "@/content/site";
 import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
+const description =
+  "Engagements with the numbers attached: what the audit measured, what it found, what we built, and what changed against the baseline.";
+
 export const metadata: Metadata = pageMetadata({
-  title: "AI Automation Case Studies",
-  description:
-    "Measured outcomes from AI engagements across accounting, hospitality, logistics, healthcare and property — including the audit that recommended not building.",
+  title: "Case Studies",
+  description,
   path: "/case-studies",
-  keywords: [
-    "AI case studies",
-    "AI automation results",
-    "AI ROI examples",
-    "business automation case study",
-  ],
-  // Hidden for now — don't let search engines index it while it's off.
-  robots: features.caseStudies ? undefined : { index: false, follow: false },
 });
 
 export default function CaseStudiesPage() {
-  // Hidden until there are real engagements to publish. See content/site.ts.
   if (!features.caseStudies) notFound();
-
-  const featured = getFeaturedCaseStudy();
-  const industries = getCaseStudyIndustries();
 
   return (
     <>
@@ -52,9 +34,8 @@ export default function CaseStudiesPage() {
         schema={[
           webPageSchema({
             type: "CollectionPage",
-            name: "AI Automation Case Studies",
-            description:
-              "Measured outcomes from Praxes AI engagements, each stated against its original baseline.",
+            name: "Case Studies",
+            description,
             path: "/case-studies",
           }),
           breadcrumbSchema([
@@ -65,66 +46,97 @@ export default function CaseStudiesPage() {
       />
 
       <PageHeader
-        eyebrow="Case Studies"
-        title="What the numbers showed."
-        deck="Each study states the baseline we started from, what the audit found, what we built, and the re-measured result at 90 days. Including one engagement where the answer was to build nothing."
-      />
-      {/* Aggregate stats — lifted into the seam under the header */}
-      <Container className="relative -mt-12 pb-4">
-        <Reveal>
-          <StatsBlock stats={caseStudyAggregate} tone="panel" columns={3} />
-        </Reveal>
-      </Container>
+        eyebrow="The work"
+        title="What the audit found, and what it was"
+        accent="worth."
+        standfirst="Every one of these includes the number the process cost before we touched it. A case study without a baseline is a feature list with a client's name on it."
+        breadcrumbs={[{ label: "Case Studies", href: "/case-studies" }]}
+      >
+        <dl className="grid gap-px border-t border-line sm:grid-cols-3">
+          {caseStudyAggregate.map((stat) => (
+            <div key={stat.label} className="pt-8 sm:pr-8">
+              <dd className="figure-num text-4xl text-pink-ink sm:text-5xl">
+                {stat.value}
+                {stat.unit ? (
+                  <span className="ml-1 text-2xl sm:text-3xl">{stat.unit}</span>
+                ) : null}
+              </dd>
+              <dt className="mt-4 text-ink-soft">{stat.label}</dt>
+            </div>
+          ))}
+        </dl>
+      </PageHeader>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Filterable grid                                                   */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section size="sm">
         <Container>
-          <SectionHeading eyebrow="All studies" title="Filter by industry." />
-
-          <Reveal className="mt-14">
-            <CaseStudyGrid studies={caseStudies} industries={industries} />
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Featured                                                          */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
-        <Container>
-          <SectionHeading
-            eyebrow="Featured"
-            title="When the brief changed."
-            deck="The client asked us to build document extraction. The measurement said the extraction was a third of the problem — so we sequenced it last."
-          />
-
-          <Reveal className="mt-16">
-            <FeaturedCaseStudy study={featured} />
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Testimonials — hidden behind features.testimonials               */}
-      {/* ---------------------------------------------------------------- */}
-      {features.testimonials ? (
-        <Section>
-          <Container>
-            <SectionHeading eyebrow="Clients" title="In their words." />
-            <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
-              <TestimonialSlider testimonials={testimonials} />
+          {caseStudies.map((study, i) => (
+            <Reveal key={study.slug} delay={i * 70}>
+              <article className="border-t border-line last:border-b">
+                <Link
+                  href={`/case-studies/${study.slug}`}
+                  className="group grid gap-6 py-10 lg:grid-cols-[1fr_1.4fr_auto] lg:items-baseline lg:gap-16 lg:py-16"
+                >
+                  <div>
+                    <p className="eyebrow text-muted">{study.industry}</p>
+                    <p className="mt-4 font-display text-xl text-ink">
+                      {study.client}
+                    </p>
+                    <p className="mt-1 text-sm text-muted">{study.duration}</p>
+                  </div>
+                  <div>
+                    <h2 className="display-md transition-colors group-hover:text-pink-ink">
+                      {study.headline}
+                    </h2>
+                    <p className="mt-4 text-lg text-ink-soft">
+                      {study.summary}
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-2 text-sm text-pink-ink">
+                    Read
+                    <ArrowRight
+                      aria-hidden
+                      className="size-4 transition-transform duration-300 group-hover:translate-x-1"
+                    />
+                  </span>
+                </Link>
+              </article>
             </Reveal>
+          ))}
+        </Container>
+      </Section>
+
+      {features.testimonials ? (
+        <Section tone="deep">
+          <Container>
+            <Reveal>
+              <SectionHeading
+                eyebrow="In their words"
+                title="What clients say when we are not"
+                accent="in the room."
+              />
+            </Reveal>
+            <div className="mt-16 grid gap-px sm:grid-cols-2 lg:mt-20">
+              {testimonials.map((quote, i) => (
+                <Reveal key={quote.name} delay={(i % 2) * 90}>
+                  <figure className="flex h-full flex-col border-t border-line py-9 sm:even:pl-10 sm:odd:pr-10">
+                    <blockquote className="flex-1 text-lg leading-[1.6] text-ink">
+                      “{quote.quote}”
+                    </blockquote>
+                    <figcaption className="mt-7">
+                      <p className="font-display text-ink">{quote.name}</p>
+                      <p className="mt-1 text-sm text-muted">
+                        {quote.title}, {quote.company}
+                      </p>
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
           </Container>
         </Section>
       ) : null}
 
-      <CtaSection
-        title="What would yours show?"
-        body="The discovery call is fifteen minutes and costs nothing. If there's no case, you'll hear that on the call rather than after an invoice."
-        secondary={{ href: "/process", label: "How the audit works" }}
-      />
+      <Cta />
     </>
   );
 }

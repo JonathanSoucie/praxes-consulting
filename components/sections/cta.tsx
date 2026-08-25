@@ -1,57 +1,50 @@
-import Link from "next/link";
-
 import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container, Section } from "@/components/container";
-import { Button } from "@/components/ui/button";
-import { Eyebrow } from "@/components/ui/eyebrow";
-import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
 import { Reveal } from "@/components/reveal";
+import { site } from "@/content/site";
 
 /**
- * Closing CTA band. Every page ends with this — it is the one action the
- * whole site funnels toward.
+ * The closing band, on every page.
+ *
+ * One action, and a line about what happens if the answer is no. The second
+ * part is what makes the first one easy to press: the objection to booking a
+ * consulting call is never the fifteen minutes, it is the expectation of a
+ * follow-up sequence, and saying plainly that the call can end in "no" is
+ * the only thing that addresses it.
  */
-export function CtaSection({
+export function Cta({
   eyebrow = "Next step",
   title = "What is it costing you?",
-  body = "Fifteen minutes, no preparation needed. We'll tell you whether there's a case worth measuring — including when there isn't.",
-  secondary,
+  body = "Fifteen minutes, no preparation needed. We will tell you whether there is a case worth measuring — including when there isn't, which is how about a third of these end.",
 }: {
   eyebrow?: string;
   title?: string;
   body?: string;
-  secondary?: { href: string; label: string };
 }) {
   return (
-    <Section className="relative isolate overflow-hidden">
-      {/* Follows the theme like every other field on the site: dark ink on
-          the light ground, light ink on the dark one. The band used to be
-          pinned dark in both themes, which left it as the one place the light
-          theme went black. */}
-      <DitheredGalaxyField scrim="center" intensity={0.85} zoom={1.45} />
-
-      <Container className="relative z-10">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <Eyebrow>{eyebrow}</Eyebrow>
-
-          <h2 className="mt-6 text-3xl leading-[1.12] text-accent sm:text-4xl lg:text-[2.875rem] lg:leading-[1.08]">
-            {title}
-          </h2>
-
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            {body}
-          </p>
-
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <BookACall size="lg" withArrow />
-            {secondary ? (
-              <Button asChild variant="outline" size="lg">
-                <Link href={secondary.href}>{secondary.label}</Link>
-              </Button>
-            ) : null}
+    <Section tone="deep">
+      <Container>
+        <Reveal>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="eyebrow text-muted">{eyebrow}</p>
+            <h2 className="display-lg mt-6">{title}</h2>
+            <p className="mx-auto mt-8 max-w-xl text-lg text-ink-soft">
+              {body}
+            </p>
+            <div className="mt-10 flex justify-center">
+              <BookACall variant="onDeep" size="xl" withArrow />
+            </div>
+            <BookingNote className="mt-5" />
+            <p className="mt-10 text-sm text-muted">
+              Or write to us at{" "}
+              <a
+                href={`mailto:${site.email}`}
+                className="link-underline text-ink-soft transition-colors hover:text-ink"
+              >
+                {site.email}
+              </a>
+            </p>
           </div>
-
-          <BookingNote className="mt-5" />
         </Reveal>
       </Container>
     </Section>

@@ -1,62 +1,78 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 
-import { Container } from "@/components/container";
-import { Button } from "@/components/ui/button";
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { BookACall } from "@/components/book-a-call";
-import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
+import { Button } from "@/components/ui/button";
+import { Container, Section } from "@/components/container";
 import { nav } from "@/content/site";
 
-/* Next emits the noindex directive for this route itself — repeating it here
-   only produces a second, duplicate robots tag. Title only. */
-export const metadata: Metadata = {
-  title: "Page not found",
-};
-
+/**
+ * 404.
+ *
+ * The page opens light like every other route, because the navbar is fixed
+ * and transparent at the top of the document and carries light-ground colours
+ * — a full-bleed dark 404 put the wordmark at #181818 on #181818 and lost it
+ * entirely.
+ *
+ * The horizon sits below the fold instead, as a band. It is the one place on
+ * the site where the metaphor gets used as a joke, and it is worth using once.
+ */
 export default function NotFound() {
   return (
-    <div className="relative isolate overflow-hidden bg-surface-2">
-      <DitheredGalaxyField scrim="center" intensity={0.55} />
-
-      <Container className="relative z-10 pt-40 pb-28 text-center sm:pt-44 sm:pb-32">
-        <div className="mx-auto max-w-2xl">
-          <div className="flex justify-center">
-            <Eyebrow>Error 404</Eyebrow>
-          </div>
-
-          <h1 className="mt-6 text-4xl leading-tight text-ink sm:text-5xl">
-            That page isn&apos;t here.
+    <>
+      <header className="pt-40 pb-20 sm:pt-48 lg:pt-56">
+        <Container>
+          <p className="eyebrow text-pink-ink">Error 404</p>
+          <h1 className="display-hero mt-8 max-w-[14ch]">
+            This one went <span className="text-pink-em">in</span>.
           </h1>
-
-          <p className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
-            The link may be out of date, or the page may have moved. Everything
-            the site has is one of the links below.
+          <p className="measure mt-10 text-xl text-ink-soft">
+            The page you are looking for is not here. Nothing that crosses the
+            horizon comes back — but the rest of the site is fine.
           </p>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <BookACall size="lg" withArrow />
-            <Button asChild variant="outline" size="lg">
-              <Link href="/">Back to home</Link>
+          <div className="mt-12 flex flex-wrap items-center gap-4">
+            <Button asChild size="lg">
+              <Link href="/">Back to the start</Link>
             </Button>
+            <BookACall variant="outline" size="lg" />
           </div>
+        </Container>
+      </header>
 
-          <nav aria-label="Site" className="mt-14 border-t border-line pt-8">
-            <ul className="flex flex-wrap justify-center gap-x-7 gap-y-3">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-muted transition-colors hover:text-accent"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </Container>
-    </div>
+      <Section tone="deep" size="sm" className="relative overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-x-[-10%] top-1/2 h-px -translate-y-1/2"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, #b5115b 20%, #f8206d 45%, #ff6e9e 50%, #f8206d 55%, #b5115b 80%, transparent)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-x-[-10%] top-1/2 h-48 -translate-y-1/2 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(ellipse 55% 100% at 50% 50%, rgba(248,32,109,0.4), transparent 70%)",
+          }}
+        />
+
+        <Container className="relative">
+          <p className="eyebrow text-muted">Try one of these</p>
+          <ul className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="font-display text-2xl text-ink-soft transition-colors hover:text-pink-ink"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+    </>
   );
 }

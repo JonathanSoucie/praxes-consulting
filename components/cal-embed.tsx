@@ -100,11 +100,11 @@ function BookingPlaceholder() {
       </span>
       <h3 className="mt-5 text-xl">Scheduler not connected yet</h3>
       <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-        Set <code className="font-mono text-ink">NEXT_PUBLIC_CAL_LINK</code> in
+        Set <code className="text-ink">NEXT_PUBLIC_CAL_LINK</code> in
         your environment to embed the live Cal.com booking calendar here. Until
         then, the form below reaches us directly.
       </p>
-      <Button asChild variant="soft" size="sm" className="mt-6">
+      <Button asChild variant="outline" size="sm" className="mt-6">
         <a href="#contact-form">Use the contact form</a>
       </Button>
     </div>

@@ -1,9 +1,21 @@
 # Praxes — marketing site
 
-Marketing site for Praxes, an AI consulting firm. Every page funnels to one
-action: **book a free 15-minute discovery call**.
+Marketing site for Praxes, an AI automation consulting firm. Every page funnels
+to one action: **book a free 15-minute discovery call**.
 
-Next.js (App Router) · React · TypeScript · Tailwind CSS v4 · shadcn/ui primitives.
+Next.js (App Router) · React · TypeScript · Tailwind CSS v4 · Radix primitives.
+
+The site is built around one argument, and the vocabulary for it lives in
+[`content/positioning.ts`](content/positioning.ts):
+
+- **the black hole** — the named enemy. Repetitive work nobody designed, that
+  has never been measured, and that takes a fixed cut of every week. Always
+  lowercase in running prose.
+- **escape velocity** — the coined term the firm owns. The point at which the
+  systems you run give back more hours than they take to run.
+
+Both terms are used identically on every page, which is the point of keeping
+them in one file. If you change one, change it there.
 
 ---
 
@@ -52,16 +64,43 @@ Set the `NEXT_PUBLIC_*` ones in Vercel for **all** environments; secrets
 The copy is written to be realistic, not to be true. Replace it:
 
 - **`content/testimonials.ts`** — every quote, name and company is invented.
-  Publishing them as-is presents fabricated endorsements as genuine. Replace
-  with real, permitted quotes or delete the section (it degrades gracefully).
+  Publishing them as-is presents fabricated endorsements as genuine.
 - **`content/case-studies/*.ts`** — invented clients and figures. Same rule.
 - **`content/stats.ts`** — invented aggregate figures.
-- **`components/sections/dashboard-cluster.tsx`** — the hero panel's numbers.
+- **`content/positioning.ts`** — the `cost` ranges on `symptoms` are
+  illustrative of typical audit findings, not measured client averages. Keep
+  them as ranges or replace them with your own.
+- **`content/segments.ts`** — the `proof` figures on each segment are the same
+  kind of illustrative range.
 - **`app/privacy/page.tsx` / `app/terms/page.tsx`** — templates, not legal
   advice. Have them reviewed against your jurisdiction and actual practices.
 
+**Both feature flags in `content/site.ts` are currently `true`**, so the
+invented case studies and testimonials are live on the site. Either replace
+that content with real, permissioned material or set the flags back to `false`
+before the site is public. See *Hidden sections* below.
+
 Team details in `content/team.ts` and contact details in `content/site.ts` are
 carried over from the previous site and are real — check them anyway.
+
+---
+
+## ⚠️ Fonts
+
+The brand calls for **Supreme LL** (Lineto) and **Helvetica Now** (Monotype).
+Both are commercial licences and neither is in this repo. What ships instead:
+
+- **Display —** [Supreme](https://www.fontshare.com/fonts/supreme) from
+  Fontshare, self-hosted in `public/fonts/`. Free, and very close to Supreme LL.
+- **Body —** Inter via `next/font`. A system Helvetica stack was rejected
+  because it is only Helvetica on Apple hardware and is Arial everywhere else;
+  one substitute that is wrong the same way for everyone is easier to design
+  against.
+
+To swap in the licensed files: drop the `.woff2` files into `public/fonts/` and
+change the five `src` lines in the `@font-face` block at the top of
+`app/globals.css`, plus `--font-sans` in the `@theme` block. Nothing else in
+the codebase names a font file.
 
 ---
 
@@ -72,10 +111,15 @@ component to change what the site says.
 
 ```
 content/
-  site.ts             company details, navigation, primary CTA labels
-  services.ts         service categories (problem → solution → ROI) + industries
-  process.ts          the 5 engagement steps + investment framing
-  stats.ts            headline / credibility / aggregate figures
+  positioning.ts      THE SPINE — the named enemy, the coined term, the
+                      problem symptoms, the audience, how it works, the
+                      integration list, the data commitments
+  site.ts             company details, navigation, feature flags, CTA labels
+  services.ts         the three services, each with its process steps and
+                      examples (drives /services and /services/[slug])
+  segments.ts         the per-industry pages (drives /industries/[slug])
+  blog.ts             posts as typed blocks (drives /blog and /blog/[slug])
+  stats.ts            headline / aggregate figures
   team.ts             team members + the values section
   testimonials.ts     client quotes
   faqs.ts             three FAQ sets: general, process, contact
@@ -85,61 +129,120 @@ content/
     *.ts              one file per case study
 ```
 
+### Adding a blog post
+
+Add an entry to `posts` in [`content/blog.ts`](content/blog.ts). The body is an
+array of typed blocks (`p`, `h2`, `ul`, `ol`, `quote`, `note`) rather than MDX —
+that buys typechecking and one renderer instead of a second content pipeline.
+Inline markup inside a block is limited to `**strong**` and `[text](/path)`.
+
+Set `featured: true` on exactly one post to control which one leads the index
+and appears on `/about`.
+
+### Adding a service or an industry
+
+Append to the arrays in `content/services.ts` or `content/segments.ts`. The
+route, the nav and footer links, the cross-links on every other page and the
+sitemap entry are all generated from those arrays.
+
+For a service, the `process` array is what the scroll-driven stepper renders,
+and each step's `panel` is drawn from data — `flow`, `rows` or `bars`. Adding a
+fourth panel shape means teaching `components/process/step-panel.tsx` about it.
+
 ### Hidden sections
 
 `features` in [`content/site.ts`](content/site.ts) gates optional sections.
-`caseStudies` is currently **off**: the nav links, the `/case-studies` index and
-detail pages, the featured-study blocks on Home and Services, the "Read the
-study" links under testimonials and the sitemap entries all disappear together,
-and the routes return 404 with `noindex`. The content in
-`content/case-studies/` is untouched — flip the flag to `true` to bring the
-whole section back.
+Both are currently **on**, and both are backed by invented content — see the
+launch checklist above.
+
+Setting `caseStudies` to `false` removes in one step: the nav and footer links,
+the `/case-studies` index and detail pages (they 404), the "Read the
+engagement" link under the home page quote, and the sitemap entries. Setting
+`testimonials` to `false` removes the home page quote band and the quote grid
+on the case studies index. Neither touches the content files.
 
 ### Adding a case study
 
 1. Copy an existing file in `content/case-studies/`, e.g. `northgate-accounting.ts`.
 2. Give it a unique `slug`, and an `industry` that **matches one of the names in
-   `industries`** (`content/services.ts`) so the filter picks it up.
+   `segments`** (`content/segments.ts`) so the cross-links line up.
 3. Import it in `content/case-studies/index.ts` and add it to the `caseStudies`
    array. Position in the array is display order.
 
-That's it. The detail page at `/case-studies/<slug>`, the industry filter, the
-related-studies block and the `sitemap.xml` entry are all generated from that
-array. Set `featured: true` on exactly one entry to control which study appears
-in the featured slot on Home, Services and the Case Studies index.
+That's it. The detail page at `/case-studies/<slug>`, the related-studies block
+and the `sitemap.xml` entry are all generated from that array.
 
 ---
 
 ## Design tokens
 
-Everything visual is driven by the `@theme` block at the top of
-[`app/globals.css`](app/globals.css) — colours, type faces, radii, motion easing.
-Change a token there and the whole site follows.
+Everything visual is driven by the `@theme` block near the top of
+[`app/globals.css`](app/globals.css) — colours, type faces, radii, motion
+easing. Change a token there and the whole site follows.
 
-- **Palette.** A lavender-white page (`--color-surface-2`) with white cards,
-  violet accent `#5B5BE6`, and deep indigo for the hero and closing-CTA bands.
-  The dark bands are what give the page its rhythm — every page opens on one
-  and closes on one, with light sections between.
-- **Type.** Plus Jakarta Sans for display and stat figures, Inter for body.
-  JetBrains Mono appears only as small technical labels inside the built data
-  visuals (`label-tech`). To change the display face, repoint `--font-display`.
-- **Shape.** Pill buttons and badges (`rounded-full`), 12–28px card radii,
-  one soft elevation step (`card-raise`) and a stronger one for floating
-  panels (`card-float`). Never stack shadows.
-- **Data marks.** `--color-chart-before` (`#A9A9C2`) and `--color-chart-after`
-  (violet) are the before/after comparison pair, and every bar is
-  direct-labelled so colour is never the only channel carrying the comparison.
-  If you change them, keep the direct labels.
+- **One palette.** The site is light only. `#FAFAFA` page, `#181818` ink, and
+  the three logo pinks. There is no dark mode and no token pairing left over
+  from the previous build.
 
-Band utilities — `gradient-hero` (the dark-to-page hero), `gradient-deep` (the
-CTA band), `gradient-wash` (soft lavender relief) — plus `container-page`,
-`figure-num`, `label-tech`, `grid-rule` and `grid-rule-dark` are all defined at
-the bottom of the same file.
+- **The two grounds are the structure.** White is the business working; black
+  (`on-deep`) is the black hole. Sections are painted by which side of that
+  argument they are on — the home page falls into black twice and comes back
+  out both times. `on-deep` redefines the colour tokens inside the band, so a
+  component written for the light ground lands correctly inside a dark one
+  without knowing where it is.
 
-The navbar overlays the page rather than sitting in flow, so the hero gradient
-runs behind it. It is transparent with white contents at the top of the page
-and resolves to a solid light bar after 24px of scroll — which is why every
-page top carries a `pt-32`–`pt-44`.
+- **The three pinks are assigned by contrast, not by preference.** Measured
+  against both grounds:
+
+  | | on `#FAFAFA` | on `#181818` |
+  |---|---|---|
+  | `--color-pink` `#F8206D` | 4.0:1 | 4.3:1 |
+  | `--color-pink-2` `#FF6E9E` | 2.4:1 | 7.0:1 |
+  | `--color-pink-3` `#B5115B` | 6.3:1 | 1.5:1 |
+
+  So `--color-pink` is the H1/H2 and emphasis colour and is only ever used at
+  display sizes, where 4.0:1 clears AA for large text. `--color-pink-2` is the
+  H3/H4 colour **on the dark ground only** — at 2.4:1 it cannot carry type on
+  white. `--color-pink-3` is a ground, the card shadow tint, and the pink that
+  small type on white resolves to.
+
+  That last substitution is the one deviation from the brand direction, and it
+  is handled by the semantic alias `--color-pink-ink`, which is `#B5115B` on
+  white and `#FF6E9E` inside `on-deep`. Components ask for the job, not the
+  swatch — so if you want to change which pink does what, change it there once.
+
+- **Type.** Supreme for every heading and every small tracked label
+  (`--font-display`), Inter for everything made of sentences (`--font-sans`).
+  Two families, no third: the `eyebrow` utility is Supreme rather than a mono
+  precisely so the site does not load a third face for eight words per page.
+  Tracking is attached to each `text-*` size in `@theme` rather than set per
+  component, because the right value is a function of size.
+
+- **Shape.** Square. Every `--radius-*` is `0px`, so elevation is carried by a
+  hairline and a fill change. `rounded-full` does not resolve through those
+  tokens, so pills and circular marks are unaffected.
+
+- **Card elevation is pink, not grey.** `card` uses `#B5115B` at low alpha in
+  two stops. A neutral shadow under a pink-accented card greys the whole
+  palette.
+
+The layout utilities — `container-page`, `container-wide`, `section-y`,
+`measure`, `display-hero`, `display-lg`, `display-md`, `eyebrow`, `figure-num`,
+`card`, `on-deep`, `reveal` — are all defined in the same file, below `@theme`.
+
+### The scroll reveal
+
+`components/reveal.tsx` plus the `.reveal` rules in `globals.css`. Two things
+about it are deliberate and worth not undoing:
+
+- The hidden state is scoped to `[data-js]`, set by an inline script in the
+  document head. Without JavaScript the page renders as a plain document
+  rather than as a blank screen — content that is invisible unless a script
+  succeeds is not a progressive enhancement.
+- Anything at or above the fold on mount is shown immediately without going
+  through the observer, which covers above-the-fold content and hash landings
+  (`/#how-it-works`), where everything above the landing point would otherwise
+  never intersect and stay hidden.
 
 ---
 
@@ -148,34 +251,43 @@ page top carries a `pt-32`–`pt-44`.
 ```
 app/
   layout.tsx              fonts, metadata, Navbar/Footer, Vercel Analytics
-  page.tsx                Home (+ Organization JSON-LD)
-  services/ process/ about/ contact/
-  case-studies/page.tsx           index with industry filter
-  case-studies/[slug]/page.tsx    generated detail page
+  page.tsx                Home — hero, film, problem, audience, offer,
+                          results, quote, how it works, systems, data, CTA
+  services/               index + [slug] (three services)
+  industries/             index + [slug] (five segments)
+  blog/                   index + [slug]
+  about/ contact/
+  case-studies/           index + [slug] (feature-flagged)
   privacy/ terms/ not-found.tsx
   api/contact/route.ts    Resend handler (validation + honeypot)
-  sitemap.ts robots.ts    generated from the route list + case studies
+  sitemap.ts robots.ts    generated from the route list + all four collections
   icon.tsx opengraph-image.tsx    generated, no binary assets
 
 components/
   book-a-call.tsx         THE shared CTA — used everywhere, change once
   cal-embed.tsx           inline booking widget (Cal / Calendly / placeholder)
   contact-form.tsx        client validation, honeypot, success state
-  container.tsx           Container + Section (rhythm; tones: card/wash/deep)
-  section-heading.tsx     pill eyebrow + display headline + deck
-  reveal.tsx              subtle scroll reveal, respects reduced-motion
-  icon.tsx                name → lucide icon lookup for content files
-  layout/                 navbar (overlay), footer, logo
-  sections/               hero, dashboard-cluster (the coded hero visual),
-                          stats-block, case-study-card, testimonial-slider,
-                          process-timeline, faq, cta, page-header, trust-bar,
-                          case-study-grid, legal-page
-  ui/                     button, badge, input, textarea, label, accordion
+  container.tsx           Container + Section (rhythm; tone: light | deep)
+  section-heading.tsx     SectionHeading + Eyebrow
+  reveal.tsx              scroll reveal — see the note above
+  home/                   the home page sections, one file each
+  process/                process-steps.tsx (the scroll-driven stepper)
+                          step-panel.tsx    (flow / rows / bars visuals)
+  blog/                   post-body.tsx, rich-text.tsx
+  layout/                 navbar (fixed), footer, logo
+  sections/               cta, page-header, faq, legal-page
+  ui/                     button, input, textarea, label, accordion
 
 lib/
   booking.ts              provider abstraction (Cal ↔ Calendly)
+  schema.ts               all JSON-LD builders
+  seo.ts                  pageMetadata() — every route's metadata comes from it
   contact-schema.ts       validation shared by client and server
   utils.ts                cn()
+
+archive/
+  flight/                 the previous black-hole home page, unrouted and
+                          excluded from tsconfig. See archive/README.md.
 ```
 
 ### Swapping Cal.com for Calendly
@@ -189,15 +301,15 @@ knows which provider is in use.
 ## Accessibility & performance notes
 
 - Semantic landmarks, a skip link, labelled form fields with `aria-invalid` /
-  `aria-describedby`, `aria-pressed` on the case-study filters, and an
-  `aria-live` result count.
-- Focus ring is a 2px teal outline, visible on every interactive element.
+  `aria-describedby`, and breadcrumb navigation on every page below Home.
+- Focus ring is a 2px `--color-pink` outline, visible on every interactive element.
 - All motion is suppressed under `prefers-reduced-motion`.
 - `next/font` (self-hosted, no layout shift), `next/image` for team photos,
   static rendering for every page except the contact API route.
 
-Re-check contrast if you change `--color-muted` — it is the one token close to
-the 4.5:1 line for small text.
+Re-check contrast if you change any pink assignment — the table under *Design
+tokens* is the reason each one is where it is, and `--color-pink-2` in
+particular fails on white at any size.
 
 ---
 

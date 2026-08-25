@@ -54,7 +54,7 @@ export function pageMetadata({
       type,
       url,
       siteName: site.name,
-      locale: "en_US",
+      locale: "en_CA",
       title: socialTitle,
       description,
       images: [ogImage],

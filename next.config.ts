@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
   // version in a response header only helps someone fingerprinting the stack.
   poweredByHeader: false,
   compress: true,
+  // /process was folded into the home page's "How it works" band and the
+  // per-service process sections in the 2026 redesign. It had inbound links,
+  // so it redirects permanently rather than 404ing.
+  async redirects() {
+    return [
+      { source: "/process", destination: "/services/automations-audit", permanent: true },
+      { source: "/services/audit", destination: "/services/automations-audit", permanent: true },
+    ];
+  },
+
   images: {
     formats: ["image/avif", "image/webp"],
     // The only raster images on the site are the team portraits. They are no

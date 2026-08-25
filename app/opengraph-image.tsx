@@ -7,8 +7,19 @@ export const contentType = "image/png";
 export const alt = `${site.name} — ${site.tagline}`;
 
 /**
- * Default Open Graph card — the hero gradient, type-driven. Individual pages
- * can override with their own opengraph-image file.
+ * The default social card.
+ *
+ * The site's own opening image: the horizon on the black ground, with the
+ * headline over it. Drawn with layout primitives rather than an <img>, so it
+ * regenerates whenever the copy changes and never goes stale against the page
+ * it represents.
+ *
+ * Satori (which renders this) has no access to the self-hosted display face
+ * and does not support every CSS property — notably no `gap` shorthand
+ * ambiguity, no background-clip on text. So the type here is system sans and
+ * the pink emphasis is a coloured span rather than a gradient. That is a
+ * deliberate limit: a card that fails to render is worse than one set in a
+ * substitute face.
  */
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -19,30 +30,36 @@ export default function OpengraphImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        backgroundImage:
-          "linear-gradient(150deg, #1b0712 0%, #b5115b 55%, #f8206d 100%)",
+        background: "#181818",
         padding: "72px 80px",
         fontFamily: "system-ui, sans-serif",
+        position: "relative",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+      {/* The horizon. */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 315,
+          height: 2,
+          background:
+            "linear-gradient(90deg, rgba(24,24,24,0) 0%, #b5115b 22%, #f8206d 46%, #ff6e9e 50%, #f8206d 54%, #b5115b 78%, rgba(24,24,24,0) 100%)",
+        }}
+      />
+
+      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
         <div
           style={{
-            width: 44,
-            height: 44,
-            borderRadius: 12,
-            background: "rgba(255,255,255,0.15)",
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            background: "#f8206d",
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#ffffff",
-            fontSize: 24,
-            fontWeight: 700,
           }}
-        >
-          P
-        </div>
-        <div style={{ fontSize: 30, fontWeight: 600, color: "#ffffff" }}>
+        />
+        <div style={{ fontSize: 30, fontWeight: 600, color: "#fafafa" }}>
           {site.name}
         </div>
       </div>
@@ -50,43 +67,44 @@ export default function OpengraphImage() {
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div
           style={{
-            fontSize: 64,
-            lineHeight: 1.08,
+            fontSize: 82,
+            lineHeight: 1.02,
             fontWeight: 600,
-            color: "#ffffff",
-            letterSpacing: "-0.03em",
+            color: "#fafafa",
+            letterSpacing: "-0.035em",
+            display: "flex",
+            flexWrap: "wrap",
           }}
         >
-          Identifying where AI automation
+          <span>Every business has a&nbsp;</span>
+          <span style={{ color: "#ff6e9e" }}>black hole</span>
+          <span>.</span>
         </div>
         <div
           style={{
-            fontSize: 64,
-            lineHeight: 1.08,
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.55)",
-            letterSpacing: "-0.03em",
+            marginTop: 28,
+            fontSize: 28,
+            lineHeight: 1.4,
+            color: "#c6c0c3",
+            maxWidth: 880,
           }}
         >
-          creates measurable return.
+          {site.tagline}
         </div>
       </div>
 
       <div
         style={{
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderTop: "1px solid rgba(255,255,255,0.18)",
-          paddingTop: 30,
           fontSize: 22,
-          color: "rgba(255,255,255,0.7)",
+          color: "#989296",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
         }}
       >
-        <div style={{ display: "flex" }}>AI consulting · measured ROI</div>
-        <div style={{ display: "flex" }}>Free 15-minute discovery call</div>
+        {site.address.locality}, {site.address.region}
       </div>
     </div>,
-    size,
+    { ...size },
   );
 }

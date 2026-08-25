@@ -1,59 +1,87 @@
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
+
 import { Container } from "@/components/container";
-import { Reveal } from "@/components/reveal";
-import { Eyebrow } from "@/components/ui/eyebrow";
-import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
+import { cn } from "@/lib/utils";
 
 /**
- * Standard page masthead — the short version of the hero treatment, used on
- * every page except Home. The navbar overlays the top of it.
+ * The top of every page that is not Home.
  *
- * Same dot field as the home hero, on the same page colour, so arriving on an
- * inner page reads as the same site rather than a different one. Two things
- * are dialled back for the shorter box:
- *
- * - The scrim is centred, not weighted upper-left. This copy is centred and
- *   has no empty corner to sit in, so the calm has to be in the middle.
- * - `intensity` fades the dots toward the ground. At masthead height the crop
- *   is a narrow horizontal band through the middle of the galaxy — its densest
- *   part, with none of the empty sky that gives the home hero its air — so at
- *   full strength it reads as a busy stripe behind the title rather than as a
- *   background.
+ * Generous top padding rather than a coloured band: the navbar is fixed and
+ * transparent until you scroll, so the first thing under it should be the
+ * page's own headline sitting in space. A tinted hero strip here would put a
+ * seam across the top of every route and undo the openness the home page
+ * spends its first screen establishing.
  */
 export function PageHeader({
   eyebrow,
   title,
-  deck,
+  accent,
+  standfirst,
+  breadcrumbs,
   children,
+  className,
 }: {
-  eyebrow: string;
-  title: React.ReactNode;
-  deck?: React.ReactNode;
-  /** Optional trailing content — CTAs, a stat strip, etc. */
+  eyebrow?: string;
+  title: string;
+  /** Emphasised tail of the headline, in the main pink. */
+  accent?: string;
+  standfirst?: string;
+  /** Trail excluding Home, which is prepended. */
+  breadcrumbs?: { label: string; href: string }[];
   children?: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <div className="relative isolate overflow-hidden bg-surface-2">
-      <DitheredGalaxyField scrim="center" intensity={0.55} />
+    <header className={cn("pt-36 pb-16 sm:pt-44 lg:pt-52 lg:pb-24", className)}>
+      <Container>
+        {breadcrumbs?.length ? (
+          <nav aria-label="Breadcrumb" className="mb-10">
+            <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted">
+              <li>
+                <Link href="/" className="transition-colors hover:text-ink">
+                  Home
+                </Link>
+              </li>
+              {breadcrumbs.map((crumb, i) => (
+                <li key={crumb.href} className="flex items-center gap-1.5">
+                  <ChevronRight aria-hidden className="size-3.5" />
+                  {i === breadcrumbs.length - 1 ? (
+                    <span className="text-ink-soft">{crumb.label}</span>
+                  ) : (
+                    <Link
+                      href={crumb.href}
+                      className="transition-colors hover:text-ink"
+                    >
+                      {crumb.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
+        ) : null}
 
-      <Container className="relative z-10 pt-36 pb-20 sm:pt-40 sm:pb-24">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <div className="flex justify-center">
-            <Eyebrow>{eyebrow}</Eyebrow>
-          </div>
+        {eyebrow ? <p className="eyebrow text-pink-ink">{eyebrow}</p> : null}
 
-          <h1 className="hero-type mt-6 text-4xl leading-[1.08] text-ink sm:text-5xl lg:text-[3.5rem] lg:leading-[1.05]">
-            {title}
-          </h1>
-
-          {deck ? (
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-              {deck}
-            </p>
+        <h1 className={cn("display-hero max-w-[15ch]", eyebrow && "mt-7")}>
+          {title}
+          {accent ? (
+            <>
+              {" "}
+              <span className="text-pink-em">{accent}</span>
+            </>
           ) : null}
+        </h1>
 
-          {children}
-        </Reveal>
+        {standfirst ? (
+          <p className="measure-wide mt-10 text-xl leading-[1.5] text-ink-soft sm:text-2xl">
+            {standfirst}
+          </p>
+        ) : null}
+
+        {children ? <div className="mt-12">{children}</div> : null}
       </Container>
-    </div>
+    </header>
   );
 }

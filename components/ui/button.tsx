@@ -5,38 +5,38 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  // `rounded-sm`, not `rounded-none`: it resolves through the --radius-* scale,
-  // which is zeroed site-wide, so buttons are square for the same reason the
-  // cards are and go back to rounding with them if that decision is reversed.
-  //
-  // Tracked uppercase mono, matching the reference layout's actions. The size
-  // steps below drop their own font-size for the same reason — at this
-  // tracking a 15px label on the large size overflowed its box.
-  "inline-flex items-center justify-center gap-2 rounded-sm font-mono text-xs tracking-[0.12em] whitespace-nowrap uppercase transition-[background-color,color,border-color,box-shadow,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  // Supreme, sentence case, not uppercase. The site's uppercase treatment is
+  // reserved for eyebrows — using it on buttons as well leaves the page with
+  // two competing families of small tracked caps and no hierarchy between
+  // them. `rounded-sm` resolves through the zeroed --radius scale, so buttons
+  // are square for the same reason the cards are, and would round again with
+  // them if that decision were ever reversed.
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-sm font-display font-medium whitespace-nowrap transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.1em] [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        /* Violet — the booking CTA and form submits. Fill only: `card-raise`
-           is a hairline now rather than a shadow, and a grey line around a
-           solid violet pill reads as a rendering artefact. */
-        primary: "bg-accent text-on-accent hover:bg-accent-hover",
-        /* On the dark gradient: solid white pill. The label is `text-deep`,
-           not `text-ink` — the deep band stays dark in both themes, so ink
-           (which flips to near-white in dark) would render white-on-white. */
-        onDark: "bg-white text-deep hover:bg-white/90",
-        /* On the dark gradient: translucent secondary. */
-        onDarkGhost:
-          "border border-white/25 bg-white/10 text-white backdrop-blur-sm hover:bg-white/18",
+        /* The primary CTA. Filled with the THIRD pink, not the first.
+           #F8206D behind white type is 4.0:1, which is under AA for a label
+           at button size; #B5115B is 6.3:1 and clears it comfortably. The
+           brief assigns the third pink to backgrounds, which is exactly what
+           this is — and hover brings the main pink in, so the hot colour is
+           still what the button does when you touch it. */
+        primary: "bg-pink-3 text-white hover:bg-pink",
+        /* Secondary on the light ground. */
         outline:
-          "border border-line-strong bg-surface text-ink hover:border-accent hover:text-accent",
-        soft: "bg-accent-soft text-accent-ink hover:bg-accent/15",
-        ghost: "text-ink hover:bg-accent-soft hover:text-accent-ink",
-        link: "text-accent underline-offset-4 hover:underline",
+          "border border-ink/20 bg-transparent text-ink hover:border-pink-3 hover:text-pink-ink",
+        /* On the deep ground: the polarity inverts. */
+        onDeep: "bg-page text-ink hover:bg-white",
+        onDeepGhost:
+          "border border-white/25 bg-transparent text-page hover:border-white/60 hover:bg-white/5",
+        ghost: "text-ink hover:text-pink-ink",
+        link: "text-pink-ink underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-9 px-4",
-        md: "h-11 px-5",
-        lg: "h-12.5 px-7 text-[0.8125rem]",
+        sm: "h-9 px-4 text-sm",
+        md: "h-11 px-5 text-[0.9375rem]",
+        lg: "h-13 px-7 text-base",
+        xl: "h-15 px-9 text-lg",
       },
     },
     defaultVariants: {

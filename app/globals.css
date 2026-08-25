@@ -1,263 +1,186 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Palette selection.
+   Praxes — the light site.
 
-   The site is dark only. Tokens are still written as pairs —
+   One theme. The previous build was dark-only and carried a paired-token
+   mechanism so a light palette could be switched back on; that mechanism is
+   gone rather than inverted, because a site with a single palette should not
+   pay the indirection cost of pretending it has two.
 
-     --color-ink: var(--t-light, #0e0e1b) var(--t-dark, #f4f4fa);
-
-   — because a var() whose variable is empty contributes nothing, so pinning
-   the two switch variables below picks one half of every pair in a single
-   place. The light halves are kept as the record of what each token means and
-   as the way back if a light theme is ever wanted again; nothing reads them
-   while --t-light is empty.
+   The whole design rests on one decision: the page is white and the story is
+   told by the two grounds. White is where the business is working. Black is
+   the black hole — the repetitive work that accumulated and now pulls time
+   and margin out of the week. Sections are painted by which side of that
+   they are on, and the pinks are assigned by which ground they have to sit on.
    ========================================================================== */
-:root {
-  --t-light: ;
-  --t-dark: initial;
-  /* Tells the UA to render form controls, scrollbars and the canvas dark, and
-     stops the browser offering to auto-darken anything. */
-  color-scheme: dark;
+
+/* --------------------------------------------------------------------------
+   Supreme (Fontshare). Self-hosted from /public/fonts so there is no
+   third-party request in the critical path and no flash of a fallback face
+   on a cold cache.
+
+   Standing in for Supreme LL, which is a Lineto licence. When the licensed
+   files arrive, drop them in /public/fonts and change the five `src` lines
+   below — nothing else in the codebase names a font file.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Supreme";
+  src: url("/fonts/Supreme-300.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Supreme";
+  src: url("/fonts/Supreme-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Supreme";
+  src: url("/fonts/Supreme-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Supreme";
+  src: url("/fonts/Supreme-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Supreme";
+  src: url("/fonts/Supreme-800.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
-  /* Internals that aren't colour utilities and so don't belong in @theme,
-     but still have to flip with the palette. Shadows go heavier and darker on
-     the dark side, where a 4%-alpha shadow is simply invisible. */
-  --shadow-tint: var(--t-light, 7 21 47) var(--t-dark, 0 0 0);
-  --shadow-a: var(--t-light, 0.04) var(--t-dark, 0.3);
-  --shadow-b: var(--t-light, 0.12) var(--t-dark, 0.55);
-  --shadow-a-hover: var(--t-light, 0.06) var(--t-dark, 0.36);
-  --shadow-b-hover: var(--t-light, 0.28) var(--t-dark, 0.68);
-
-  /* Slider thumb face — white on light, white-smoke on dark. */
-  --thumb-face: var(--t-light, #ffffff) var(--t-dark, #f5f5f2);
-
-  /* Thickness of the fixed frame that mats the page (components/layout/
-     frame.tsx). One source of truth: the frame uses these as its border
-     widths, the navbar as its top offset, and container-page as its minimum
-     gutter — so the bar and the copy always sit inside the mat rather than
-     under it.
-
-     The mat stays thin and even. It is viewport chrome, so anything it gains
-     it takes from *everything* — including the hero and the navbar, which are
-     meant to run wide. The generous side margin below the hero is not this: it
-     is the inset on the content card (components/layout/page-card.tsx), which
-     is painted in this same colour so the two read as one continuous margin. */
-  --frame-y: 10px;
-  --frame-x: 10px;
-
-  /* How hero type sits in the dot field behind it. Multiply keeps dark text
-     reading through a light field; on the dark theme the polarity flips and
-     screen is its mirror, letting light text blend into bright dots instead
-     of punching a hole in them. */
-  --hero-type-blend: var(--t-light, multiply) var(--t-dark, screen);
+  color-scheme: light;
 }
 
-@media (min-width: 640px) {
-  :root {
-    --frame-y: 14px;
-    --frame-x: 14px;
-  }
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --frame-y: 18px;
-    --frame-x: 18px;
-  }
-}
-
-/* ==========================================================================
-   Design tokens — the single place to restyle the site.
-   Tailwind v4 reads these and generates utilities from them:
-     --color-accent   -> bg-accent, text-accent, border-accent ...
-     --radius-lg      -> rounded-lg
-     --font-display   -> font-display
-   ========================================================================== */
 @theme {
-  /* --- Type ------------------------------------------------------------- */
-  /* High-contrast serif (Playfair Display) for display, legible sans for
-     body. Mono is used only for small technical labels inside the built data
-     visuals. */
+  /* --- Type -------------------------------------------------------------
+     Two families, no third. Supreme carries every heading and every small
+     tracked label; Helvetica Now — Inter until the licence lands — carries
+     everything made of sentences.
+
+     Inter is the stand-in rather than a system Helvetica stack because the
+     stack is only Helvetica on Apple hardware and is Arial everywhere else,
+     which is a different typeface with different widths. One substitute that
+     is wrong the same way for everyone is easier to design against than one
+     that is right for half the audience. */
+  --font-display: "Supreme", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-sans:
-    var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  /* Small headings only. The display serif keeps the big ones — the split is
-     by size, not by importance. */
-  --font-heading:
-    var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
-  --font-mono:
-    var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
+    var(--font-inter), "Helvetica Now Text", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
 
-  /* --- Ink -------------------------------------------------------------- */
-  /* Near-neutral with a trace of the accent's warmth. These were blue-cast
-     greys, which sat correctly under a violet accent and read cold under a
-     pink one — body copy in powder blue beneath a hot-pink heading looks like
-     two palettes sharing a page.
+  /* --- Ink --------------------------------------------------------------
+     Black is the brief's #181818, not a pure black — it is the same value as
+     the dark ground, which is what makes the two read as one system rather
+     than as ink that happens to be dark.
 
-     Both secondary tones are a step lighter than the ratios a contrast
-     checker would call sufficient. On a near-black ground, passing is not the
-     same as comfortable: dark grey on black technically clears 4.5:1 and
-     still reads as something the page is trying to hide, because the eye is
-     adapted to the light text elsewhere on the screen rather than to the
-     ground. --color-muted carries most of the running copy here — decks,
-     list items, the line under every section label — so it is the one that
-     had to move most, from 5.9:1 to 7.7:1.
+     The two lighter greys are mixes of it toward the page rather than
+     independent greys, so they stay on the same hue as everything else.
+     Ratios are against #FAFAFA. */
+  --color-ink: #181818; /* body copy and headings — 15.9:1 */
+  --color-ink-soft: #414141; /* secondary prose — 9.3:1 */
+  --color-muted: #6b6b6b; /* captions, notes — 5.3:1 */
 
-     The three stay a step apart from each other, which is the only reason a
-     hierarchy of them reads at all. Ratios quoted against the dark surfaces,
-     which are the only ones that render. */
-  --color-ink: var(--t-light, #1b0712) var(--t-dark, #f5f3f4); /* headings — 16.1:1 page */
-  --color-ink-soft: var(--t-light, #3a2831) var(--t-dark, #cbc5c9); /* body — 10.5:1 page / 9.4:1 card */
-  --color-muted: var(--t-light, #5c515a) var(--t-dark, #b0a9ae); /* secondary — 7.7:1 page / 6.9:1 card */
+  /* --- Grounds ---------------------------------------------------------- */
+  --color-page: #fafafa; /* the site background */
+  --color-card: #ffffff; /* anything raised off it */
+  --color-deep: #181818; /* the black hole sections */
+  --color-deep-2: #101010; /* one step under, for wells inside them */
 
-  /* --- Surfaces --------------------------------------------------------- */
-  /* Light: white cards over the palette's white-smoke page. Dark: the two
-     carbon blacks — page #181818, cards a step lighter at #222222, which is
-     how elevation reads without shadows on a dark ground. The dark side is
-     deliberately neutral: the hero's dot field sits directly on the page
-     colour, and a blue-cast ground pulled the whole galaxy toward navy.
-     Prussian blue #040c24 stays in play as the wash trough below. */
-  --color-surface: var(--t-light, #ffffff) var(--t-dark, #222222); /* cards */
-  --color-surface-2: var(--t-light, #f5f5f2) var(--t-dark, #181818); /* page background */
-  --color-surface-3: var(--t-light, #fafaf9) var(--t-dark, #2a2a2a);
-  --color-line: var(--t-light, #e4e6ec) var(--t-dark, #2e2e2e);
-  --color-line-strong: var(--t-light, #ccd1dd) var(--t-dark, #3d3d3d);
+  /* Hairlines. Warm rather than neutral — a grey rule under a pink heading
+     reads as a different palette; these carry a trace of #B5115B. */
+  --color-line: #e6e1e3;
+  --color-line-strong: #d2c9cd;
+  --color-line-dark: #2f2b2d; /* the same idea on the deep ground */
 
-  /* --- Accent ----------------------------------------------------------- */
-  /* Three colours, straight off the logo: #FF6E9E, #F8206D, #B5115B. Nothing
-     here is a fourth pink — every accent token below is one of those three,
-     and the two that are not (the label on a filled button, and the tinted
-     panel) are a foreground and a background, which cannot be pink at all if
-     pink is going to sit on them.
+  /* --- The three pinks --------------------------------------------------
+     Straight off the logo, and there is no fourth. What each one does is
+     decided by the ground it has to survive on — measured, not guessed:
 
-     Which of the three does what is decided by contrast, against the dark
-     surfaces — page #181818, card #222222 — since those are the only ones
-     that render.
+                    on #FAFAFA     on #181818
+       #F8206D        4.0:1          4.3:1
+       #FF6E9E        2.4:1          7.0:1
+       #B5115B        6.3:1          1.5:1
 
-       #FF6E9E  6.7:1 page / 6.0:1 card  -> everything made of words
-       #F8206D  4.6:1 page / 4.1:1 card  -> hover, and decoration
-       #B5115B  2.7:1 page               -> never type; grounds only */
-  --color-accent: var(--t-light, #b5115b) var(--t-dark, #ff6e9e);
-  /* Hover darkens rather than lightens: on a filled button the label still
-     clears at 4.9:1, and going paler would have washed the button out. */
-  --color-accent-hover: var(--t-light, #f8206d) var(--t-dark, #f8206d);
-  --color-accent-ink: var(--t-light, #b5115b) var(--t-dark, #ff6e9e); /* accent text on soft bg — 5.7:1 */
-  /* Badges and tinted panels. #B5115B itself is far too light to sit behind
-     pink type — accent on it is 2.5:1 — so this is that colour at 28% over
-     the page, which is the deepest the ramp can go and still be a ground. */
-  --color-accent-soft: var(--t-light, #feecf2) var(--t-dark, #44162b);
-  /* Foreground for anything filled with --color-accent (buttons, chips).
-     White fails on a pink this pale, so the label goes to near-black carrying
-     the accent's own hue, at 7.3:1. */
-  --color-on-accent: var(--t-light, #ffffff) var(--t-dark, #1f0712);
-  --color-accent-bright: var(--t-light, #f8206d) var(--t-dark, #f8206d); /* the logo's hot middle — decorative: gradients, glow, pulses. Not for body text. */
+     So: --color-pink (#F8206D) is the H1/H2 colour and the emphasis colour,
+     and is only ever used at display sizes, where 4.0:1 clears AA for large
+     text. --color-pink-2 (#FF6E9E) is the H3/H4 colour, which at 2.4:1 it
+     can only be on the dark ground — on white, small pink type resolves to
+     --color-pink-ink below. --color-pink-3 (#B5115B) is a ground and a
+     shadow tint and is never type on white at display size, per the brief.
 
-  /* --- Deep surfaces (closing CTA band) ---------------------------------- */
-  /* Near-black resolving through the logo's deep end into its hot middle. */
-  --color-deep: #1b0712;
-  --color-deep-2: #b5115b;
-  --color-deep-3: #f8206d;
+     The one deviation from the brief is that last substitution, and it is
+     the difference between an H3 that can be read and one that cannot. */
+  --color-pink: #f8206d; /* H1, H2, emphasis — display sizes only */
+  --color-pink-2: #ff6e9e; /* H3, H4 on the deep ground; rules and marks */
+  --color-pink-3: #b5115b; /* grounds, shadow tint, and small type on white */
 
-  /* --- Data marks -------------------------------------------------------
-     The before/after comparison pair. Checked for >=3:1 contrast on white
-     and for separation under protan/deutan/tritan simulation (CVD ΔE 16.8,
-     normal-vision ΔE 27.7 against the new accent), and every bar is
-     direct-labelled so colour is never the only channel. Keep both
-     properties if you change them. */
-  --color-chart-after: var(--t-light, #b5115b) var(--t-dark, #ff6e9e);
-  --color-chart-before: var(--t-light, #b3aab0) var(--t-dark, #6b646a);
+  /* Semantic aliases, so components ask for the job rather than the swatch.
+     Changing which pink does what happens here, once. */
+  --color-pink-ink: #b5115b; /* pink type small enough to need 4.5:1 */
+  --color-pink-soft: #fdeff4; /* the tinted panel — #B5115B at ~6% on page */
+  --color-on-pink: #ffffff; /* label on a #F8206D fill — 4.0:1, large only */
 
-  /* --- Shape ------------------------------------------------------------ */
-  /* Square. Elevation is carried by a hairline border and a fill change, not
-     by rounding and shadow — see card-raise below. `rounded-full` does not go
-     through these, so pills and circular badges are unaffected. */
+  /* --- Shape ------------------------------------------------------------
+     Square, inherited from the previous build and kept: at this type size,
+     rounding reads as softness the headlines do not have. */
   --radius-sm: 0px;
   --radius-md: 0px;
   --radius-lg: 0px;
   --radius-xl: 0px;
   --radius-2xl: 0px;
 
-  /* --- Tracking --------------------------------------------------------- */
-  /* Tracking is a function of size, never one value for the whole page. As
-     type grows the counters and sidebearings grow with it, so large text
-     reads *too loose* at the tracking that suits body copy; small text reads
-     too tight at the tracking that suits a headline. Attaching the value to
-     the size utility means every `text-*` class carries the right one and no
-     component has to remember.
-
-     The ramp is deliberately gentler than it would be for a geometric sans:
-     the display face here is Playfair, a high-contrast serif that already
-     sets tight, and squeezing it collides the serifs (which is what the
-     earlier flat -0.022em got wrong). Body sizes take a small *positive*
-     value, which is what keeps small text legible. */
-  --text-xs--letter-spacing: 0.01em;
-  --text-sm--letter-spacing: 0.006em;
-  --text-base--letter-spacing: 0em;
-  --text-lg--letter-spacing: -0.003em;
-  --text-xl--letter-spacing: -0.006em;
-  --text-2xl--letter-spacing: -0.009em;
-  --text-3xl--letter-spacing: -0.011em;
-  --text-4xl--letter-spacing: -0.013em;
-  --text-5xl--letter-spacing: -0.015em;
-  --text-6xl--letter-spacing: -0.017em;
-  --text-7xl--letter-spacing: -0.019em;
-  --text-8xl--letter-spacing: -0.021em;
-  --text-9xl--letter-spacing: -0.022em;
-
-  /* --- Motion ----------------------------------------------------------- */
+  /* --- Motion ------------------------------------------------------------ */
   --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   --animate-accordion-down: accordion-down 240ms var(--ease-out-soft);
   --animate-accordion-up: accordion-up 240ms var(--ease-out-soft);
-  --animate-gradient-shift: gradient-shift 6s ease-in-out infinite;
-  --animate-eyebrow-ping: eyebrow-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-marquee: marquee 38s linear infinite;
+
+  /* --- Tracking ---------------------------------------------------------
+     A function of size, never one value for the page. Supreme is a geometric
+     grotesk with generous sidebearings: it sets loose at display sizes and
+     needs a real negative value there, while body sizes need a small
+     positive one to stay open. Attaching the value to the size utility means
+     every text-* class carries the right one and no component remembers. */
+  --text-xs--letter-spacing: 0.02em;
+  --text-sm--letter-spacing: 0.01em;
+  --text-base--letter-spacing: 0.002em;
+  --text-lg--letter-spacing: -0.002em;
+  --text-xl--letter-spacing: -0.008em;
+  --text-2xl--letter-spacing: -0.014em;
+  --text-3xl--letter-spacing: -0.018em;
+  --text-4xl--letter-spacing: -0.022em;
+  --text-5xl--letter-spacing: -0.026em;
+  --text-6xl--letter-spacing: -0.03em;
+  --text-7xl--letter-spacing: -0.033em;
+  --text-8xl--letter-spacing: -0.036em;
+  --text-9xl--letter-spacing: -0.038em;
 }
 
 @keyframes accordion-down {
-  from {
-    height: 0;
-    opacity: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-    opacity: 1;
-  }
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
 }
-
 @keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-    opacity: 1;
-  }
-  to {
-    height: 0;
-    opacity: 0;
-  }
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
 }
-
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes eyebrow-ping {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  70%,
-  100% {
-    transform: scale(2.4);
-    opacity: 0;
-  }
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 
 /* ==========================================================================
@@ -271,483 +194,335 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    /* Every in-page anchor lands under the fixed navbar without it. */
+    scroll-padding-top: 6rem;
   }
 
   body {
-    background-color: var(--color-surface-2);
-    color: var(--color-ink-soft);
+    background-color: var(--color-page);
+    color: var(--color-ink);
     font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     color: var(--color-ink);
-    /* 600 on the Playfair variable axis: enough stroke contrast to carry the
-       display role without the 700+ weights' heavy blacks. */
-    font-weight: 600;
-    /* Fallback only, for a heading that carries no `text-*` size utility.
-       Anything sized explicitly gets the size-matched value from the tracking
-       ramp in @theme, which takes precedence over this. */
-    letter-spacing: -0.008em;
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
+  /* Long-form prose wants a looser heading rhythm than a landing section. */
+  h3, h4 {
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  strong, b {
+    font-weight: 500;
+    color: var(--color-pink-ink);
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-pink);
     outline-offset: 3px;
-    border-radius: 4px;
   }
 
   ::selection {
-    background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+    background-color: color-mix(in srgb, var(--color-pink) 20%, transparent);
     color: var(--color-ink);
   }
 
-  /* Reduced motion is not "no feedback" — it is feedback with the vestibular
-     part removed. The blunt version of this block (transition-duration:
-     0.001ms on everything) also killed the colour and opacity changes that
-     tell you a press registered or a panel opened, which is a real loss of
-     comprehension, not a kindness.
-
-     So: looping and travelling animations stop, positional transforms
-     collapse, and everything else cross-fades instead. */
+  /* Reduced motion is feedback with the vestibular part removed, not the
+     absence of feedback. Travel and loops stop; colour and opacity keep
+     their transitions, because those are what tell you a press registered. */
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
 
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       animation-duration: 0.001ms !important;
       animation-iteration-count: 1 !important;
-      /* Transform is absent from this list on purpose: a transform still
-         *applies*, it just arrives instantly rather than sliding. Nothing on
-         this site positions itself with transform (checked), so the only
-         casualties are decorative rises and lifts. */
       transition-property:
-        opacity, color, background-color, border-color, box-shadow, fill, stroke !important;
+        opacity, color, background-color, border-color, box-shadow, fill,
+        stroke !important;
       transition-duration: 160ms !important;
     }
-
-    /* The decorative travel itself, neutralised at the source. */
-    .hover-lift:hover {
-      transform: none !important;
-    }
   }
 
-  /* Frosted chrome depends on a blur that some people have switched off. Make
-     those surfaces solid rather than leaving translucent-but-unblurred fill,
-     which is the one combination that is genuinely hard to read. */
-  @media (prefers-reduced-transparency: reduce) {
-    .supports-frost {
-      background-color: var(--color-surface) !important;
-      backdrop-filter: none !important;
-    }
-  }
-
-  @media (prefers-contrast: more) {
-    .supports-frost {
-      background-color: var(--color-surface) !important;
-      backdrop-filter: none !important;
-      border-color: var(--color-line-strong) !important;
-    }
-
-    :focus-visible {
-      outline-width: 3px;
-    }
-  }
-
-  /* Kill the ~300ms tap delay on everything that can be pressed. Response is
-     the foundation the rest of the motion work sits on — a third of a second
-     of nothing undoes all of it. */
-  a,
-  button,
-  label,
-  summary,
-  [role="button"],
-  input[type="range"] {
+  a, button, label, summary, [role="button"], input[type="range"] {
     touch-action: manipulation;
   }
 }
 
 /* ==========================================================================
-   Utilities
+   Layout
    ========================================================================== */
 
-/* Page gutter + max width. Every section body sits inside this. */
+/* The page gutter. Wide max-width and a large gutter — the negative space in
+   this design is structural, not decoration, so it is set here once rather
+   than being re-argued per section. */
 @utility container-page {
   width: 100%;
   margin-inline: auto;
-  max-width: 78rem;
-  /* Never less than the mat plus a little air, or content would slide under
-     the frame on viewports narrower than the max-width. */
-  padding-inline: max(1.5rem, calc(var(--frame-x) + 0.75rem));
+  max-width: 84rem;
+  padding-inline: clamp(1.25rem, 5vw, 4.5rem);
 }
 
-/* Violet gradient text — for the one or two words per page that should carry
-   the brand accent. Use sparingly; most headline text stays solid ink. The
-   background slowly drifts (animate-gradient-shift) for a faint shimmer,
-   frozen automatically under prefers-reduced-motion (see the base layer). */
-@utility text-gradient {
-  /* Pale ends, hot middle — the two ends of the ramp that are legible as
-     type. The logo's third stop, #B5115B, is 2.7:1 on the page and cannot be
-     in here at any size, so the travel is the distance between #FF6E9E and
-     #F8206D and no further. Stops pulled to the edges so more of the word
-     sits at one end or the other rather than in the blend between them. */
-  background-image: linear-gradient(
-    100deg,
-    var(--color-accent) 2%,
-    var(--color-accent-bright) 50%,
-    var(--color-accent) 98%
-  );
-  background-size: 200% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  /* The gradient only paints inside the element's box. On a display:block
-     span with tight leading the box stops above the descenders, so glyph
-     tails like "g" get no paint at all. Extend the box down and pull the
-     following content back up so layout is unchanged. */
-  padding-bottom: 0.16em;
-  margin-bottom: -0.16em;
+/* Full-bleed sections that still want their contents aligned to the gutter. */
+@utility container-wide {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 96rem;
+  padding-inline: clamp(1.25rem, 5vw, 4.5rem);
 }
 
-/* Card title: uppercase display serif in the accent, per the reference
-   layout. Applied to card and list-item headings only — not to status
-   messages or people's names, where setting a name in caps reads wrong. */
-@utility card-title {
-  /* Space Grotesk rather than the display serif. Playfair is high-contrast:
-     its thins are hairlines, which is why it looks right at 46px and stops
-     working at 18 — the hairlines drop out, worst in the accent on a dark
-     ground. This face carries an even stroke all the way down.
-
-     It still needs tracking, because uppercase always does: the letters have
-     no ascenders or descenders to separate them. And 1.05 leading is a
-     display value that crushes a two-line heading at a fifth of that size. */
-  font-family: var(--font-heading);
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.045em;
-  line-height: 1.25;
-  color: var(--color-accent);
+/* Section rhythm. One utility so vertical space is consistent across twenty
+   sections written weeks apart. */
+@utility section-y {
+  padding-block: clamp(5.5rem, 13vw, 12rem);
+}
+@utility section-y-sm {
+  padding-block: clamp(3.5rem, 8vw, 7rem);
 }
 
-/* Numeric figures inside the built data visuals. */
-@utility figure-num {
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
-  font-weight: 600;
+/* Reading measure. Body copy past ~72 characters stops being scannable, and
+   at this font size that is about 36rem. */
+@utility measure {
+  max-width: 36rem;
+}
+@utility measure-wide {
+  max-width: 46rem;
+}
+
+/* ==========================================================================
+   Type
+   ========================================================================== */
+
+/* The hero line. The only place on the site that goes this big. */
+@utility display-hero {
   font-family: var(--font-display);
+  font-size: clamp(3.25rem, 10.2vw, 9.5rem);
+  line-height: 0.93;
+  letter-spacing: -0.042em;
+  font-weight: 500;
 }
 
-/* Small technical label, e.g. [BASELINE] inside a diagram. */
-@utility label-tech {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
+/* Section headlines. */
+@utility display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.99;
+  letter-spacing: -0.034em;
+  font-weight: 500;
+}
+
+/* Sub-headlines, card titles that carry weight, pull quotes. */
+@utility display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.026em;
+  font-weight: 500;
+}
+
+/* The small tracked label that opens a section. Supreme rather than a mono,
+   because the brief is a two-family design and a third face for eight words
+   per page is not worth the request. Uppercase always needs tracking — the
+   letters have no ascenders or descenders to separate them. */
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-/* The same label, sized to head a section rather than to annotate a card.
-   At 10px these read as captions on something above them; the ones that open
-   a block — Outcomes, What we build — need to announce it. Tracking eases off
-   as the size grows, per the note on --tracking-* above. */
-@utility label-section {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  line-height: 1;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+/* Numerals in the results band and the step counters. Supreme's figures are
+   lining and even-width, so they hold a column without a mono. */
+@utility figure-num {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
 }
 
-/* Hero headline over the dithered field. See --hero-type-blend. */
-@utility hero-type {
-  mix-blend-mode: var(--hero-type-blend);
+/* Emphasis inside a headline: the brief's main pink, display sizes only. */
+@utility text-pink-em {
+  color: var(--color-pink);
 }
 
-/* Faint grid, used behind built visuals so they read as an instrument panel. */
+/* ==========================================================================
+   Surfaces
+   ========================================================================== */
+
+/* A card on the white ground.
+
+   The elevation is the brief's third pink rather than a black shadow: a
+   neutral shadow under a pink-accented card greys the whole palette, and
+   #B5115B at low alpha reads as depth while keeping the page warm. Two stops,
+   one tight and one wide, which is what separates a shadow from a smudge. */
+@utility card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-line);
+  box-shadow:
+    0 1px 2px rgb(181 17 91 / 0.04),
+    0 12px 32px -12px rgb(181 17 91 / 0.10);
+}
+
+/* The same card, when it responds to a pointer. */
+@utility card-interactive {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-line);
+  box-shadow:
+    0 1px 2px rgb(181 17 91 / 0.04),
+    0 12px 32px -12px rgb(181 17 91 / 0.10);
+  transition:
+    transform 300ms var(--ease-out-soft),
+    border-color 300ms var(--ease-out-soft),
+    box-shadow 300ms var(--ease-out-soft);
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-line-strong);
+    box-shadow:
+      0 2px 4px rgb(181 17 91 / 0.06),
+      0 26px 50px -16px rgb(181 17 91 / 0.20);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-interactive:hover {
+    transform: none;
+  }
+}
+
+/* The dark ground — the black-hole sections, the footer, the closing CTA.
+
+   Setting the token overrides here rather than at every call site means a
+   child component written for the white ground (a heading, a rule, a muted
+   note) lands correctly inside a dark section without knowing it is there. */
+@utility on-deep {
+  background-color: var(--color-deep);
+  color: #ebe7e9;
+
+  --color-ink: #fafafa;
+  --color-ink-soft: #c6c0c3;
+  --color-muted: #989296;
+  --color-line: #2f2b2d;
+  --color-line-strong: #443e41;
+  --color-card: #202020;
+  /* On black, the second pink is 7.0:1 and the third is 1.5:1 — so the
+     substitution that protects small type on white is reversed here, and
+     H3/H4 get exactly the colour the brief asked for. */
+  --color-pink-ink: #ff6e9e;
+  --color-pink-soft: #2a1119;
+}
+
+/* A hairline that reads on either ground. */
+@utility rule {
+  border-top: 1px solid var(--color-line);
+}
+
+/* ==========================================================================
+   Marks
+   ========================================================================== */
+
+/* The scroll-driven process stepper (components/process/process-steps.tsx).
+   The rail is a track with a fill that grows as steps become active. */
+@utility step-rail {
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  width: 1px;
+  background-color: var(--color-line);
+}
+
+/* The dot on a process step. Hollow until the step is the live one. */
+@utility step-dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-line-strong);
+  background-color: var(--color-page);
+  transition:
+    background-color 320ms var(--ease-out-soft),
+    border-color 320ms var(--ease-out-soft),
+    transform 320ms var(--ease-out-soft);
+}
+
+/* Underline that draws in on hover, for links in running prose. */
+@utility link-underline {
+  background-image: linear-gradient(
+    to right,
+    var(--color-pink-ink),
+    var(--color-pink-ink)
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  transition: background-size 300ms var(--ease-out-soft);
+
+  &:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* Faint grid, used behind the integration board so it reads as a surface
+   rather than as floating logos. */
 @utility grid-rule {
   background-image:
     linear-gradient(to right, var(--color-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-size: 56px 56px;
 }
 
-/* Same grid at low opacity for use on the dark gradient. */
-@utility grid-rule-dark {
-  background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
+/* The scroll-reveal primitive (components/reveal.tsx). Kept in CSS rather
+   than done with a library: it is one transform and one opacity, and the
+   IntersectionObserver that drives it is four lines.
 
-/* Range input for the estimator. The filled portion is painted inline as a
-   gradient on `background`, so only the rail and thumb are styled here. */
-@utility range-track {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: 999px;
-  cursor: pointer;
+   The important part is what it does NOT do. A `.reveal` that starts at
+   opacity 0 unconditionally means the entire page is blank whenever the
+   observer does not fire — script blocked, an error earlier in the bundle, a
+   hash link that jumps the reader past the element before the observer
+   attaches. Content that is invisible unless JavaScript succeeds is not a
+   progressive enhancement; it is a single point of failure in front of every
+   word on the site.
 
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 999px;
-    background: var(--thumb-face);
-    border: 2px solid var(--color-accent);
-    box-shadow: 0 1px 3px rgb(var(--shadow-tint) / 0.25);
-    cursor: grab;
-  }
-
-  &::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 999px;
-    background: var(--thumb-face);
-    border: 2px solid var(--color-accent);
-    box-shadow: 0 1px 3px rgb(var(--shadow-tint) / 0.25);
-    cursor: grab;
-  }
-
-  /* Firefox paints its own track; the inline gradient covers it. */
-  &::-moz-range-track {
-    height: 6px;
-    border-radius: 999px;
-    background: transparent;
-  }
-}
-
-/* Scroll edge, not a divider.
-
-   Where content passes beneath floating chrome, a 1px rule drawn across the
-   whole page announces "there is a bar here" as a piece of structure. Fading
-   the bar's own material down into the content instead says the same thing
-   as a property of the material, and only where the overlap actually is.
-
-   Hidden by default; the navbar raises it once content is behind the bar. */
-@utility scroll-edge {
-  &::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    top: 100%;
-    height: 1.5rem;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 300ms var(--ease-out-soft);
-    background-image: linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--color-surface) 70%, transparent),
-      transparent
-    );
-  }
-
-  &[data-scrolled]::after {
-    opacity: 1;
-  }
-}
-
-/* Card elevation. Soft and low — one step, never stacked shadows. */
-/* A card is a fill plus a hairline, with nothing floating above the page.
-   Redefining the utility rather than editing every call site keeps all 24
-   existing cards consistent and makes the treatment reversible in one place. */
-@utility card-raise {
-  border: 1px solid var(--color-line);
-}
-
-/* Shared hover motion for the repeating card grids — a small lift plus a
-   step up in elevation. Cheap and consistent rather than one-off per grid. */
-/* Hover firms the edge instead of lifting the card off the page. The travel
-   is kept but halved: with no shadow under it, a 3px rise read as a glitch
-   rather than as depth. */
-@utility hover-lift {
-  border: 1px solid var(--color-line);
+   So the hidden state is scoped to [data-js], which is set by an inline
+   script in the document head (app/layout.tsx). No script, no hiding — the
+   page renders as a plain document. The script is inline and blocking
+   specifically so the attribute lands before first paint and there is no
+   flash of the visible state. */
+.reveal {
   transition:
-    transform 220ms var(--ease-out-soft),
-    border-color 220ms var(--ease-out-soft),
-    background-color 220ms var(--ease-out-soft);
-
-  &:hover {
-    transform: translateY(-1px);
-    border-color: var(--color-line-strong);
-  }
+    opacity 700ms var(--ease-out-expo),
+    transform 700ms var(--ease-out-expo);
 }
 
-/* The one card that used to sit highest. Same hairline, one step stronger, so
-   it still reads as the most prominent thing without reintroducing a shadow. */
-@utility card-float {
-  border: 1px solid var(--color-line-strong);
-}
-
-/* ==========================================================================
-   The flight (home page only).
-
-   Glass here is not decoration for its own sake: the page has a live canvas
-   behind every panel, and an opaque card would punch a hole in the thing the
-   page is about. A blurred, barely-tinted surface lets the disk keep moving
-   underneath while the copy stays readable on top of it.
-   ========================================================================== */
-.flight {
-  /* Deeper than --color-surface-2. The disk is drawn in light on this, and
-     every step darker is a step more glow. Mirrors VOID in black-hole.tsx. */
-  --void: #050406;
-  /* Tinted from the void, not from white. A 5%-white pane is beautiful over a
-     quiet backdrop and illegible over this one: at the problem beat the disk
-     fills the frame, and its streaks are bright, thin and high-frequency —
-     exactly what a blur does least for. The panel has to carry most of the
-     contrast itself, with the blur softening what shows through rather than
-     being the only thing separating copy from artwork. */
-  --glass: rgb(6 5 8 / 0.78);
-  --glass-lit: rgb(14 11 16 / 0.86);
-  --glass-line: rgb(255 255 255 / 0.13);
-  --glass-blur: blur(18px) saturate(150%);
-  background: var(--void);
-}
-
-.glass-panel,
-.glass-row,
-.glass-pill {
-  background: var(--glass);
-  border: 1px solid var(--glass-line);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.12),
-    0 18px 50px rgb(0 0 0 / 0.45);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.glass-pill {
-  border-radius: 999px;
-}
-
-/* Cards that fly. Opaque and unblurred while they move — backdrop-filter on a
-   moving element makes the compositor re-sample the blur every frame, twelve
-   at a time — then handed the real material once they have stopped. */
-.glass-card {
-  position: fixed;
-  padding: 15px 17px 16px;
-  border: 1px solid var(--glass-line);
-  background: rgb(8 6 10 / 0.86);
-  will-change: transform, opacity;
-  transition:
-    background-color 180ms var(--ease-out-soft),
-    border-color 180ms var(--ease-out-soft);
-}
-.glass-card.is-settled {
-  background: var(--glass-lit);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-}
-.glass-card.is-live {
-  pointer-events: auto;
-  cursor: pointer;
-}
-.glass-card.is-live:hover,
-.glass-card.is-live:focus-visible {
-  background: var(--glass-lit);
-  border-color: rgb(255 255 255 / 0.22);
-}
-.glass-card-edge {
-  position: absolute;
-  top: 17px;
-  left: 0;
-  width: 3px;
-  height: 20px;
-  background: var(--color-accent);
-}
-.glass-card[data-family="marketing"] .glass-card-edge {
-  background: #a07cff;
-}
-/* Marketing is the violet family, wherever it appears — the card, and the
-   panel that card opens. Two selectors rather than one shared class because
-   the panel is not a card and should not inherit a card's geometry. */
-.glass-card[data-family="marketing"] .card-title,
-.glass-card-family[data-family="marketing"] .card-title {
-  color: #c3b0ff;
-}
-
-/* The horizon. White through the accent, so the bloom is the disk's own
-   colour taken to its limit rather than an unrelated flash of light. */
-.flash {
-  background: radial-gradient(
-    circle at 50% 50%,
-    #fff 0%,
-    #fff 28%,
-    #ffd9e6 50%,
-    var(--color-accent-bright) 80%,
-    #b5115b 100%
-  );
-}
-
-.rail-dot::after {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: var(--color-line-strong);
-  transition:
-    width 200ms var(--ease-out-soft),
-    height 200ms var(--ease-out-soft),
-    background-color 200ms var(--ease-out-soft);
-}
-.rail-dot:hover::after,
-.rail-dot[aria-current="true"]::after {
-  width: 8px;
-  height: 8px;
-  background: var(--color-accent);
-}
-.rail-label {
-  position: absolute;
-  right: 26px;
-  white-space: nowrap;
-  color: var(--color-muted);
+[data-js] .reveal {
   opacity: 0;
-  transition: opacity 200ms var(--ease-out-soft);
+  transform: translate3d(0, 1.25rem, 0);
 }
-.rail-dot:hover .rail-label,
-.rail-dot[aria-current="true"] .rail-label {
+
+[data-js] .reveal[data-shown="true"] {
   opacity: 1;
+  transform: none;
 }
 
-/* Reduced motion keeps the page, drops the ride: the flash never fires (see
-   flight.tsx), the scroll is not eased, and nothing that moves is blurred. */
 @media (prefers-reduced-motion: reduce) {
-  .glass-card {
-    transition: none;
+  [data-js] .reveal {
+    transform: none;
   }
-}
-
-/* The navbar is absolutely positioned so it scrolls away, which is right for
-   a document and wrong for a timeline — on the flight it would be gone for
-   the whole page after the first screen. Scoped with :has() so no other page
-   changes and the component keeps one implementation. */
-body:has(.flight) header {
-  position: fixed;
-}
-
-/* A directional scrim behind left-aligned copy. The glass covers panels, but
-   the problem and shift beats set their copy straight onto the field, and the
-   field is at its densest exactly there. Weighted to the copy side and gone
-   before the middle, so it lifts the words without flattening the disk. */
-.beat-scrim {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    100deg,
-    rgb(5 4 6 / 0.92) 0%,
-    rgb(5 4 6 / 0.82) 26%,
-    rgb(5 4 6 / 0.42) 48%,
-    rgb(5 4 6 / 0) 68%
-  );
 }

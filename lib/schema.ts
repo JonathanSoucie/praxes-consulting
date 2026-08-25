@@ -1,6 +1,7 @@
 import type { Faq } from "@/content/faqs";
 import type { TeamMember } from "@/content/team";
-import { industries, services } from "@/content/services";
+import { services } from "@/content/services";
+import { segments } from "@/content/segments";
 import { site } from "@/content/site";
 
 /**
@@ -47,9 +48,9 @@ export function organizationSchema(): Json {
     },
     // Geographic reach only. The verticals we serve are an audience, below.
     areaServed: { "@type": "Country", name: "Canada" },
-    audience: industries.map((industry) => ({
+    audience: segments.map((segment) => ({
       "@type": "BusinessAudience",
-      name: industry.name,
+      name: segment.name,
     })),
     knowsAbout: [
       ...services.map((service) => service.title),
@@ -187,5 +188,75 @@ export function articleSchema({
     publisher: { "@id": ORG_ID },
     isPartOf: { "@id": WEBSITE_ID },
     inLanguage: "en-CA",
+  };
+}
+
+/**
+ * Blog posts. BlogPosting rather than Article: it is the narrower type and
+ * carries the same fields, so there is no reason to give a crawler less
+ * information than we have. The author is a Person who works for the org
+ * rather than the org itself — the positioning depends on a named human
+ * making the arguments, and the markup should say the same thing the page
+ * does.
+ */
+export function blogPostingSchema({
+  headline,
+  description,
+  path,
+  datePublished,
+  author,
+  authorRole,
+  wordCount,
+}: {
+  headline: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  author: string;
+  authorRole: string;
+  wordCount?: number;
+}): Json {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${site.url}${path}#post`,
+    headline,
+    description,
+    url: `${site.url}${path}`,
+    datePublished,
+    dateModified: datePublished,
+    author: {
+      "@type": "Person",
+      name: author,
+      jobTitle: authorRole,
+      worksFor: { "@id": ORG_ID },
+    },
+    publisher: { "@id": ORG_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+    inLanguage: "en-CA",
+    ...(wordCount ? { wordCount } : {}),
+  };
+}
+
+/** A service page — one of the three things you can actually buy. */
+export function serviceSchema({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}): Json {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${site.url}${path}#service`,
+    name,
+    description,
+    url: `${site.url}${path}`,
+    provider: { "@id": ORG_ID },
+    areaServed: { "@type": "Country", name: "Canada" },
+    serviceType: "Business process automation",
   };
 }
