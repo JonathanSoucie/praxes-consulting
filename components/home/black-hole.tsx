@@ -3,98 +3,103 @@
 import * as React from "react";
 
 /**
- * The accretion disk behind the hero headline.
+ * A black hole: shadow, photon ring, and a lensed accretion disk.
  *
- * On a white page the hole is the page. There is no dark disc painted in the
- * middle — the middle is simply left empty, the disk is drawn as pink density
- * orbiting around it, and the headline sits in the void. That reads as a
- * black hole for the same reason the real ones are visible at all (you see
- * what is falling in, never the thing itself), and it is the only version
- * that keeps dark type over the artwork fully legible.
+ * The first version of this drew only an accretion disk and left the middle
+ * empty, on the reasoning that on a white page the hole can be the page. It
+ * was wrong, and the reason is worth writing down: what makes an image read
+ * as a black hole is not the disk. It is the SHADOW, and specifically the
+ * disk appearing to bend up over the top of it and under the bottom. Without
+ * that, a tilted ring of particles is a tilted ring of particles.
  *
- * Nothing here is a shader or a physics sim. It is a few hundred particles on
- * circular orbits, projected with a tilt and drawn as short streaks along
- * their direction of travel — streaks rather than dots, which is what reads
- * as orbital motion instead of as a field of speckles. Keplerian falloff
- * (speed goes as r^-1.5) does the rest: the inner orbits shear past the outer
- * ones, and the eye reads the shear as mass at the centre. The technique is
- * carried over from the retired flight home page (archive/flight/), retuned
- * for a light ground.
+ * So this draws the real thing, in five passes:
  *
- * Retuned specifically means: no additive blending. On black, additive is how
- * you get glow; on white it drives everything toward the paper and the disk
- * disappears. Here the particles are alpha-composited pink, so brightness
- * becomes ink density — where orbits crowd (the inner edge) the pink
- * accumulates and darkens, which is the same visual cue arriving by the
- * opposite route.
+ *   1. bloom       a soft wash so the object sits on the page
+ *   2. back-top    the far side of the disk, lensed UP over the shadow
+ *   3. back-under  its second image, bent DOWN beneath the shadow
+ *   4. shadow      the event horizon, opaque, plus the photon ring
+ *   5. front       the near side, passing in front of the shadow
+ *
+ * The lensing is faked, not traced. Rather than integrating null geodesics,
+ * far-side particles get a Gaussian lift whose width is about the shadow
+ * radius: far from centre the arc is an ordinary ellipse, and as it passes
+ * behind the hole it rises over it. That single term is what produces the
+ * silhouette everyone recognises, and it costs one exp() per sample.
+ *
+ * Keplerian falloff (speed goes as r^-1.5) makes the inner disk shear past
+ * the outer one, and the Doppler term brightens the limb turning toward the
+ * viewer — both carried over from the retired flight page in archive/.
+ *
+ * It is drawn above the headline rather than behind it. An opaque shadow and
+ * legible dark type cannot occupy the same pixels, and of the two the shadow
+ * is the part that is not negotiable.
  */
 
-/** Matches --color-page. The trail fade paints this over the last frame. */
+/** Matches --color-page. */
 const PAGE = "#fafafa";
+/** The event horizon. Near-black, carrying a trace of the accent's hue. */
+const VOID = "#141014";
 
-/* Inner to outer. The logo's three pinks, densest at the inner edge where the
-   orbits crowd — no fourth colour, and nothing paler than #FF6E9E, which is
-   already close to invisible on this ground. */
-const COLORS = ["#b5115b", "#d4145f", "#f8206d", "#ff6e9e"];
+/* Inner to outer. The logo's three pinks and nothing else — on a white ground
+   "hotter" has to mean more saturated rather than paler, so the vivid middle
+   pink sits at the inner edge and the pale one carries the rim. */
+const DISK = ["#f8206d", "#ff6e9e", "#ff6e9e"];
+/** Per-colour weight, inner to outer. */
+const BAND_A = [1, 0.8, 0.46];
 
-/** Disk extent, in orbital units. Scaled to the container at draw time. */
-const R_IN = 1.0;
-const R_OUT = 2.55;
-/**
- * How flat the disk sits — lower is more edge-on. Responsive, because a
- * fixed value does not survive the aspect change: 0.3 across a desktop hero
- * is a wide shallow disk, and the same 0.3 in a phone-width column collapses
- * to a 140px band whose arcs read as tufts of scribble at the left and right
- * edges rather than as one orbit. Narrow viewports get a rounder disk.
- */
-function tiltFor(w: number) {
-  return w < 700 ? 0.5 : 0.3;
-}
+/* Geometry, in units of the shadow radius.
+ *
+ * The disk has to run a long way wider than the lensing bends it, or the two
+ * envelopes meet and the silhouette closes into an eye. R_OUT at 3.3 against
+ * a LIFT of 1.3 did exactly that. At 6.2 the disk reads as a long flat band
+ * with a halo arcing over the middle of it, which is the shape everyone
+ * recognises.
+ *
+ * R_IN sits at 2.1 rather than against the horizon because a real disk stops
+ * at the innermost stable orbit, several times the shadow radius — the gap
+ * between the black disc and the first light is part of the look. */
+const R_SHADOW = 1;
+const R_IN = 2.1;
+const R_OUT = 6.2;
+/** How edge-on the disk sits. */
+const TILT = 0.14;
+/** How far the far side is lifted over the shadow, and how wide that bend is.
+ *  Tuned so the inner edge of the lensed arc clears the horizon by a little
+ *  and then hugs it, rather than floating clear of the shadow entirely. */
+const LIFT = 0.98;
+const SPREAD = 2;
 
-/**
- * Particles are bucketed by (colour, weight) at build time and drawn one
- * bucket per path. A disk dense enough to read as a surface rather than as
- * scratches needs a few thousand streaks, and a few thousand individual
- * stroke() calls is where a canvas stops holding 60fps. Batching turns that
- * into ALPHAS.length * COLORS.length strokes per frame — twelve — regardless
- * of how many particles are in them.
- */
-type Particle = {
-  r: number;
-  az: number;
-  spd: number;
-  /** Index into BUCKETS. */
-  b: number;
-};
+/** Points sampled along each streak. The lensed arc curves; two would chord it. */
+const SAMPLES = 3;
 
-/** Per-bucket weight. Index within a colour band. */
-const ALPHAS = [0.13, 0.21, 0.31];
-const WIDTHS = [0.8, 1.1, 1.6];
-const BUCKETS = COLORS.length * ALPHAS.length;
+const BACK_TOP = 0;
+const BACK_UNDER = 1;
+const FRONT = 2;
+/** Per-pass weight. The second image of the far side is the dimmer one, and
+ *  the near side is the brightest: it crosses the shadow, and against
+ *  near-black a low alpha turns pink into muddy dark streaks rather than the
+ *  bright band that is supposed to cut across the horizon. */
+const PASS_A = [0.55, 0.3, 0.95];
+
+type Particle = { r: number; az: number; spd: number; ci: number; w: number };
 
 function buildDisk(n: number): Particle[] {
   const out: Particle[] = new Array(n);
   for (let i = 0; i < n; i++) {
     // Biased inward: an even radial spread reads as a ring, not a disk.
-    const q = Math.pow(Math.random(), 1.6);
+    const q = Math.pow(Math.random(), 1.5);
     const r = R_IN + q * (R_OUT - R_IN);
-    // Colour tracks radius, with a little bleed so the bands do not stripe.
     const t = (r - R_IN) / (R_OUT - R_IN);
-    // Colour tracks radius, with a little bleed so the bands do not stripe.
     const ci = Math.min(
-      COLORS.length - 1,
-      Math.max(0, Math.round(t * (COLORS.length - 1) + (Math.random() - 0.5))),
-    );
-    // Inner orbits carry more weight; outer ones thin toward the rim.
-    const wi = Math.min(
-      ALPHAS.length - 1,
-      Math.max(0, Math.floor((1 - t) * ALPHAS.length * 0.85 + Math.random() * 0.9)),
+      DISK.length - 1,
+      Math.max(0, Math.round(t * (DISK.length - 1) + (Math.random() - 0.5) * 0.7)),
     );
     out[i] = {
       r,
       az: Math.random() * Math.PI * 2,
       spd: Math.pow(r, -1.5),
-      b: ci * ALPHAS.length + wi,
+      ci,
+      w: 0.7 + Math.random() * 1.1,
     };
   }
   return out;
@@ -113,9 +118,7 @@ export function BlackHole({ className }: { className?: string }) {
 
     let w = 0;
     let h = 0;
-    let dpr = 1;
     let particles: Particle[] = [];
-    let byBucket: Particle[][] = [];
     let raf = 0;
     let visible = true;
     let last = 0;
@@ -123,121 +126,135 @@ export function BlackHole({ className }: { className?: string }) {
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
       if (rect.width === 0) return;
-      // Cap the ratio: this is a soft, blurred-looking field, and rendering
-      // it at 3x on a phone costs three times the fill for no visible gain.
-      dpr = Math.min(devicePixelRatio || 1, 2);
+      const dpr = Math.min(devicePixelRatio || 1, 2);
       w = rect.width;
       h = rect.height;
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.fillStyle = PAGE;
-      ctx.fillRect(0, 0, w, h);
-      // Particle count follows area, so a wide desktop disk is not made of
-      // the same few hundred streaks a phone gets.
-      const target = Math.round(Math.min(4200, Math.max(700, (w * h) / 190)));
-      if (particles.length !== target) {
-        particles = buildDisk(target);
-        byBucket = Array.from({ length: BUCKETS }, () => [] as Particle[]);
-        for (const p of particles) byBucket[p.b].push(p);
-      }
+      const target = Math.round(Math.min(3000, Math.max(650, (w * h) / 170)));
+      if (particles.length !== target) particles = buildDisk(target);
     };
 
-    const frame = (now: number) => {
-      raf = requestAnimationFrame(frame);
-      if (!visible || w === 0) return;
+    /** Where a particle lands on screen, for a given pass. */
+    const project = (
+      pass: number,
+      az: number,
+      r: number,
+      unit: number,
+      cx: number,
+      cy: number,
+      out: { x: number; y: number },
+    ) => {
+      const px = Math.cos(az) * r;
+      const py = Math.sin(az) * r * TILT;
+      out.x = cx + px * unit;
+      if (pass === FRONT) {
+        out.y = cy + py * unit;
+        return;
+      }
+      // The bend. Widest at x = 0, which is where the far side passes behind
+      // the shadow and has to come out over the top of it.
+      const bulge = LIFT * Math.exp(-((px / SPREAD) * (px / SPREAD)));
+      out.y =
+        pass === BACK_TOP
+          ? cy + (py - bulge) * unit
+          : cy + (-py + bulge * 0.86) * unit;
+    };
 
-      // Clamp the step so a backgrounded tab does not resume by teleporting
-      // every particle a quarter turn around the disk.
-      const dt = Math.min(48, now - last || 16);
-      last = now;
+    const p0 = { x: 0, y: 0 };
 
-      // Trail: paint the page colour over the last frame at LOW alpha, so
-      // each streak decays behind its particle instead of being erased. At
-      // full alpha this is a clear, not a fade, and the disk renders as
-      // isolated specks — which is exactly what it did.
-      ctx.globalAlpha = 0.045;
+    const draw = (dt: number) => {
+      ctx.globalAlpha = 1;
       ctx.fillStyle = PAGE;
-      ctx.globalCompositeOperation = "source-over";
       ctx.fillRect(0, 0, w, h);
 
       const cx = w / 2;
       const cy = h / 2;
-      const tilt = tiltFor(w);
-      const unit = Math.min(
-        w / (R_OUT * 2.05),
-        h / (R_OUT * 2 * tilt * 1.6),
-      );
+      // Vertical extent is set by the lensed arc, not by the disk.
+      const unit = Math.min(w / (R_OUT * 2.1), h / 5);
+      const rs = R_SHADOW * unit;
+
+      // 1. Bloom.
+      const bloom = ctx.createRadialGradient(cx, cy, rs * 0.4, cx, cy, unit * 4.2);
+      bloom.addColorStop(0, "rgba(248,32,109,0.22)");
+      bloom.addColorStop(0.4, "rgba(248,32,109,0.10)");
+      bloom.addColorStop(1, "rgba(248,32,109,0)");
+      ctx.fillStyle = bloom;
+      ctx.fillRect(0, 0, w, h);
 
       ctx.lineCap = "round";
 
-      // Advance everything first, then draw a path per bucket.
-      for (const p of particles) p.az += p.spd * dt * 0.00042;
-
-      for (let b = 0; b < BUCKETS; b++) {
-        const bucket = byBucket[b];
-        if (bucket.length === 0) continue;
-        ctx.beginPath();
-        for (const p of bucket) {
-          const back = p.az - p.spd * dt * 0.00042;
-          ctx.moveTo(
-            cx + Math.cos(back) * p.r * unit,
-            cy + Math.sin(back) * p.r * unit * tilt,
-          );
-          ctx.lineTo(
-            cx + Math.cos(p.az) * p.r * unit,
-            cy + Math.sin(p.az) * p.r * unit * tilt,
-          );
+      const strokePass = (pass: number) => {
+        for (let ci = 0; ci < DISK.length; ci++) {
+          for (let side = 0; side < 2; side++) {
+            ctx.beginPath();
+            let any = false;
+            for (const p of particles) {
+              if (p.ci !== ci) continue;
+              const back = Math.sin(p.az) < 0;
+              if (pass === FRONT ? back : !back) continue;
+              // Doppler: the limb turning toward the viewer is the bright one.
+              if ((Math.cos(p.az) > 0 ? 0 : 1) !== side) continue;
+              const span = 0.05 + 0.3 / p.r;
+              for (let s = 0; s < SAMPLES; s++) {
+                const a = p.az - span * (1 - s / (SAMPLES - 1));
+                project(pass, a, p.r, unit, cx, cy, p0);
+                if (s === 0) ctx.moveTo(p0.x, p0.y);
+                else ctx.lineTo(p0.x, p0.y);
+              }
+              any = true;
+            }
+            if (!any) continue;
+            ctx.globalAlpha = PASS_A[pass] * BAND_A[ci] * (side === 0 ? 1 : 0.5);
+            ctx.strokeStyle = DISK[ci];
+            ctx.lineWidth = ci === 0 ? 1.5 : 1.1;
+            ctx.stroke();
+          }
         }
-        ctx.globalAlpha = ALPHAS[b % ALPHAS.length];
-        ctx.strokeStyle = COLORS[Math.floor(b / ALPHAS.length)];
-        ctx.lineWidth = WIDTHS[b % ALPHAS.length];
+      };
+
+      // 2 and 3. The far side, both of its images.
+      strokePass(BACK_TOP);
+      strokePass(BACK_UNDER);
+
+      // 4. The event horizon, and the photon ring hugging it.
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = VOID;
+      ctx.beginPath();
+      ctx.arc(cx, cy, rs, 0, Math.PI * 2);
+      ctx.fill();
+
+      for (let i = 2; i >= 0; i--) {
+        ctx.globalAlpha = i === 0 ? 0.95 : 0.3 / i;
+        ctx.strokeStyle = i === 0 ? "#f8206d" : "#ff6e9e";
+        ctx.lineWidth = unit * (0.035 + i * 0.075);
+        ctx.beginPath();
+        ctx.arc(cx, cy, rs + unit * (0.015 + i * 0.045), 0, Math.PI * 2);
         ctx.stroke();
       }
+
+      // 5. The near side, in front of everything.
+      strokePass(FRONT);
+
+      if (dt > 0) for (const p of particles) p.az += p.spd * dt * 0.00075;
     };
 
     resize();
 
     if (reduced) {
-      // One frame, held. The disk is still there and still says what it says;
-      // it just is not moving. Advance each particle once so the streaks have
-      // length rather than rendering as points.
-      last = 0;
-      const dt = 16;
-      const cx = w / 2;
-      const cy = h / 2;
-      const tilt = tiltFor(w);
-      const unit = Math.min(
-        w / (R_OUT * 2.05),
-        h / (R_OUT * 2 * tilt * 1.6),
-      );
-      ctx.lineCap = "round";
-      for (let b = 0; b < BUCKETS; b++) {
-        const bucket = byBucket[b];
-        if (bucket.length === 0) continue;
-        ctx.beginPath();
-        for (const p of bucket) {
-          const back = p.az;
-          p.az += p.spd * dt * 0.02;
-          ctx.moveTo(
-            cx + Math.cos(back) * p.r * unit,
-            cy + Math.sin(back) * p.r * unit * tilt,
-          );
-          ctx.lineTo(
-            cx + Math.cos(p.az) * p.r * unit,
-            cy + Math.sin(p.az) * p.r * unit * tilt,
-          );
-        }
-        ctx.globalAlpha = ALPHAS[b % ALPHAS.length] * 1.9;
-        ctx.strokeStyle = COLORS[Math.floor(b / ALPHAS.length)];
-        ctx.lineWidth = WIDTHS[b % ALPHAS.length];
-        ctx.stroke();
-      }
+      draw(0);
       return;
     }
 
-    // Stop the loop entirely once the hero has scrolled away. A canvas
-    // animating off-screen is pure battery.
+    const frame = (now: number) => {
+      raf = requestAnimationFrame(frame);
+      if (!visible || w === 0) return;
+      const dt = Math.min(48, now - last || 16);
+      last = now;
+      draw(dt);
+    };
+
     const io = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
@@ -259,22 +276,5 @@ export function BlackHole({ className }: { className?: string }) {
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden
-      className={className}
-      /* The hollow. A mask rather than an empty inner radius, because the
-         fade has to be gradual on both edges — a hard inner cutoff draws a
-         circle, which is exactly the thing that is supposed to be invisible.
-         Also fades the rim so the disk resolves into the page instead of
-         ending on a line. */
-      style={{
-        maskImage:
-          "radial-gradient(ellipse 54% 64% at 50% 50%, transparent 40%, rgba(0,0,0,0.4) 55%, #000 70%, #000 84%, transparent 100%)",
-        WebkitMaskImage:
-          "radial-gradient(ellipse 54% 64% at 50% 50%, transparent 40%, rgba(0,0,0,0.4) 55%, #000 70%, #000 84%, transparent 100%)",
-      }}
-    />
-  );
+  return <canvas ref={canvasRef} aria-hidden className={className} />;
 }

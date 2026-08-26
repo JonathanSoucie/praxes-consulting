@@ -253,34 +253,43 @@ The layout utilities — `container-page`, `container-wide`, `section-y`,
 `measure`, `display-hero`, `display-lg`, `display-md`, `eyebrow`, `figure-num`,
 `card`, `on-deep`, `reveal` — are all defined in the same file, below `@theme`.
 
-### The hero accretion disk
+### The hero black hole
 
-`components/home/black-hole.tsx`. A few thousand particles on circular orbits,
-projected with a tilt and drawn as short streaks along their direction of
-travel. Keplerian falloff (speed goes as r^-1.5) does the work — the inner
-orbits shear past the outer ones and the eye reads the shear as mass at the
-centre. The technique comes from the retired flight home page in `archive/`.
+`components/home/black-hole.tsx`. Canvas, drawn in five passes: a bloom, the
+far side of the disk lensed **up** over the shadow, its second image bent
+**down** beneath it, the event horizon plus photon ring, then the near side
+passing in front.
 
-Three things about it are deliberate:
+The first version drew only a disk and left the middle empty, on the reasoning
+that on a white page the hole can be the page. That was wrong and it is worth
+recording why: what makes an image read as a black hole is not the disk, it is
+the **shadow** — and specifically the disk bending over the top of it. Without
+that, a tilted ring of particles is a tilted ring of particles.
 
-- **There is no dark disc.** On a white page the hole is the page. The middle
-  is masked out and the headline sits in the void, which is both truer to the
-  metaphor and the only version where dark type over the artwork stays
-  legible — the contrast figures under *Design tokens* still hold because the
-  type is over bare page, not over pink.
-- **No additive blending.** On black, additive is how you get glow; on white
-  it drives everything toward the paper and the disk vanishes. Particles are
-  alpha-composited pink, so brightness becomes ink density: where orbits crowd
-  at the inner edge the pink accumulates and darkens.
-- **Draws are batched by bucket.** A disk dense enough to read as a surface
-  needs thousands of streaks, and thousands of `stroke()` calls is where a
-  canvas stops holding 60fps. Particles are bucketed by colour and weight at
-  build time and drawn one path per bucket — twelve strokes a frame regardless
-  of count.
+Things that are load-bearing if you retune it:
 
-It stops its rAF loop when the hero scrolls out of view, caps DPR at 2, and
-under `prefers-reduced-motion` renders a single held frame rather than nothing:
-the disk still says what it says, it just is not moving.
+- **The lensing is faked, not traced.** Far-side particles get a Gaussian lift
+  about as wide as the shadow: far from centre the arc is an ordinary ellipse,
+  and as it passes behind the hole it rises over it. That one term produces
+  the whole silhouette, for one `exp()` per sample.
+- **`R_OUT` must be several times `LIFT`.** At 3.3 against a lift of 1.3 the
+  disk and the lensed arc share an envelope and the object closes into an eye.
+  At 6.2 it reads as a long flat band with a halo over the middle.
+- **`R_IN` sits well outside the horizon.** A real disk stops at the innermost
+  stable orbit; the gap between the black disc and the first light is part of
+  the look.
+- **The near-side pass is the brightest.** It crosses the shadow, and against
+  near-black a low alpha turns pink into muddy dark streaks instead of the
+  bright band that should cut across the horizon.
+- **On white, hotter means more saturated, not paler.** The vivid middle pink
+  sits at the inner edge and the pale one carries the rim. No additive
+  blending — on black additive is how you get glow, on white it drives
+  everything toward the paper.
+
+It sits **above** the headline, not behind it: an opaque event horizon and
+legible dark type cannot share pixels. It stops its rAF loop when the hero
+scrolls out of view, caps DPR at 2, and under `prefers-reduced-motion` draws a
+single held frame rather than nothing.
 
 ### The scroll reveal
 

@@ -22,35 +22,27 @@ import { BlackHole } from "@/components/home/black-hole";
  * The italic is a real drawn italic (see the @font-face note in globals.css),
  * not a synthesised slant.
  *
- * The accretion disk sits behind the headline, centred on it, with its middle
- * masked out — so the type is over bare page, not over artwork, and the
- * contrast figures above still hold. See components/home/black-hole.tsx.
+ * The black hole sits above the headline rather than behind it — see the note
+ * at the top of components/home/black-hole.tsx for why that is not a layout
+ * preference.
  */
 export function Hero() {
   return (
-    <section className="relative isolate pt-36 pb-20 text-center sm:pt-44 lg:pt-52 lg:pb-28">
-      {/* Behind the type, with the masked hollow covering the headline and
-          the line under it. Wider than the container on purpose: the disk
-          should run past the text column and off the sides rather than
-          sitting in it like an illustration.
-
-          The height is set per breakpoint rather than once, because it is
-          what positions the disk's centre — and the headline's own centre
-          moves a long way between a 44px clamp floor on a phone and 108px on
-          a desktop. One height put the disk across the buttons on mobile. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-24 -z-10 h-[23rem] overflow-hidden sm:top-28 sm:h-[30rem] lg:top-32 lg:h-[42rem]"
-      >
-        <BlackHole className="mx-auto block h-full w-full max-w-[78rem]" />
-      </div>
-
+    <section className="relative pt-32 pb-20 text-center sm:pt-36 lg:pt-40 lg:pb-28">
       <Container>
         <p className="eyebrow text-muted">
           AI automation consulting · Ottawa, Canada
         </p>
 
-        <h1 className="display-hero mx-auto mt-8 max-w-[19ch]">
+        {/* Above the headline, not behind it. An opaque event horizon and
+            legible dark type cannot share pixels, and of the two the shadow
+            is the part that is not negotiable — it is what makes the object
+            read as a black hole at all. */}
+        <div className="mx-auto mt-8 h-40 w-full max-w-md sm:h-52 sm:max-w-xl lg:mt-10 lg:h-64 lg:max-w-3xl">
+          <BlackHole className="block size-full" />
+        </div>
+
+        <h1 className="display-hero mx-auto mt-10 max-w-[19ch] lg:mt-12">
           There&rsquo;s a <span className="text-pink-em">black hole</span> in
           your business.
         </h1>
