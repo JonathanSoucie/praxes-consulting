@@ -10,7 +10,6 @@ import { Results } from "@/components/home/results";
 import { QuoteBand } from "@/components/home/quote-band";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { Systems } from "@/components/home/systems";
-import { DataPractice } from "@/components/home/data-practice";
 import { Cta } from "@/components/sections/cta";
 import { site } from "@/content/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
@@ -48,6 +47,11 @@ export const metadata: Metadata = {
 /**
  * Home.
  *
+ * The home page is an index. Every band states its point in as few words as
+ * it can and hands off to the page that argues it — the long version of the
+ * problem is a post, of the audience a set of segment pages, of the results
+ * the case studies. Nothing here should be the only place a thing is said.
+ *
  * The order is the argument, and it is worth stating because it is easy to
  * rearrange into something worse:
  *
@@ -59,8 +63,7 @@ export const metadata: Metadata = {
  *   results     — numbers, one of which does not flatter us
  *   quote       — a named person at a named company
  *   how         — the commercial mechanics, before anyone has to ask
- *   systems     — connects to what you already run, with products named
- *   data        — what happens to your material
+ *   systems     — what it connects to and whose keys it runs on
  *   cta         — one action
  *
  * The two black bands (problem, results) and the dark closers are what carry
@@ -80,7 +83,6 @@ export default function HomePage() {
       <QuoteBand />
       <HowItWorks />
       <Systems />
-      <DataPractice />
       <Cta />
     </>
   );

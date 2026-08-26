@@ -27,8 +27,15 @@ const buttonVariants = cva(
         /* Secondary on the light ground. */
         outline:
           "border border-ink/20 bg-transparent text-ink hover:border-pink-3 hover:text-pink-ink",
-        /* On the deep ground: the polarity inverts. */
-        onDeep: "bg-page text-ink hover:bg-white",
+        /* On the deep ground: the polarity inverts.
+
+           The label is `text-deep`, NOT `text-ink`. This button only ever
+           appears inside `on-deep`, and that utility redefines --color-ink to
+           near-white for the copy around it — so `text-ink` on a white fill
+           rendered a blank white block with an invisible label. --color-deep
+           is not among the tokens `on-deep` overrides, which is what makes it
+           safe here. */
+        onDeep: "bg-page text-deep hover:bg-white",
         onDeepGhost:
           "border border-white/25 bg-transparent text-page hover:border-white/60 hover:bg-white/5",
         ghost: "text-ink hover:text-pink-ink",

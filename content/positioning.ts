@@ -103,14 +103,17 @@ export const audience = {
   forWho: [
     {
       title: "10 to 250 people",
+      short: "Big enough that one process eats real payroll. Small enough that someone can still describe it.",
       body: "Big enough that a single process consumes a real share of payroll, small enough that one person can still describe how the whole thing works. That second part matters more than the first.",
     },
     {
       title: "Running on tools that don't talk",
+      short: "A CRM, a ledger, a scheduler, an inbox — and a person in the middle being the integration.",
       body: "A CRM, an accounting package, a scheduler, a shared inbox, and a person in the middle acting as the integration. The more systems you have bought, the more likely this is the shape of your problem.",
     },
     {
-      title: "Owner-operated, or one decision away from it",
+      title: "Owner-operated, or close to it",
+      short: "Whoever feels the cost can approve the fix. Four committees is not our engagement.",
       body: "The person who feels the cost is the person who can approve the fix. Engagements that need four committees to sanction a change are not ones we are good at.",
     },
   ],
@@ -129,24 +132,28 @@ export const howItWorks = [
     n: "01",
     title: "Discovery call",
     tag: "Free · 15 min",
+    short: "A straight read on whether there is a case worth measuring.",
     body: "A short conversation about how the operation actually runs and where work queues up. If we cannot see a credible case, you get told that on this call rather than in a proposal three weeks later.",
   },
   {
     n: "02",
     title: "The audit",
     tag: "Paid · 1 week",
+    short: "We time the work and price it. A third of these say don't build.",
     body: "We sit with the people who do the work, time the steps, and price the waste at your own labour cost. You get a map of the pull ranked by what it costs a year, and a recommendation — including 'don't build', which is roughly a third of them.",
   },
   {
     n: "03",
     title: "Build and integration",
     tag: "Fixed price · 2–3 weeks",
+    short: "Into the tools you already run, tested against your real data.",
     body: "We build into the tools you already run rather than adding another one. Tested against your real data before it touches live work, and rolled out with the old process still running underneath as a fallback.",
   },
   {
     n: "04",
     title: "Escape velocity",
     tag: "Measured at 30 and 90 days",
+    short: "Re-measured against the baseline. You own everything.",
     body: "We re-measure the same metrics, with the same definitions, against the baseline the audit established. You own the system, the documentation and the admin access outright. We keep watching it, because an unwatched system drifts.",
   },
 ] as const;
@@ -190,22 +197,27 @@ export const integrations = [
 export const dataPractice = [
   {
     title: "It runs in your accounts",
+    short: "Your tenancy, your API keys, your storage.",
     body: "Wherever the tools allow it, the automation runs on your own tenancy, your own API keys and your own storage. We are a user on your systems, not a middleman holding your data on ours.",
   },
   {
     title: "Scoped to the workflow",
+    short: "Access per process, not per company.",
     body: "Access is granted per process, not per company. An invoice pipeline gets the invoice mailbox and the accounting ledger, and it does not get your HR folder because nobody had time to work out the permissions.",
   },
   {
     title: "Nothing trains a public model",
+    short: "Zero-retention endpoints, provider named in the audit.",
     body: "Your documents, customers and figures are not used to train anyone's model, ours included. Where a third-party model is in the path we use the zero-retention endpoints and name the provider in the audit before you sign anything.",
   },
   {
     title: "A person on anything uncertain",
+    short: "A confidence gate you set, not one we hide.",
     body: "Every pipeline has a confidence gate. Below the threshold, the item routes to a human queue instead of being guessed at, and the threshold is a number you set rather than one we hide.",
   },
   {
     title: "You keep the keys",
+    short: "Admin access and docs at handover. End it and it still runs.",
     body: "At handover you get the admin access, the documentation, the prompts and the integration credentials. If you end the engagement tomorrow, the system keeps running and you can hand it to anyone.",
   },
 ] as const;

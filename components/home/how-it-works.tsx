@@ -1,15 +1,16 @@
 import { Container, Section } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { SeeMore } from "@/components/section-more";
 import { howItWorks } from "@/content/positioning";
 
 /**
  * How the engagement runs.
  *
- * The condensed version. Each of the three services carries its own, more
- * specific process on its page — this is the shape of the whole thing, and
- * its job is to make the commercial terms legible before anyone has to ask:
- * what is free, what is paid, how long it takes, and when we stop.
+ * Four steps, one line each, with the commercial terms attached — what is
+ * free, what is paid, how long it takes. That much has to be on the home page
+ * because it is the question a reader has before they will click anything.
+ * The rest of it is the audit page's process timeline.
  */
 export function HowItWorks() {
   return (
@@ -20,28 +21,30 @@ export function HowItWorks() {
             eyebrow="How it works"
             title="Four steps. The second one is where we"
             accent="tell you the truth."
-            standfirst="Nothing gets built before it has been measured, and nothing gets measured before you have been told what it will cost to measure it."
           />
         </Reveal>
 
-        <ol className="mt-16 lg:mt-24">
+        <ol className="mt-14 grid gap-px border-t border-line lg:mt-16 lg:grid-cols-4">
           {howItWorks.map((step, i) => (
             <Reveal as="li" key={step.n} delay={i * 70}>
-              <div className="grid gap-5 border-t border-line py-10 last:border-b lg:grid-cols-[auto_1fr_1.3fr] lg:gap-14 lg:py-14">
-                <span className="figure-num text-3xl text-pink-2 lg:text-4xl">
-                  {step.n}
-                </span>
-                <div>
-                  <h3 className="display-md">{step.title}</h3>
-                  <p className="mt-3 font-display text-sm tracking-wide text-pink-ink">
-                    {step.tag}
-                  </p>
-                </div>
-                <p className="text-lg text-ink-soft">{step.body}</p>
+              <div className="h-full border-b border-line py-8 lg:border-b-0 lg:border-r lg:pr-8 lg:last:border-r-0 lg:[&:not(:first-child)]:pl-8">
+                <span className="figure-num text-sm text-pink-2">{step.n}</span>
+                <h3 className="mt-4 font-display text-xl sm:text-2xl">
+                  {step.title}
+                </h3>
+                <p className="mt-2 font-ui text-sm text-pink-ink">{step.tag}</p>
+                <p className="mt-4 text-ink-soft">{step.short}</p>
               </div>
             </Reveal>
           ))}
         </ol>
+
+        <Reveal>
+          <SeeMore
+            href="/services/automations-audit"
+            label="How the audit runs"
+          />
+        </Reveal>
       </Container>
     </Section>
   );

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Container, Section } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { SeeMore } from "@/components/section-more";
 import { services } from "@/content/services";
 
 /**
@@ -28,12 +29,12 @@ export function Offer() {
           />
         </Reveal>
 
-        <div className="mt-16 lg:mt-24">
+        <div className="mt-14 lg:mt-18">
           {services.map((service, i) => (
             <Reveal key={service.slug} delay={i * 80}>
               <Link
                 href={`/services/${service.slug}`}
-                className="group grid gap-6 border-t border-line py-10 transition-colors last:border-b hover:bg-white lg:grid-cols-[auto_1fr_1.1fr_auto] lg:items-baseline lg:gap-12 lg:py-14"
+                className="group grid gap-6 border-t border-line py-8 transition-colors last:border-b hover:bg-white lg:grid-cols-[auto_1fr_1.1fr_auto] lg:items-baseline lg:gap-12 lg:py-10"
               >
                 <span className="figure-num text-2xl text-pink-2 lg:text-3xl">
                   0{i + 1}
@@ -53,6 +54,10 @@ export function Offer() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal>
+          <SeeMore href="/services" label="All three services" />
+        </Reveal>
       </Container>
     </Section>
   );
