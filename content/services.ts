@@ -33,10 +33,35 @@ export type StepPanel =
       bars: { label: string; value: number; note?: string; muted?: boolean }[];
     };
 
+/**
+ * The glyph shown in the chip above a step's heading. A string rather than an
+ * imported icon component: this file is plain data, and lib/schema.ts imports
+ * it to build JSON-LD — pulling React components in here would drag the whole
+ * icon set into a module that only wants strings. The mapping to real icons
+ * lives in components/process/process-steps.tsx.
+ */
+export type StepIcon =
+  | "users"
+  | "timer"
+  | "calculator"
+  | "ranking"
+  | "route"
+  | "target"
+  | "branches"
+  | "plug"
+  | "gate"
+  | "compare"
+  | "measure"
+  | "audience"
+  | "approve"
+  | "send"
+  | "revenue";
+
 export type ProcessStep = {
   n: string;
   title: string;
   body: string;
+  icon: StepIcon;
   /** The one thing the client is left holding after this step. */
   output?: string;
   panel: StepPanel;
@@ -100,6 +125,7 @@ export const services: Service[] = [
       {
         n: "01",
         title: "We sit with the people who do the work",
+        icon: "users",
         body:
           "Not the org chart, and not the process document — the people. Documented processes describe what should happen; the black hole is made almost entirely of what actually happens. Every workaround in your operation exists because somebody needed it, and none of them are written down.",
         output: "A path map of the real process, exceptions included",
@@ -117,6 +143,7 @@ export const services: Service[] = [
       {
         n: "02",
         title: "We time the steps",
+        icon: "timer",
         body:
           "Every hand-off, every re-entry, every wait. Waiting counts: the days a file sits open because it is blocked on something is usually a bigger number than the handling time everybody assumes is the problem, and it is invisible in a timesheet.",
         output: "Handling time and dead time, per step",
@@ -134,6 +161,7 @@ export const services: Service[] = [
       {
         n: "03",
         title: "We price it at your cost, not ours",
+        icon: "calculator",
         body:
           "Hours become money using your loaded labour cost, your volumes and your seasonality. The model states its assumptions on the same page as its conclusion, so you can argue with it — and clients do, which is the point. A number you cannot interrogate is a sales tool, not a finding.",
         output: "A cost model with every assumption stated",
@@ -151,6 +179,7 @@ export const services: Service[] = [
       {
         n: "04",
         title: "We rank it by what it takes a year",
+        icon: "ranking",
         body:
           "Every candidate process, ordered by annual cost against the effort to fix it. This is usually where the surprise is. The process people complain about is rarely the expensive one — complaining tracks how annoying work is, not how much of it there is.",
         output: "A ranked map of every candidate",
@@ -168,6 +197,7 @@ export const services: Service[] = [
       {
         n: "05",
         title: "We recommend a sequence — or tell you not to build",
+        icon: "route",
         body:
           "What to do first, what to do after it, and what to leave alone. Roughly a third of audits recommend against building: the process is about to change, the volume is too low, or the fix is a policy change that costs nothing. You paid for an accurate answer, and that is one of the accurate answers.",
         output: "A sequence, a fixed price, and a stated case for not proceeding",
@@ -209,6 +239,7 @@ export const services: Service[] = [
       {
         n: "01",
         title: "One process, the one that costs most",
+        icon: "target",
         body:
           "Not a platform, not a transformation. One process, chosen because the audit put the biggest annual number against it. Automating three things badly at once is the most reliable way to end up back on spreadsheets in six months.",
         output: "A scoped process with a baseline attached",
@@ -226,6 +257,7 @@ export const services: Service[] = [
       {
         n: "02",
         title: "Map the path, including what goes wrong",
+        icon: "branches",
         body:
           "The happy path takes an afternoon to map. The exceptions take the rest of the week, and they are the reason automation projects fail — a system that handles the standard case and falls over on the other fifteen percent creates more work than it removes, because now somebody is doing the hard cases and supervising a robot.",
         output: "Every branch, with an owner for each exception",
@@ -242,6 +274,7 @@ export const services: Service[] = [
       {
         n: "03",
         title: "Build into the tools you already run",
+        icon: "plug",
         body:
           "Into your CRM, your accounting package, your inbox — not a new dashboard your team has to remember to open. The measure of whether this worked is that nobody had to change what they open in the morning.",
         output: "A working pipeline in your own accounts",
@@ -258,6 +291,7 @@ export const services: Service[] = [
       {
         n: "04",
         title: "Put a confidence gate on it",
+        icon: "gate",
         body:
           "Every item gets a confidence score, and anything under the threshold routes to a person instead of being guessed at. You set the threshold. Set it high at go-live and walk it down as the numbers come in — that is what makes the first month survivable.",
         output: "A review queue, and a threshold you control",
@@ -275,6 +309,7 @@ export const services: Service[] = [
       {
         n: "05",
         title: "Run both, then switch",
+        icon: "compare",
         body:
           "The new path runs alongside the old one, on the same live work, until the outputs agree. Nobody is asked to trust it on the strength of a demo. If it disagrees with the humans, the humans are usually right and we go back to step two.",
         output: "A parallel-run report before anything is turned off",
@@ -291,6 +326,7 @@ export const services: Service[] = [
       {
         n: "06",
         title: "Measure at 30 and 90 days",
+        icon: "measure",
         body:
           "Same metrics, same definitions, against the baseline the audit established. At ninety days you get the comparison whether or not it flatters us. A system nobody is watching drifts, and drift is how these quietly stop paying back.",
         output: "A measured return against the original baseline",
@@ -398,6 +434,7 @@ export const services: Service[] = [
       {
         n: "01",
         title: "Start from what already converts",
+        icon: "target",
         body:
           "Your closed-won list, your best accounts, the emails that actually got replies. Automation multiplies whatever you point it at, which means pointing it at an untested message is the fastest way to burn a domain and a list at the same time.",
         output: "The segment and message worth multiplying",
@@ -415,6 +452,7 @@ export const services: Service[] = [
       {
         n: "02",
         title: "Build the audience from real customers",
+        icon: "audience",
         body:
           "Lists built and verified against the pattern of who already buys, not bought wholesale. For paid, the audiences are seeded from your own customer list rather than from a platform's guess at your market.",
         output: "A verified list, and audiences seeded from your own data",
@@ -431,6 +469,7 @@ export const services: Service[] = [
       {
         n: "03",
         title: "Generate, then approve",
+        icon: "approve",
         body:
           "Copy, creative and variants generated against your own material and your own voice — then held for one-click approval before anything goes out under your name. The approval step is not a formality; it is the thing standing between automation and embarrassment.",
         output: "A queue of drafts, none of them sent yet",
@@ -448,6 +487,7 @@ export const services: Service[] = [
       {
         n: "04",
         title: "Send at a pace the domain survives",
+        icon: "send",
         body:
           "Warmed sending infrastructure, volume ramped rather than switched on, and replies routed to a human immediately. The constraint on outbound has never been how fast you can generate messages — it is deliverability, and it is unforgiving.",
         output: "A ramp schedule and a reply path to a person",
@@ -465,6 +505,7 @@ export const services: Service[] = [
       {
         n: "05",
         title: "Judge it on revenue",
+        icon: "revenue",
         body:
           "Opens and impressions are how a channel reports on itself. We instrument through to closed revenue and kill what does not produce any, including things we built. A marketing system with no off-switch is a subscription, not an asset.",
         output: "Attribution through to closed-won, and a kill list",

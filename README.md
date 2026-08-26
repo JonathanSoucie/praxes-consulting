@@ -152,9 +152,19 @@ Append to the arrays in `content/services.ts` or `content/segments.ts`. The
 route, the nav and footer links, the cross-links on every other page and the
 sitemap entry are all generated from those arrays.
 
-For a service, the `process` array is what the scroll-driven stepper renders,
-and each step's `panel` is drawn from data — `flow`, `rows` or `bars`. Adding a
+For a service, the `process` array is what the timeline renders. Each step
+carries an `icon` (a name from the `StepIcon` union — the glyph lookup lives in
+`components/process/process-steps.tsx`, so this file stays free of React
+imports) and a `panel` drawn from data: `flow`, `rows` or `bars`. Adding a
 fourth panel shape means teaching `components/process/step-panel.tsx` about it.
+
+The timeline alternates copy and visual either side of a spine that is dashed
+ahead of the reader and solid behind them. It replaced a sticky two-column
+version — steps on the left, one pinned visual on the right that swapped as
+each step became live — which had a specific failure: the visual changed while
+the reader was mid-paragraph, so what they were reading about and what was on
+screen were often one step apart. Pairing each step with its own visual removes
+the desync at the cost of vertical space.
 
 ### Hidden sections
 
@@ -277,7 +287,7 @@ components/
   section-heading.tsx     SectionHeading + Eyebrow
   reveal.tsx              scroll reveal — see the note above
   home/                   the home page sections, one file each
-  process/                process-steps.tsx (the scroll-driven stepper)
+  process/                process-steps.tsx (the alternating timeline)
                           step-panel.tsx    (flow / rows / bars visuals)
   blog/                   post-body.tsx, rich-text.tsx
   layout/                 navbar (fixed), footer, logo
