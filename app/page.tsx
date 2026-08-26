@@ -8,6 +8,7 @@ import { Audience } from "@/components/home/audience";
 import { Offer } from "@/components/home/offer";
 import { Results } from "@/components/home/results";
 import { QuoteBand } from "@/components/home/quote-band";
+import { Alternatives } from "@/components/home/alternatives";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { Systems } from "@/components/home/systems";
 import { DataPractice } from "@/components/home/data-practice";
@@ -58,6 +59,8 @@ export const metadata: Metadata = {
  *   offer       — the three things, numbered, because the order matters
  *   results     — numbers, one of which does not flatter us
  *   quote       — a named person at a named company
+ *   alts        — what you would consider instead of us, and when to
+ *                 actually take it (the black ground again)
  *   how         — the commercial mechanics, before anyone has to ask
  *   systems     — connects to what you already run, with products named
  *   data        — what happens to your material
@@ -78,6 +81,7 @@ export default function HomePage() {
       <Offer />
       <Results />
       <QuoteBand />
+      <Alternatives />
       <HowItWorks />
       <Systems />
       <DataPractice />

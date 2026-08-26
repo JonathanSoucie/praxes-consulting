@@ -67,6 +67,11 @@ The copy is written to be realistic, not to be true. Replace it:
   Publishing them as-is presents fabricated endorsements as genuine.
 - **`content/case-studies/*.ts`** — invented clients and figures. Same rule.
 - **`content/stats.ts`** — invented aggregate figures.
+- **`content/alternatives.ts`** — the cost figures are indicative Ottawa-market
+  ranges, not quotes. Note the rule at the top of that file before editing it:
+  every alternative needs a `verdict` capable of sending the reader elsewhere.
+  If no entry could plausibly lose an engagement, it is a rigged comparison
+  table and is worth less than no section at all.
 - **`content/positioning.ts`** — the `cost` ranges on `symptoms` are
   illustrative of typical audit findings, not measured client averages. Keep
   them as ranges or replace them with your own.
@@ -121,6 +126,8 @@ content/
   positioning.ts      THE SPINE — the named enemy, the coined term, the
                       problem symptoms, the audience, how it works, the
                       integration list, the data commitments
+  alternatives.ts     the competitive alternatives, named — what each one is
+                      genuinely better at and when to choose it over us
   site.ts             company details, navigation, feature flags, CTA labels
   services.ts         the three services, each with its process steps and
                       examples (drives /services and /services/[slug])
