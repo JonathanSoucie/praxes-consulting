@@ -4,6 +4,7 @@ import { ArrowDown } from "lucide-react";
 import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/container";
+import { BlackHole } from "@/components/home/black-hole";
 
 /**
  * The hero.
@@ -20,10 +21,30 @@ import { Container } from "@/components/container";
  * size only, where its 4.0:1 on the page ground clears AA for large text.
  * The italic is a real drawn italic (see the @font-face note in globals.css),
  * not a synthesised slant.
+ *
+ * The accretion disk sits behind the headline, centred on it, with its middle
+ * masked out — so the type is over bare page, not over artwork, and the
+ * contrast figures above still hold. See components/home/black-hole.tsx.
  */
 export function Hero() {
   return (
-    <section className="relative pt-36 pb-20 text-center sm:pt-44 lg:pt-52 lg:pb-28">
+    <section className="relative isolate pt-36 pb-20 text-center sm:pt-44 lg:pt-52 lg:pb-28">
+      {/* Behind the type, with the masked hollow covering the headline and
+          the line under it. Wider than the container on purpose: the disk
+          should run past the text column and off the sides rather than
+          sitting in it like an illustration.
+
+          The height is set per breakpoint rather than once, because it is
+          what positions the disk's centre — and the headline's own centre
+          moves a long way between a 44px clamp floor on a phone and 108px on
+          a desktop. One height put the disk across the buttons on mobile. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-24 -z-10 h-[23rem] overflow-hidden sm:top-28 sm:h-[30rem] lg:top-32 lg:h-[42rem]"
+      >
+        <BlackHole className="mx-auto block h-full w-full max-w-[78rem]" />
+      </div>
+
       <Container>
         <p className="eyebrow text-muted">
           AI automation consulting · Ottawa, Canada

@@ -253,6 +253,35 @@ The layout utilities — `container-page`, `container-wide`, `section-y`,
 `measure`, `display-hero`, `display-lg`, `display-md`, `eyebrow`, `figure-num`,
 `card`, `on-deep`, `reveal` — are all defined in the same file, below `@theme`.
 
+### The hero accretion disk
+
+`components/home/black-hole.tsx`. A few thousand particles on circular orbits,
+projected with a tilt and drawn as short streaks along their direction of
+travel. Keplerian falloff (speed goes as r^-1.5) does the work — the inner
+orbits shear past the outer ones and the eye reads the shear as mass at the
+centre. The technique comes from the retired flight home page in `archive/`.
+
+Three things about it are deliberate:
+
+- **There is no dark disc.** On a white page the hole is the page. The middle
+  is masked out and the headline sits in the void, which is both truer to the
+  metaphor and the only version where dark type over the artwork stays
+  legible — the contrast figures under *Design tokens* still hold because the
+  type is over bare page, not over pink.
+- **No additive blending.** On black, additive is how you get glow; on white
+  it drives everything toward the paper and the disk vanishes. Particles are
+  alpha-composited pink, so brightness becomes ink density: where orbits crowd
+  at the inner edge the pink accumulates and darkens.
+- **Draws are batched by bucket.** A disk dense enough to read as a surface
+  needs thousands of streaks, and thousands of `stroke()` calls is where a
+  canvas stops holding 60fps. Particles are bucketed by colour and weight at
+  build time and drawn one path per bucket — twelve strokes a frame regardless
+  of count.
+
+It stops its rAF loop when the hero scrolls out of view, caps DPR at 2, and
+under `prefers-reduced-motion` renders a single held frame rather than nothing:
+the disk still says what it says, it just is not moving.
+
 ### The scroll reveal
 
 `components/reveal.tsx` plus the `.reveal` rules in `globals.css`. Two things
@@ -294,6 +323,8 @@ components/
   section-heading.tsx     SectionHeading + Eyebrow
   reveal.tsx              scroll reveal — see the note above
   home/                   the home page sections, one file each
+                          black-hole.tsx — the canvas accretion disk behind
+                          the hero headline (see note below)
   process/                process-steps.tsx (the alternating timeline)
                           step-panel.tsx    (flow / rows / bars visuals)
   blog/                   post-body.tsx, rich-text.tsx
