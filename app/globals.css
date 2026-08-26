@@ -45,6 +45,18 @@
   font-style: normal;
   font-display: swap;
 }
+/* The one italic on the site. Supreme ships a real one, so the emphasis in
+   the hero's second line is a drawn italic rather than a slant the browser
+   synthesises — which on a geometric grotesque at display size is very
+   visibly wrong. Only the 500 is fetched, because that is the weight every
+   heading uses and the italic appears in exactly one place. */
+@font-face {
+  font-family: "Supreme";
+  src: url("/fonts/Supreme-500-italic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
 @font-face {
   font-family: "Supreme";
   src: url("/fonts/Supreme-700.woff2") format("woff2");
@@ -312,9 +324,9 @@
 /* The hero line. The only place on the site that goes this big. */
 @utility display-hero {
   font-family: var(--font-display);
-  font-size: clamp(3.25rem, 10.2vw, 9.5rem);
-  line-height: 0.93;
-  letter-spacing: -0.042em;
+  font-size: clamp(2.75rem, 7.4vw, 6.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.038em;
   font-weight: 500;
 }
 

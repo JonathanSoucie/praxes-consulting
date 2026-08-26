@@ -8,54 +8,48 @@ import { Container } from "@/components/container";
 /**
  * The hero.
  *
- * Two jobs in one screen: what the problem is, and what we do about it. It
- * used to carry a third — a strip qualifying the reader on size, sequencing
- * and what we turn down — which said true things in the wrong place. The
- * qualification now happens where a reader who is still interested will
- * actually read it, in the audience section further down.
+ * Centred, and deliberately short: a headline naming the enemy, a second line
+ * saying what it costs and what we do about it, and one action. Everything
+ * that used to sit beside it — the definition of the black hole, the
+ * qualification strip — is either further down the page or gone. The
+ * definition in particular was duplicated verbatim in the problem section
+ * two screens below, and the section is where it belongs.
  *
- * The type is the design. There is no artwork behind it and no card around
- * it, because the section below this one is a film and two competing focal
- * points in the first two screens is one too many.
+ * The emphasis colours follow the brand rule rather than being chosen per
+ * word: main pink carries the emphasised fragment of an H1 or H2, at display
+ * size only, where its 4.0:1 on the page ground clears AA for large text.
+ * The italic is a real drawn italic (see the @font-face note in globals.css),
+ * not a synthesised slant.
  */
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-36 pb-20 sm:pt-44 lg:pt-52 lg:pb-28">
+    <section className="relative pt-36 pb-20 text-center sm:pt-44 lg:pt-52 lg:pb-28">
       <Container>
         <p className="eyebrow text-muted">
           AI automation consulting · Ottawa, Canada
         </p>
 
-        <h1 className="display-hero mt-8 max-w-[16ch]">
-          Every business has a <span className="text-pink-em">black hole</span>.
+        <h1 className="display-hero mx-auto mt-8 max-w-[19ch]">
+          There&rsquo;s a <span className="text-pink-em">black hole</span> in
+          your business.
         </h1>
 
-        <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
-          <p className="text-xl leading-[1.5] text-ink-soft sm:text-2xl">
-            The repetitive work nobody designed. It accumulated one workaround
-            at a time, it has never been measured, and it takes its cut of
-            every week — whether or not the week was profitable.
-          </p>
+        <h2 className="display-md mx-auto mt-9 max-w-[24ch] font-normal">
+          It eats <span className="text-pink-em">hours</span> every week.
+          <span className="mt-2 block italic">
+            We find it, name it, and close it.
+          </span>
+        </h2>
 
-          <div className="lg:pt-2">
-            <p className="text-lg text-ink-soft">
-              We find it, price it at your own labour cost, and automate it.
-              Then we tell you what it was worth.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <BookACall size="lg" withArrow />
-              <Button asChild variant="outline" size="lg">
-                <Link href="/services/automations-audit">
-                  How the audit works
-                </Link>
-              </Button>
-            </div>
-            <BookingNote className="mt-5" />
-          </div>
+        <div className="mt-11 flex flex-wrap items-center justify-center gap-4">
+          <BookACall size="lg" withArrow />
+          <Button asChild variant="outline" size="lg">
+            <Link href="/services/automations-audit">How the audit works</Link>
+          </Button>
         </div>
+        <BookingNote className="mt-5" />
 
-        <p className="mt-16 flex items-center gap-3 font-ui text-sm text-muted lg:mt-20">
+        <p className="mt-16 inline-flex items-center gap-3 font-ui text-sm text-muted lg:mt-20">
           <ArrowDown aria-hidden className="size-4" />
           Ninety seconds on what this actually looks like
         </p>
