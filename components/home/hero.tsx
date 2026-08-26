@@ -10,39 +10,33 @@ import { BlackHole } from "@/components/home/black-hole";
  * The hero.
  *
  * Centred, and deliberately short: a headline naming the enemy, a second line
- * saying what it costs and what we do about it, and one action. Everything
- * that used to sit beside it — the definition of the black hole, the
- * qualification strip — is either further down the page or gone. The
- * definition in particular was duplicated verbatim in the problem section
- * two screens below, and the section is where it belongs.
+ * saying what it costs and what we do about it, one action, and then the
+ * thing itself.
+ *
+ * The black hole is a full-bleed band under the copy rather than an element
+ * in the stack. Two placements were tried and both were wrong for the same
+ * reason — its shadow is opaque, so anything sharing those pixels is lost.
+ * Above the headline it read as a graphic on a shelf, a bounded card with air
+ * on either side; as a backdrop behind everything it swallowed the booking
+ * note and the film cue. Given its own width at the foot of the section it is
+ * the payoff to the sentence above it, and it hands off directly into the
+ * dark sections that follow.
  *
  * The emphasis colours follow the brand rule rather than being chosen per
  * word: main pink carries the emphasised fragment of an H1 or H2, at display
  * size only, where its 4.0:1 on the page ground clears AA for large text.
  * The italic is a real drawn italic (see the @font-face note in globals.css),
  * not a synthesised slant.
- *
- * The black hole sits above the headline rather than behind it — see the note
- * at the top of components/home/black-hole.tsx for why that is not a layout
- * preference.
  */
 export function Hero() {
   return (
-    <section className="relative pt-32 pb-20 text-center sm:pt-36 lg:pt-40 lg:pb-28">
+    <section className="relative pt-32 pb-0 text-center sm:pt-36 lg:pt-40">
       <Container>
         <p className="eyebrow text-muted">
           AI automation consulting · Ottawa, Canada
         </p>
 
-        {/* Above the headline, not behind it. An opaque event horizon and
-            legible dark type cannot share pixels, and of the two the shadow
-            is the part that is not negotiable — it is what makes the object
-            read as a black hole at all. */}
-        <div className="mx-auto mt-8 h-40 w-full max-w-md sm:h-52 sm:max-w-xl lg:mt-10 lg:h-64 lg:max-w-3xl">
-          <BlackHole className="block size-full" />
-        </div>
-
-        <h1 className="display-hero mx-auto mt-10 max-w-[19ch] lg:mt-12">
+        <h1 className="display-hero mx-auto mt-8 max-w-[19ch]">
           There&rsquo;s a <span className="text-pink-em">black hole</span> in
           your business.
         </h1>
@@ -61,8 +55,21 @@ export function Hero() {
           </Button>
         </div>
         <BookingNote className="mt-5" />
+      </Container>
 
-        <p className="mt-16 inline-flex items-center gap-3 font-ui text-sm text-muted lg:mt-20">
+      {/* Full width, and outside the container on purpose — the disk runs
+          nearly the whole viewport, and a gutter either side of it would put
+          the object back in a box.
+
+          Heights are per breakpoint because the object is width-constrained
+          on narrow screens and height-constrained on wide ones: one value
+          leaves it swimming in empty band on a phone. */}
+      <div className="mt-8 h-[13rem] w-full sm:mt-10 sm:h-[18rem] lg:mt-12 lg:h-[33rem]">
+        <BlackHole className="block size-full" />
+      </div>
+
+      <Container>
+        <p className="inline-flex items-center gap-3 pb-16 font-ui text-sm text-muted lg:pb-20">
           <ArrowDown aria-hidden className="size-4" />
           Ninety seconds on what this actually looks like
         </p>

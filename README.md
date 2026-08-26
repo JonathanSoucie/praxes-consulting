@@ -286,10 +286,20 @@ Things that are load-bearing if you retune it:
   blending — on black additive is how you get glow, on white it drives
   everything toward the paper.
 
-It sits **above** the headline, not behind it: an opaque event horizon and
-legible dark type cannot share pixels. It stops its rAF loop when the hero
-scrolls out of view, caps DPR at 2, and under `prefers-reduced-motion` draws a
-single held frame rather than nothing.
+**Placement.** It is a full-bleed band under the hero copy, outside the
+container. An opaque event horizon and legible dark type cannot share pixels,
+and two other placements failed on exactly that: above the headline it read as
+a graphic on a shelf, and as a backdrop behind everything it swallowed the
+booking note and the film cue. Band heights are set per breakpoint because the
+object is width-constrained on narrow screens and height-constrained on wide
+ones — one value leaves it swimming in empty band on a phone.
+
+The film placeholder below it used to carry its own horizon graphic; that came
+out when the hero took the image, since two in a row read as a repeat rather
+than a motif.
+
+It stops its rAF loop when the hero scrolls out of view, caps DPR at 2, and
+under `prefers-reduced-motion` draws a single held frame rather than nothing.
 
 ### The scroll reveal
 

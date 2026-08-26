@@ -93,44 +93,20 @@ function PlayMark() {
 /**
  * The unfilmed state.
  *
- * A horizon: light falling into a line, which is the same geometry as the
- * brand mark and the same idea as the copy above it. It is drawn in CSS
- * gradients rather than shipped as an image so it costs nothing and stays
- * sharp at any width.
+ * A plain dark panel and the control. It used to carry its own horizon —
+ * a lit line with a dark core — which was the same idea as the hero's black
+ * hole one screen above it, and two of them in a row read as a repeat rather
+ * than a motif. The hero owns that image now; this is just the frame the film
+ * will sit in.
  */
 function Placeholder() {
   return (
-    <div className="group relative size-full">
-      {/* The disk, seen edge-on. */}
-      <div
-        aria-hidden
-        className="absolute inset-x-[-10%] top-1/2 h-px -translate-y-1/2"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, #b5115b 18%, #f8206d 42%, #ff6e9e 50%, #f8206d 58%, #b5115b 82%, transparent)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-x-[-10%] top-1/2 h-40 -translate-y-1/2 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(248,32,109,0.55), rgba(181,17,91,0.18) 45%, transparent 72%)",
-        }}
-      />
-      {/* The hole itself. */}
-      <div
-        aria-hidden
-        className="absolute top-1/2 left-1/2 size-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#050406] shadow-[0_0_60px_20px_rgba(5,4,6,0.9)] sm:size-44"
-      />
-
-      <div className="absolute inset-0 grid place-items-center">
-        <div className="text-center">
-          <PlayMark />
-          <p className="mt-6 font-display text-sm tracking-[0.18em] text-white/60 uppercase">
-            Film in production
-          </p>
-        </div>
+    <div className="group relative grid size-full place-items-center">
+      <div className="text-center">
+        <PlayMark />
+        <p className="mt-6 font-ui text-sm tracking-[0.18em] text-white/55 uppercase">
+          Film in production
+        </p>
       </div>
     </div>
   );
