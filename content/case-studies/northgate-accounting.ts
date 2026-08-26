@@ -12,6 +12,13 @@ export const northgateAccounting: CaseStudy = {
   duration: "4 months",
   featured: true,
 
+  glance: {
+    built: "Requirement-aware intake with automated chasing",
+    value: "11",
+    unit: "hrs/wk",
+    label: "Returned to the practice, through its busiest quarter",
+  },
+
   challenge: [
     "Northgate is a 40-person accounting practice with a January that swallows the year. Onboarding a new client meant collecting a variable stack of documents, keying the contents into three separate systems, and chasing whatever was missing — usually by email, usually more than once.",
     "The partners believed the fix was document extraction: read the PDFs automatically and the problem goes away. They came to us asking us to build exactly that.",

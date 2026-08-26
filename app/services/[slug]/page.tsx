@@ -12,6 +12,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqList } from "@/components/sections/faq";
 import { processFaqs } from "@/content/faqs";
+import { audience } from "@/content/positioning";
 import { getService, services } from "@/content/services";
 import { segments } from "@/content/segments";
 import {
@@ -170,6 +171,25 @@ export default async function ServicePage({ params }: Params) {
                 </Reveal>
               ))}
             </div>
+          </Container>
+        </Section>
+      ) : null}
+
+      {/* The exclusion. It used to close the audience section on the home
+          page, where it read as pre-emptive — nobody three screens in has yet
+          asked whether they qualify. On the audit page they have. */}
+      {showFaqs ? (
+        <Section size="sm">
+          <Container>
+            <Reveal>
+              <div className="border-t border-line pt-14 lg:pt-20">
+                <p className="eyebrow text-muted">Before you book</p>
+                <h2 className="display-md mt-6">{audience.notForWho.title}</h2>
+                <p className="measure-wide mt-6 text-lg text-ink-soft">
+                  {audience.notForWho.body}
+                </p>
+              </div>
+            </Reveal>
           </Container>
         </Section>
       ) : null}

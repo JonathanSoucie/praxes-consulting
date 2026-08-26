@@ -96,6 +96,13 @@ Both are commercial licences and neither is in this repo. What ships instead:
   because it is only Helvetica on Apple hardware and is Arial everywhere else;
   one substitute that is wrong the same way for everyone is easier to design
   against.
+- **Interface —** Work Sans via `next/font`, on `--font-ui`. Eyebrows,
+  buttons, figures, nav, breadcrumbs, form labels and meta lines: anything the
+  reader operates or reads as a label rather than as a sentence. Supreme is a
+  display face and works against itself below ~18px, which is exactly where
+  labels live; Inter is drawn to disappear, which is right for a paragraph and
+  wrong for a control. To put Work Sans on body copy instead, repoint
+  `--font-sans`.
 
 To swap in the licensed files: drop the `.woff2` files into `public/fonts/` and
 change the five `src` lines in the `@font-face` block at the top of
@@ -211,12 +218,11 @@ easing. Change a token there and the whole site follows.
   white and `#FF6E9E` inside `on-deep`. Components ask for the job, not the
   swatch — so if you want to change which pink does what, change it there once.
 
-- **Type.** Supreme for every heading and every small tracked label
-  (`--font-display`), Inter for everything made of sentences (`--font-sans`).
-  Two families, no third: the `eyebrow` utility is Supreme rather than a mono
-  precisely so the site does not load a third face for eight words per page.
-  Tracking is attached to each `text-*` size in `@theme` rather than set per
-  component, because the right value is a function of size.
+- **Type.** Three faces with three jobs: Supreme (`--font-display`) for
+  headings, Inter (`--font-sans`) for sentences, Work Sans (`--font-ui`) for
+  the interface layer. See the *Fonts* section above for why the third one
+  earns its request. Tracking is attached to each `text-*` size in `@theme`
+  rather than set per component, because the right value is a function of size.
 
 - **Shape.** Square. Every `--radius-*` is `0px`, so elevation is carried by a
   hairline and a fill change. `rounded-full` does not resolve through those

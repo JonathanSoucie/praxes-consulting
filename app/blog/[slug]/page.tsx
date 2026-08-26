@@ -95,8 +95,8 @@ export default async function PostPage({ params }: Params) {
               {post.standfirst}
             </p>
 
-            <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-8 text-sm">
-              <span className="font-display text-base text-ink">
+            <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-8 font-ui text-sm">
+              <span className="text-base text-ink">
                 {post.author}
               </span>
               <span className="text-muted">{post.authorRole}</span>

@@ -18,6 +18,23 @@ export type CaseStudy = {
   /** Shown as the featured study on Home and the Case Studies index. */
   featured?: boolean;
 
+  /**
+   * The "what we built → what it produced" pair used in the home page results
+   * band. Only studies carrying a `glance` appear there, which is deliberate:
+   * the band is a sample of real outcomes, not a roll-up, and an engagement
+   * whose result does not reduce to one honest figure should be read in full
+   * rather than flattened into a tile.
+   */
+  glance?: {
+    /** The system, in one short phrase. */
+    built: string;
+    /** The headline figure. */
+    value: string;
+    unit?: string;
+    /** What the figure is, in the client's terms. */
+    label: string;
+  };
+
   /** Detail page body. Each is a short run of prose. */
   challenge: string[];
   /** What the audit actually found — usually not what the client expected. */

@@ -73,7 +73,7 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "text-[0.9375rem] transition-colors",
+                      "font-ui text-[0.9375rem] transition-colors",
                       isActive(item.href)
                         ? "text-pink-ink"
                         : "text-ink-soft hover:text-ink",
@@ -118,7 +118,7 @@ export function Navbar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "block py-5 font-display text-3xl transition-colors",
+                    "block py-5 font-ui text-3xl transition-colors",
                     isActive(item.href) ? "text-pink-ink" : "text-ink",
                   )}
                 >

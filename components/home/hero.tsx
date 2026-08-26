@@ -8,14 +8,14 @@ import { Container } from "@/components/container";
 /**
  * The hero.
  *
- * Three jobs in one screen, in the order a stranger needs them: what the
- * problem is, who it belongs to, and what we do about it. The audience line
- * is not decoration — a consultancy hero that does not qualify its reader
- * makes every reader do the work of deciding whether the page is for them,
- * and most of them decide it is not.
+ * Two jobs in one screen: what the problem is, and what we do about it. It
+ * used to carry a third — a strip qualifying the reader on size, sequencing
+ * and what we turn down — which said true things in the wrong place. The
+ * qualification now happens where a reader who is still interested will
+ * actually read it, in the audience section further down.
  *
  * The type is the design. There is no artwork behind it and no card around
- * it, because the section below this one is a video and two competing focal
+ * it, because the section below this one is a film and two competing focal
  * points in the first two screens is one too many.
  */
 export function Hero() {
@@ -55,31 +55,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* The qualification line. Deliberately specific enough to exclude
-            people — a hero that excludes nobody has not positioned anything. */}
-        <div className="mt-20 grid gap-px border-t border-line pt-px sm:grid-cols-3 lg:mt-28">
-          {[
-            {
-              k: "Who it's for",
-              v: "10–250 person operations running on systems that don't talk",
-            },
-            {
-              k: "Where we start",
-              v: "Operations first, marketing second — in that order, always",
-            },
-            {
-              k: "What we say no to",
-              v: "Roughly a third of our audits recommend not building at all",
-            },
-          ].map((item) => (
-            <div key={item.k} className="pt-8">
-              <p className="eyebrow text-pink-ink">{item.k}</p>
-              <p className="mt-3 max-w-[34ch] text-ink-soft">{item.v}</p>
-            </div>
-          ))}
-        </div>
-
-        <p className="mt-16 flex items-center gap-3 text-sm text-muted lg:mt-20">
+        <p className="mt-16 flex items-center gap-3 font-ui text-sm text-muted lg:mt-20">
           <ArrowDown aria-hidden className="size-4" />
           Ninety seconds on what this actually looks like
         </p>

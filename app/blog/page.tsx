@@ -56,7 +56,7 @@ export default function BlogPage() {
               href={`/blog/${featured.slug}`}
               className="group block border-t border-line pt-12 lg:pt-16"
             >
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-ui text-sm text-muted">
                 <span className="eyebrow text-pink-ink">{featured.tag}</span>
                 <span aria-hidden>·</span>
                 <time dateTime={featured.date}>
@@ -92,7 +92,7 @@ export default function BlogPage() {
                     href={`/blog/${post.slug}`}
                     className="group grid gap-5 py-10 lg:grid-cols-[14rem_1fr] lg:gap-16 lg:py-14"
                   >
-                    <div className="text-sm text-muted">
+                    <div className="font-ui text-sm text-muted">
                       <p className="eyebrow text-pink-ink">{post.tag}</p>
                       <p className="mt-3">
                         <time dateTime={post.date}>

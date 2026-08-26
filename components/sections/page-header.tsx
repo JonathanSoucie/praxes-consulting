@@ -37,7 +37,7 @@ export function PageHeader({
       <Container>
         {breadcrumbs?.length ? (
           <nav aria-label="Breadcrumb" className="mb-10">
-            <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted">
+            <ol className="flex flex-wrap items-center gap-1.5 font-ui text-sm text-muted">
               <li>
                 <Link href="/" className="transition-colors hover:text-ink">
                   Home

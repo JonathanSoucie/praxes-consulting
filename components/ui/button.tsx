@@ -5,13 +5,15 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  // Supreme, sentence case, not uppercase. The site's uppercase treatment is
+  // Work Sans, sentence case, not uppercase. The site's uppercase treatment is
   // reserved for eyebrows — using it on buttons as well leaves the page with
   // two competing families of small tracked caps and no hierarchy between
-  // them. `rounded-sm` resolves through the zeroed --radius scale, so buttons
-  // are square for the same reason the cards are, and would round again with
-  // them if that decision were ever reversed.
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-sm font-display font-medium whitespace-nowrap transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.1em] [&_svg]:shrink-0",
+  // them. The UI face rather than the display face because a button is
+  // something the reader operates: Supreme is drawn for headlines and starts
+  // working against itself at label sizes. `rounded-sm` resolves through the
+  // zeroed --radius scale, so buttons are square for the same reason the
+  // cards are, and would round again with them if that were ever reversed.
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-sm font-ui font-medium whitespace-nowrap transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.1em] [&_svg]:shrink-0",
   {
     variants: {
       variant: {

@@ -11,6 +11,13 @@ export const fairwayRidgeGolf: CaseStudy = {
   metric: "€64k revenue recovered",
   duration: "3 months",
 
+  glance: {
+    built: "Booking, cancellation fill and waitlist offers",
+    value: "64,000",
+    unit: "€",
+    label: "Recovered green fee revenue in the first full season",
+  },
+
   challenge: [
     "Fairway Ridge runs 18 holes with roughly 700 members and a meaningful visitor trade in season. The pro shop team of four handles bookings, member enquiries, competition entries and the shop itself — from one counter, with a phone that does not stop between April and September.",
     "Management's concern was staff cost during peak season. They wanted to know whether AI could take enough load off the counter to avoid hiring two seasonal staff.",

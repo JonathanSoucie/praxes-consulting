@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Work_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Navbar } from "@/components/layout/navbar";
@@ -17,6 +17,24 @@ import "./globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+/* The interface layer: eyebrows, buttons, figures, nav, form labels, and the
+   small meta lines under things. Not prose, and not display.
+
+   Three faces needs a justification, so: Supreme is a display face and starts
+   working against itself below about 18px, which is exactly where labels and
+   buttons live. Inter is drawn to disappear, which is right for a paragraph
+   and wrong for a control. Work Sans sits between them — enough character to
+   read as a deliberate choice at 12px uppercase, enough restraint to sit
+   under a Supreme headline without arguing with it. Its lining figures are
+   also even-width, which is what the results band needs.
+
+   To move it onto body copy instead, repoint --font-sans in globals.css. */
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  variable: "--font-work-sans",
   display: "swap",
 });
 
@@ -76,7 +94,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-CA" className={inter.variable}>
+    <html
+      lang="en-CA"
+      className={`${inter.variable} ${workSans.variable}`}
+    >
       <head>
         {/* Marks the document as script-enabled before first paint, which is
             what gates the scroll-reveal hidden state (see .reveal in

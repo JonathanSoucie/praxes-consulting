@@ -56,3 +56,13 @@ export function getRelatedCaseStudies(slug: string, limit = 2): CaseStudy[] {
 export function getCaseStudyIndustries(): string[] {
   return [...new Set(caseStudies.map((study) => study.industry))].sort();
 }
+
+/** Studies carrying a `glance`, for the home page results band. */
+export function getGlanceStudies(limit = 4): CaseStudy[] {
+  return caseStudies.filter((study) => study.glance).slice(0, limit);
+}
+
+/** The engagement that concluded "don't build", if there is one. */
+export function getDontBuildStudy(): CaseStudy | undefined {
+  return caseStudies.find((study) => !study.glance && /don't build/i.test(study.metric));
+}

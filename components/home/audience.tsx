@@ -6,10 +6,11 @@ import { audience } from "@/content/positioning";
 /**
  * Who this is for.
  *
- * The exclusion at the bottom is the load-bearing part. Three cards saying
- * who we work with are three cards a reader skims; the paragraph saying who
- * we turn down is the one that makes the other three credible, and it is the
- * only part of this section anyone quotes back to us on a call.
+ * Three columns, no exclusion panel. The "who we turn down" card that used to
+ * close this section is still in content/positioning.ts as
+ * `audience.notForWho` — it is good copy and it belongs on a page where
+ * someone has asked the question, which is /about or the audit page, not
+ * three screens into the home page where it reads as pre-emptive.
  */
 export function Audience() {
   return (
@@ -34,16 +35,6 @@ export function Audience() {
           ))}
         </div>
 
-        <Reveal delay={120}>
-          <div className="card mt-16 p-8 sm:p-12 lg:mt-20">
-            <h3 className="font-display text-2xl">
-              {audience.notForWho.title}
-            </h3>
-            <p className="measure-wide mt-5 text-lg text-ink-soft">
-              {audience.notForWho.body}
-            </p>
-          </div>
-        </Reveal>
       </Container>
     </Section>
   );

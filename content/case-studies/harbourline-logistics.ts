@@ -11,6 +11,13 @@ export const harbourlineLogistics: CaseStudy = {
   metric: "31 hrs → 40 min quote time",
   duration: "5 months",
 
+  glance: {
+    built: "Rate quoting driven straight off inbound email",
+    value: "17",
+    unit: "%",
+    label: "Higher tender win rate, on quotes returned in 40 minutes rather than 31 hours",
+  },
+
   challenge: [
     "Harbourline quotes multi-leg freight for mid-sized importers. Every quote requires pulling rates from carrier tariffs, checking surcharges, applying client-specific terms, and assembling it into a document — work spread across four people and three systems.",
     "The commercial team's complaint was simple: they were losing tenders to competitors who replied the same day.",

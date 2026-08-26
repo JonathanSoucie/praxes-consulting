@@ -11,6 +11,13 @@ export const meridianDental: CaseStudy = {
   metric: "+23% recall attendance",
   duration: "3 months",
 
+  glance: {
+    built: "Continuous recall and reactivation across four clinics",
+    value: "23",
+    unit: "%",
+    label: "More recall appointments actually attended",
+  },
+
   challenge: [
     "Meridian operates four clinics with a shared administrative team. Front desk staff handle check-in, payments, scheduling, insurance queries and recall — in that order of urgency, which meant recall came last and often not at all.",
     "The group wanted to know whether an AI receptionist could take phone volume off the front desk.",

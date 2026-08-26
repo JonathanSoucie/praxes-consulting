@@ -79,6 +79,11 @@
   --font-sans:
     var(--font-inter), "Helvetica Now Text", "Helvetica Neue", Helvetica, Arial,
     sans-serif;
+  /* The interface layer — see the note in app/layout.tsx for why there is a
+     third face and what belongs in it. Anything the reader operates or reads
+     as a label rather than as a sentence. */
+  --font-ui:
+    var(--font-work-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* --- Ink --------------------------------------------------------------
      Black is the brief's #181818, not a pure black — it is the same value as
@@ -336,7 +341,7 @@
    per page is not worth the request. Uppercase always needs tracking — the
    letters have no ascenders or descenders to separate them. */
 @utility eyebrow {
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-size: 0.75rem;
   font-weight: 500;
   line-height: 1;
@@ -347,10 +352,10 @@
 /* Numerals in the results band and the step counters. Supreme's figures are
    lining and even-width, so they hold a column without a mono. */
 @utility figure-num {
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-variant-numeric: tabular-nums lining-nums;
   font-weight: 500;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   line-height: 0.9;
 }
 
