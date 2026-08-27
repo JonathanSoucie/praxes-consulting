@@ -25,11 +25,7 @@ export function Hero() {
   return (
     <section className="relative pt-36 pb-20 text-center sm:pt-44 lg:pt-52 lg:pb-28">
       <Container>
-        <p className="eyebrow text-muted">
-          AI automation consulting · Ottawa, Canada
-        </p>
-
-        <h1 className="display-hero mx-auto mt-8 max-w-[19ch]">
+        <h1 className="display-hero mx-auto max-w-[19ch]">
           There&rsquo;s a <span className="text-pink-em">black hole</span> in
           your business.
         </h1>
