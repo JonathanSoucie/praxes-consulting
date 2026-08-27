@@ -6,12 +6,22 @@ import { Play } from "lucide-react";
 import { ContainerWide } from "@/components/container";
 
 /**
- * The film.
+ * The film, straddling the seam.
  *
- * A full-bleed 16:9 band under the hero. There is no film yet, so what ships
- * is the frame it will sit in, drawn properly rather than left as a grey box:
- * the black ground the finished piece will open on, the horizon line the
- * brand mark is built from, and a real play control.
+ * The panel is white and the problem section's black rises to meet it: the
+ * top 55% of the frame sits on the page, the bottom 45% on the black, and the
+ * boundary between the two runs across it. The join is visible in the gutters
+ * either side, where there is no panel covering it.
+ *
+ * Two things make that work without measuring anything in JavaScript:
+ *
+ *   - The riser is a child of a wrapper whose height IS the video's height
+ *     (the frame is the wrapper's only in-flow child, and it is `aspect-video`).
+ *     So `top: 55%` is 55% of the film, not 55% of the section — which is what
+ *     you get if the caption shares the containing block.
+ *   - It is anchored past the bottom with `bottom: -100vh` and the section
+ *     clips it, so the black ends exactly on the section edge and the problem
+ *     section below continues it seamlessly. No height to keep in step.
  *
  * TO ADD THE FILM
  *   1. Put the encoded file at /public/film/praxes.mp4 (H.264, and a .webm
@@ -29,50 +39,72 @@ import { ContainerWide } from "@/components/container";
 const SRC: string | null = null;
 const POSTER: string | null = null;
 
+/** Where the black crosses the frame. Just over half the film sits on white. */
+const SEAM = "55%";
+
 export function VideoBand() {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = React.useState(false);
 
   return (
-    <section aria-labelledby="film-heading" className="pb-24 lg:pb-32">
+    <section
+      aria-labelledby="film-heading"
+      className="relative overflow-hidden pb-10 lg:pb-14"
+    >
       <ContainerWide>
         <h2 id="film-heading" className="sr-only">
           How this works, in ninety seconds
         </h2>
 
-        <div className="relative aspect-video w-full overflow-hidden bg-deep">
-          {SRC ? (
-            <>
-              <video
-                ref={videoRef}
-                className="size-full object-cover"
-                poster={POSTER ?? undefined}
-                controls={playing}
-                playsInline
-                preload="metadata"
-                onPlay={() => setPlaying(true)}
-                onPause={() => setPlaying(false)}
-              >
-                <source src={SRC} type="video/mp4" />
-                Your browser does not support the video element.
-              </video>
-              {!playing ? (
-                <button
-                  type="button"
-                  onClick={() => videoRef.current?.play()}
-                  className="absolute inset-0 grid place-items-center bg-deep/30 transition-colors hover:bg-deep/15"
-                  aria-label="Play the film"
+        <div className="relative">
+          {/* The black, full-bleed. Its containing block is this wrapper,
+              whose height is the film's, so SEAM reads against the film. */}
+          <div
+            aria-hidden
+            className="absolute bg-deep"
+            style={{
+              top: SEAM,
+              bottom: "-100vh",
+              left: "calc(50% - 50vw)",
+              right: "calc(50% - 50vw)",
+            }}
+          />
+
+          <div className="card relative aspect-video w-full overflow-hidden">
+            {SRC ? (
+              <>
+                <video
+                  ref={videoRef}
+                  className="size-full object-cover"
+                  poster={POSTER ?? undefined}
+                  controls={playing}
+                  playsInline
+                  preload="metadata"
+                  onPlay={() => setPlaying(true)}
+                  onPause={() => setPlaying(false)}
                 >
-                  <PlayMark />
-                </button>
-              ) : null}
-            </>
-          ) : (
-            <Placeholder />
-          )}
+                  <source src={SRC} type="video/mp4" />
+                  Your browser does not support the video element.
+                </video>
+                {!playing ? (
+                  <button
+                    type="button"
+                    onClick={() => videoRef.current?.play()}
+                    className="group absolute inset-0 grid place-items-center bg-page/20 transition-colors hover:bg-page/5"
+                    aria-label="Play the film"
+                  >
+                    <PlayMark />
+                  </button>
+                ) : null}
+              </>
+            ) : (
+              <Placeholder />
+            )}
+          </div>
         </div>
 
-        <p className="mt-5 max-w-2xl text-sm text-muted">
+        {/* Below the seam, so this is on the black. */}
+        <p className="relative mt-5 max-w-2xl text-sm text-white/55">
           Ninety seconds: what an audit measures, what comes out of it, and
           what the build looks like inside a business that already has its own
           software.
@@ -84,53 +116,34 @@ export function VideoBand() {
 
 function PlayMark() {
   return (
-    <span className="grid size-20 place-items-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-transform duration-300 group-hover:scale-105 sm:size-24">
-      <Play aria-hidden className="size-7 translate-x-0.5 fill-white text-white" />
+    <span className="grid size-20 place-items-center rounded-full border border-ink/15 bg-page transition-transform duration-300 group-hover:scale-105 sm:size-24">
+      <Play aria-hidden className="size-7 translate-x-0.5 fill-ink text-ink" />
     </span>
   );
 }
 
 /**
- * The unfilmed state.
+ * The unfilmed state, on white.
  *
- * A horizon: light falling into a line, which is the same geometry as the
- * brand mark and the same idea as the copy above it. It is drawn in CSS
- * gradients rather than shipped as an image so it costs nothing and stays
- * sharp at any width.
+ * Just the control. Two attempts at giving it texture came out worse than
+ * nothing: a pink horizon line put a second horizontal a few dozen pixels off
+ * the seam behind it, which reads as a misalignment rather than as two
+ * things; and a soft radial bloom banded into concentric rings, because a
+ * long ramp between two nearly identical low alphas is exactly what 8-bit
+ * colour cannot render smoothly.
+ *
+ * The panel is doing enough on its own — it is a white frame lying across the
+ * boundary between the page and the black. Anything inside it competes with
+ * that.
  */
 function Placeholder() {
   return (
-    <div className="group relative size-full">
-      {/* The disk, seen edge-on. */}
-      <div
-        aria-hidden
-        className="absolute inset-x-[-10%] top-1/2 h-px -translate-y-1/2"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, #b5115b 18%, #f8206d 42%, #ff6e9e 50%, #f8206d 58%, #b5115b 82%, transparent)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-x-[-10%] top-1/2 h-40 -translate-y-1/2 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(248,32,109,0.55), rgba(181,17,91,0.18) 45%, transparent 72%)",
-        }}
-      />
-      {/* The hole itself. */}
-      <div
-        aria-hidden
-        className="absolute top-1/2 left-1/2 size-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#050406] shadow-[0_0_60px_20px_rgba(5,4,6,0.9)] sm:size-44"
-      />
-
-      <div className="absolute inset-0 grid place-items-center">
-        <div className="text-center">
-          <PlayMark />
-          <p className="mt-6 font-display text-sm tracking-[0.18em] text-white/60 uppercase">
-            Film in production
-          </p>
-        </div>
+    <div className="group relative grid size-full place-items-center">
+      <div className="relative text-center">
+        <PlayMark />
+        <p className="mt-6 font-display text-sm tracking-[0.18em] text-muted uppercase">
+          Film in production
+        </p>
       </div>
     </div>
   );
