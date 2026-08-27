@@ -22,10 +22,15 @@ export function Problem() {
         <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-24">
           <div>
             <Reveal>
+              {/* The accent starts at "more", not at "the". This column is
+                  too narrow for the line to set in two, so it breaks after
+                  "the" — and beginning the pink on an orphaned article at the
+                  end of a line reads as a mistake. Split here and the
+                  emphasis is a whole line. */}
               <SectionHeading
                 eyebrow="The problem"
-                title="It has mass. That is why it"
-                accent="never clears."
+                title="The busier you get, the"
+                accent="more it takes."
               />
             </Reveal>
             <Reveal delay={80}>
