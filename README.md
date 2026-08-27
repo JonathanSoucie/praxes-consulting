@@ -323,6 +323,13 @@ knows which provider is in use.
 - `next/font` (self-hosted, no layout shift), `next/image` for team photos,
   static rendering for every page except the contact API route.
 
+Button variants carry their measured ratios in comments at each variant in
+`components/ui/button.tsx`. Two rules there are worth keeping: a control's
+boundary needs 3:1, not just its label — an `ink/20` border composites to
+about #CDCDCD on the page, which is 1.5:1 and effectively invisible — and
+hover must never be the weakest state, which the primary CTA used to be when
+it brightened to #F8206D under a white label.
+
 Re-check contrast if you change any pink assignment — the table under *Design
 tokens* is the reason each one is where it is, and `--color-pink-2` in
 particular fails on white at any size.

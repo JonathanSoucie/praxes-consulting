@@ -13,25 +13,24 @@ import { cn } from "@/lib/utils";
  * the affordance is identical each time — a reader who learns it in the first
  * section should not have to notice it again.
  *
- * `tone` has to be passed because the button variants are ground-specific and
- * an outline button inherits nothing useful from `on-deep`: its border and
- * label are set from the light palette and both disappear on black.
+ * It takes no `tone`. The outline variant is built entirely from tokens that
+ * `on-deep` redefines, so it inverts by itself — black on white in the page's
+ * bands, white on black inside the dark ones — which is why the separate
+ * ghost variant it used to need on the deep ground is gone.
  */
 export function SeeMore({
   href,
   label,
-  tone = "light",
   className,
 }: {
   href: string;
   label: string;
-  tone?: "light" | "deep";
   className?: string;
 }) {
   return (
     <Button
       asChild
-      variant={tone === "deep" ? "onDeepGhost" : "outline"}
+      variant="outline"
       className={cn("group mt-12 lg:mt-14", className)}
     >
       <Link href={href}>

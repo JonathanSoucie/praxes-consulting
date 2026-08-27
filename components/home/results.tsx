@@ -65,7 +65,6 @@ export function Results() {
             A fifth has no figure, because we told them not to build.
           </p>
           <SeeMore
-            tone="deep"
             href="/case-studies"
             label="Read the case studies"
             className="mt-8"

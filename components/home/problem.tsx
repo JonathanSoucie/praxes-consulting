@@ -34,7 +34,6 @@ export function Problem() {
                 time, and it takes a fixed cut of every week.
               </p>
               <SeeMore
-                tone="deep"
                 href="/blog/nobody-designed-your-workflow"
                 label="Read the argument"
               />

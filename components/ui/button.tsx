@@ -18,27 +18,43 @@ const buttonVariants = cva(
     variants: {
       variant: {
         /* The primary CTA. Filled with the THIRD pink, not the first.
-           #F8206D behind white type is 4.0:1, which is under AA for a label
-           at button size; #B5115B is 6.3:1 and clears it comfortably. The
-           brief assigns the third pink to backgrounds, which is exactly what
-           this is — and hover brings the main pink in, so the hot colour is
-           still what the button does when you touch it. */
-        primary: "bg-pink-3 text-white hover:bg-pink",
-        /* Secondary on the light ground. */
-        outline:
-          "border border-ink/20 bg-transparent text-ink hover:border-pink-3 hover:text-pink-ink",
-        /* On the deep ground: the polarity inverts.
+           #F8206D behind white type is 4.0:1, under AA for a label at button
+           size; #B5115B is 6.3:1 and clears it.
 
-           The label is `text-deep`, NOT `text-ink`. This button only ever
-           appears inside `on-deep`, and that utility redefines --color-ink to
+           Hover goes to the near-black rather than to the hot pink. It used
+           to bring #F8206D in, which meant the button LOST contrast the
+           moment you pointed at it — 6.3:1 down to 4.0:1 — and hover is the
+           one state that should never be the weakest. --color-deep is not
+           overridden by `on-deep`, so this stays near-black wherever the
+           button lands: 17.5:1 with the white label. */
+        primary: "bg-pink-3 text-white hover:bg-deep",
+
+        /* Secondary, and ground-agnostic.
+
+           The border was `ink/20`, which composites to about #CDCDCD on the
+           page — 1.5:1, against the 3:1 that WCAG asks of a control boundary.
+           A button whose edge you cannot locate is not a low-contrast button,
+           it is an invisible one. It is now the full ink, 15.9:1.
+
+           Every colour here is a token that `on-deep` redefines, so the
+           variant inverts by itself: on the page it is black on white, inside
+           a dark band it is white on black, and the hover fill swaps ink and
+           card in both directions. That is what let `onDeepGhost` go — it was
+           this variant with a 2.3:1 border. */
+        outline:
+          "border border-ink bg-transparent text-ink hover:bg-ink hover:text-card",
+
+        /* Filled, on the deep ground.
+
+           The label is `text-deep`, NOT `text-ink`. This one only appears
+           inside `on-deep`, and that utility redefines --color-ink to
            near-white for the copy around it — so `text-ink` on a white fill
            rendered a blank white block with an invisible label. --color-deep
-           is not among the tokens `on-deep` overrides, which is what makes it
-           safe here. */
+           is not among the tokens it overrides, which is what makes it safe.
+           17.5:1, and hover holds it. */
         onDeep: "bg-page text-deep hover:bg-white",
-        onDeepGhost:
-          "border border-white/25 bg-transparent text-page hover:border-white/60 hover:bg-white/5",
-        ghost: "text-ink hover:text-pink-ink",
+
+        ghost: "text-ink hover:bg-ink/8 hover:text-pink-ink",
         link: "text-pink-ink underline-offset-4 hover:underline",
       },
       size: {
