@@ -52,11 +52,6 @@ export function getRelatedCaseStudies(slug: string, limit = 2): CaseStudy[] {
   return [...sameIndustry, ...rest].slice(0, limit);
 }
 
-/** Industries that actually have a case study, for the filter control. */
-export function getCaseStudyIndustries(): string[] {
-  return [...new Set(caseStudies.map((study) => study.industry))].sort();
-}
-
 /** Studies carrying a `glance`, for the home page results band. */
 export function getGlanceStudies(limit = 4): CaseStudy[] {
   return caseStudies.filter((study) => study.glance).slice(0, limit);

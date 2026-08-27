@@ -2,12 +2,11 @@ import type { MetadataRoute } from "next";
 
 import { posts } from "@/content/blog";
 import { caseStudies } from "@/content/case-studies";
-import { segments } from "@/content/segments";
 import { services } from "@/content/services";
 import { features, site } from "@/content/site";
 
 /**
- * Generated from the route list plus the four collections, so a new service,
+ * Generated from the route list plus the three collections, so a new service,
  * segment, post or study is in the sitemap the moment its content file is.
  *
  * `lastModified` is build time for everything except posts, which carry their
@@ -20,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes: { path: string; priority: number }[] = [
     { path: "", priority: 1 },
     { path: "/services", priority: 0.9 },
-    { path: "/industries", priority: 0.8 },
     { path: "/blog", priority: 0.7 },
     { path: "/about", priority: 0.7 },
     { path: "/contact", priority: 0.9 },
@@ -44,13 +42,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const segmentEntries = segments.map((segment) => ({
-    url: `${site.url}/industries/${segment.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
-
   const postEntries = posts.map((post) => ({
     url: `${site.url}/blog/${post.slug}`,
     lastModified: new Date(`${post.date}T12:00:00Z`),
@@ -70,7 +61,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticEntries,
     ...serviceEntries,
-    ...segmentEntries,
     ...postEntries,
     ...caseStudyEntries,
   ];

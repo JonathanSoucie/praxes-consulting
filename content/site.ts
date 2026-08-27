@@ -56,7 +56,6 @@ export const features = {
 /** Primary navigation. Order here is the order in the navbar and footer. */
 export const nav = [
   { href: "/services", label: "Services" },
-  { href: "/industries", label: "Industries" },
   ...(features.caseStudies
     ? [{ href: "/case-studies", label: "Case Studies" }]
     : []),

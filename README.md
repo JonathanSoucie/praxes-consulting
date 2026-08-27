@@ -70,8 +70,6 @@ The copy is written to be realistic, not to be true. Replace it:
 - **`content/positioning.ts`** — the `cost` ranges on `symptoms` are
   illustrative of typical audit findings, not measured client averages. Keep
   them as ranges or replace them with your own.
-- **`content/segments.ts`** — the `proof` figures on each segment are the same
-  kind of illustrative range.
 - **`app/privacy/page.tsx` / `app/terms/page.tsx`** — templates, not legal
   advice. Have them reviewed against your jurisdiction and actual practices.
 
@@ -124,7 +122,6 @@ content/
   site.ts             company details, navigation, feature flags, CTA labels
   services.ts         the three services, each with its process steps and
                       examples (drives /services and /services/[slug])
-  segments.ts         the per-industry pages (drives /industries/[slug])
   blog.ts             posts as typed blocks (drives /blog and /blog/[slug])
   stats.ts            headline / aggregate figures
   team.ts             team members + the values section
@@ -146,11 +143,11 @@ Inline markup inside a block is limited to `**strong**` and `[text](/path)`.
 Set `featured: true` on exactly one post to control which one leads the index
 and appears on `/about`.
 
-### Adding a service or an industry
+### Adding a service
 
-Append to the arrays in `content/services.ts` or `content/segments.ts`. The
-route, the nav and footer links, the cross-links on every other page and the
-sitemap entry are all generated from those arrays.
+Append to the array in `content/services.ts`. The route, the nav and footer
+links, the cross-links on the other service pages and the sitemap entry are
+all generated from it.
 
 For a service, the `process` array is what the timeline renders. Each step
 carries an `icon` (a name from the `StepIcon` union — the glyph lookup lives in
@@ -181,8 +178,9 @@ on the case studies index. Neither touches the content files.
 ### Adding a case study
 
 1. Copy an existing file in `content/case-studies/`, e.g. `northgate-accounting.ts`.
-2. Give it a unique `slug`, and an `industry` that **matches one of the names in
-   `segments`** (`content/segments.ts`) so the cross-links line up.
+2. Give it a unique `slug` and an `industry` — a free-text label shown on the
+   card and the detail page. Nothing resolves it to a route; the per-industry
+   pages it used to link to are gone.
 3. Import it in `content/case-studies/index.ts` and add it to the `caseStudies`
    array. Position in the array is display order.
 
@@ -270,7 +268,6 @@ app/
   page.tsx                Home — hero, film, problem, audience, offer,
                           results, quote, how it works, systems, data, CTA
   services/               index + [slug] (three services)
-  industries/             index + [slug] (five segments)
   blog/                   index + [slug]
   about/ contact/
   case-studies/           index + [slug] (feature-flagged)

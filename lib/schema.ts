@@ -1,7 +1,6 @@
 import type { Faq } from "@/content/faqs";
 import type { TeamMember } from "@/content/team";
 import { services } from "@/content/services";
-import { segments } from "@/content/segments";
 import { site } from "@/content/site";
 
 /**
@@ -46,12 +45,7 @@ export function organizationSchema(): Json {
       addressRegion: site.address.region,
       addressCountry: site.address.country,
     },
-    // Geographic reach only. The verticals we serve are an audience, below.
     areaServed: { "@type": "Country", name: "Canada" },
-    audience: segments.map((segment) => ({
-      "@type": "BusinessAudience",
-      name: segment.name,
-    })),
     knowsAbout: [
       ...services.map((service) => service.title),
       "Business process automation",

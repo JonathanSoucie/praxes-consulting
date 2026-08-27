@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
 import { Cta } from "@/components/sections/cta";
@@ -14,7 +13,6 @@ import { FaqList } from "@/components/sections/faq";
 import { processFaqs } from "@/content/faqs";
 import { audience } from "@/content/positioning";
 import { getService, services } from "@/content/services";
-import { segments } from "@/content/segments";
 import {
   breadcrumbSchema,
   faqPageSchema,
@@ -213,44 +211,18 @@ export default async function ServicePage({ params }: Params) {
         </Section>
       ) : null}
 
-      {/* Segment cross-links. A reader who has got this far is deciding
-          whether we understand their trade specifically, and this is the
-          only place on a service page that can answer that. */}
+      {/* The other two services. */}
       <Section>
         <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="In your industry"
-              title="What this looks like in"
-              accent="your trade."
-              standfirst="The mechanics are the same everywhere. What the black hole is made of is not."
-            />
-          </Reveal>
-          <div className="mt-14 flex flex-wrap gap-3">
-            {segments.map((segment) => (
-              <Link
-                key={segment.slug}
-                href={`/industries/${segment.slug}`}
-                className="group inline-flex items-center gap-2 border border-line px-5 py-3 transition-colors hover:border-pink-3 hover:text-pink-ink"
-              >
-                {segment.name}
-                <ArrowRight
-                  aria-hidden
-                  className="size-4 transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-20 grid gap-px border-t border-line sm:grid-cols-2">
+          <p className="eyebrow text-muted">Also</p>
+          <div className="mt-8 grid gap-px border-t border-line sm:grid-cols-2">
             {others.map((other) => (
               <Link
                 key={other.slug}
                 href={`/services/${other.slug}`}
                 className="group py-10 transition-colors sm:even:pl-10 sm:odd:pr-10"
               >
-                <p className="eyebrow text-muted">Also</p>
-                <h3 className="display-md mt-4 transition-colors group-hover:text-pink-ink">
+                <h3 className="display-md transition-colors group-hover:text-pink-ink">
                   {other.name}
                 </h3>
                 <p className="mt-4 text-ink-soft">{other.summary}</p>

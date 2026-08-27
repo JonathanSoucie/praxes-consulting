@@ -4,7 +4,6 @@ import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/container";
 import { LogoMark } from "@/components/layout/logo-mark";
 import { services } from "@/content/services";
-import { segments } from "@/content/segments";
 import { legalNav, nav, site } from "@/content/site";
 
 /**
@@ -22,7 +21,7 @@ export function Footer() {
   return (
     <footer className="on-deep">
       <Container>
-        <div className="grid gap-16 py-20 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-12 lg:py-28">
+        <div className="grid gap-16 py-20 lg:grid-cols-[1.6fr_1fr_1fr] lg:gap-12 lg:py-28">
           <div>
             <Link
               href="/"
@@ -67,16 +66,6 @@ export function Footer() {
                 key={service.slug}
                 href={`/services/${service.slug}`}
                 label={service.name}
-              />
-            ))}
-          </FooterColumn>
-
-          <FooterColumn title="Who we work with">
-            {segments.map((segment) => (
-              <FooterLink
-                key={segment.slug}
-                href={`/industries/${segment.slug}`}
-                label={segment.name}
               />
             ))}
           </FooterColumn>

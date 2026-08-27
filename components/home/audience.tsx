@@ -1,16 +1,16 @@
 import { Container, Section } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
-import { SeeMore } from "@/components/section-more";
 import { audience } from "@/content/positioning";
 
 /**
  * Who this is for.
  *
- * Three qualifiers, one line each. The paragraphs are on the segment pages,
- * written in each trade's own vocabulary — which is the version worth reading,
- * and the reason this band links to /industries rather than restating them
- * generically.
+ * Three qualifiers, one line each, and no way out of the band. It used to
+ * hand off to a set of per-industry pages; those are gone, and there is
+ * nothing else on the site that says more about who this is for than these
+ * three lines do. A "see more" pointing at a page that only repeats them
+ * would be worse than not offering one.
  */
 export function Audience() {
   return (
@@ -36,10 +36,6 @@ export function Audience() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal>
-          <SeeMore href="/industries" label="Find your industry" />
-        </Reveal>
       </Container>
     </Section>
   );
