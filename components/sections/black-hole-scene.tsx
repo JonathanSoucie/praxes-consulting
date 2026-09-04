@@ -567,10 +567,12 @@ function SolutionCard({
       )}
     >
       <div className="flex items-center gap-3">
-        <span className="grid size-10 shrink-0 place-items-center rounded-[10px] bg-accent-soft text-accent">
+        <span className="grid size-10 shrink-0 place-items-center rounded-[10px] bg-surface-3 text-white">
           <Icon aria-hidden className="size-5" />
         </span>
-        <p className="label-section text-accent">{solution.label}</p>
+        <p className="font-heading text-base font-bold text-white">
+          {solution.label}
+        </p>
       </div>
       <p className="mt-4 font-heading text-lg leading-snug font-semibold text-white">
         {solution.title}

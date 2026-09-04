@@ -272,9 +272,14 @@ export function SpacetimeHero() {
       className="relative isolate min-h-svh overflow-hidden bg-surface-2"
       aria-labelledby="hero-title"
     >
-      {/* The sheet. Runs to the bottom edge, where the black hole of the
+      {/* The sheet, inside a framed panel: a pair of hairlines set in from
+          the mat, with the grid clipped to them so nothing runs past the
+          margin. It runs to the bottom edge, where the black hole of the
           next scene crests up over it. */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div
+        className="pointer-events-none absolute inset-y-0 inset-x-[calc(var(--frame-x)+1.25rem)] overflow-hidden border-x border-line-strong md:inset-x-[calc(var(--frame-x)+3rem)]"
+        aria-hidden
+      >
         <canvas ref={canvasRef} className="block h-full w-full" />
         <div
           ref={markRef}
@@ -289,16 +294,6 @@ export function SpacetimeHero() {
           style={{ top: `${HORIZON * 100 - 8}%`, height: "14%" }}
         />
         <div className="absolute inset-x-0 bottom-0 h-[10%] bg-linear-to-t from-surface-2 to-transparent" />
-        {/* A pair of hairlines just inside the mat, so the hero reads as a
-            framed panel. They stop at the section's edge; the divider band
-            below carries the border across. */}
-        <div
-          className="absolute inset-y-0 border-x border-line-strong"
-          style={{
-            left: "calc(var(--frame-x) + 1rem)",
-            right: "calc(var(--frame-x) + 1rem)",
-          }}
-        />
       </div>
 
       {/* Copy sits in the dark above the horizon. The fixed-height block
