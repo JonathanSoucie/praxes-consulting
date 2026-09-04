@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import {
   Inter,
   JetBrains_Mono,
-  Playfair_Display,
   Space_Grotesk,
+  Unbounded,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -15,25 +15,26 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Body: highly legible sans. Pairs with the Playfair headings — the serif
-   carries the display voice, the body stays plain and readable. */
+/* Body: highly legible sans. Pairs with the wide grotesk headings — the
+   display face carries the voice, the body stays plain and readable. */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });
 
-/* Display: high-contrast serif for headings and stat figures. Variable font,
-   so every weight from 400-900 is available from one file. */
-const playfair = Playfair_Display({
+/* Display: a wide, heavy grotesk for the hero wordmark and section titles —
+   the extended bold of the reference layout. Variable font, so every weight
+   from 200-900 is available from one file. */
+const unbounded = Unbounded({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-unbounded",
   display: "swap",
 });
 
-/* Small headings: card and list titles, where Playfair's hairlines drop out.
-   A grotesk with squared-off details that answer the logo's wordmark, and one
-   that was drawn to stay legible at UI sizes rather than at poster sizes. */
+/* Small headings, nav and card titles: a grotesk with squared-off details
+   that answer the logo's wordmark, drawn to stay legible at UI sizes rather
+   than at poster sizes. */
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-heading-family",
@@ -106,7 +107,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
+      className={`${inter.variable} ${unbounded.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a

@@ -34,7 +34,7 @@ export function CtaSection({
         <Reveal className="mx-auto max-w-3xl text-center">
           <Eyebrow>{eyebrow}</Eyebrow>
 
-          <h2 className="mt-6 text-3xl leading-[1.12] text-accent sm:text-4xl lg:text-[2.875rem] lg:leading-[1.08]">
+          <h2 className="mt-6 text-3xl leading-[1.12] text-ink sm:text-4xl lg:text-[2.875rem] lg:leading-[1.08]">
             {title}
           </h2>
 

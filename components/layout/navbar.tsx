@@ -24,8 +24,8 @@ import { cn } from "@/lib/utils";
  * `top` is the frame's own thickness, so the bar lands exactly on the frame's
  * inner edge rather than being tucked under it.
  *
- * Type is the display serif, uppercase and tracked out, matching the hero
- * headline it sits above.
+ * Type is the heading grotesk, uppercase and tracked out. The display face
+ * is reserved for the hero wordmark and section titles.
  */
 export function Navbar() {
   const pathname = usePathname();
@@ -64,7 +64,7 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "font-display text-[0.9375rem] font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
+                      "font-heading text-[0.9375rem] font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
                       isActive(item.href)
                         ? "text-ink underline decoration-1 underline-offset-[6px]"
                         : // Ink at 72%, not --color-muted. Muted is a slate
@@ -134,7 +134,7 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "flex items-center rounded-lg px-4 py-3.5 font-display text-base font-semibold tracking-[0.1em] uppercase transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.99]",
+                      "flex items-center rounded-lg px-4 py-3.5 font-heading text-base font-semibold tracking-[0.1em] uppercase transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.99]",
                       isActive(item.href)
                         ? "bg-accent-soft text-accent-ink"
                         : "text-ink hover:bg-surface-2 active:bg-accent-soft active:text-accent-ink",

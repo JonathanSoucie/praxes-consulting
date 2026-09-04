@@ -19,7 +19,7 @@ export function Logo({
       href="/"
       aria-label={`${site.name} — home`}
       className={cn(
-        "group inline-flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight transition-opacity hover:opacity-80",
+        "group inline-flex items-center gap-2.5 font-display text-base font-bold tracking-tight transition-opacity hover:opacity-80",
         inverse ? "text-white" : "text-ink",
         className,
       )}

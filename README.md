@@ -73,6 +73,8 @@ component to change what the site says.
 ```
 content/
   site.ts             company details, navigation, primary CTA labels
+  manufacturing.ts    Home page: hero copy, the pain points inside the black
+                      hole, the solutions around it, and the "why" cards
   services.ts         service categories (problem → solution → ROI) + industries
   process.ts          the 5 engagement steps + investment framing
   stats.ts            headline / credibility / aggregate figures

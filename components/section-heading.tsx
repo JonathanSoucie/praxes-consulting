@@ -44,17 +44,18 @@ export function SectionHeading({
         </Eyebrow>
       ) : null}
 
-      {/* Uppercase display serif in the accent, per the reference layout.
-          --color-accent is the text-safe accent (5.7:1 light / 7.1:1 dark),
-          not --color-accent-bright, which is documented decoration-only. */}
+      {/* Heavy display grotesk in the page ink, sentence case — the
+          reference sets its titles white and bold and lets the eyebrow carry
+          the accent. `gradient` keeps the logo ramp for the one or two
+          headings that name something rather than label a section. */}
       <h2
         className={cn(
-          "font-display text-3xl leading-[1.06] uppercase sm:text-4xl lg:text-[2.875rem]",
+          "font-display text-3xl leading-[1.06] sm:text-4xl lg:text-[2.875rem]",
           inverse
             ? "text-white"
             : gradient
               ? "text-gradient animate-gradient-shift"
-              : "text-accent",
+              : "text-ink",
         )}
       >
         {title}

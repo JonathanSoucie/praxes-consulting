@@ -8,10 +8,10 @@ export const site = {
   legalName: "Praxes Consulting",
   /** Used in <title> templates and the footer. */
   /** Used in the <title>, OG tags and the OG card. Keep it in step with the
-      Home page headline in components/sections/hero.tsx. */
-  tagline: "Identifying where AI automation creates measurable return",
+      Home page hero copy in content/manufacturing.ts. */
+  tagline: "AI automation for manufacturers",
   description:
-    "Praxes is an AI consulting firm. We analyse your business, find the bottleneck that is actually costing you, implement AI to fix it, and prove the return in numbers.",
+    "Praxes is an AI automation consultancy for manufacturers. We find the hours your operation loses to quoting, scheduling, paperwork and rework, build the systems that take them back, and prove the return in your own numbers.",
   /** Canonical origin, no trailing slash. Drives canonicals, the sitemap and
       OG URLs, so it must match the live domain. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://praxes.io",

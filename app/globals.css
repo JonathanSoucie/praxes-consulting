@@ -78,13 +78,13 @@
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* High-contrast serif (Playfair Display) for display, legible sans for
-     body. Mono is used only for small technical labels inside the built data
-     visuals. */
+  /* Wide heavy grotesk (Unbounded) for display, legible sans for body. Mono
+     is used only for small technical labels inside the built data visuals. */
   --font-sans:
     var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  /* Small headings only. The display serif keeps the big ones — the split is
+  --font-display:
+    var(--font-unbounded), var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
+  /* Small headings only. The display face keeps the big ones — the split is
      by size, not by importance. */
   --font-heading:
     var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
@@ -188,11 +188,9 @@
      the size utility means every `text-*` class carries the right one and no
      component has to remember.
 
-     The ramp is deliberately gentler than it would be for a geometric sans:
-     the display face here is Playfair, a high-contrast serif that already
-     sets tight, and squeezing it collides the serifs (which is what the
-     earlier flat -0.022em got wrong). Body sizes take a small *positive*
-     value, which is what keeps small text legible. */
+     The ramp is kept gentle: Unbounded is already a wide face, and pulling
+     it tight closes its counters. Body sizes take a small *positive* value,
+     which is what keeps small text legible. */
   --text-xs--letter-spacing: 0.01em;
   --text-sm--letter-spacing: 0.006em;
   --text-base--letter-spacing: 0em;
@@ -287,9 +285,9 @@
   h4 {
     font-family: var(--font-display);
     color: var(--color-ink);
-    /* 600 on the Playfair variable axis: enough stroke contrast to carry the
-       display role without the 700+ weights' heavy blacks. */
-    font-weight: 600;
+    /* 700 on the Unbounded axis: the reference sets its titles heavy, and
+       the face is wide enough that anything lighter reads as thin. */
+    font-weight: 700;
     /* Fallback only, for a heading that carries no `text-*` size utility.
        Anything sized explicitly gets the size-matched value from the tracking
        ramp in @theme, which takes precedence over this. */
@@ -422,10 +420,9 @@
    layout. Applied to card and list-item headings only — not to status
    messages or people's names, where setting a name in caps reads wrong. */
 @utility card-title {
-  /* Space Grotesk rather than the display serif. Playfair is high-contrast:
-     its thins are hairlines, which is why it looks right at 46px and stops
-     working at 18 — the hairlines drop out, worst in the accent on a dark
-     ground. This face carries an even stroke all the way down.
+  /* Space Grotesk rather than the display face. Unbounded is wide: it looks
+     right at 46px and takes too much line at 18. This face carries the same
+     squared-off voice at a normal width.
 
      It still needs tracking, because uppercase always does: the letters have
      no ascenders or descenders to separate them. And 1.05 leading is a
