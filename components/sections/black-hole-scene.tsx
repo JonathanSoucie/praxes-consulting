@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -95,7 +97,36 @@ export function BlackHoleScene() {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   const [layout, setLayout] = React.useState<Layout | null>(null);
-  const [active, setActive] = React.useState<Solution>(solutions[0]);
+  // The solution whose card is open, and where the card goes. `anchor` is
+  // null on small screens, where the card sits statically under the chips.
+  const [card, setCard] = React.useState<{
+    solution: Solution;
+    left: number;
+    top: number;
+  } | null>(null);
+  const [chip, setChip] = React.useState<Solution>(solutions[0]);
+  const closeTimer = React.useRef<number | null>(null);
+
+  const stickyRef = React.useRef<HTMLDivElement>(null);
+
+  /** Open the card for a label, placed beside it and kept on screen. */
+  const openCard = React.useCallback((solution: Solution, el: HTMLElement) => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    const host = stickyRef.current;
+    if (!host) return;
+    const h = host.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    const x = r.left - h.left;
+    const y = r.top - h.top;
+    setCard({ solution, ...placeCard(x, y, r.width, r.height, h.width, h.height) });
+  }, []);
+  const scheduleClose = React.useCallback(() => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setCard(null), 160);
+  }, []);
+  const cancelClose = React.useCallback(() => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+  }, []);
 
   /* Scroll scrub ------------------------------------------------------- */
   React.useEffect(() => {
@@ -248,7 +279,7 @@ export function BlackHoleScene() {
       style={{ height: "340svh" }}
       aria-label="The problem, and what we build for it"
     >
-      <div className="sticky top-0 h-svh overflow-hidden">
+      <div ref={stickyRef} className="sticky top-0 h-svh overflow-hidden">
         {/* Sky */}
         <canvas
           ref={canvasRef}
@@ -349,97 +380,162 @@ export function BlackHoleScene() {
               <div className="lg:pt-2">
                 <p className="max-w-md text-sm leading-relaxed text-muted sm:text-base lg:text-lg">
                   Each one reads from the systems you already run and writes
-                  back to them. Pick one below to see what it does on the floor.
+                  back to them. Hover a label to see what it does on the floor.
                 </p>
-                {/* Detail for the active label. `aria-live` so keyboard and
-                    hover users hear the change. */}
-                <div
-                  aria-live="polite"
-                  className="mt-5 max-w-md border-l-2 border-accent pl-4"
-                >
-                  <p className="font-heading text-sm font-semibold text-white sm:text-base">
-                    {active.title}
-                  </p>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                    {active.body}
-                  </p>
-                </div>
               </div>
             </div>
 
             {/* Small screens: the orbit has no room for labels, so they
-                become a row of chips under the header instead. */}
-            <ul className="mt-8 flex flex-wrap gap-2 md:hidden">
-              {solutions.map((s) => (
-                <li key={s.label}>
-                  <SolutionButton
-                    solution={s}
-                    active={s === active}
-                    onActivate={setActive}
-                  />
-                </li>
-              ))}
-            </ul>
+                become a row of chips with the card fixed beneath them. */}
+            <div className="md:hidden">
+              <ul className="mt-8 flex flex-wrap gap-2">
+                {solutions.map((s) => (
+                  <li key={s.label}>
+                    <button
+                      type="button"
+                      aria-pressed={s === chip}
+                      onClick={() => setChip(s)}
+                      className={cn(
+                        "border px-3 py-1.5 font-heading text-sm font-semibold transition-colors duration-150 ease-out-soft",
+                        s === chip
+                          ? "border-accent bg-accent-soft text-accent-ink"
+                          : "border-line-strong text-ink-soft hover:border-accent hover:text-accent",
+                      )}
+                    >
+                      {s.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <SolutionCard solution={chip} className="mt-4" />
+            </div>
           </Container>
 
-          {/* Large screens: labels on the orbit. */}
+          {/* Large screens: labels on the orbit, each opening a card beside
+              itself on hover or focus. */}
           <ul className="hidden md:block">
             {labels.map(({ solution, x, y }) => (
               <li
                 key={solution.label}
                 className="absolute -translate-x-1/2 -translate-y-1/2"
                 style={{ left: x, top: y }}
+                onMouseLeave={scheduleClose}
               >
-                <SolutionButton
-                  solution={solution}
-                  active={solution === active}
-                  onActivate={setActive}
-                  onOrbit
-                />
+                <button
+                  type="button"
+                  aria-expanded={card?.solution === solution}
+                  onMouseEnter={(e) => openCard(solution, e.currentTarget)}
+                  onFocus={(e) => openCard(solution, e.currentTarget)}
+                  onBlur={scheduleClose}
+                  onClick={(e) => openCard(solution, e.currentTarget)}
+                  className={cn(
+                    // Page-coloured fill and padding are what knock the
+                    // dashes out behind the word, like the reference's arc.
+                    "bg-surface-2 px-3 py-1 font-heading text-lg font-semibold whitespace-nowrap transition-colors duration-150 ease-out-soft lg:text-xl",
+                    card?.solution === solution
+                      ? "text-accent"
+                      : "text-white hover:text-accent",
+                  )}
+                >
+                  {solution.label}
+                </button>
               </li>
             ))}
           </ul>
+
+          {/* The hover card. Stays open while the pointer is on it so the
+              link can be reached. */}
+          <div
+            className={cn(
+              "absolute hidden transition-[opacity,transform] duration-200 ease-out-soft md:block",
+              card
+                ? "translate-y-0 opacity-100"
+                : "pointer-events-none translate-y-1 opacity-0",
+            )}
+            style={{
+              left: card?.left ?? 0,
+              top: card?.top ?? 0,
+              width: CARD_W,
+            }}
+            onMouseEnter={cancelClose}
+            onMouseLeave={scheduleClose}
+            onFocus={cancelClose}
+            onBlur={scheduleClose}
+          >
+            {card ? <SolutionCard solution={card.solution} /> : null}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function SolutionButton({
+/** Card footprint used for placement. Height is an estimate; the card
+    is clamped to the viewport with this much room. */
+const CARD_W = 272;
+const CARD_H = 232;
+const GAP = 12;
+const PAD = 16;
+
+/** Where a label's card goes: beside the label, on the side away from the
+    hole, then pulled back inside the viewport. If there is no room on
+    that side at all — the lowest labels sit near the edges — the card goes
+    above the label instead. Coordinates are the card's top-left, relative
+    to the sticky viewport. */
+function placeCard(
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  vw: number,
+  vh: number,
+) {
+  const outwardLeft = x + w / 2 < vw / 2;
+  let left = outwardLeft ? x - GAP - CARD_W : x + w + GAP;
+  let top = y + h / 2 - CARD_H / 2;
+  if (left < PAD || left + CARD_W > vw - PAD) {
+    // Above, hanging off the label's centre toward the edge, which keeps
+    // it clear of the next label up the arc.
+    left = outwardLeft ? x + w / 2 - CARD_W : x + w / 2;
+    top = y - GAP - CARD_H;
+  }
+  left = Math.min(Math.max(left, PAD), vw - PAD - CARD_W);
+  top = Math.min(Math.max(top, PAD), vh - PAD - CARD_H);
+  return { left, top };
+}
+
+function slug(label: string) {
+  return label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+}
+
+function SolutionCard({
   solution,
-  active,
-  onActivate,
-  onOrbit = false,
+  className,
 }: {
   solution: Solution;
-  active: boolean;
-  onActivate: (s: Solution) => void;
-  onOrbit?: boolean;
+  className?: string;
 }) {
   return (
-    <button
-      type="button"
-      aria-pressed={active}
-      onClick={() => onActivate(solution)}
-      onMouseEnter={() => onActivate(solution)}
-      onFocus={() => onActivate(solution)}
+    <div
       className={cn(
-        "font-heading font-semibold whitespace-nowrap transition-colors duration-150 ease-out-soft",
-        onOrbit
-          ? // Page-coloured fill and padding are what knock the dashes out
-            // behind the word, like the reference's arc.
-            "bg-surface-2 px-3 py-1 text-lg lg:text-xl"
-          : "border px-3 py-1.5 text-sm",
-        active
-          ? onOrbit
-            ? "text-accent"
-            : "border-accent bg-accent-soft text-accent-ink"
-          : onOrbit
-            ? "text-white hover:text-accent"
-            : "border-line-strong text-ink-soft hover:border-accent hover:text-accent",
+        "border border-line-strong bg-surface p-4 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.7)]",
+        className,
       )}
     >
-      {solution.label}
-    </button>
+      <p className="label-tech text-accent">{solution.label}</p>
+      <p className="mt-2 font-heading text-base font-semibold text-white">
+        {solution.title}
+      </p>
+      <p className="mt-1.5 text-sm leading-relaxed text-muted">
+        {solution.body}
+      </p>
+      <Link
+        href={`/solutions/${slug(solution.label)}`}
+        className="mt-3 inline-flex items-center gap-1.5 font-mono text-[0.6875rem] tracking-[0.12em] text-accent uppercase underline-offset-4 hover:underline"
+      >
+        More details
+        <ArrowRight aria-hidden className="size-3.5" />
+      </Link>
+    </div>
   );
 }

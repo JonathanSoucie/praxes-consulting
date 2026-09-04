@@ -218,7 +218,7 @@ export function SpacetimeHero() {
       // sheet, so it reads as part of the scene.
       if (floor) {
         const size = (f / floor.d) * 0.84;
-        mark.style.transform = `translate(${floor.x - size / 2}px, ${floor.y - size * 0.74}px)`;
+        mark.style.transform = `translate(${floor.x - size / 2}px, ${floor.y - size * 0.84}px)`;
         mark.style.width = `${size}px`;
         mark.style.height = `${size}px`;
         mark.style.opacity = "1";
