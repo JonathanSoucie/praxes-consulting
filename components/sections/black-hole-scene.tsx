@@ -17,21 +17,25 @@ import { cn } from "@/lib/utils";
  * the hole shrinks to a dome resting on the bottom edge, a dashed orbit
  * appears around it, and the solutions are arranged along that orbit.
  *
- * Nothing is re-rendered per frame. Scroll progress is read in a rAF, turned
+ * Nothing is re-rendered per frame. Scroll progress is read in a rAF, eased
+ * toward (wheel scrolling arrives in steps; the camera should not), turned
  * into a scale and a centre, and written straight to styles through refs.
  * The stars on the canvas are positioned in the hole's own coordinate space
  * and scaled by the same factor, which is what sells the zoom — the hole does
  * not just get smaller, everything around it does too.
  *
  * Reduced motion: the scroll still scrubs (it is the user's own scrolling),
- * but the pointer parallax and the star drift are dropped.
+ * but the easing lag and the star drift are dropped.
  */
 
 /** Hold at each end of the scrub, as fractions of the section's travel, so
     the reader has time with the problem before it moves and with the
     solutions once it has settled. */
-const HOLD_IN = 0.16;
-const HOLD_OUT = 0.22;
+const HOLD_IN = 0.14;
+const HOLD_OUT = 0.2;
+/** Per-frame easing toward the scroll target. Lower is smoother and lags
+    more; 0.09 settles in roughly a third of a second at 60fps. */
+const EASE = 0.09;
 
 /** Orbit radius, as a multiple of the final hole radius. */
 const ORBIT = 1.58;
@@ -113,6 +117,9 @@ export function BlackHoleScene() {
     let dpr = 1;
     let raf = 0;
     let lastT = -1;
+    // Eased progress. Starts wherever the page is so a reload mid-scene
+    // does not play the whole move from the beginning.
+    let eased = -1;
 
     // Stars, in units of the final hole radius around its centre. Spread
     // wide enough that the sky is still populated when fully zoomed out.
@@ -162,11 +169,12 @@ export function BlackHoleScene() {
         "transform",
         `translate(${cx} ${cy}) scale(${s}) translate(${-cx} ${-L.cy1})`,
       );
-      const solIn = smooth((t - 0.62) / 0.38);
+      const solIn = smooth((t - 0.55) / 0.4);
       orbit.style.opacity = String(solIn);
 
-      problem.style.opacity = String(1 - smooth(t / 0.34));
-      problem.style.transform = `translateY(${-t * 60}px) scale(${1 + t * 0.12})`;
+      const probOut = smooth(t / 0.4);
+      problem.style.opacity = String(1 - probOut);
+      problem.style.transform = `translateY(${-probOut * 48}px) scale(${1 + probOut * 0.08})`;
       problem.style.pointerEvents = t < 0.3 ? "auto" : "none";
       sol.style.opacity = String(solIn);
       sol.style.transform = `translateY(${(1 - solIn) * 24}px)`;
@@ -194,8 +202,13 @@ export function BlackHoleScene() {
     };
 
     const tick = (time: number) => {
-      const raw = progress();
-      const t = smooth((raw - HOLD_IN) / (1 - HOLD_IN - HOLD_OUT));
+      const target = clamp01((progress() - HOLD_IN) / (1 - HOLD_IN - HOLD_OUT));
+      if (eased < 0 || reduceMotion) eased = target;
+      else {
+        eased += (target - eased) * EASE;
+        if (Math.abs(target - eased) < 0.0005) eased = target;
+      }
+      const t = smooth(eased);
       if (t !== lastT || !reduceMotion) {
         paint(t, time);
         lastT = t;
