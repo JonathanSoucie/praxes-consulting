@@ -330,6 +330,38 @@
   font-weight: 500;
 }
 
+/* The homepage hero, and nothing else.
+ *
+ * `display-hero` tops out at 6.75rem, which is right for a page header sitting
+ * on white with a breadcrumb above it. The homepage headline sits on black
+ * with an object under it and can take more weight than that without becoming
+ * the loudest thing in a quiet room — the room is not quiet any more. Tracking
+ * goes tighter with the size, as the ramp in @theme does everywhere else. */
+@utility display-hero-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7.6vw, 8rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+/* The hero's arc labels.
+ *
+ * Not the `eyebrow` utility, which is uppercase at 0.18em: seven of those
+ * around a circle crowd into each other at the sides on a phone, and the two
+ * longest ("Enquiry triage", "Reconciling") are the ones that collide. Sentence
+ * case at a shorter tracking buys back the width. #989296 on #181818 is 5.8:1,
+ * which clears AA at this size. */
+@utility arc-label {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: var(--color-muted);
+}
+
 /* Section headlines. */
 @utility display-lg {
   font-family: var(--font-display);

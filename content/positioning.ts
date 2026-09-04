@@ -95,6 +95,21 @@ export const symptoms = [
 ] as const;
 
 /**
+ * The labels orbiting the hero.
+ *
+ * The work being eaten, not the services. Five of them are the symptoms'
+ * own `fix` names, taken from the array above rather than retyped, so the
+ * ring cannot drift out of step with the list two screens below it. The last
+ * two are the verbs that recur across all five — they have no single symptom
+ * because they are what most of the symptoms are made of.
+ */
+export const pull = [
+  ...symptoms.map((symptom) => symptom.fix),
+  "Chasing",
+  "Reconciling",
+] as const;
+
+/**
  * Who this is for. Written as a qualification, with a genuine exclusion —
  * a page that says "we work with everyone" says nothing, and the exclusion
  * is what makes the inclusion credible.
