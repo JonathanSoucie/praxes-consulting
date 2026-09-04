@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowDown } from "lucide-react";
 
 import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Button } from "@/components/ui/button";
@@ -15,15 +14,25 @@ import { Container } from "@/components/container";
  * definition in particular was duplicated verbatim in the problem section
  * two screens below, and the section is where it belongs.
  *
+ * On the deep ground now, and the first of an unbroken dark run down to the
+ * end of the problem section. `on-deep` rather than a hand-set background,
+ * because it also remaps the ink tokens — so the headline, the muted booking
+ * note and the outline button all invert without any of them being told they
+ * moved.
+ *
  * The emphasis colours follow the brand rule rather than being chosen per
  * word: main pink carries the emphasised fragment of an H1 or H2, at display
- * size only, where its 4.0:1 on the page ground clears AA for large text.
- * The italic is a real drawn italic (see the @font-face note in globals.css),
- * not a synthesised slant.
+ * size only. It measures 4.3:1 on #181818, which clears AA for large text on
+ * this ground as it did on the light one.
+ *
+ * The film cue went with the film band it pointed at.
  */
 export function Hero() {
   return (
-    <section className="relative pt-36 pb-20 text-center sm:pt-44 lg:pt-52 lg:pb-28">
+    <section
+      data-hero="deep"
+      className="on-deep relative pt-36 pb-24 text-center sm:pt-44 lg:pt-52 lg:pb-32"
+    >
       <Container>
         <h1 className="display-hero mx-auto max-w-[19ch]">
           There&rsquo;s a <span className="text-pink-em">black hole</span> in
@@ -44,11 +53,6 @@ export function Hero() {
           </Button>
         </div>
         <BookingNote className="mt-5" />
-
-        <p className="mt-16 inline-flex items-center gap-3 font-ui text-sm text-muted lg:mt-20">
-          <ArrowDown aria-hidden className="size-4" />
-          Ninety seconds on what this actually looks like
-        </p>
       </Container>
     </section>
   );

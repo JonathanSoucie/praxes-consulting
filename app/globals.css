@@ -443,6 +443,29 @@
   --color-pink-soft: #2a1119;
 }
 
+/* The navbar over a dark first band.
+ *
+ * The bar is fixed and lives outside the page's sections, so it never
+ * inherits `on-deep` — on a route whose first band is dark its ink is still
+ * the light-ground #181818 and the wordmark disappears into the hero. It
+ * cannot simply be given `on-deep` either: that sets a background, and the
+ * bar has to stay transparent until something scrolls under it.
+ *
+ * So this remaps only the ink, only while the bar is transparent, and only on
+ * a page that has actually declared a dark hero. Scrolling adds
+ * `data-scrolled`, the bar goes opaque on --color-page, and the light values
+ * come back on their own.
+ *
+ * Keyed off the hero rather than the route so a second page with a dark first
+ * band gets it by adding one attribute, and a page that stops having one
+ * stops getting it. */
+body:has([data-hero="deep"]) header:not([data-scrolled]) {
+  --color-ink: #fafafa;
+  --color-ink-soft: #c6c0c3;
+  --color-muted: #989296;
+  --color-pink-ink: #ff6e9e;
+}
+
 /* A hairline that reads on either ground. */
 @utility rule {
   border-top: 1px solid var(--color-line);

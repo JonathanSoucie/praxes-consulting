@@ -10,6 +10,15 @@ import { features } from "@/content/site";
 /**
  * Results — four engagements, at a glance.
  *
+ * On the light ground. It used to be one of the page's black bands, but with
+ * the descent moved to the top of the page the numbers are what the reader
+ * has climbed out into — the payoff belongs in the light.
+ *
+ * The figures move from --color-pink-2 to --color-pink-ink with the ground.
+ * #FF6E9E is 7.0:1 on black and 2.4:1 on the page, so it cannot carry type
+ * here at any size; #B5115B is 6.3:1. That substitution is the rule written
+ * up under the palette in globals.css, and this is what it is for.
+ *
  * A figure, what it measures, and whose it is. Each is a link to the study,
  * and the band closes with the way into all of them. What used to sit under
  * each tile — the system we built, in a sentence — is the first thing the
@@ -24,7 +33,7 @@ export function Results() {
   if (studies.length === 0) return null;
 
   return (
-    <Section tone="deep" id="results">
+    <Section id="results">
       <Container>
         <Reveal>
           <SectionHeading
@@ -42,7 +51,7 @@ export function Results() {
                 href={`/case-studies/${study.slug}`}
                 className="group flex h-full flex-col border-b border-line py-8 sm:pr-8 lg:border-b-0"
               >
-                <p className="figure-num text-5xl text-pink-2 transition-colors group-hover:text-page">
+                <p className="figure-num text-5xl text-pink-ink">
                   {study.glance!.unit === "€" ? (
                     <span className="mr-0.5 text-3xl">€</span>
                   ) : null}
@@ -52,7 +61,7 @@ export function Results() {
                   ) : null}
                 </p>
                 <p className="mt-4 flex-1 text-ink">{study.glance!.label}</p>
-                <p className="mt-5 font-ui text-sm text-muted">
+                <p className="mt-5 font-ui text-sm text-muted transition-colors group-hover:text-ink">
                   {study.client}
                 </p>
               </Link>

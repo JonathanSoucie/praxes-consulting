@@ -20,9 +20,12 @@ import { cn } from "@/lib/utils";
  * stay reachable.
  *
  * It carries no material at the top of the page — over the hero it is just
- * type on the page colour, which is what keeps the first screen as open as
- * the design asks for. It takes on an opaque ground the moment anything
- * scrolls under it. Opaque and not translucent, deliberately: the bar passes
+ * type on whatever the hero's ground is, which is what keeps the first screen
+ * as open as the design asks for. It takes on an opaque ground the moment
+ * anything scrolls under it, and `data-scrolled` marks that so CSS can tell
+ * the two states apart (see the dark-hero rule in globals.css: the bar is
+ * outside the hero, so it does not inherit `on-deep` and its light-ground ink
+ * would otherwise vanish on a dark first band). Opaque and not translucent, deliberately: the bar passes
  * over the black sections, and a frosted bar there would drag the artwork up
  * behind the wordmark and lose the links entirely.
  */
@@ -54,6 +57,7 @@ export function Navbar() {
 
   return (
     <header
+      data-scrolled={scrolled ? "" : undefined}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300",
         scrolled

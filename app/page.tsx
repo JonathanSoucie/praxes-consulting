@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/json-ld";
 import { Hero } from "@/components/home/hero";
-import { VideoBand } from "@/components/home/video-band";
 import { Problem } from "@/components/home/problem";
 import { Audience } from "@/components/home/audience";
 import { Offer } from "@/components/home/offer";
@@ -47,41 +46,48 @@ export const metadata: Metadata = {
 /**
  * Home.
  *
- * The home page is an index. Every band states its point in as few words as
- * it can and hands off to the page that argues it — the long version of the
- * problem is a post, of the audience a set of segment pages, of the results
- * the case studies. Nothing here should be the only place a thing is said.
+ * The page opens inside the hole and climbs out of it.
  *
- * The order is the argument, and it is worth stating because it is easy to
- * rearrange into something worse:
+ * It used to open white and drop into two black bands, so the reader fell in
+ * twice and came back out twice. With the hero carrying a black hole that no
+ * longer works — the object needs a dark ground, and a dark ground at the top
+ * inverts everything under it. The inversion is the better structure anyway:
+ * one descent, one ascent, and the climb is something the reader performs by
+ * scrolling rather than something the copy asserts.
  *
- *   hero        — the enemy is named in the first six words
- *   film        — the same thing, for people who would rather watch it
- *   problem     — the enemy, with stakes attached (the black ground)
- *   audience    — who this is and is not for, including a real exclusion
- *   offer       — the three things, numbered, because the order matters
- *   results     — numbers, one of which does not flatter us
- *   quote       — a named person at a named company
- *   how         — the commercial mechanics, before anyone has to ask
- *   systems     — what it connects to and whose keys it runs on
- *   cta         — one action
+ *   hero        — deep. the enemy is named in the first six words
+ *   problem     — deep. the same enemy with its costs attached
+ *   [spacetime] — deep. the costs as mass. arrives in a later step
+ *   ————————————— the only hard ground change on the page —————————————
+ *   offer       — light. the three things
+ *   audience    — light. who this is and is not for
+ *   how         — light. the commercial mechanics
+ *   results     — light. the numbers are the payoff, so they belong here
+ *                 rather than on the black where they used to sit
+ *   quote       — light. a named person at a named company
+ *   systems     — light. what it connects to and whose keys it runs on
+ *   cta         — deep. closes back to dark, as every page does
  *
- * The two black bands (problem, results) and the dark closers are what carry
- * the metaphor structurally: the page falls into the black hole twice and
- * comes back out into the white both times.
+ * The opening bands are one continuous dark run with no seam between them:
+ * no border, no background step, nothing that reads as a join. They are
+ * separate components for editing, one surface for reading.
+ *
+ * The home page is still an index — every band states its point in as few
+ * words as it can and hands off to the page that argues it. The audience band
+ * is the exception and has no way out; there is no page that says more about
+ * who this is for than its three lines do.
  */
 export default function HomePage() {
   return (
     <>
       <JsonLd schema={[organizationSchema(), websiteSchema()]} />
       <Hero />
-      <VideoBand />
       <Problem />
-      <Audience />
       <Offer />
+      <Audience />
+      <HowItWorks />
       <Results />
       <QuoteBand />
-      <HowItWorks />
       <Systems />
       <Cta />
     </>
