@@ -13,6 +13,9 @@ export const hero = {
   sub: "We find the hours your operation loses to quoting, scheduling, paperwork and rework — and build the systems that take them back.",
 } as const;
 
+/** The one-line band between the hero and the black hole. */
+export const dividerLine = "Leading AI automation for manufacturers";
+
 /** Inside the black hole. Each one is a place hours disappear on a shop floor
     without appearing on any timesheet. */
 export const painPoints = [

@@ -15,17 +15,14 @@ import { site } from "@/content/site";
  *
  * The sheet is a perspective grid drawn on a canvas from a low camera, so it
  * converges on a vanishing line a little past the middle of the screen; the
- * copy sits in the black above that line. Two things dent the sheet: the
- * mark, with a fixed Gaussian well, and the pointer, with a smaller one that
- * follows wherever the cursor lands on the plane — the screen position is
- * cast back through the camera onto the sheet, so the dent is under the
- * cursor rather than offset from it. Lines near either well brighten toward
- * the logo's pink; far lines fade into the horizon.
+ * copy sits in the black above that line. The mark dents the sheet with a
+ * Gaussian well; lines near it brighten toward the logo's pink, far lines
+ * fade into the horizon.
  *
- * The mark is the shared SVG geometry, positioned each frame at the projected
- * floor of its well so it reads as resting in the dip. The well breathes a
- * little and the grid drifts toward the viewer. Under prefers-reduced-motion
- * one frame is drawn and nothing moves.
+ * The mark is the shared SVG geometry, positioned each frame over the
+ * projected floor of its well so it reads as resting on the dip rather than
+ * sunk into it. The well breathes a little and the grid drifts toward the
+ * viewer. Under prefers-reduced-motion one frame is drawn and nothing moves.
  */
 
 /* --- Scene constants --------------------------------------------------- */
@@ -42,11 +39,7 @@ const SAMPLES = 80;
 /** The mark's well. */
 const WELL = { x: 0, z: 2.3 };
 const WELL_SIGMA = 0.55;
-const WELL_DEPTH = 0.6;
-
-/** The pointer's well: smaller and shallower, and it comes and goes. */
-const PTR_SIGMA = 0.45;
-const PTR_DEPTH = 0.36;
+const WELL_DEPTH = 0.38;
 
 /** Camera: height above the plane, distance behind z=0, downward pitch. */
 const CAM_H = 0.5;
@@ -105,10 +98,6 @@ export function SpacetimeHero() {
     let raf = 0;
     let running = true;
 
-    // The pointer's well: where it is on the plane, how deep it currently
-    // is, and where both are heading. Eased every frame so it glides.
-    const ptr = { x: 0, z: 0, d: 0, tx: 0, tz: 0, td: 0 };
-
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
       width = Math.max(1, Math.round(rect.width));
@@ -132,32 +121,14 @@ export function SpacetimeHero() {
       return { x: width / 2 + (f * x) / rz, y: oy - (f * ry) / rz, d: rz };
     };
 
-    /** Canvas pixels -> the point on the flat plane under them. Null when
-        the ray misses the plane (above the horizon). */
-    const unproject = (sx: number, sy: number) => {
-      const dx = (sx - width / 2) / f;
-      const dry = -(sy - oy) / f;
-      const drz = 1;
-      const dy = dry * cos - drz * sin;
-      const dz = dry * sin + drz * cos;
-      if (dy >= -1e-4) return null;
-      const t = -CAM_H / dy;
-      return { x: t * dx, z: CAM_Z + t * dz };
-    };
-
     const draw = (time: number) => {
       const t = reduceMotion ? 0 : time / 1000;
 
       const depth = WELL_DEPTH * (1 + 0.05 * Math.sin(t * 0.8));
       const drift = reduceMotion ? 0 : (t * 0.05) % STEP;
 
-      ptr.x += (ptr.tx - ptr.x) * 0.1;
-      ptr.z += (ptr.tz - ptr.z) * 0.1;
-      ptr.d += (ptr.td - ptr.d) * 0.08;
-
       const surface = (x: number, z: number) =>
-        -depth * gauss(x - WELL.x, z - WELL.z, WELL_SIGMA) -
-        ptr.d * gauss(x - ptr.x, z - ptr.z, PTR_SIGMA);
+        -depth * gauss(x - WELL.x, z - WELL.z, WELL_SIGMA);
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
@@ -210,16 +181,8 @@ export function SpacetimeHero() {
         ctx.stroke();
       };
 
-      const closenessX = (x: number) =>
-        Math.max(
-          gauss(x - WELL.x, 0, WELL_SIGMA),
-          (ptr.d / PTR_DEPTH) * 0.8 * gauss(x - ptr.x, 0, PTR_SIGMA),
-        );
-      const closenessZ = (z: number) =>
-        Math.max(
-          gauss(0, z - WELL.z, WELL_SIGMA),
-          (ptr.d / PTR_DEPTH) * 0.8 * gauss(0, z - ptr.z, PTR_SIGMA),
-        );
+      const closenessX = (x: number) => gauss(x - WELL.x, 0, WELL_SIGMA);
+      const closenessZ = (z: number) => gauss(0, z - WELL.z, WELL_SIGMA);
 
       // Lines running away from us (constant x). Sampled densely near the
       // camera, where the wells are, and sparsely toward the horizon.
@@ -250,11 +213,12 @@ export function SpacetimeHero() {
         strokeLine(pts, closenessZ(z), Math.max(0, z - WELL.z));
       }
 
-      // Seat the mark at the floor of its well. It scales with distance
-      // like everything else on the sheet, so it reads as part of the scene.
+      // Seat the mark over its well, its base at the floor and most of it
+      // above the rim. It scales with distance like everything else on the
+      // sheet, so it reads as part of the scene.
       if (floor) {
-        const size = (f / floor.d) * 0.8;
-        mark.style.transform = `translate(${floor.x - size / 2}px, ${floor.y - size * 0.6}px)`;
+        const size = (f / floor.d) * 0.84;
+        mark.style.transform = `translate(${floor.x - size / 2}px, ${floor.y - size * 0.74}px)`;
         mark.style.width = `${size}px`;
         mark.style.height = `${size}px`;
         mark.style.opacity = "1";
@@ -265,24 +229,6 @@ export function SpacetimeHero() {
       if (!running) return;
       draw(time);
       raf = requestAnimationFrame(loop);
-    };
-
-    const onPointer = (e: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const hit = unproject(e.clientX - rect.left, e.clientY - rect.top);
-      if (!hit || hit.z > Z_FAR) {
-        ptr.td = 0;
-        return;
-      }
-      ptr.tx = hit.x;
-      ptr.tz = hit.z;
-      // The dent is shallower the further away it is, like a real dent
-      // seen from a distance; without this a far dent looks as deep as a
-      // near one and the perspective breaks.
-      ptr.td = PTR_DEPTH * Math.min(1, 2.5 / (hit.z + 1.5));
-    };
-    const onLeave = () => {
-      ptr.td = 0;
     };
 
     // Pause the loop while the hero is off screen — it is the most expensive
@@ -305,8 +251,6 @@ export function SpacetimeHero() {
     } else {
       raf = requestAnimationFrame(loop);
       io.observe(section);
-      section.addEventListener("pointermove", onPointer);
-      section.addEventListener("pointerleave", onLeave);
     }
     const ro = new ResizeObserver(() => {
       resize();
@@ -319,8 +263,6 @@ export function SpacetimeHero() {
       cancelAnimationFrame(raf);
       io.disconnect();
       ro.disconnect();
-      section.removeEventListener("pointermove", onPointer);
-      section.removeEventListener("pointerleave", onLeave);
     };
   }, []);
 

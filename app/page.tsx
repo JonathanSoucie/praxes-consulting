@@ -5,6 +5,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { Container, Section } from "@/components/container";
 import { SpacetimeHero } from "@/components/sections/spacetime-hero";
 import { BlackHoleScene } from "@/components/sections/black-hole-scene";
+import { DividerBand } from "@/components/sections/divider-band";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqList } from "@/components/sections/faq";
 import { CtaSection } from "@/components/sections/cta";
@@ -13,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/json-ld";
 
 import { generalFaqs } from "@/content/faqs";
-import { whyManufacturing } from "@/content/manufacturing";
+import { dividerLine, whyManufacturing } from "@/content/manufacturing";
 import { processSteps } from "@/content/process";
 import { site } from "@/content/site";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/schema";
@@ -73,6 +74,7 @@ export default function HomePage() {
       />
 
       <SpacetimeHero />
+      <DividerBand>{dividerLine}</DividerBand>
       <BlackHoleScene />
 
       {/* ---------------------------------------------------------------- */}
