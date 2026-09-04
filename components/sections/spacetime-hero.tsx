@@ -289,6 +289,16 @@ export function SpacetimeHero() {
           style={{ top: `${HORIZON * 100 - 8}%`, height: "14%" }}
         />
         <div className="absolute inset-x-0 bottom-0 h-[10%] bg-linear-to-t from-surface-2 to-transparent" />
+        {/* A pair of hairlines just inside the mat, so the hero reads as a
+            framed panel. They stop at the section's edge; the divider band
+            below carries the border across. */}
+        <div
+          className="absolute inset-y-0 border-x border-line-strong"
+          style={{
+            left: "calc(var(--frame-x) + 1rem)",
+            right: "calc(var(--frame-x) + 1rem)",
+          }}
+        />
       </div>
 
       {/* Copy sits in the dark above the horizon. The fixed-height block

@@ -2,7 +2,17 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  BarChart3,
+  Boxes,
+  CalendarClock,
+  ClipboardList,
+  FileText,
+  ShieldCheck,
+  Wrench,
+  type LucideIcon,
+} from "lucide-react";
 
 import { Container } from "@/components/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -116,9 +126,17 @@ export function BlackHoleScene() {
     if (!host) return;
     const h = host.getBoundingClientRect();
     const r = el.getBoundingClientRect();
-    const x = r.left - h.left;
-    const y = r.top - h.top;
-    setCard({ solution, ...placeCard(x, y, r.width, r.height, h.width, h.height) });
+    const label = { x: r.left - h.left, y: r.top - h.top, w: r.width, h: r.height };
+    // The other labels, so the card can be kept off them.
+    const others = Array.from(
+      host.querySelectorAll<HTMLElement>("[data-orbit-label]"),
+    )
+      .filter((n) => n !== el)
+      .map((n) => {
+        const o = n.getBoundingClientRect();
+        return { x: o.left - h.left, y: o.top - h.top, w: o.width, h: o.height };
+      });
+    setCard({ solution, ...placeCard(label, others, h.width, h.height) });
   }, []);
   const scheduleClose = React.useCallback(() => {
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
@@ -423,6 +441,7 @@ export function BlackHoleScene() {
               >
                 <button
                   type="button"
+                  data-orbit-label
                   aria-expanded={card?.solution === solution}
                   onMouseEnter={(e) => openCard(solution, e.currentTarget)}
                   onFocus={(e) => openCard(solution, e.currentTarget)}
@@ -472,34 +491,58 @@ export function BlackHoleScene() {
 
 /** Card footprint used for placement. Height is an estimate; the card
     is clamped to the viewport with this much room. */
-const CARD_W = 272;
-const CARD_H = 232;
-const GAP = 12;
+const CARD_W = 320;
+const CARD_H = 236;
+const GAP = 28;
 const PAD = 16;
 
-/** Where a label's card goes: beside the label, on the side away from the
-    hole, then pulled back inside the viewport. If there is no room on
-    that side at all — the lowest labels sit near the edges — the card goes
-    above the label instead. Coordinates are the card's top-left, relative
-    to the sticky viewport. */
-function placeCard(
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  vw: number,
-  vh: number,
-) {
-  const outwardLeft = x + w / 2 < vw / 2;
-  let left = outwardLeft ? x - GAP - CARD_W : x + w + GAP;
-  let top = y + h / 2 - CARD_H / 2;
+/** One glyph per solution, keyed by label. */
+const ICONS: Record<string, LucideIcon> = {
+  Quoting: FileText,
+  Scheduling: CalendarClock,
+  "Work orders": ClipboardList,
+  Quality: ShieldCheck,
+  Maintenance: Wrench,
+  Inventory: Boxes,
+  Reporting: BarChart3,
+};
+
+type Rect = { x: number; y: number; w: number; h: number };
+
+function intersects(a: Rect, b: Rect, margin = 8) {
+  return (
+    a.x < b.x + b.w + margin &&
+    a.x + a.w > b.x - margin &&
+    a.y < b.y + b.h + margin &&
+    a.y + a.h > b.y - margin
+  );
+}
+
+/** Where a label's card goes: beside the label on the side away from the
+    hole, lifted a little; if that runs off the viewport (the lowest labels
+    sit near the edges) it goes above the label instead. Either way it is
+    then pushed up until it clears every other label, and finally pulled
+    back inside the viewport. Returns the card's top-left, relative to the
+    sticky viewport. */
+function placeCard(label: Rect, others: Rect[], vw: number, vh: number) {
+  const outwardLeft = label.x + label.w / 2 < vw / 2;
+  let left = outwardLeft ? label.x - GAP - CARD_W : label.x + label.w + GAP;
+  let top = label.y + label.h / 2 - CARD_H / 2 - 24;
   if (left < PAD || left + CARD_W > vw - PAD) {
-    // Above, hanging off the label's centre toward the edge, which keeps
-    // it clear of the next label up the arc.
-    left = outwardLeft ? x + w / 2 - CARD_W : x + w / 2;
-    top = y - GAP - CARD_H;
+    left = outwardLeft ? label.x + label.w / 2 - CARD_W : label.x + label.w / 2;
+    top = label.y - GAP - CARD_H;
   }
   left = Math.min(Math.max(left, PAD), vw - PAD - CARD_W);
+
+  // Climb over any label the card would sit on.
+  for (let pass = 0; pass < 4; pass++) {
+    const hit = others.find((o) =>
+      intersects({ x: left, y: top, w: CARD_W, h: CARD_H }, o),
+    );
+    if (!hit) break;
+    top = hit.y - GAP - CARD_H;
+  }
+
   top = Math.min(Math.max(top, PAD), vh - PAD - CARD_H);
   return { left, top };
 }
@@ -515,26 +558,32 @@ function SolutionCard({
   solution: Solution;
   className?: string;
 }) {
+  const Icon = ICONS[solution.label] ?? FileText;
   return (
     <div
       className={cn(
-        "border border-line-strong bg-surface p-4 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.7)]",
+        "rounded-[14px] border border-line-strong bg-surface p-5 shadow-[0_24px_48px_-16px_rgba(0,0,0,0.75)]",
         className,
       )}
     >
-      <p className="label-tech text-accent">{solution.label}</p>
-      <p className="mt-2 font-heading text-base font-semibold text-white">
+      <div className="flex items-center gap-3">
+        <span className="grid size-10 shrink-0 place-items-center rounded-[10px] bg-accent-soft text-accent">
+          <Icon aria-hidden className="size-5" />
+        </span>
+        <p className="label-section text-accent">{solution.label}</p>
+      </div>
+      <p className="mt-4 font-heading text-lg leading-snug font-semibold text-white">
         {solution.title}
       </p>
-      <p className="mt-1.5 text-sm leading-relaxed text-muted">
-        {solution.body}
+      <p className="mt-2 text-base leading-relaxed text-ink-soft">
+        {solution.summary}
       </p>
       <Link
         href={`/solutions/${slug(solution.label)}`}
-        className="mt-3 inline-flex items-center gap-1.5 font-mono text-[0.6875rem] tracking-[0.12em] text-accent uppercase underline-offset-4 hover:underline"
+        className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs tracking-[0.12em] text-accent uppercase underline-offset-4 hover:underline"
       >
         More details
-        <ArrowRight aria-hidden className="size-3.5" />
+        <ArrowRight aria-hidden className="size-4" />
       </Link>
     </div>
   );

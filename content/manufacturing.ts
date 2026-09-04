@@ -42,40 +42,48 @@ export const painPoints = [
 ] as const;
 
 /** Around the black hole, once the page zooms out. Order is clockwise from
-    the left, along the dashed arc. */
+    the left, along the dashed arc. `summary` is the one line on the hover
+    card; `body` is the fuller version for the chips and the detail pages. */
 export const solutions = [
   {
     label: "Quoting",
+    summary: "RFQs read on arrival and a costed quote drafted for the estimator to approve.",
     title: "Quotes out in hours",
     body: "Drawings and RFQs read on arrival, matched to past jobs and material prices, and a costed quote drafted for the estimator to approve rather than build.",
   },
   {
     label: "Scheduling",
+    summary: "Orders, capacity and material in one plan that re-sequences itself when something changes.",
     title: "A schedule that re-plans itself",
     body: "Orders, capacity and material availability in one place, so a rush job or a down machine re-sequences the floor in minutes with the constraints respected.",
   },
   {
     label: "Work orders",
+    summary: "Traveller, ERP and QC record generated from one source, so nothing is retyped.",
     title: "Enter it once",
     body: "The traveller, the ERP and the QC record generated from one source, so nothing is retyped and the three never disagree.",
   },
   {
     label: "Quality",
+    summary: "Inspection data watched against limits, so drift is caught during the batch.",
     title: "Drift caught mid-run",
     body: "Inspection and machine data pulled continuously and watched against limits, so a process moving out of tolerance is flagged during the batch, not after it.",
   },
   {
     label: "Maintenance",
+    summary: "A queue ranked by what will fail next, not by the calendar.",
     title: "Fix it before it stops",
     body: "Runtime, alarms and sensor data turned into a maintenance queue ranked by what will actually fail next, instead of by the calendar.",
   },
   {
     label: "Inventory",
+    summary: "Stock reconciled from what the floor actually ran, with shortages seen early.",
     title: "Stock that matches the system",
     body: "Consumption reconciled from what the floor actually ran, reorder points that move with the schedule, and shortages seen before they stop a job.",
   },
   {
     label: "Reporting",
+    summary: "OEE, scrap and on-time delivery assembled from the live systems every week.",
     title: "OEE without the spreadsheet",
     body: "Throughput, downtime, scrap and on-time delivery assembled from the live systems and delivered finished — same definitions every week.",
   },
