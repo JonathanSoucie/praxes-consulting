@@ -78,12 +78,17 @@
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* Wide heavy grotesk (Unbounded) for display, legible sans for body. Mono
-     is used only for small technical labels inside the built data visuals. */
+  /* Two faces carry the page, split by level rather than by importance:
+     Syne for the H1 and anything sized like one, Inter for the H2 and every
+     sentence under it. Space Grotesk stays on the small UI headings and the
+     nav; mono is used only for the technical labels inside the data visuals.
+
+     The H1/H2 split is set in the base layer below rather than here, because
+     it is a rule about elements, not a token. */
   --font-sans:
     var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display:
-    var(--font-unbounded), var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
+    var(--font-syne), var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
   /* Small headings only. The display face keeps the big ones — the split is
      by size, not by importance. */
   --font-heading:
@@ -285,14 +290,28 @@
   h4 {
     font-family: var(--font-display);
     color: var(--color-ink);
-    /* 700 on the Unbounded axis: the reference sets its titles heavy, and
-       the face is wide enough that anything lighter reads as thin. */
+    /* 700 on the Syne axis: the reference sets its titles heavy, and the
+       face carries weight without closing up. */
     font-weight: 700;
     /* Fallback only, for a heading that carries no `text-*` size utility.
        Anything sized explicitly gets the size-matched value from the tracking
        ramp in @theme, which takes precedence over this. */
     letter-spacing: -0.008em;
     text-wrap: balance;
+  }
+
+  /* The H2 is Inter, not the display face.
+
+     Syne is a display face: it is drawn for the one line at the top of a
+     screen and starts arguing with the copy under it at section-heading
+     size. Setting the second level in the body face makes the H1 the only
+     thing on the page wearing the display voice, which is what makes it read
+     as the loudest line rather than as the largest one.
+
+     Anything that needs the display face at H2 level asks for it with the
+     `font-display` utility, which wins over this. */
+  h2 {
+    font-family: var(--font-sans);
   }
 
   :focus-visible {

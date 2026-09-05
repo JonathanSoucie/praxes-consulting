@@ -48,9 +48,21 @@ export const features = {
   testimonials: false,
 } as const;
 
-/** Primary navigation. Order here is the order in the navbar and footer. */
+/**
+ * Primary navigation. Order here is the order in the navbar and footer.
+ *
+ * The navbar splits this list in half around the brand mark, so the order is
+ * also the left-to-right order across it: the first half sits left of the
+ * mark, the rest to its right.
+ *
+ * Services is a fragment link rather than a route. The solutions live in the
+ * black-hole scene on Home (components/sections/black-hole-scene.tsx) and
+ * there is no page that says more about them than that scene does; when one
+ * exists, this becomes "/services" and nothing else has to change.
+ */
 export const nav = [
   { href: "/process", label: "Process" },
+  { href: "/#services", label: "Services" },
   ...(features.caseStudies
     ? [{ href: "/case-studies", label: "Case Studies" }]
     : []),

@@ -9,7 +9,10 @@
 
 /** The hero, beneath the wordmark. */
 export const hero = {
-  kicker: "AI automation for manufacturers",
+  /** The sub-header, directly under the wordmark. It replaces a kicker that
+      sat above it: the same claim reads as a caption when it is above the
+      name and as a statement of what the name does when it is below it. */
+  subhead: "AI Native Automations for manufacturing enterprises",
   sub: "We find the hours your operation loses to quoting, scheduling, paperwork and rework — and build the systems that take them back.",
 } as const;
 

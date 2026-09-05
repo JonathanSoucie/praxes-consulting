@@ -3,7 +3,7 @@ import {
   Inter,
   JetBrains_Mono,
   Space_Grotesk,
-  Unbounded,
+  Syne,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -15,20 +15,26 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Body: highly legible sans. Pairs with the wide grotesk headings — the
-   display face carries the voice, the body stays plain and readable. */
+/* Body, and every H2 on the site. Inter carries the sentences and the
+   sub-headings; the display face is kept for the H1 and the few things sized
+   like one. Variable, so the whole weight axis comes from one file. */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });
 
-/* Display: a wide, heavy grotesk for the hero wordmark and section titles —
-   the extended bold of the reference layout. Variable font, so every weight
-   from 200-900 is available from one file. */
-const unbounded = Unbounded({
+/* Display: Syne, for the H1 — the hero wordmark and the page titles. It
+   replaces Unbounded, which was wider and quieter; Syne's flared stems and
+   short caps give the name a face of its own next to Inter's neutrality.
+   Variable across 400-800, so every weight comes from one file.
+
+   Loaded through next/font rather than the Google Fonts <link> tags: same
+   two families, but self-hosted at build time, so there is no render-blocking
+   request to fonts.googleapis.com and no flash of a fallback face. */
+const syne = Syne({
   subsets: ["latin"],
-  variable: "--font-unbounded",
+  variable: "--font-syne",
   display: "swap",
 });
 
@@ -107,7 +113,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${unbounded.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
+      className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a

@@ -8,9 +8,16 @@ import { site } from "@/content/site";
 export function Logo({
   className,
   tone = "default",
+  wordmark = true,
+  markSize = 30,
 }: {
   className?: string;
   tone?: "default" | "inverse";
+  /** Set false for the mark alone. The navbar drops the wordmark because the
+      mark sits in the middle of the links there, where a second setting of
+      the name would compete with the one in the hero directly beneath it. */
+  wordmark?: boolean;
+  markSize?: number;
 }) {
   const inverse = tone === "inverse";
 
@@ -24,8 +31,8 @@ export function Logo({
         className,
       )}
     >
-      <LogoMark size={30} />
-      {site.name}
+      <LogoMark size={markSize} />
+      {wordmark ? site.name : null}
     </Link>
   );
 }

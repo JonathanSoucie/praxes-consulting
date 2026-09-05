@@ -303,14 +303,20 @@ export function SpacetimeHero() {
         className="relative z-10 flex flex-col items-center justify-end pt-24 text-center"
         style={{ minHeight: `${HORIZON * 100 - 4}svh` }}
       >
-        <p className="label-section text-accent">{hero.kicker}</p>
         <h1
           id="hero-title"
-          className="mt-5 font-display text-[3.25rem] leading-none font-extrabold tracking-[-0.03em] text-ink sm:text-7xl lg:text-8xl xl:text-[7.5rem]"
+          className="font-display text-[3.25rem] leading-none font-extrabold tracking-[-0.03em] text-ink sm:text-7xl lg:text-8xl xl:text-[7.5rem]"
         >
           {site.name}
         </h1>
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg lg:text-xl">
+        {/* The sub-header. Inter, per the type split — the display face is
+            the wordmark's alone here, and a second line set in it directly
+            beneath would read as a continuation of the name rather than as
+            what the name does. */}
+        <h2 className="mt-6 max-w-2xl text-xl leading-snug font-semibold text-ink sm:text-2xl lg:text-[1.75rem]">
+          {hero.subhead}
+        </h2>
+        <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg">
           {hero.sub}
         </p>
         <div className="mt-7 flex flex-col items-center gap-3">

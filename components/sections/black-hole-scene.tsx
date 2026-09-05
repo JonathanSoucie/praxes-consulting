@@ -291,8 +291,12 @@ export function BlackHoleScene() {
   const orbitR = layout ? layout.r1 * ORBIT : 0;
 
   return (
+    // `id` is the navbar's "Services" target (content/site.ts): the solutions
+    // this scene holds are the closest thing the site has to a service list,
+    // and the scrub starts from the top of the section either way.
     <section
       ref={sectionRef}
+      id="services"
       className="relative bg-surface-2"
       style={{ height: "340svh" }}
       aria-label="The problem, and what we build for it"
@@ -347,7 +351,7 @@ export function BlackHoleScene() {
           <Container className="pt-16">
             <div className="mx-auto max-w-4xl text-center">
               <Eyebrow tone="onDark">The problem</Eyebrow>
-              <h2 className="mt-6 font-display text-3xl leading-[1.05] text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-6 text-3xl leading-[1.05] text-white sm:text-4xl lg:text-5xl">
                 Hours the floor never
                 <br />
                 gets back
@@ -389,7 +393,7 @@ export function BlackHoleScene() {
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
               <div>
                 <Eyebrow>Our solutions</Eyebrow>
-                <h2 className="mt-5 font-display text-3xl leading-[1.05] text-ink sm:text-4xl lg:text-5xl">
+                <h2 className="mt-5 text-3xl leading-[1.05] text-ink sm:text-4xl lg:text-5xl">
                   Built around
                   <br />
                   your operation
