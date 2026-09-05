@@ -13,9 +13,7 @@ export function Logo({
 }: {
   className?: string;
   tone?: "default" | "inverse";
-  /** Set false for the mark alone. The navbar drops the wordmark because the
-      mark sits in the middle of the links there, where a second setting of
-      the name would compete with the one in the hero directly beneath it. */
+  /** Set false for the mark alone. */
   wordmark?: boolean;
   markSize?: number;
 }) {

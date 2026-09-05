@@ -3,35 +3,30 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 
 import { Logo } from "@/components/layout/logo";
 import { BookACall } from "@/components/book-a-call";
 import { Container } from "@/components/container";
 import { nav } from "@/content/site";
+import { services } from "@/content/services";
 import { cn } from "@/lib/utils";
 
 /**
- * The navbar sits at the top of the document and scrolls away with it.
+ * The navbar, after the reference: the brand at the left, the links in the
+ * middle in plain sentence case, and one outlined action at the right. The
+ * bar carries its own ground and a hairline under it, so the hero's room
+ * starts below the bar rather than running up behind the links.
  *
- * It is `absolute`, not `fixed`: the permanent chrome is now the frame in
+ * It is `absolute`, not `fixed`: the permanent chrome is the frame in
  * components/layout/frame.tsx, and a sticky bar on top of a fixed frame gave
- * the page two competing edges. Because it no longer follows the scroll it
- * also needs no material of its own — no fill, no blur — so it carries the
- * background of whatever it sits over.
+ * the page two competing edges. `top` is the frame's own thickness, so the
+ * bar lands exactly on the frame's inner edge.
  *
- * `top` is the frame's own thickness, so the bar lands exactly on the frame's
- * inner edge rather than being tucked under it.
- *
- * The brand mark sits in the middle of the links rather than at the left
- * end, so the bar reads as one centred cluster: half the nav, the mark, the
- * other half. The links either side come straight from `nav` and are split at
- * its midpoint, so adding an item rebalances the bar instead of breaking it.
- * The mark carries no wordmark here — the hero sets the name at 120px
- * directly beneath it.
- *
- * Type is the heading grotesk, uppercase and tracked out. The display face
- * is reserved for the hero wordmark and section titles.
+ * Services opens a menu of the three services on hover or focus, the way
+ * the reference's chevroned items do. The trigger is still a link to the
+ * index, so a click — and a tap, where there is no hover — goes somewhere
+ * useful whether or not the menu opened.
  */
 export function Navbar() {
   const pathname = usePathname();
@@ -53,80 +48,65 @@ export function Navbar() {
     !href.includes("#") &&
     (pathname === href || pathname.startsWith(`${href}/`));
 
-  const split = Math.ceil(nav.length / 2);
-  const leftNav = nav.slice(0, split);
-  const rightNav = nav.slice(split);
-
   const linkClass = (href: string) =>
     cn(
-      "font-heading text-base font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
-      isActive(href)
-        ? "text-ink underline decoration-1 underline-offset-[6px]"
-        : // Ink at 90%, not --color-muted. Muted is a slate that reads
-          // grey-blue against the dot field; ink is the near-white on the
-          // dark theme and the near-black on the light one. The 10% it gives
-          // up is only enough to keep the active link ahead of the rest —
-          // any further down and the bar goes grey against the hero.
-          "text-ink/90 hover:text-ink",
+      "inline-flex items-center gap-1.5 text-[0.9375rem] font-medium transition-colors duration-150 ease-out-soft",
+      isActive(href) ? "text-ink" : "text-ink/75 hover:text-ink",
     );
 
   return (
     <header
-      className="absolute inset-x-0 z-50"
+      className="absolute inset-x-0 z-50 border-b border-line bg-surface-2"
       style={{ top: "var(--frame-y)" }}
     >
       <Container>
-        {/* Three tracks, the outer two equal, so the centre cluster is
-            centred on the page rather than on whatever is left over after
-            the CTA. The outer cells are placed explicitly because the one
-            on the left is empty on desktop — auto-placement would slide
-            the nav into it the moment its only child is display:none. */}
-        <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-4">
-          <div className="col-start-1 flex items-center lg:hidden">
-            <Logo wordmark={false} />
+        {/* Three tracks, the outer two equal, so the links are centred on
+            the page rather than on whatever is left between the brand and
+            the button. */}
+        <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-6 lg:h-22">
+          <div className="col-start-1 flex items-center">
+            <Logo markSize={28} className="text-[1.0625rem]" />
           </div>
 
           <nav
             aria-label="Primary"
             className="col-start-2 hidden lg:block"
           >
-            <ul className="flex items-center gap-8">
-              {leftNav.map((item) => (
-                <li key={item.href}>
-                  {/* No pill, no fill. At this size a filled active state is
-                      heavier than the mark next to it; colour alone carries
-                      the state, with an underline for anyone who cannot
-                      rely on colour. */}
-                  <Link
+            <ul className="flex items-center gap-9">
+              {nav.map((item) =>
+                item.href === "/services" ? (
+                  <ServicesItem
+                    key={item.href}
+                    label={item.label}
                     href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
+                    active={isActive(item.href)}
                     className={linkClass(item.href)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-
-              <li className="mx-2 flex items-center">
-                <Logo wordmark={false} markSize={34} />
-              </li>
-
-              {rightNav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                    className={linkClass(item.href)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+                  />
+                ) : (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={isActive(item.href) ? "page" : undefined}
+                      className={linkClass(item.href)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </nav>
 
           <div className="col-start-3 flex items-center justify-end gap-2">
-            <BookACall size="sm" className="hidden sm:inline-flex" />
+            {/* Outlined, not filled — the reference keeps the bar's one
+                action quiet and lets the hero carry the colour. The site's
+                buttons are otherwise mono; this one takes the sans so it sits
+                with the links beside it. */}
+            <BookACall
+              variant="outline"
+              size="md"
+              className="hidden rounded-[8px] border-ink/60 bg-transparent px-6 font-sans text-[0.8125rem] font-bold tracking-[0.04em] text-ink hover:border-ink hover:bg-ink hover:text-surface-2 sm:inline-flex"
+            />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -155,11 +135,8 @@ export function Navbar() {
 
           It stays in the DOM and uses `inert` while closed, so it is properly
           removed from the tab order and the accessibility tree without
-          costing the transition.
-
-          Unlike the bar, this does need a fill: it opens over live page
-          content, and the links have to stay readable against whatever is
-          behind them. */}
+          costing the transition. The services are listed under their parent
+          here, since there is no hover to open a menu with. */}
       <div
         id="mobile-nav"
         inert={!open}
@@ -177,7 +154,7 @@ export function Navbar() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "flex items-center rounded-lg px-4 py-3.5 font-heading text-base font-semibold tracking-[0.1em] uppercase transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.99]",
+                      "flex items-center rounded-[8px] px-4 py-3.5 text-lg font-medium transition-[background-color,color,transform] duration-150 ease-out-soft active:scale-[0.99]",
                       isActive(item.href)
                         ? "bg-accent-soft text-accent-ink"
                         : "text-ink hover:bg-surface-2 active:bg-accent-soft active:text-accent-ink",
@@ -185,6 +162,20 @@ export function Navbar() {
                   >
                     {item.label}
                   </Link>
+                  {item.href === "/services" ? (
+                    <ul className="mb-2 ml-4 border-l border-line pl-4">
+                      {services.map((service) => (
+                        <li key={service.slug}>
+                          <Link
+                            href={`/services/${service.slug}`}
+                            className="block px-2 py-2.5 text-base text-ink-soft transition-colors hover:text-ink"
+                          >
+                            {service.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </li>
               ))}
             </ul>
@@ -193,5 +184,113 @@ export function Navbar() {
         </div>
       </div>
     </header>
+  );
+}
+
+/**
+ * The Services item and its menu.
+ *
+ * State is tracked rather than left to `:hover`, so `aria-expanded` is true
+ * exactly when the menu is showing. It opens on pointer entry and on focus
+ * moving into it, closes when either leaves, and Escape closes it and puts
+ * focus back on the trigger. The gap between trigger and panel is padding
+ * inside the wrapper, not a margin, so the pointer never crosses a hole on
+ * the way down.
+ */
+function ServicesItem({
+  label,
+  href,
+  active,
+  className,
+}: {
+  label: string;
+  href: string;
+  active: boolean;
+  className: string;
+}) {
+  const [expanded, setExpanded] = React.useState(false);
+  const triggerRef = React.useRef<HTMLAnchorElement>(null);
+  const menuId = React.useId();
+
+  return (
+    <li
+      className="relative"
+      onPointerEnter={() => setExpanded(true)}
+      onPointerLeave={() => setExpanded(false)}
+      onFocus={() => setExpanded(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setExpanded(false);
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          setExpanded(false);
+          triggerRef.current?.focus();
+        }
+      }}
+    >
+      <Link
+        ref={triggerRef}
+        href={href}
+        aria-current={active ? "page" : undefined}
+        aria-haspopup="menu"
+        aria-expanded={expanded}
+        aria-controls={menuId}
+        className={className}
+      >
+        {label}
+        <ChevronDown
+          aria-hidden
+          className={cn(
+            "size-4 transition-transform duration-200 ease-out-soft",
+            expanded && "rotate-180",
+          )}
+        />
+      </Link>
+
+      <div
+        className={cn(
+          "absolute top-full left-1/2 -translate-x-1/2 pt-4 transition-[opacity,transform] duration-200 ease-out-soft",
+          expanded
+            ? "visible translate-y-0 opacity-100"
+            : "invisible -translate-y-1 opacity-0",
+        )}
+      >
+        <ul
+          id={menuId}
+          role="menu"
+          aria-label={label}
+          className="w-72 rounded-[10px] border border-line-strong bg-surface p-2 shadow-[0_24px_48px_-16px_rgba(0,0,0,0.75)]"
+        >
+          {services.map((service) => (
+            <li key={service.slug} role="none">
+              <Link
+                role="menuitem"
+                href={`/services/${service.slug}`}
+                className="block rounded-[6px] px-3 py-2.5 transition-colors hover:bg-surface-2 focus-visible:bg-surface-2"
+              >
+                <span className="block text-sm font-medium text-ink">
+                  {service.name}
+                </span>
+                <span className="mt-0.5 block text-xs leading-snug text-muted">
+                  {service.summary}
+                </span>
+              </Link>
+            </li>
+          ))}
+          <li role="none" className="mt-1 border-t border-line pt-1">
+            <Link
+              role="menuitem"
+              href={href}
+              className="flex items-center justify-between rounded-[6px] px-3 py-2.5 text-sm font-medium text-ink-soft transition-colors hover:bg-surface-2 hover:text-ink focus-visible:bg-surface-2"
+            >
+              All services
+              <ArrowRight aria-hidden className="size-4" />
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </li>
   );
 }
