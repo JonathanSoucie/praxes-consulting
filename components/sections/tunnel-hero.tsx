@@ -150,7 +150,7 @@ export function TunnelHero() {
         }}
       />
 
-      <Container className="relative z-10 flex min-h-svh flex-col items-center justify-center pt-24 pb-24 text-center sm:pt-26">
+      <Container className="relative z-10 flex min-h-svh flex-col items-center justify-center pt-28 pb-24 text-center sm:pt-32">
         <Reveal className="flex flex-col items-center">
           <h1
             id="hero-title"
