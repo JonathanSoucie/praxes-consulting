@@ -4,21 +4,26 @@
  * Three things live here: the pain points that sit inside the black hole,
  * the solutions arranged around it once the page zooms out, and the short
  * proof points under both. Copy only — the scenes that draw these are in
- * components/sections/dithered-galaxy-hero.tsx and black-hole-scene.tsx.
+ * components/sections/tunnel-hero.tsx and black-hole-scene.tsx.
  */
 
 /**
- * The hero, beneath the wordmark.
+ * The hero.
  *
- * One line, and it is the whole hero. It replaced a kicker set above the
- * wordmark — the same claim reads as a caption above the name and as a
- * statement of what the name does below it — and the paragraph that used to
- * follow it is gone: the name, what it does, and the one action. Everything
- * the paragraph said is argued properly in the scene directly under this.
+ * One statement, one line under it, nothing else on the screen — the action
+ * is in the bar above. The headline is the claim that used to sit under the
+ * wordmark; it carries the screen on its own now, so it takes the display
+ * size. The line under it is the shortest true account of the work.
  */
 export const hero = {
-  subhead: "AI Native Automations for manufacturing enterprises",
+  headline: "AI Native Automations for manufacturing enterprises",
+  sub: "We find the hours your operation loses to quoting, scheduling, paperwork and rework — and build the systems that take them back.",
 } as const;
+
+/** The band under the hero. The one thing about the audience that can be
+    said plainly, and matches the answer given in the FAQ. */
+export const dividerLine =
+  "Built for small and mid-sized manufacturers, from 10 to 250 people.";
 
 /** Inside the black hole. Each one is a place hours disappear on a shop floor
     without appearing on any timesheet. */
