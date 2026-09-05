@@ -1,177 +1,171 @@
 /**
- * Home page content for the manufacturing focus.
+ * Home page content.
  *
- * Three things live here: the pain points that sit inside the black hole,
- * the solutions arranged around it once the page zooms out, and the short
- * proof points under both. Copy only — the scenes that draw these are in
+ * All of it comes from the copy deck (website-copy-manufacturing-ai.pdf):
+ * the hero, who the firm helps, the pain points that sit inside the black
+ * hole, the solution areas arranged around it once the page zooms out, and
+ * the reasons under both. Copy only — the scenes that draw these are in
  * components/sections/tunnel-hero.tsx and black-hole-scene.tsx.
  */
 
 /**
- * The hero.
- *
- * One statement, one line under it, nothing else on the screen — the action
- * is in the bar above. The headline is the claim that used to sit under the
- * wordmark; it carries the screen on its own now, so it takes the display
- * size. The line under it is the shortest true account of the work.
+ * The hero. One statement, one line under it, nothing else on the screen —
+ * the action is in the bar above. Both are the deck's own hero copy.
  */
 export const hero = {
-  headline: "AI Native Automations for manufacturing enterprises",
-  sub: "We find the hours your operation loses to quoting, scheduling, paperwork and rework — and build the systems that take them back.",
+  headline: "Find the right part. Quote faster. Ship with the right paperwork.",
+  sub: "We connect your ERP, product data, RFQs, distributor catalogs and export documents — so your team can identify the correct part, prepare accurate quotes, and move international orders with confidence.",
 } as const;
 
-/** The band under the hero. The one thing about the audience that can be
-    said plainly, and matches the answer given in the FAQ. */
+/** The band under the hero: who this is for, in one line. */
 export const dividerLine =
-  "Built for small and mid-sized manufacturers, from 10 to 250 people.";
+  "Built for equipment-parts manufacturers, aftermarket suppliers and international distributors.";
 
-/** The services panel on the home page, under the solutions. The three
-    beats are the three things the Why Praxes section argues — measured
-    before building, built into what is already there, owned outright. */
+/**
+ * Who we help. The deck's five segments, each with the line from its
+ * Industries entry — so the section says what the work is in that market
+ * rather than only naming the market.
+ */
+export const industries = [
+  {
+    name: "Truck, trailer and off-highway",
+    body: "Connect OEM and aftermarket references, improve distributor catalog coverage, accelerate RFQs, and prepare export-ready orders for complex commercial-vehicle portfolios.",
+  },
+  {
+    name: "Construction, mining and earthmoving",
+    body: "Identify parts across mixed fleets, drawings, OEM numbers, serial ranges and new, rebuilt or used alternatives — then turn urgent downtime requests into controlled sourcing and quotes.",
+  },
+  {
+    name: "Agricultural machinery",
+    body: "Help dealers and parts teams identify serial-aware replacements during seasonal peaks, while connecting old part numbers, fitment, supplier availability and export workflows.",
+  },
+  {
+    name: "Industrial MRO, power, oil and gas",
+    body: "Harmonize material masters across sites, identify critical spares and duplicates, link certificates and supplier identifiers, and enable approved alternatives before a stockout becomes downtime.",
+  },
+  {
+    name: "Marine, rail and port equipment",
+    body: "Turn urgent requests involving maker, model, serial, nameplate, photo and condition into a documented sourcing and quote workflow for port delivery and international shipment.",
+  },
+  {
+    name: "Automation, electrical, hydraulics and HVAC",
+    body: "Normalize technical attributes, identify discontinued items, extract datasheets, manage compatible alternatives, and make product data available to sales, maintenance and distributor channels.",
+  },
+] as const;
+
+/** The head of the services panel, under the solutions. */
 export const servicesSection = {
   eyebrow: "Services",
-  title: "Measured first. Built to fit. Yours to keep.",
+  title: "Start with one workflow. Prove it. Then scale.",
 } as const;
 
 /**
- * The automations themselves — the specific systems built, not the three
- * commercial wrappers they are bought under. This is what the services panel
- * on Home lists, because "Operations Automations" tells a plant nothing and
- * "RFQs read on arrival" tells them exactly what they would be buying.
+ * Inside the black hole: where the hours go before any of this is connected.
  *
- * `service` is the slug in content/services.ts this is built under, so each
- * card can say which engagement covers it and link there.
+ * Four of the deck's six pain points. The other two — ERP, catalog and
+ * distributor data disagreeing, and obsolete parts becoming sourcing
+ * emergencies — are argued in the solutions around the hole and on the
+ * service pages. Four rather than six because the scene is a sticky panel
+ * inside one viewport, and six rows overflow it on a short laptop.
  *
- * ⚠️ The first three are named engagements. Their descriptions are drafted
- * from those names and follow the site's own account of how the work is done
- * — read them before launch and correct anything that overstates what the
- * built system actually does. The last three are the wording already
- * published in `solutions` below, unchanged.
+ * `body` is the deck's description; the closing sentence of each is its
+ * "Business impact" line, which is what turns a description into stakes.
  */
-export const automations = [
-  {
-    name: "Catalog Orchestration",
-    body: "Supplier feeds, ERP records and spreadsheets pulled into one catalogue that stays current — normalised, enriched into a product intelligence layer, and written back out to every system and channel that needs it.",
-    service: "operations-automations",
-  },
-  {
-    name: "RFQ Parsing",
-    body: "Inbound RFQs read on arrival: line items, quantities and specs extracted, matched to past jobs and material prices, and a costed quote drafted for the estimator to approve rather than build.",
-    service: "operations-automations",
-  },
-  {
-    name: "Co-Branded Sell Sheets",
-    body: "One-pagers generated from the live catalogue in each distributor's own branding, so a rep asking for a current spec sheet gets one in minutes instead of a designer rebuilding it.",
-    service: "marketing-automations",
-  },
-  {
-    name: "Adaptive Scheduling",
-    body: "Orders, capacity and material availability in one place, so a rush job or a down machine re-sequences the floor in minutes with the constraints respected.",
-    service: "operations-automations",
-  },
-  {
-    name: "In-Process Quality",
-    body: "Inspection and machine data pulled continuously and watched against limits, so a process moving out of tolerance is flagged during the batch, not after it.",
-    service: "operations-automations",
-  },
-  {
-    name: "Inventory Reconciliation",
-    body: "Consumption reconciled from what the floor actually ran, reorder points that move with the schedule, and shortages seen before they stop a job.",
-    service: "operations-automations",
-  },
-] as const;
-
-/** Inside the black hole. Each one is a place hours disappear on a shop floor
-    without appearing on any timesheet. */
 export const painPoints = [
   {
     n: "01",
-    title: "Quotes take days, not minutes",
-    body: "An RFQ waits on an estimator who is also running the floor. By the time the number goes out, two competitors have already answered.",
+    title: "Customers cannot reliably find the right part",
+    body: "They search with an old OEM number, a machine model, a serial, a drawing reference or a photo. The part exists in your ERP, but fitment, equivalencies and supersessions live in disconnected files and experienced employees' heads. The cost is wrong-part returns and lost orders.",
   },
   {
     n: "02",
-    title: "The schedule lives in a spreadsheet",
-    body: "One person holds the real plan in their head. A rush order or a machine down means an afternoon of re-juggling by hand.",
+    title: "Sales teams spend too long building quotes",
+    body: "RFQs arrive by email, PDF, spreadsheet, portal and messaging app. Someone interprets the request, identifies the part, checks several systems for stock and price, considers alternatives, and assembles the quote by hand. Faster competitors win with your product in stock.",
   },
   {
     n: "03",
-    title: "Paperwork typed three times",
-    body: "The traveller, the ERP and the QC sheet all carry the same data, entered separately, disagreeing by the time anyone reconciles them.",
+    title: "Catalog growth outpaces data operations",
+    body: "New SKUs, supplier changes, technical PDFs and distributor requirements arrive faster than anyone can key them in. Products sit in the ERP and never reach the website or the distributor network with complete attributes, images or fitment. Inventory you cannot find is inventory you cannot sell.",
   },
   {
     n: "04",
-    title: "Problems found at final inspection",
-    body: "Inspection data is on paper or in a machine nobody exports from, so a drifting process is caught after the batch, not during it.",
+    title: "Export documents create avoidable delays",
+    body: "Invoices, packing lists, transport documents, origin evidence, certificates, weights, values and Incoterms all have to agree. Manual copying across fragmented shipment data produces the exceptions that hold a shipment at the border, and the demurrage and expedite costs that follow.",
   },
 ] as const;
 
-/** Around the black hole, once the page zooms out. Order is clockwise from
-    the left, along the dashed arc. `summary` is the one line on the hover
-    card; `body` is the fuller version for the chips and the detail pages. */
+/**
+ * The solution areas, arranged around the hole once the page zooms out.
+ *
+ * These are the deck's six Solutions — the capability areas. What you buy is
+ * a level down from this, in content/services.ts, and the panel under this
+ * scene lists those. `label` is what sits on the orbit, so it has to be short
+ * enough to read at a small size; `summary` is the hover card.
+ *
+ * The labels are keyed to icons in components/sections/black-hole-scene.tsx.
+ * Renaming one here means renaming it there.
+ */
 export const solutions = [
   {
-    label: "Quoting",
-    summary: "RFQs read on arrival and a costed quote drafted for the estimator to approve.",
-    title: "Quotes out in hours",
-    body: "Drawings and RFQs read on arrival, matched to past jobs and material prices, and a costed quote drafted for the estimator to approve rather than build.",
+    label: "Part intelligence",
+    summary: "OEM, aftermarket, legacy and private-label numbers connected into governed relationships.",
+    title: "A trusted product identity layer",
+    body: "OEM, aftermarket, supplier, competitor, legacy and customer part numbers connected into governed relationships — searchable by number, description, drawing, model, serial range or photo, and answered with ranked matches, evidence and confidence.",
   },
   {
-    label: "Scheduling",
-    summary: "Orders, capacity and material in one plan that re-sequences itself when something changes.",
-    title: "A schedule that re-plans itself",
-    body: "Orders, capacity and material availability in one place, so a rush job or a down machine re-sequences the floor in minutes with the constraints respected.",
+    label: "RFQ automation",
+    summary: "An incoming request turned into a reviewable, accurate quote.",
+    title: "From request to reviewable quote",
+    body: "The important information extracted from an RFQ, likely parts and approved alternatives identified, stock, price, lead time and customer terms retrieved, and a quote prepared for your sales team to review and send.",
   },
   {
-    label: "Work orders",
-    summary: "Traveller, ERP and QC record generated from one source, so nothing is retyped.",
-    title: "Enter it once",
-    body: "The traveller, the ERP and the QC record generated from one source, so nothing is retyped and the three never disagree.",
+    label: "Catalog intelligence",
+    summary: "Product data made complete, consistent and publish-ready across every channel.",
+    title: "Every product easier to find and sell",
+    body: "Technical attributes extracted from supplier files, drawings and documentation, normalized to your schema, checked for what is missing, and published as governed records to your website, PIM, marketplaces and distributor channels.",
   },
   {
-    label: "Quality",
-    summary: "Inspection data watched against limits, so drift is caught during the batch.",
-    title: "Drift caught mid-run",
-    body: "Inspection and machine data pulled continuously and watched against limits, so a process moving out of tolerance is flagged during the batch, not after it.",
+    label: "ERP integration",
+    summary: "A secure layer around the system of record, not a replacement for it.",
+    title: "Better workflow, same system of record",
+    body: "A secure integration layer around what you already rely on — SAP, Oracle, NetSuite, Infor, Epicor, WMS, PIM, CRM and legacy dealer systems. Read-only to start, controlled write-back after approval, RPA where the APIs will not reach.",
   },
   {
-    label: "Maintenance",
-    summary: "A queue ranked by what will fail next, not by the calendar.",
-    title: "Fix it before it stops",
-    body: "Runtime, alarms and sensor data turned into a maintenance queue ranked by what will actually fail next, instead of by the calendar.",
+    label: "Export documents",
+    summary: "The shipment validated before it reaches the border.",
+    title: "Caught before the border, not at it",
+    body: "Shipment data extracted, generated and compared across invoices, packing lists, bills of lading, certificates, purchase orders and ERP records, with missing or inconsistent fields flagged before handoff to your broker or carrier.",
   },
   {
-    label: "Inventory",
-    summary: "Stock reconciled from what the floor actually ran, with shortages seen early.",
-    title: "Stock that matches the system",
-    body: "Consumption reconciled from what the floor actually ran, reorder points that move with the schedule, and shortages seen before they stop a job.",
-  },
-  {
-    label: "Reporting",
-    summary: "OEE, scrap and on-time delivery assembled from the live systems every week.",
-    title: "OEE without the spreadsheet",
-    body: "Throughput, downtime, scrap and on-time delivery assembled from the live systems and delivered finished — same definitions every week.",
+    label: "Obsolescence",
+    summary: "Discontinued components traced to technically appropriate, evidenced alternatives.",
+    title: "Sourcing options, not guesses",
+    body: "Duplicate materials identified, critical spares found, obsolete components traced, and technically appropriate alternatives evaluated with the evidence — fit, condition, certification, availability and lead time — a controlled decision needs.",
   },
 ] as const;
 
 export type Solution = (typeof solutions)[number];
 
-/** The three reasons the argument holds for a plant specifically. */
+/**
+ * Why us. The deck's four, kept in its order: the argument runs from what we
+ * know, to how we work with what you have, to what stops it inventing
+ * things, to how an engagement starts.
+ */
 export const whyManufacturing = [
   {
-    title: "Measured on the floor, not in a deck",
-    body: "Cycle time, on-time delivery, scrap rate and quote turnaround are already numbers you track. We baseline them before building and re-measure them after, so the return is in your own metrics.",
+    title: "Built for parts businesses, not generic workflows",
+    body: "We work on the data relationships that decide a parts business: OEM numbers, fitment, supersessions, technical specifications, condition, pricing tiers, stock, certificates and export documentation.",
   },
   {
-    title: "Built around the systems you already run",
-    body: "Your ERP, your machines and your inspection equipment stay. What we build reads from them and writes to them — no rip-and-replace, and nothing that stops the floor to install.",
+    title: "Works with the systems you already run",
+    body: "Your ERP remains the system of record. We build a practical integration layer around it, starting with low-risk read-only pilots and expanding through controlled approvals.",
   },
   {
-    title: "Honest when the answer is no",
-    body: "Roughly one audit in three concludes that building isn't worth it yet. You get that in writing with the model behind it, because an accurate answer is the product.",
+    title: "Evidence and human control by design",
+    body: "A system should never silently invent a fitment relationship or approve a safety-critical substitute. Source evidence, confidence levels, review steps and auditable decision history are preserved.",
   },
   {
-    title: "You own everything we build",
-    body: "The models, the documentation and the admin access are yours. No proprietary black box and no licence you have to keep paying for.",
+    title: "Start small, prove value, then scale",
+    body: "We start with one measurable workflow — OEM cross-reference, RFQ automation, catalog enrichment or export-document validation — and expand once the data and the workflow are trusted.",
   },
 ] as const;

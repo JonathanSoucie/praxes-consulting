@@ -70,19 +70,19 @@ export const team: TeamMember[] = [
 /** How we think — the values section on /about. */
 export const values = [
   {
-    title: "The number comes before the build",
-    body: "Every engagement starts with a measured baseline. If we can't establish what the current process costs, we can't prove we improved it — and we won't claim we did.",
+    title: "Evidence, or it does not ship",
+    body: "A match arrives with what it was matched on and how confident the system is. Anything below your threshold, and anything safety-critical, goes to a person. A system that silently invents a fitment relationship is worse than no system, because it is wrong at scale.",
   },
   {
-    title: "We say no often",
-    body: "Roughly a third of the audits we deliver recommend against building. That's not a failure of the audit; it's the audit working. You paid for an accurate answer, not a sale.",
+    title: "Your ERP stays the system of record",
+    body: "We build a layer around what you run, not a replacement for it. Read-only first, controlled write-back only after your approvals exist, and RPA where a legacy system has no usable API. Nobody should have to replace a working ERP to fix a search problem.",
   },
   {
-    title: "You own everything",
-    body: "The models, the documentation, the admin access, the integrations. No proprietary black box and no licence you have to keep paying for. We monitor and maintain the system because that is how the return holds, not to keep you tied to us.",
+    title: "You own the enriched data",
+    body: "The records, the relationships, the documentation and the admin access are yours, and you keep them if the engagement ends. Ongoing operations are how the return holds as suppliers and systems change — not a licence you have to keep buying to use your own catalog.",
   },
   {
-    title: "Conservative by default",
-    body: "Our projections state their assumptions and lead with the conservative case. We would rather be quietly beaten by our own forecast than explain a miss.",
+    title: "The measures are agreed before we start",
+    body: "Search time, unmatched RFQ lines, time to first quote, publish-ready SKU rate, document-error rate. Same definitions before and after, written down first, precisely so the answer cannot be moved once the results are in.",
   },
 ] as const;

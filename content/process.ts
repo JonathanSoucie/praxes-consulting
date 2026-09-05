@@ -2,6 +2,12 @@
  * The engagement stages. This is the spine of the whole site — the Home page
  * shows a condensed version, /process shows the full timeline.
  *
+ * The five stages are the copy deck's own method — connect, normalize,
+ * automate, approve, improve — with the commercial shape of the engagement
+ * attached to each: what it costs, how long it takes, and what you are left
+ * holding. The deck describes the method; the tags and durations here are the
+ * firm's own terms and are the numbers quoted on the call.
+ *
  * Durations here are mirrored in components/sections/engagement-timeline.tsx.
  * Update both together.
  */
@@ -24,80 +30,80 @@ export type ProcessStep = {
 export const processSteps: ProcessStep[] = [
   {
     n: "01",
-    title: "Discovery call",
+    title: "Part-data assessment",
     tag: "Free",
     summary:
-      "Fifteen minutes to understand your operation and tell you honestly whether this is worth pursuing.",
+      "Fifteen minutes to find the highest-value workflow and the data it would need.",
     detail:
-      "A short, structured conversation about how your business actually runs: where work queues up, what your team spends its week on, and what a fix would be worth. If we can't see a credible case, we say so on this call and you've lost fifteen minutes. No deck, no pitch.",
+      "A short, structured conversation about where the friction actually is: part identification, RFQs and quoting, catalog and distributor data, legacy ERP integration, export documents, MRO or obsolete components. We ask what systems hold the data and who approves decisions today. If we cannot see a workflow worth measuring, we say so on the call and you have lost fifteen minutes.",
     deliverables: [
-      "A straight answer on whether AI is likely to pay off for you",
-      "Two or three specific areas worth examining",
-      "A clear picture of what an engagement would involve",
+      "A straight read on which workflow is worth attacking first",
+      "The source datasets a pilot on it would need",
+      "A clear picture of what a pilot would involve, and what it would not",
     ],
     duration: "15 minutes",
   },
   {
     n: "02",
-    title: "Audit",
+    title: "Connect and normalize",
     tag: "Paid",
     summary:
-      "We map the process end to end with the people who run it, and price what it costs you.",
+      "We connect the sources read-only and turn fragmented identifiers into a controlled structure.",
     detail:
-      "A longer working session during which we talk with employees in different departments, understanding and mapping out the process end to end. The deliverable: a bottleneck map, projected ROI and a recommended sequence. It remains yours regardless of what follows.",
+      "We connect the systems and files that already hold your operational knowledge — ERP, WMS, PIM, CRM, supplier files, PDFs, drawings, catalogs, RFQs and document repositories — read-only, so nothing can change your system of record. Then we organize the fragmented identifiers, descriptions, specifications, fitment rules, documents and commercial data into a controlled structure, and agree the measures the pilot will be judged on before anything is built.",
     deliverables: [
-      "Bottleneck map, ranked by annual cost to the business",
-      "Projected ROI with the assumptions stated explicitly",
-      "A recommended sequence — including 'don't build', when that's the answer",
-      "Scope and fixed price for implementation, if we recommend proceeding",
+      "Read-only connections to the systems that hold the data",
+      "Fragmented identifiers resolved into governed relationships",
+      "A gap and duplicate report you can act on independently",
+      "Success measures and a fixed pilot scope, agreed in writing",
     ],
     duration: "1 week",
   },
   {
     n: "03",
-    title: "Build & integration",
+    title: "Automate the workflow",
     tag: "Small deposit",
     summary:
-      "We build against the audit scope and integrate into the systems you already have in place.",
+      "Requests extracted, parts matched, records enriched, quotes and documents drafted.",
     detail:
-      "We build against the audit scope and integrate into the systems you already have in place.",
+      "We build the workflow against the agreed scope: extracting requests, matching parts, enriching product records, drafting quotes, validating shipment documents — and routing anything uncertain to the right person instead of guessing at it. It is validated against your own historical data before it touches live work, and where an API does not exist we use RPA rather than asking you to replace a system that works.",
     deliverables: [
-      "Working implementation in a staging environment",
-      "Integration with your existing systems",
-      "Validation against your own historical data",
-      "Staff walkthrough before anything touches live work",
+      "The workflow running against your real data in a staging environment",
+      "Confidence thresholds and exception routing you set",
+      "Validation against historical cases, with the misses shown",
+      "A walkthrough with the people who will use it",
     ],
     duration: "2–3 weeks",
   },
   {
     n: "04",
-    title: "Go-live & handover",
+    title: "Approve and go live",
     tag: "Final payment",
     summary:
-      "We deploy, measure against the audit baseline, and hand over full ownership.",
+      "Your teams keep control: the system presents evidence and exceptions, people approve.",
     detail:
-      "We deploy the solutions, measure against the audit baseline, and hand over full ownership. Rollout is staged, with the previous process running alongside until the numbers hold.",
+      "Your technical, sales, procurement and compliance teams keep the decisions. The system presents evidence, confidence and exceptions; people approve the high-impact ones. Write-back to the ERP is switched on only after those approvals are in place, and rollout is staged with the previous process running alongside until the measures hold.",
     deliverables: [
+      "Approval queues owned by your own teams",
+      "Controlled write-back, enabled after approval and not before",
       "Staged rollout with the previous process as fallback",
-      "Measured results against the audit baseline",
-      "Documentation, admin access and team training",
-      "Full ownership of the system",
+      "Documentation, admin access and training",
     ],
     duration: "1 week",
   },
   {
     n: "05",
-    title: "Monitoring & maintenance",
+    title: "Measure and improve",
     // No tag — the duration column already reads "Ongoing".
     summary:
-      "We keep the system running, watched, and measured against the baseline as your business changes.",
+      "Search time, quote speed, data completeness, exception rates and adoption, measured and reported.",
     detail:
-      "Going live is the start of our responsibility, not the end of it. We monitor performance against the baseline the audit established, keep integrations and models current as your tools and volumes change, and fix problems before they surface in your operation.",
+      "We measure search time, quote speed, data completeness, exception rates, document errors and workflow adoption against the baseline agreed at the start — then use what those say to scale to new products, channels and markets. Adoption is the one that predicts the rest: a workflow the team has quietly routed around is not saving anything, whatever the other numbers look like.",
     deliverables: [
-      "Continuous monitoring against the audit baseline",
-      "Measured results at 30 and 90 days, in writing",
-      "Updates and fixes as your systems and volumes change",
-      "Ongoing support from the people who built it",
+      "Measured results against the agreed baseline, in writing",
+      "Continuous monitoring, including supplier and format changes",
+      "A sequenced roadmap for the next workflow or market",
+      "Ownership of your enriched data, throughout",
     ],
     duration: "Ongoing",
   },

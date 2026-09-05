@@ -17,15 +17,15 @@ import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Book a Free AI Consultation",
+  title: "Book a Part-Data Assessment",
   description:
-    "Book your free 15-minute AI discovery call with Praxes, or send us a message. We reply to everything within one business day.",
+    "Tell us where the friction is — part identification, RFQs, quoting, catalog data, distributor sync, ERP integration, export documents or obsolete components — and we'll help you identify a practical first workflow and a measurable pilot scope.",
   path: "/contact",
   keywords: [
-    "AI consultation",
-    "free AI discovery call",
-    "AI consultant Ottawa",
-    "contact AI consultant",
+    "part data assessment",
+    "RFQ automation consultation",
+    "catalog health check",
+    "ERP integration consultation",
   ],
 });
 
@@ -33,17 +33,17 @@ const expectations = [
   {
     icon: Clock,
     title: "Fifteen minutes, and we keep to it",
-    body: "A structured conversation about how your operation runs and where work backs up. No presentation, no preparation needed from you.",
+    body: "Where the work backs up, which systems hold the data, and who approves a fitment decision today. No presentation, and no preparation needed from you.",
   },
   {
     icon: Scale,
-    title: "A straight read, including 'no'",
-    body: "If we can't see a credible case, you'll hear that on the call. We'd rather spend fifteen minutes than take you through a process that won't pay back.",
+    title: "One workflow, named",
+    body: "You leave with a straight read on which workflow is worth measuring first and the source datasets a pilot on it would need — including when the answer is that none of them are worth it yet.",
   },
   {
     icon: MessageSquare,
     title: "No pricing pressure",
-    body: "Nothing is quoted on this call. The only possible next step is a longer analysis conversation, and only if there's something worth analysing.",
+    body: "Nothing is quoted on this call. The only possible next step is a scoped pilot, and only once there is a workflow worth scoping one around.",
   },
 ];
 
@@ -70,8 +70,8 @@ export default function ContactPage() {
 
       <PageHeader
         eyebrow="Contact"
-        title="Fifteen free minutes."
-        deck="Pick a time that suits you below. If you'd rather write first, the form further down reaches us directly."
+        title="Bring the systems that run your parts business into one workflow."
+        deck="Tell us where the friction is: part identification, RFQs, quoting, catalog data, distributor sync, legacy ERP integration, export documents, MRO or obsolete components. Pick a time below, or write to us with the form further down."
       />
       {/* ---------------------------------------------------------------- */}
       {/* Booking widget — lifted into the seam under the header            */}
@@ -124,7 +124,7 @@ export default function ContactPage() {
                 align="left"
                 eyebrow="Or write to us"
                 title="Prefer email?"
-                deck="Tell us roughly what's slowing you down. We reply to everything within one business day."
+                deck="Tell us which workflow is causing the most manual work, and roughly what you run — ERP, SKU count, export markets. We reply to everything within one business day."
               />
 
               <Reveal delay={80} className="mt-10 space-y-5 text-sm">

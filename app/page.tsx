@@ -6,6 +6,7 @@ import { Container, Section } from "@/components/container";
 import { TunnelHero } from "@/components/sections/tunnel-hero";
 import { BlackHoleScene } from "@/components/sections/black-hole-scene";
 import { ServicesPanel } from "@/components/sections/services-panel";
+import { IndustriesBand } from "@/components/sections/industries-band";
 import { DividerBand } from "@/components/sections/divider-band";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqList } from "@/components/sections/faq";
@@ -55,12 +56,12 @@ export const metadata: Metadata = {
  *
  * It opens on a statement inside a wireframe room, with a one-line band
  * under it saying who the statement is for. Then the black hole, close
- * enough to fill the viewport, with the plant's pain points inside it; then
- * the camera pulling back until the hole is a dome on the bottom edge with
- * the solutions arranged in orbit around it. The services follow as a
- * panel — the three things that build those solutions. Everything after
- * that is the ordinary argument: how the engagement runs, why it holds for
- * a plant, the usual questions, and the one action every page funnels to.
+ * enough to fill the viewport, with the pain points inside it; then the
+ * camera pulling back until the hole is a dome on the bottom edge with the
+ * six capability areas in orbit around it. The panel under that is what you
+ * can actually buy — the offers, one card each. Then who this is for, how
+ * the engagement runs, why us, the usual questions, and the one action
+ * every page funnels to.
  */
 export default function HomePage() {
   return (
@@ -78,6 +79,7 @@ export default function HomePage() {
       <DividerBand>{dividerLine}</DividerBand>
       <BlackHoleScene />
       <ServicesPanel />
+      <IndustriesBand />
 
       {/* ---------------------------------------------------------------- */}
       {/* How it runs                                                       */}
@@ -88,8 +90,8 @@ export default function HomePage() {
             <SectionHeading
               align="left"
               eyebrow="How it runs"
-              title="Measured before, measured after"
-              deck="No build starts until the number it has to beat is written down. Discovery is free, the audit is fixed-fee and yours to keep, and the build is fixed-scope against the baseline the audit set."
+              title="Connect, normalize, automate, approve, improve"
+              deck="Nothing is matched until the identifiers are governed, and nothing is written back to your ERP until a person has approved it. The assessment is free, the first week is fixed-fee and yours to keep, and every stage is measured against what we agreed before it started."
               className="lg:sticky lg:top-28 lg:self-start"
             />
 
@@ -133,7 +135,7 @@ export default function HomePage() {
       </Section>
 
       {/* ---------------------------------------------------------------- */}
-      {/* Why it holds for a plant                                          */}
+      {/* Why us                                                            */}
       {/* ---------------------------------------------------------------- */}
       {/* The one section on the page with a ground of its own: the page
           colour at the top running into the logo's deep pink at the foot,
@@ -151,7 +153,7 @@ export default function HomePage() {
           <SectionHeading
             align="left"
             eyebrow="Why Praxes"
-            title="Return in your own numbers"
+            title="Built for parts businesses"
           />
 
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
@@ -203,8 +205,8 @@ export default function HomePage() {
       </Section>
 
       <CtaSection
-        title="What is it costing the floor?"
-        body="Fifteen minutes, no preparation needed. Tell us how the plant runs and we'll say whether there's a case worth measuring — including when there isn't."
+        title="Where is the friction?"
+        body="Fifteen minutes, no preparation needed. Tell us where the work backs up — part identification, RFQs, catalog data, export documents — and we'll tell you which workflow is worth measuring first, including when the answer is none of them."
         secondary={{ href: "/process", label: "See the process" }}
       />
     </>

@@ -23,35 +23,35 @@ type Phase = {
 
 const phases: Phase[] = [
   {
-    label: "Discovery call",
+    label: "Part-data assessment",
     duration: "Week 0",
     span: 1,
     fill: "bg-accent/20",
     detail: "Free, 15 minutes",
   },
   {
-    label: "Audit",
+    label: "Connect & normalize",
     duration: "1 week",
     span: 1.4,
     fill: "bg-accent/40",
-    detail: "Bottleneck map + ROI",
+    detail: "Governed data + gap report",
   },
   {
-    label: "Build & integration",
+    label: "Automate the workflow",
     duration: "2–3 weeks",
     span: 3,
     fill: "bg-accent/65",
     detail: "Built and tested on your data",
   },
   {
-    label: "Go-live & handover",
+    label: "Approve & go live",
     duration: "1 week",
     span: 1.4,
     fill: "bg-accent/85",
-    detail: "Measured against baseline",
+    detail: "Write-back after approval",
   },
   {
-    label: "Monitoring & maintenance",
+    label: "Measure & improve",
     duration: "Ongoing",
     span: 2,
     fill: "bg-accent",

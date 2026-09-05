@@ -126,7 +126,7 @@ export function ContactForm() {
 
       <Field
         id="message"
-        label="What's slowing you down?"
+        label="Which workflow is causing the most manual work?"
         error={errors.message}
       >
         <Textarea
@@ -134,7 +134,7 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
-          placeholder="A sentence or two about the process that frustrates you most is plenty."
+          placeholder="Part identification, RFQs and quoting, catalog data, export documents, obsolete parts — plus your ERP and rough SKU count if you have them to hand."
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-error" : undefined}
         />

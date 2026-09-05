@@ -16,15 +16,15 @@ import { breadcrumbSchema, personSchema, webPageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Our AI Consulting Team",
+  title: "About Praxes",
   description:
-    "Praxes is an AI consulting firm for Canadian small and mid-sized businesses, built around one commitment: measure the business honestly, and say so when AI isn't the answer. Meet the team and how we think.",
+    "Praxes builds AI integration for equipment-parts manufacturers and international distributors: part intelligence, RFQ automation, catalog data, export documents. Evidence and human approval by design. Meet the team and how we think.",
   path: "/about",
   keywords: [
-    "AI consulting firm Canada",
-    "AI consultants Ottawa",
+    "AI integration manufacturers",
+    "parts data consultants",
+    "ERP integration consultants Canada",
     "about Praxes",
-    "AI consulting team",
   ],
 });
 
@@ -35,7 +35,7 @@ export default function AboutPage() {
         schema={[
           webPageSchema({
             type: "AboutPage",
-            name: "About Our AI Consulting Team",
+            name: "About Praxes",
             description:
               "Who Praxes is, how the firm thinks, and the three people who do the work.",
             path: "/about",
@@ -50,8 +50,8 @@ export default function AboutPage() {
 
       <PageHeader
         eyebrow="About"
-        title="A straight answer on AI."
-        deck="Praxes makes a narrower promise than most consultancies: we will measure your business honestly, show you the numbers behind our recommendation, and tell you when the answer is no."
+        title="Evidence, not confident guesses."
+        deck="Praxes makes a narrower promise than most consultancies: we will connect what your business already knows, show you the evidence behind every match, and route the uncertain cases to your people rather than guessing at them."
       />
       {/* ---------------------------------------------------------------- */}
       {/* Story                                                             */}
@@ -74,29 +74,32 @@ export default function AboutPage() {
                 the investment isn&apos;t worth it.
               </p>
               <p className="text-base leading-relaxed text-muted">
-                Then we started looking at what AI was doing to Canadian small
-                and mid-sized businesses. The pattern was hard to miss. The
-                enterprise end of the market had consultants, budgets and people
-                whose job was to check the maths. Everyone else — the accounting
-                practices, the clinics, the clubs, the distributors, the firms
-                that actually employ most Canadians — was being sold the same
-                technology with none of the scrutiny, on a demo and a promise.
+                What kept appearing in parts businesses was a different shape of
+                problem. The data was not missing. It was everywhere: in the
+                ERP, in supplier spreadsheets, in technical PDFs, in drawings,
+                in distributor portals, and in the head of whoever had been at
+                the parts counter longest. Nothing connected any of it, so the
+                same question — which part is this, and what is true about it? —
+                was answered from scratch, by a person, several hundred times a
+                week.
               </p>
               <p className="text-base leading-relaxed text-muted">
-                Almost nobody was establishing a baseline before building, which
-                meant almost nobody could say afterwards whether it had worked.
-                Owners were spending real money on capability and hoping. A few
-                got lucky. Most quietly stopped using what they bought.
+                Meanwhile the tools being sold into that gap were confident
+                where they should have been careful. A system that will invent a
+                fitment relationship rather than admit it does not know is not a
+                productivity gain; it is a wrong-part return, a held shipment,
+                or a machine down for another week — produced faster and at
+                greater scale than any person could manage.
               </p>
               <p className="text-base leading-relaxed text-muted">
-                Praxes exists to close that gap. We bring{" "}
-                <ProseLink href="/process">the same method</ProseLink> to a
-                twenty-person practice that a bank would expect for a
-                seven-figure programme: find the constraint, price it,{" "}
-                build only what the numbers justify, then re-measure and report what actually happened. It is not a
-                novel idea. It is ordinary engineering discipline applied to a
-                field that currently runs on enthusiasm — and applied for
-                businesses that have rarely been offered it.
+                Praxes exists to close that gap the careful way. We bring{" "}
+                <ProseLink href="/process">the same method</ProseLink> every
+                time: connect the sources read-only, normalize the identifiers
+                into governed relationships, automate one workflow, route what
+                is uncertain to the people who can judge it, and measure the
+                result against numbers agreed before the work started. It is
+                ordinary engineering discipline applied to a field that
+                currently runs on enthusiasm.
               </p>
               <p className="text-base leading-relaxed text-muted">
                 Praxes is the Greek for practice: action informed by theory
@@ -226,7 +229,7 @@ export default function AboutPage() {
 
       <CtaSection
         title="Talk to the team."
-        body="No account manager, no discovery deck. Fifteen minutes with the person who would run your audit."
+        body="No account manager, no discovery deck. Fifteen minutes with the person who would run your assessment."
         secondary={{ href: "/process", label: "See the process" }}
       />
     </>

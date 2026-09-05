@@ -1,17 +1,21 @@
 /**
  * Central site configuration.
- * Swap these values for the real ones — nothing else needs to change.
+ *
+ * The site's positioning is AI integration for equipment-parts manufacturers,
+ * aftermarket suppliers and international distributors: part identification,
+ * RFQ and quoting, catalog and distributor data, legacy ERP integration,
+ * export documents, and obsolescence. All of the page copy derives from the
+ * copy deck in website-copy-manufacturing-ai.pdf.
  */
 
 export const site = {
   name: "Praxes",
   legalName: "Praxes Consulting",
-  /** Used in <title> templates and the footer. */
   /** Used in the <title>, OG tags and the OG card. Keep it in step with the
       Home page hero copy in content/manufacturing.ts. */
-  tagline: "AI automation for manufacturers",
+  tagline: "AI integration for equipment-parts manufacturers and distributors",
   description:
-    "Praxes is an AI automation consultancy for manufacturers. We find the hours your operation loses to quoting, scheduling, paperwork and rework, build the systems that take them back, and prove the return in your own numbers.",
+    "Praxes connects your ERP, product data, RFQs, distributor catalogs and export documents, so your team can identify the correct part, prepare accurate quotes, and move international orders with confidence.",
   /** Canonical origin, no trailing slash. Drives canonicals, the sitemap and
       OG URLs, so it must match the live domain. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://praxes.io",
@@ -74,10 +78,18 @@ export const legalNav = [
   { href: "/terms", label: "Terms" },
 ] as const;
 
-/** The one action every page funnels to. */
+/**
+ * The one action every page funnels to.
+ *
+ * `label` is what fits in the navbar and on a card; `longLabel` is the copy
+ * deck's own wording, used where there is room for it. They name the same
+ * meeting — the deck's primary CTA is "Book a Part-Data Assessment", which
+ * is 27 characters and does not fit the bar without shrinking the type
+ * everything else in it is set at.
+ */
 export const primaryCta = {
-  label: "Book a Call",
-  longLabel: "Book your free 15-minute call",
+  label: "Book an Assessment",
+  longLabel: "Book a Part-Data Assessment",
   /** Shown under CTAs as a risk-reducer. */
   note: "Free · 15 minutes · no obligation",
 } as const;

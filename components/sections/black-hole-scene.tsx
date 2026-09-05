@@ -4,12 +4,11 @@ import * as React from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  BarChart3,
   Boxes,
-  CalendarClock,
   ClipboardList,
   FileText,
-  ShieldCheck,
+  Plug,
+  Search,
   Wrench,
   type LucideIcon,
 } from "lucide-react";
@@ -365,15 +364,16 @@ export function BlackHoleScene() {
             <div className="mx-auto max-w-4xl text-center">
               <Eyebrow tone="onDark">The problem</Eyebrow>
               <h2 className="mt-6 text-3xl leading-[1.05] text-white sm:text-4xl lg:text-5xl">
-                Hours the floor never
+                The data exists.
                 <br />
-                gets back
+                Nothing connects it.
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base lg:text-lg">
-                Every plant has one. It is never the machine people complain
-                about — it is the quoting, the scheduling, the paperwork and the
-                rework around it. None of it shows on a timesheet, and it pulls
-                hours in whether anyone is watching or not.
+                Your trusted data is already there — scattered across ERP
+                screens, spreadsheets, PDFs, drawings, supplier files, emails
+                and distributor portals. Sales, parts, procurement and export
+                become the human bridge between systems that should already
+                work together.
               </p>
             </div>
 
@@ -407,15 +407,16 @@ export function BlackHoleScene() {
               <div>
                 <Eyebrow>Our solutions</Eyebrow>
                 <h2 className="mt-5 text-3xl leading-[1.05] text-ink sm:text-4xl lg:text-5xl">
-                  Built around
+                  One connected
                   <br />
-                  your operation
+                  workflow
                 </h2>
               </div>
               <div className="lg:pt-2">
                 <p className="max-w-md text-sm leading-relaxed text-muted sm:text-base lg:text-lg">
                   Each one reads from the systems you already run and writes
-                  back to them. Hover a label to see what it does on the floor.
+                  back to them, under your approval. Hover a label to see what
+                  it does.
                 </p>
               </div>
             </div>
@@ -514,14 +515,15 @@ const GAP = 28;
 const PAD = 16;
 
 /** One glyph per solution, keyed by label. */
+/** Keyed by the `label` in content/manufacturing.ts. Rename one there and
+    it falls back to the document glyph until it is renamed here too. */
 const ICONS: Record<string, LucideIcon> = {
-  Quoting: FileText,
-  Scheduling: CalendarClock,
-  "Work orders": ClipboardList,
-  Quality: ShieldCheck,
-  Maintenance: Wrench,
-  Inventory: Boxes,
-  Reporting: BarChart3,
+  "Part intelligence": Search,
+  "RFQ automation": FileText,
+  "Catalog intelligence": Boxes,
+  "ERP integration": Plug,
+  "Export documents": ClipboardList,
+  Obsolescence: Wrench,
 };
 
 type Rect = { x: number; y: number; w: number; h: number };

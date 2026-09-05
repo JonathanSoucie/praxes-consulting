@@ -17,16 +17,16 @@ import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Our AI Consulting Process",
+  title: "How an Engagement Runs",
   description:
-    "Five steps from a free 15-minute discovery call to a measured go-live: discovery, deep-dive analysis, a paid ROI audit, build and integration, then go-live with measurement against the original baseline.",
+    "Five stages, from a free part-data assessment to a measured, monitored workflow: connect the sources read-only, normalize the identifiers, automate the workflow, approve before anything writes back, then measure and improve.",
   path: "/process",
   keywords: [
-    "AI consulting process",
-    "AI audit",
-    "AI implementation steps",
-    "AI discovery call",
-    "AI ROI audit",
+    "ERP integration process",
+    "part data normalization",
+    "RFQ automation pilot",
+    "read-only ERP integration",
+    "catalog data governance",
   ],
 });
 
@@ -37,24 +37,24 @@ export const metadata: Metadata = pageMetadata({
  */
 const clientInputs = [
   {
-    title: "A few hours from the people who do the work",
+    title: "Time from the people who know the data",
     cost: "3–5 hrs",
-    body: "Spread across the audit week. We sit with whoever actually runs the process — not a manager's summary of it — because the summary is usually where the real bottleneck goes missing.",
+    body: "Spread across the first week. The parts person who knows which cross-references are wrong, and the export coordinator who knows which field causes the exceptions every month. Their knowledge is most of what gets encoded; the software is the easy half.",
   },
   {
-    title: "Read access to the systems involved",
+    title: "Read access to the source systems",
     cost: "Setup only",
-    body: "Enough to measure volumes and cycle times. Scoped to the specific workflow, arranged in writing before the audit starts, and revoked or handed back at the end if you decide not to proceed.",
+    body: "ERP, WMS, PIM and the supplier files, read-only. Scoped to the specific workflow, arranged in writing before we connect anything, and revoked or handed back at the end if you decide not to proceed.",
   },
   {
-    title: "One person who can make the call",
+    title: "Someone who can approve a fitment decision",
     cost: "Ongoing",
-    body: "Somebody with authority to say yes or no at the end of the audit. Engagements stall when the findings land with a committee that has to reconvene to have an opinion.",
+    body: "A technical person with the authority to say a substitute is or is not acceptable. The system routes uncertainty to a human by design, and that only works if the human exists and has the mandate.",
   },
   {
-    title: "Honest numbers, including the awkward ones",
+    title: "The awkward numbers, not the presentable ones",
     cost: "Once",
-    body: "Error rates, rework, the tasks nobody logs. We're building a baseline you'll be measured against later, so a flattering starting number only makes the final comparison look worse.",
+    body: "Wrong-part returns, unmatched RFQ lines, document exceptions, SKUs that never made it to the website. We are building the baseline you will be measured against later, so a flattering starting number only makes the final comparison look worse.",
   },
 ];
 
@@ -81,8 +81,8 @@ export default function ProcessPage() {
 
       <PageHeader
         eyebrow="Process"
-        title="Stop at any point."
-        deck="A free conversation, then a paid audit you keep regardless of what you decide, then a fixed-scope build. Your exposure grows only after the case for it has been measured."
+        title="Read-only first. Approved before anything writes back."
+        deck="A free assessment, then a fixed-fee week that leaves you with governed data whatever you decide next, then a scoped pilot on one workflow. Your exposure grows only after the case for it has been measured on your own data."
       >
         <div className="mt-10 flex flex-col items-center gap-4">
           <BookACall size="lg" withArrow />
@@ -97,7 +97,7 @@ export default function ProcessPage() {
           <SectionHeading
             eyebrow="The engagement"
             title="Five stages."
-            deck="What happens at each stage, what you receive, and how long it typically takes."
+            deck="Connect, normalize, automate, approve, improve — what happens at each stage, what you receive, and how long it typically takes."
           />
 
           <div className="mt-16">
@@ -118,7 +118,7 @@ export default function ProcessPage() {
           <SectionHeading
             eyebrow="Your side"
             title="What we need from you."
-            deck="Not much, and almost all of it lands in the audit week. The most common worry we hear is that this will become another project your team has to carry. It doesn't."
+            deck="Not much, and almost all of it lands in the first week. The most common worry we hear is that this becomes another project your team has to carry. It doesn't — but the part that cannot be outsourced is the knowledge in your parts people's heads."
           />
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2">
@@ -165,7 +165,7 @@ export default function ProcessPage() {
 
       <CtaSection
         title="Start with fifteen minutes."
-        body="No preparation, no deck, no pricing conversation. Just a straight read on whether there's something here worth measuring."
+        body="No preparation, no deck, no pricing conversation. Tell us where the work backs up and which systems hold the data, and we'll tell you which workflow is worth measuring first."
         secondary={{ href: "/about", label: "Who you\u2019d work with" }}
       />
     </>

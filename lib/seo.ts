@@ -75,12 +75,12 @@ export function pageMetadata({
  * new domain, whereas "AI automation consultant Ottawa" is reachable.
  */
 export const siteKeywords = [
-  "AI consulting",
-  "AI automation consultant",
-  "AI consulting Ottawa",
-  "AI consulting Canada",
-  "AI for small business",
-  "business process automation",
-  "AI ROI analysis",
-  "AI readiness assessment",
+  "part number cross reference software",
+  "RFQ automation manufacturing",
+  "quote automation parts distributor",
+  "product data enrichment manufacturing",
+  "distributor catalog synchronization",
+  "legacy ERP integration layer",
+  "export document validation",
+  "obsolete parts sourcing",
 ] as const;

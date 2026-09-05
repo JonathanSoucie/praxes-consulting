@@ -13,7 +13,7 @@ import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 const description =
-  "Three services, in sequence: an Automations Audit that measures and prices the repetitive work on the floor, then operations automations, then marketing automations. You buy the first one.";
+  "Five offers, each scoped to one workflow with success measures agreed before it starts: part intelligence, RFQ-to-quote, catalog intelligence, export operations, and integration with managed operations once a pilot has proved itself.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Services",
@@ -45,8 +45,8 @@ export default function ServicesPage() {
 
       <PageHeader
         eyebrow="What we offer"
-        title="You buy the measurement. The build is what it recommends."
-        deck="Most firms in this category sell you a build and give the assessment away. We do it the other way round, and it changes what the assessment is allowed to conclude."
+        title="One workflow. One product family. Measures agreed up front."
+        deck="Every offer here is scoped small enough to prove or disprove on your own data, and every one names what it will be judged on before it starts. Nothing writes back to your ERP until your people have approved it."
       />
 
       <Section className="pt-0 sm:pt-0 lg:pt-0">
@@ -102,7 +102,7 @@ export default function ServicesPage() {
             <SectionHeading
               align="left"
               eyebrow="Why this order"
-              title="Operations first. Marketing second."
+              title="Part data first. Everything else depends on it."
             />
             <Reveal delay={100}>
               <div className="space-y-6 text-base leading-relaxed text-muted sm:text-lg">
@@ -111,18 +111,20 @@ export default function ServicesPage() {
                   worth saying why rather than presenting it as a preference.
                 </p>
                 <p>
-                  Marketing automation manufactures demand. Demand lands on the
-                  floor, and if the floor is still spending its week on quoting
-                  by hand, re-juggling the schedule and retyping paperwork, the
-                  new volume goes into the same queue everything else is stuck
-                  in. You have then paid to make your lead times worse, which
-                  shows up as a reputation problem about six weeks later.
+                  Quoting, catalog publishing and export checks are all the
+                  same question asked in different places: which part is this,
+                  and what is true about it? Automate the quote before the part
+                  relationships are governed and you have built something that
+                  produces confident wrong answers faster than a person could
+                  produce careful right ones. The catalog publishes the same
+                  error to every channel at once. The export documents disagree
+                  in a way nobody catches until the shipment is held.
                 </p>
                 <p>
-                  Free the week first. Then fill it deliberately. A plant that
-                  has taken its hours back from the black hole can absorb what
-                  marketing automation produces — one that has not, cannot, and
-                  no amount of pipeline fixes that.
+                  So the identifiers get resolved first, with the
+                  non-interchangeable pairs recorded and the uncertain cases
+                  routed to a person. After that, the other three are largely a
+                  question of where the answer needs to appear.
                 </p>
               </div>
             </Reveal>

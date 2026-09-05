@@ -13,8 +13,8 @@ import { Reveal } from "@/components/reveal";
  */
 export function CtaSection({
   eyebrow = "Next step",
-  title = "What is it costing you?",
-  body = "Fifteen minutes, no preparation needed. We'll tell you whether there's a case worth measuring — including when there isn't.",
+  title = "Which workflow first?",
+  body = "Fifteen minutes, no preparation needed. Tell us where the work backs up and which systems hold the data, and we'll tell you what is worth measuring first — including when the answer is nothing yet.",
   secondary,
 }: {
   eyebrow?: string;
