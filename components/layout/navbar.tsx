@@ -50,7 +50,7 @@ export function Navbar() {
 
   const linkClass = (href: string) =>
     cn(
-      "inline-flex items-center gap-1.5 text-[0.9375rem] font-medium transition-colors duration-150 ease-out-soft",
+      "inline-flex items-center gap-1.5 text-[1.0625rem] font-medium transition-colors duration-150 ease-out-soft",
       isActive(href) ? "text-ink" : "text-ink/75 hover:text-ink",
     );
 
@@ -63,9 +63,9 @@ export function Navbar() {
         {/* Three tracks, the outer two equal, so the links are centred on
             the page rather than on whatever is left between the brand and
             the button. */}
-        <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-6 lg:h-22">
+        <div className="grid h-15 grid-cols-[1fr_auto_1fr] items-center gap-6 lg:h-16">
           <div className="col-start-1 flex items-center">
-            <Logo markSize={28} className="text-[1.0625rem]" />
+            <Logo markSize={26} className="text-[1.0625rem]" />
           </div>
 
           <nav
@@ -104,8 +104,8 @@ export function Navbar() {
                 with the links beside it. */}
             <BookACall
               variant="outline"
-              size="md"
-              className="hidden rounded-[8px] border-ink/60 bg-transparent px-6 font-sans text-[0.8125rem] font-bold tracking-[0.04em] text-ink hover:border-ink hover:bg-ink hover:text-surface-2 sm:inline-flex"
+              size="sm"
+              className="hidden h-10 rounded-[8px] border-ink/60 bg-transparent px-5 font-sans text-[0.8125rem] font-bold tracking-[0.04em] text-ink hover:border-ink hover:bg-ink hover:text-surface-2 sm:inline-flex"
             />
             <button
               type="button"

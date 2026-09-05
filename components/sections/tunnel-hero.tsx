@@ -150,16 +150,16 @@ export function TunnelHero() {
         }}
       />
 
-      <Container className="relative z-10 flex min-h-svh flex-col items-center justify-center pt-28 pb-24 text-center sm:pt-32">
+      <Container className="relative z-10 flex min-h-svh flex-col items-center justify-center pt-24 pb-24 text-center sm:pt-26">
         <Reveal className="flex flex-col items-center">
           <h1
             id="hero-title"
-            className="max-w-[17ch] font-display text-[2.75rem] leading-[0.98] font-extrabold tracking-[-0.03em] text-ink sm:text-6xl lg:text-7xl xl:text-[5.5rem]"
+            className="max-w-[17ch] font-display text-[2.25rem] leading-[1.02] font-extrabold tracking-[-0.028em] text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
             {hero.headline}
           </h1>
 
-          <p className="mt-10 max-w-lg text-lg leading-relaxed text-ink-soft sm:text-xl">
+          <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink-soft sm:text-xl">
             {hero.sub}
           </p>
         </Reveal>
