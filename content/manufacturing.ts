@@ -25,6 +25,15 @@ export const hero = {
 export const dividerLine =
   "Built for small and mid-sized manufacturers, from 10 to 250 people.";
 
+/** The services panel on the home page, under the solutions. The three
+    cards in it come from content/services.ts; this is only the head. The
+    three beats are the three things the Why Praxes section argues — measured
+    before building, built into what is already there, owned outright. */
+export const servicesSection = {
+  eyebrow: "Services",
+  title: "Measured first. Built to fit. Yours to keep.",
+} as const;
+
 /** Inside the black hole. Each one is a place hours disappear on a shop floor
     without appearing on any timesheet. */
 export const painPoints = [

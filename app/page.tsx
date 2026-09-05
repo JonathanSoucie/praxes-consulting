@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { Container, Section } from "@/components/container";
 import { TunnelHero } from "@/components/sections/tunnel-hero";
 import { BlackHoleScene } from "@/components/sections/black-hole-scene";
+import { ServicesPanel } from "@/components/sections/services-panel";
 import { DividerBand } from "@/components/sections/divider-band";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqList } from "@/components/sections/faq";
@@ -56,9 +57,10 @@ export const metadata: Metadata = {
  * under it saying who the statement is for. Then the black hole, close
  * enough to fill the viewport, with the plant's pain points inside it; then
  * the camera pulling back until the hole is a dome on the bottom edge with
- * the solutions arranged in orbit around it. Everything after that is the
- * ordinary argument: how the engagement runs, why it holds for a plant, the
- * usual questions, and the one action every page funnels to.
+ * the solutions arranged in orbit around it. The services follow as a
+ * panel — the three things that build those solutions. Everything after
+ * that is the ordinary argument: how the engagement runs, why it holds for
+ * a plant, the usual questions, and the one action every page funnels to.
  */
 export default function HomePage() {
   return (
@@ -75,6 +77,7 @@ export default function HomePage() {
       <TunnelHero />
       <DividerBand>{dividerLine}</DividerBand>
       <BlackHoleScene />
+      <ServicesPanel />
 
       {/* ---------------------------------------------------------------- */}
       {/* How it runs                                                       */}
