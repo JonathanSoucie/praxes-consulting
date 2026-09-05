@@ -46,8 +46,9 @@ export function Navbar() {
     };
   }, [open]);
 
-  /* A fragment link is never the current page — "/#services" would otherwise
-     match every route by prefix and sit permanently underlined on Home. */
+  /* A fragment link is never the current page. Nothing in `nav` is one
+     today, but one would otherwise match every route by prefix and sit
+     permanently marked as current. */
   const isActive = (href: string) =>
     !href.includes("#") &&
     (pathname === href || pathname.startsWith(`${href}/`));
@@ -74,89 +75,75 @@ export function Navbar() {
       className="absolute inset-x-0 z-50"
       style={{ top: "var(--frame-y)" }}
     >
-      <div className="relative">
-        <Container>
-          {/* Three tracks, the outer two equal, so the centre cluster is
-              centred on the page rather than on whatever is left over after
-              the CTA. The outer cells are placed explicitly because the one
-              on the left is empty on desktop — auto-placement would slide
-              the nav into it the moment its only child is display:none. */}
-          <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-4">
-            <div className="col-start-1 flex items-center lg:hidden">
-              <Logo wordmark={false} />
-            </div>
-
-            <nav
-              aria-label="Primary"
-              className="col-start-2 hidden lg:block"
-            >
-              <ul className="flex items-center gap-8">
-                {leftNav.map((item) => (
-                  <li key={item.href}>
-                    {/* No pill, no fill. At this size a filled active state is
-                        heavier than the mark next to it; colour alone carries
-                        the state, with an underline for anyone who cannot
-                        rely on colour. */}
-                    <Link
-                      href={item.href}
-                      aria-current={isActive(item.href) ? "page" : undefined}
-                      className={linkClass(item.href)}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-
-                <li className="mx-2 flex items-center">
-                  <Logo wordmark={false} markSize={34} />
-                </li>
-
-                {rightNav.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={isActive(item.href) ? "page" : undefined}
-                      className={linkClass(item.href)}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="col-start-3 flex items-center justify-end gap-2">
-              <BookACall size="sm" className="hidden sm:inline-flex" />
-              <button
-                type="button"
-                onClick={() => setOpen((v) => !v)}
-                aria-expanded={open}
-                aria-controls="mobile-nav"
-                aria-label={open ? "Close menu" : "Open menu"}
-                className="-mr-2 inline-flex size-10 items-center justify-center rounded-sm text-ink transition-[background-color,transform] duration-150 ease-out-soft active:scale-90 active:bg-accent-soft lg:hidden"
-              >
-                {open ? (
-                  <X aria-hidden className="size-5" />
-                ) : (
-                  <Menu aria-hidden className="size-5" />
-                )}
-              </button>
-            </div>
+      <Container>
+        {/* Three tracks, the outer two equal, so the centre cluster is
+            centred on the page rather than on whatever is left over after
+            the CTA. The outer cells are placed explicitly because the one
+            on the left is empty on desktop — auto-placement would slide
+            the nav into it the moment its only child is display:none. */}
+        <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-4">
+          <div className="col-start-1 flex items-center lg:hidden">
+            <Logo wordmark={false} />
           </div>
-        </Container>
 
-        {/* The rule under the bar.
+          <nav
+            aria-label="Primary"
+            className="col-start-2 hidden lg:block"
+          >
+            <ul className="flex items-center gap-8">
+              {leftNav.map((item) => (
+                <li key={item.href}>
+                  {/* No pill, no fill. At this size a filled active state is
+                      heavier than the mark next to it; colour alone carries
+                      the state, with an underline for anyone who cannot
+                      rely on colour. */}
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className={linkClass(item.href)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
 
-            Inset to exactly where the hero's panel draws its own verticals
-            (components/sections/spacetime-hero.tsx), so the three lines meet
-            at two corners and read as one frame around the page rather than
-            as a bar with a rule under it. Same hairline colour, same pair of
-            gutters — if one moves, both move. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-[calc(var(--frame-x)+1.25rem)] bottom-0 border-t border-line-strong md:inset-x-[calc(var(--frame-x)+3rem)]"
-        />
-      </div>
+              <li className="mx-2 flex items-center">
+                <Logo wordmark={false} markSize={34} />
+              </li>
+
+              {rightNav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className={linkClass(item.href)}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="col-start-3 flex items-center justify-end gap-2">
+            <BookACall size="sm" className="hidden sm:inline-flex" />
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="-mr-2 inline-flex size-10 items-center justify-center rounded-sm text-ink transition-[background-color,transform] duration-150 ease-out-soft active:scale-90 active:bg-accent-soft lg:hidden"
+            >
+              {open ? (
+                <X aria-hidden className="size-5" />
+              ) : (
+                <Menu aria-hidden className="size-5" />
+              )}
+            </button>
+          </div>
+        </div>
+      </Container>
 
       {/* Mobile sheet.
 

@@ -272,12 +272,11 @@ export function SpacetimeHero() {
       className="relative isolate min-h-svh overflow-hidden bg-surface-2"
       aria-labelledby="hero-title"
     >
-      {/* The sheet, inside a framed panel: a pair of hairlines set in from
-          the mat, with the grid clipped to them so nothing runs past the
-          margin. It runs to the bottom edge, where the black hole of the
-          next scene crests up over it. */}
+      {/* The sheet, clipped to a pair of margins set in from the mat so the
+          grid never runs past them. It runs to the bottom edge, where the
+          black hole of the next scene crests up over it. */}
       <div
-        className="pointer-events-none absolute inset-y-0 inset-x-[calc(var(--frame-x)+1.25rem)] overflow-hidden border-x border-line-strong md:inset-x-[calc(var(--frame-x)+3rem)]"
+        className="pointer-events-none absolute inset-y-0 inset-x-[calc(var(--frame-x)+1.25rem)] overflow-hidden md:inset-x-[calc(var(--frame-x)+3rem)]"
         aria-hidden
       >
         <canvas ref={canvasRef} className="block h-full w-full" />
@@ -295,6 +294,21 @@ export function SpacetimeHero() {
         />
         <div className="absolute inset-x-0 bottom-0 h-[10%] bg-linear-to-t from-surface-2 to-transparent" />
       </div>
+
+      {/* The margin hairlines, drawn separately from the panel that clips the
+          grid so they can start below the navbar. Run up behind the bar and
+          they put two stubs of rule either side of the links, which reads as
+          the page's frame passing through the header rather than as the
+          header sitting above the page. Same pair of gutters as the clip
+          above — if one moves, both move.
+
+          The offset is the frame's own thickness plus the bar's height (h-18),
+          so the lines begin exactly where the bar ends. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-[calc(var(--frame-x)+1.25rem)] bottom-0 border-x border-line-strong md:inset-x-[calc(var(--frame-x)+3rem)]"
+        style={{ top: "calc(var(--frame-y) + 4.5rem)" }}
+      />
 
       {/* Copy sits in the dark above the horizon. The fixed-height block
           keeps it there on any viewport instead of letting it slide down
