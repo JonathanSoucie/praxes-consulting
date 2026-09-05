@@ -5,7 +5,7 @@ import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { servicesSection } from "@/content/manufacturing";
+import { automations, servicesSection } from "@/content/manufacturing";
 import { services } from "@/content/services";
 
 /**
@@ -21,11 +21,18 @@ import { services } from "@/content/services";
  * a thick circular border blurred until it is a haze, placed so its arc
  * passes through the top-right corner and sweeps down and around.
  *
- * The cards come from content/services.ts, the same list the /services
- * index and the navbar menu read, so the three stay in step. There are
- * three rather than the reference's six because there are three services.
+ * The cards are the automations themselves (content/manufacturing.ts), not
+ * the three commercial wrappers they are sold under: a plant reads "RFQs
+ * read on arrival" and knows what it would be buying, where "Operations
+ * Automations" tells it nothing. Each card names the engagement that covers
+ * it and links there, which is where the depth is — there is no page per
+ * automation, and a "Read more" that went to a category page would be
+ * promising one.
  */
 export function ServicesPanel() {
+  /** Slug -> name, for the line at the foot of each card. */
+  const serviceName = new Map(services.map((s) => [s.slug, s.name]));
+
   return (
     <section
       aria-labelledby="services-title"
@@ -67,25 +74,25 @@ export function ServicesPanel() {
             </h2>
           </Reveal>
 
-          <ul className="mt-14 grid gap-5 md:grid-cols-3 lg:mt-16">
-            {services.map((service, i) => (
+          <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
+            {automations.map((automation, i) => (
               <Reveal
-                key={service.slug}
+                key={automation.name}
                 as="li"
-                delay={i * 70}
+                delay={(i % 3) * 70}
                 className="flex flex-col rounded-[14px] border border-line-strong bg-surface-3 p-7"
               >
-                <h3 className="font-heading text-xl font-semibold text-ink">
-                  {service.name}
+                <h3 className="font-heading text-xl leading-snug font-semibold text-ink">
+                  {automation.name}
                 </h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
-                  {service.summary}
+                  {automation.body}
                 </p>
                 <Link
-                  href={`/services/${service.slug}`}
+                  href={`/services/${automation.service}`}
                   className="group mt-8 inline-flex w-fit items-center gap-1.5 text-sm text-ink-soft underline decoration-line-strong underline-offset-[5px] transition-colors hover:text-accent hover:decoration-accent"
                 >
-                  Read more
+                  {serviceName.get(automation.service)}
                   <ArrowRight
                     aria-hidden
                     className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"

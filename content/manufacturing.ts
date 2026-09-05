@@ -26,13 +26,60 @@ export const dividerLine =
   "Built for small and mid-sized manufacturers, from 10 to 250 people.";
 
 /** The services panel on the home page, under the solutions. The three
-    cards in it come from content/services.ts; this is only the head. The
-    three beats are the three things the Why Praxes section argues — measured
+    beats are the three things the Why Praxes section argues — measured
     before building, built into what is already there, owned outright. */
 export const servicesSection = {
   eyebrow: "Services",
   title: "Measured first. Built to fit. Yours to keep.",
 } as const;
+
+/**
+ * The automations themselves — the specific systems built, not the three
+ * commercial wrappers they are bought under. This is what the services panel
+ * on Home lists, because "Operations Automations" tells a plant nothing and
+ * "RFQs read on arrival" tells them exactly what they would be buying.
+ *
+ * `service` is the slug in content/services.ts this is built under, so each
+ * card can say which engagement covers it and link there.
+ *
+ * ⚠️ The first three are named engagements. Their descriptions are drafted
+ * from those names and follow the site's own account of how the work is done
+ * — read them before launch and correct anything that overstates what the
+ * built system actually does. The last three are the wording already
+ * published in `solutions` below, unchanged.
+ */
+export const automations = [
+  {
+    name: "Catalog Orchestration",
+    body: "Supplier feeds, ERP records and spreadsheets pulled into one catalogue that stays current — normalised, enriched into a product intelligence layer, and written back out to every system and channel that needs it.",
+    service: "operations-automations",
+  },
+  {
+    name: "RFQ Parsing",
+    body: "Inbound RFQs read on arrival: line items, quantities and specs extracted, matched to past jobs and material prices, and a costed quote drafted for the estimator to approve rather than build.",
+    service: "operations-automations",
+  },
+  {
+    name: "Co-Branded Sell Sheets",
+    body: "One-pagers generated from the live catalogue in each distributor's own branding, so a rep asking for a current spec sheet gets one in minutes instead of a designer rebuilding it.",
+    service: "marketing-automations",
+  },
+  {
+    name: "Adaptive Scheduling",
+    body: "Orders, capacity and material availability in one place, so a rush job or a down machine re-sequences the floor in minutes with the constraints respected.",
+    service: "operations-automations",
+  },
+  {
+    name: "In-Process Quality",
+    body: "Inspection and machine data pulled continuously and watched against limits, so a process moving out of tolerance is flagged during the batch, not after it.",
+    service: "operations-automations",
+  },
+  {
+    name: "Inventory Reconciliation",
+    body: "Consumption reconciled from what the floor actually ran, reorder points that move with the schedule, and shortages seen before they stop a job.",
+    service: "operations-automations",
+  },
+] as const;
 
 /** Inside the black hole. Each one is a place hours disappear on a shop floor
     without appearing on any timesheet. */
