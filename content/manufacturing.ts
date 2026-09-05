@@ -3,8 +3,8 @@
  *
  * Three things live here: the pain points that sit inside the black hole,
  * the solutions arranged around it once the page zooms out, and the short
- * proof points under both. Copy only — the two scenes that draw these are in
- * components/sections/spacetime-hero.tsx and black-hole-scene.tsx.
+ * proof points under both. Copy only — the scenes that draw these are in
+ * components/sections/dithered-galaxy-hero.tsx and black-hole-scene.tsx.
  */
 
 /**
@@ -19,9 +19,6 @@
 export const hero = {
   subhead: "AI Native Automations for manufacturing enterprises",
 } as const;
-
-/** The one-line band between the hero and the black hole. */
-export const dividerLine = "Leading AI automation for manufacturers";
 
 /** Inside the black hole. Each one is a place hours disappear on a shop floor
     without appearing on any timesheet. */

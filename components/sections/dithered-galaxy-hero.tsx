@@ -1,68 +1,74 @@
 import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container } from "@/components/container";
 import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
-import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/reveal";
+import { hero } from "@/content/manufacturing";
+import { site } from "@/content/site";
 
 /**
- * The home hero: the dithered galaxy at full height, with the copy in the
- * upper-left negative space the galaxy leaves empty.
+ * The home hero: the wordmark, centred, on the dithered galaxy.
  *
- * Laid out to the reference: an oversized uppercase display headline set in
- * the accent and broken deliberately across two lines, a short paragraph, and
- * a single action. The artwork sits to the right, which is where the galaxy
- * already is, so the copy and the subject never fight for the same space.
+ * The field is the same one every other masthead on the site sits on —
+ * About, Services, Process, the closing CTA — so the home page opens in the
+ * same room the rest of the site is in rather than in a different one. The
+ * hero that stood here before drew its own picture (a perspective grid with
+ * the brand mark in a gravity well) and was the one screen on the site with
+ * a texture nothing else shared; the mark, which is a spiral galaxy, is also
+ * the subject of this field, so it does not need to be drawn twice.
  *
- * Everything that draws is in <DitheredGalaxyField>. This file is only the
- * composition.
+ * The composition is the page masthead's, at full height: a centred stack,
+ * the name in the display face blended into the dots, the one line under it,
+ * the one action. Nothing else — the argument starts in the scene beneath.
+ *
+ * HOW IT HANDS OFF
+ *
+ * The section stops short of the viewport, on purpose. The black hole scene
+ * under it starts with the hole's crest a few percent below its own top edge,
+ * so with the hero at 86svh the top of that scene shows in the last stretch
+ * of the first screen: the crest, and the pink halo above it, rising under
+ * the copy. The reader sees the next thing coming before they move. The band
+ * that used to sit between the two — a bordered strip carrying a second copy
+ * of the sub-header's claim — was a wall between the two scenes; the page's
+ * own description of itself is "one continuous picture", and now it is.
+ *
+ * `fadeBottom` on the field does the other half: the dots dissolve into the
+ * page colour before the halo arrives, so the join is dark-into-glow rather
+ * than dots-into-glow.
  */
-export function DitheredGalaxyHero({ className }: { className?: string }) {
+export function DitheredGalaxyHero() {
   return (
     <section
-      className={cn("relative isolate overflow-hidden bg-surface-2", className)}
+      className="relative isolate overflow-hidden bg-surface-2"
+      aria-labelledby="hero-title"
     >
-      <DitheredGalaxyField scrim="upper-left" />
+      <DitheredGalaxyField scrim="center" intensity={0.8} />
 
-      {/* pt clears the overlaying navbar. */}
-      <Container className="relative z-10 flex min-h-svh flex-col justify-center pt-28 pb-32 sm:pt-32 sm:pb-40">
-        <div className="max-w-xl lg:max-w-3xl">
-          {/*
-            The headline blends into the field rather than punching a hole in
-            it — multiply on the light theme, screen on the dark, which is its
-            mirror once the polarity flips. See --hero-type-blend.
-
-            Line breaks are authored, not left to the measure: at these sizes
-            the question sets to two balanced lines, where wrapping it
-            naturally would break after "or" and leave "growth?" stranded.
-
-            Sentence case in the markup — the caps come from `uppercase`, so
-            the accessible name and the page source stay readable.
-          */}
-          <h1 className="hero-type font-display text-[2.75rem] leading-[0.95] font-semibold text-accent uppercase sm:text-6xl lg:text-7xl xl:text-8xl">
-            Time or
-            <br />
-            growth?
+      {/* Copy is centred in the box, with the nav's height taken off the top
+          so "centred" is centred in what is visible under the bar. */}
+      <Container className="relative z-10 flex min-h-[86svh] flex-col items-center justify-center pt-28 pb-24 text-center sm:pt-32 sm:pb-28">
+        <Reveal className="flex flex-col items-center">
+          {/* The name blends into the field rather than punching a hole in
+              it — screen on the dark theme, multiply on the light. See
+              --hero-type-blend, and the same class on every page masthead. */}
+          <h1
+            id="hero-title"
+            className="hero-type font-display text-[2.75rem] leading-none font-extrabold tracking-[-0.03em] text-ink sm:text-6xl lg:text-7xl xl:text-[5.75rem]"
+          >
+            {site.name}
           </h1>
 
-          {/* Two sentences, one thought — the break is authored so "You
-              choose." lands on its own line and the promise answers it
-              underneath. The wrapper is a plain div now: with the second
-              paragraph gone there is nothing left for space-y-4 to space. */}
-          <div className="mt-9 max-w-lg">
-            <p className="text-base leading-relaxed text-ink-soft sm:text-lg">
-              You choose.
-              <br />
-              We build the systems that get you there.
-            </p>
-          </div>
+          {/* The sub-header. Set well below the wordmark's size and weight —
+              close to it in either and the line reads as a continuation of
+              the name rather than as what the name does. */}
+          <h2 className="mt-5 max-w-3xl text-lg leading-snug font-semibold text-ink sm:text-xl lg:text-[1.375rem]">
+            {hero.subhead}
+          </h2>
 
-          <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:gap-4">
+          <div className="mt-9 flex flex-col items-center gap-3">
             <BookACall size="lg" withArrow />
+            <BookingNote />
           </div>
-          {/* A step darker than the usual muted grey: this line sits lowest in
-              the copy stack, which on a phone is where the field is densest
-              and a light secondary colour stops being readable. */}
-          <BookingNote className="mt-5 text-ink-soft" />
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

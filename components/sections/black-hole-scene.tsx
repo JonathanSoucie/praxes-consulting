@@ -291,9 +291,8 @@ export function BlackHoleScene() {
   const orbitR = layout ? layout.r1 * ORBIT : 0;
 
   return (
-    // `id` is the navbar's "Services" target (content/site.ts): the solutions
-    // this scene holds are the closest thing the site has to a service list,
-    // and the scrub starts from the top of the section either way.
+    // Anchor for in-page links to the solutions. The scrub starts from the
+    // top of the section either way, so landing here plays the whole move.
     <section
       ref={sectionRef}
       id="services"
@@ -342,6 +341,20 @@ export function BlackHoleScene() {
             ) : null}
           </g>
         </svg>
+
+        {/* The scene's top edge, dissolved.
+
+            The hero above ends on the page colour, but the halo around the
+            hole is at strength right up to this frame's top edge, so with
+            nothing here the two met on a straight line — dark, then haze,
+            in one step. This ramps the haze in from the page colour instead.
+            It is 40px tall because the crest of the ring sits about 5% of
+            the viewport below the top (see computeLayout), and the ring is
+            the thing the hero is letting the reader see coming. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-linear-to-b from-surface-2 to-transparent"
+        />
 
         {/* ---- The problem, inside the hole -------------------------- */}
         <div
