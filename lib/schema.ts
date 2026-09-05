@@ -154,6 +154,29 @@ export function webPageSchema({
 }
 
 /** Team members, so the people behind the analysis are resolvable entities. */
+/** One service page. */
+export function serviceSchema({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}): Json {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${site.url}${path}#service`,
+    name,
+    description,
+    url: `${site.url}${path}`,
+    provider: { "@id": ORG_ID },
+    areaServed: { "@type": "Country", name: "Canada" },
+    serviceType: "Manufacturing process automation",
+  };
+}
+
 export function personSchema(member: TeamMember): Json {
   return {
     "@context": "https://schema.org",

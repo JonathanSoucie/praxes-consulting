@@ -55,14 +55,13 @@ export const features = {
  * also the left-to-right order across it: the first half sits left of the
  * mark, the rest to its right.
  *
- * Services is a fragment link rather than a route. The solutions live in the
- * black-hole scene on Home (components/sections/black-hole-scene.tsx) and
- * there is no page that says more about them than that scene does; when one
- * exists, this becomes "/services" and nothing else has to change.
+ * Services is a route: the index at /services and one page per service in
+ * content/services.ts. The solutions in the black-hole scene on Home are the
+ * things those services build.
  */
 export const nav = [
   { href: "/process", label: "Process" },
-  { href: "/#services", label: "Services" },
+  { href: "/services", label: "Services" },
   ...(features.caseStudies
     ? [{ href: "/case-studies", label: "Case Studies" }]
     : []),

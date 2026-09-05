@@ -591,3 +591,70 @@
 @utility card-float {
   border: 1px solid var(--color-line-strong);
 }
+
+/* ==========================================================================
+   Service pages — the process timeline (components/process/process-steps.tsx).
+   ========================================================================== */
+
+/* The dashed spine down the middle of the timeline. A border rather than a
+   repeating gradient so the dash pattern is the browser's and stays even at
+   any height. */
+@utility spine-dashed {
+  border-left: 1px dashed var(--color-line-strong);
+}
+
+/* The oversized step numeral behind each block of copy. Decoration carrying
+   information that is already in the DOM as an ordered list, so it is
+   aria-hidden at the call site. Sized in vw so it stays proportionate to the
+   headline it sits behind rather than becoming a billboard on a wide screen. */
+@utility ghost-number {
+  font-family: var(--font-display);
+  font-size: clamp(7rem, 13vw, 15rem);
+  font-weight: 700;
+  line-height: 0.72;
+  letter-spacing: -0.06em;
+  color: var(--color-ink);
+  opacity: 0.05;
+  user-select: none;
+}
+
+/* A soft wash of the logo's pink behind each step's panel, bleeding past its
+   edges so the panel has somewhere to sit on the dark ground without a second
+   border. `inset` is negative on purpose — the glow has to escape the panel
+   or it reads as a fill. */
+@utility panel-bloom {
+  position: absolute;
+  inset: -10% -7%;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 55% 45% at 28% 18%,
+      rgb(248 32 109 / 0.16),
+      transparent 68%
+    ),
+    radial-gradient(
+      ellipse 50% 45% at 76% 82%,
+      rgb(181 17 91 / 0.14),
+      transparent 68%
+    );
+  filter: blur(26px);
+}
+
+/* The dot field over the bloom, masked to fade at the edges. It gives the
+   wash a surface so it reads as texture rather than as a smudge. */
+@utility dot-field {
+  position: absolute;
+  inset: -6% -4%;
+  pointer-events: none;
+  background-image: radial-gradient(
+    rgb(255 110 158 / 0.22) 1px,
+    transparent 1px
+  );
+  background-size: 13px 13px;
+  mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000, transparent 76%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 50%,
+    #000,
+    transparent 76%
+  );
+}
