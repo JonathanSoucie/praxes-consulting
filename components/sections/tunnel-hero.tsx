@@ -26,9 +26,16 @@ import { hero } from "@/content/manufacturing";
     vanishing point stays put whatever the box's shape. */
 const W = 1600;
 const H = 900;
-/** Vanishing point — a little above centre, so the floor is deeper than the
-    ceiling and the room reads as something you are standing in. */
-const VP = { x: 800, y: 420 };
+/** Vanishing point, and with it the centre of the clear area the copy sits
+    in — the innermost rectangle is drawn around this.
+
+    Dead centre of the drawing box, which is what puts it at the centre of
+    the section on screen: `slice` scales the box by max(W/1600, H/900) and
+    centres it, so a point at the box's own centre lands on the section's
+    centre at every viewport shape. It was 30 units above, which read as a
+    room you stand in rather than look at, but left the clear area's centre
+    30-48px above the copy centred beneath it. */
+const VP = { x: 800, y: 450 };
 /** Outer rect: past the drawing space on every side, so no line ends at the
     edge of the screen. */
 const OUTER = { hw: 900, hh: 520 };
@@ -146,11 +153,11 @@ export function TunnelHero() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 46% 40% at 50% 52%, rgba(24,24,24,0.92) 0%, rgba(24,24,24,0.72) 45%, rgba(24,24,24,0) 100%)",
+            "radial-gradient(ellipse 46% 40% at 50% 50%, rgba(24,24,24,0.92) 0%, rgba(24,24,24,0.72) 45%, rgba(24,24,24,0) 100%)",
         }}
       />
 
-      <Container className="relative z-10 flex min-h-svh flex-col items-center justify-center pt-28 pb-24 text-center sm:pt-32">
+      <Container className="relative z-10 flex min-h-svh flex-col items-center justify-center py-28 text-center">
         <Reveal className="flex flex-col items-center">
           <h1
             id="hero-title"
