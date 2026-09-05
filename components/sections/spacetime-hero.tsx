@@ -313,13 +313,10 @@ export function SpacetimeHero() {
             the wordmark's alone here, and a second line set in it directly
             beneath would read as a continuation of the name rather than as
             what the name does. */}
-        <h2 className="mt-6 max-w-2xl text-xl leading-snug font-semibold text-ink sm:text-2xl lg:text-[1.75rem]">
+        <h2 className="mt-6 max-w-3xl text-xl leading-snug font-semibold text-ink sm:text-2xl lg:text-[1.75rem]">
           {hero.subhead}
         </h2>
-        <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg">
-          {hero.sub}
-        </p>
-        <div className="mt-7 flex flex-col items-center gap-3">
+        <div className="mt-9 flex flex-col items-center gap-3">
           <BookACall size="lg" withArrow />
           <BookingNote />
         </div>

@@ -7,13 +7,17 @@
  * components/sections/spacetime-hero.tsx and black-hole-scene.tsx.
  */
 
-/** The hero, beneath the wordmark. */
+/**
+ * The hero, beneath the wordmark.
+ *
+ * One line, and it is the whole hero. It replaced a kicker set above the
+ * wordmark — the same claim reads as a caption above the name and as a
+ * statement of what the name does below it — and the paragraph that used to
+ * follow it is gone: the name, what it does, and the one action. Everything
+ * the paragraph said is argued properly in the scene directly under this.
+ */
 export const hero = {
-  /** The sub-header, directly under the wordmark. It replaces a kicker that
-      sat above it: the same claim reads as a caption when it is above the
-      name and as a statement of what the name does when it is below it. */
   subhead: "AI Native Automations for manufacturing enterprises",
-  sub: "We find the hours your operation loses to quoting, scheduling, paperwork and rework — and build the systems that take them back.",
 } as const;
 
 /** The one-line band between the hero and the black hole. */
