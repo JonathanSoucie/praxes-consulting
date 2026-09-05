@@ -44,10 +44,10 @@ export function SectionHeading({
         </Eyebrow>
       ) : null}
 
-      {/* Inter at section-heading size, per the H1/H2 split in globals.css —
-          bold and in the page ink, sentence case, with the eyebrow carrying
-          the accent. `gradient` keeps the logo ramp for the one or two
-          headings that name something rather than label a section. */}
+      {/* The heading face at section size, bold and in the page ink, sentence
+          case, with the eyebrow carrying the accent. `gradient` keeps the
+          logo ramp for the one or two headings that name something rather
+          than label a section. */}
       <h2
         className={cn(
           "text-3xl leading-[1.06] sm:text-4xl lg:text-[2.875rem]",

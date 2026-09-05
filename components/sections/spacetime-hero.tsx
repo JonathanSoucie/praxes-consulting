@@ -305,15 +305,14 @@ export function SpacetimeHero() {
       >
         <h1
           id="hero-title"
-          className="font-display text-[3.25rem] leading-none font-extrabold tracking-[-0.03em] text-ink sm:text-7xl lg:text-8xl xl:text-[7.5rem]"
+          className="font-display text-[2.75rem] leading-none font-extrabold tracking-[-0.03em] text-ink sm:text-6xl lg:text-7xl xl:text-[5.75rem]"
         >
           {site.name}
         </h1>
-        {/* The sub-header. Inter, per the type split — the display face is
-            the wordmark's alone here, and a second line set in it directly
-            beneath would read as a continuation of the name rather than as
-            what the name does. */}
-        <h2 className="mt-6 max-w-3xl text-xl leading-snug font-semibold text-ink sm:text-2xl lg:text-[1.75rem]">
+        {/* The sub-header. Set well below the wordmark's size and weight —
+            close to it in either and the line reads as a continuation of the
+            name rather than as what the name does. */}
+        <h2 className="mt-5 max-w-3xl text-lg leading-snug font-semibold text-ink sm:text-xl lg:text-[1.375rem]">
           {hero.subhead}
         </h2>
         <div className="mt-9 flex flex-col items-center gap-3">

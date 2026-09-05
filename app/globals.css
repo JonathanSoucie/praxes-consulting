@@ -78,21 +78,23 @@
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* Two faces carry the page, split by level rather than by importance:
-     Syne for the H1 and anything sized like one, Inter for the H2 and every
-     sentence under it. Space Grotesk stays on the small UI headings and the
-     nav; mono is used only for the technical labels inside the data visuals.
+  /* Two faces, split by role: Inter carries every heading, from the hero
+     wordmark down to a card title, and Work Sans carries everything else —
+     body copy, decks, notes, list items. Mono is the one exception and is
+     used only for the small technical labels and the buttons.
 
-     The H1/H2 split is set in the base layer below rather than here, because
-     it is a rule about elements, not a token. */
+     --font-display and --font-heading both resolve to Inter. They are kept
+     apart rather than collapsed into one token because they are two
+     questions — which face sets the big headings, which sets the small ones
+     — and the answer being the same today is not a reason to lose the
+     ability to answer them differently tomorrow. */
   --font-sans:
-    var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+    var(--font-work-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display:
-    var(--font-syne), var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
-  /* Small headings only. The display face keeps the big ones — the split is
-     by size, not by importance. */
+    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Small headings, card titles and the nav. */
   --font-heading:
-    var(--font-heading-family), ui-sans-serif, system-ui, sans-serif;
+    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
@@ -290,28 +292,15 @@
   h4 {
     font-family: var(--font-display);
     color: var(--color-ink);
-    /* 700 on the Syne axis: the reference sets its titles heavy, and the
-       face carries weight without closing up. */
+    /* 700 on the Inter axis: the reference sets its titles heavy, and Inter
+       has to be pushed to bold before it reads as a heading rather than as
+       large body copy. */
     font-weight: 700;
     /* Fallback only, for a heading that carries no `text-*` size utility.
        Anything sized explicitly gets the size-matched value from the tracking
        ramp in @theme, which takes precedence over this. */
     letter-spacing: -0.008em;
     text-wrap: balance;
-  }
-
-  /* The H2 is Inter, not the display face.
-
-     Syne is a display face: it is drawn for the one line at the top of a
-     screen and starts arguing with the copy under it at section-heading
-     size. Setting the second level in the body face makes the H1 the only
-     thing on the page wearing the display voice, which is what makes it read
-     as the loudest line rather than as the largest one.
-
-     Anything that needs the display face at H2 level asks for it with the
-     `font-display` utility, which wins over this. */
-  h2 {
-    font-family: var(--font-sans);
   }
 
   :focus-visible {
@@ -435,17 +424,14 @@
   margin-bottom: -0.16em;
 }
 
-/* Card title: uppercase display serif in the accent, per the reference
-   layout. Applied to card and list-item headings only — not to status
-   messages or people's names, where setting a name in caps reads wrong. */
+/* Card title: uppercase, in the accent, per the reference layout. Applied to
+   card and list-item headings only — not to status messages or people's
+   names, where setting a name in caps reads wrong. */
 @utility card-title {
-  /* Space Grotesk rather than the display face. Unbounded is wide: it looks
-     right at 46px and takes too much line at 18. This face carries the same
-     squared-off voice at a normal width.
-
-     It still needs tracking, because uppercase always does: the letters have
-     no ascenders or descenders to separate them. And 1.05 leading is a
-     display value that crushes a two-line heading at a fifth of that size. */
+  /* The heading face, which is Inter here as everywhere else. It needs the
+     tracking, because uppercase always does: the letters have no ascenders
+     or descenders to separate them. And 1.05 leading is a display value that
+     crushes a two-line heading at a fifth of that size. */
   font-family: var(--font-heading);
   text-transform: uppercase;
   font-weight: 600;

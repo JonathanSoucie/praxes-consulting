@@ -1,10 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Inter,
-  JetBrains_Mono,
-  Space_Grotesk,
-  Syne,
-} from "next/font/google";
+import { Inter, JetBrains_Mono, Work_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Frame } from "@/components/layout/frame";
@@ -15,35 +10,28 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Body, and every H2 on the site. Inter carries the sentences and the
-   sub-headings; the display face is kept for the H1 and the few things sized
-   like one. Variable, so the whole weight axis comes from one file. */
+/* Every heading on the site, from the hero wordmark down to a card title.
+   Inter is drawn to be neutral, which is what makes it work at both ends of
+   that range: it does not develop a personality at 120px that a card title
+   at 18px then has to live with.
+
+   Loaded through next/font rather than the Google Fonts <link> tags: same
+   families, but self-hosted at build time, so there is no render-blocking
+   request to fonts.googleapis.com and no flash of a fallback face. */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });
 
-/* Display: Syne, for the H1 — the hero wordmark and the page titles. It
-   replaces Unbounded, which was wider and quieter; Syne's flared stems and
-   short caps give the name a face of its own next to Inter's neutrality.
-   Variable across 400-800, so every weight comes from one file.
-
-   Loaded through next/font rather than the Google Fonts <link> tags: same
-   two families, but self-hosted at build time, so there is no render-blocking
-   request to fonts.googleapis.com and no flash of a fallback face. */
-const syne = Syne({
+/* Everything that is not a heading: body copy, decks, list items, notes.
+   Work Sans is a humanist grotesk — slightly warmer and more open than Inter
+   at a paragraph's size, which is the difference that keeps the two apart
+   when a heading sits directly on top of the text it introduces. Variable
+   across 100-900, so the whole axis comes from one file. */
+const workSans = Work_Sans({
   subsets: ["latin"],
-  variable: "--font-syne",
-  display: "swap",
-});
-
-/* Small headings, nav and card titles: a grotesk with squared-off details
-   that answer the logo's wordmark, drawn to stay legible at UI sizes rather
-   than at poster sizes. */
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-heading-family",
+  variable: "--font-work-sans",
   display: "swap",
 });
 
@@ -113,7 +101,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
+      className={`${inter.variable} ${workSans.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a

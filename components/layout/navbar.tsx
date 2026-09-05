@@ -58,14 +58,15 @@ export function Navbar() {
 
   const linkClass = (href: string) =>
     cn(
-      "font-heading text-[0.9375rem] font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
+      "font-heading text-base font-semibold tracking-[0.12em] uppercase transition-colors duration-150 ease-out-soft",
       isActive(href)
         ? "text-ink underline decoration-1 underline-offset-[6px]"
-        : // Ink at 72%, not --color-muted. Muted is a slate that reads
+        : // Ink at 90%, not --color-muted. Muted is a slate that reads
           // grey-blue against the dot field; ink is the near-white on the
-          // dark theme and the near-black on the light one, so this brightens
-          // the bar in the dark without inverting it in the light.
-          "text-ink/72 hover:text-ink",
+          // dark theme and the near-black on the light one. The 10% it gives
+          // up is only enough to keep the active link ahead of the rest —
+          // any further down and the bar goes grey against the hero.
+          "text-ink/90 hover:text-ink",
     );
 
   return (
