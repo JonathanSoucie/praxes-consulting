@@ -62,8 +62,18 @@ export function Navbar() {
       <Container>
         {/* Three tracks, the outer two equal, so the links are centred on
             the page rather than on whatever is left between the brand and
-            the button. */}
-        <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-6 lg:h-26">
+            the button.
+
+            The bottom pad is the frame's own thickness, and it is what makes
+            the row centre correctly. The bar starts below the frame's top
+            mat, but the mat is painted in the bar's own colour — so what the
+            reader sees as the bar runs from the top of the screen to the
+            hairline, while the row's box starts `--frame-y` down. Centring in
+            the box left everything sitting half the mat's height low. Taking
+            that height off the bottom of the row moves the content up by half
+            of it, which lands it on the centre of the band actually visible.
+            Measured: content mid 53 in a 106px band. */}
+        <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-6 pb-[var(--frame-y)] lg:h-22">
           <div className="col-start-1 flex items-center">
             <Logo markSize={40} className="gap-3 text-[2rem]" />
           </div>
