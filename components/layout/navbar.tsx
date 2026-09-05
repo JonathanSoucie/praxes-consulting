@@ -50,8 +50,8 @@ export function Navbar() {
 
   const linkClass = (href: string) =>
     cn(
-      "inline-flex items-center gap-2 text-[1.5625rem] font-medium transition-colors duration-150 ease-out-soft",
-      isActive(href) ? "text-ink" : "text-ink/75 hover:text-ink",
+      "inline-flex items-center gap-1.5 text-[1.125rem] font-medium transition-colors duration-150 ease-out-soft",
+      isActive(href) ? "text-ink" : "text-ink/85 hover:text-ink",
     );
 
   return (
@@ -63,16 +63,16 @@ export function Navbar() {
         {/* Three tracks, the outer two equal, so the links are centred on
             the page rather than on whatever is left between the brand and
             the button. */}
-        <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-6 lg:h-22">
+        <div className="grid h-18 grid-cols-[1fr_auto_1fr] items-center gap-6 lg:h-26">
           <div className="col-start-1 flex items-center">
-            <Logo markSize={38} className="gap-3 text-[1.75rem]" />
+            <Logo markSize={40} className="gap-3 text-[2rem]" />
           </div>
 
           <nav
             aria-label="Primary"
             className="col-start-2 hidden lg:block"
           >
-            <ul className="flex items-center gap-7 xl:gap-9">
+            <ul className="flex items-center gap-10 xl:gap-12">
               {nav.map((item) =>
                 item.href === "/services" ? (
                   <ServicesItem
@@ -105,7 +105,7 @@ export function Navbar() {
             <BookACall
               variant="outline"
               size="md"
-              className="hidden rounded-[8px] border-ink/60 bg-transparent px-6 font-sans text-[0.9375rem] font-bold tracking-[0.04em] text-ink hover:border-ink hover:bg-ink hover:text-surface-2 sm:inline-flex"
+              className="hidden h-11 rounded-[8px] border-ink/85 bg-transparent px-9 font-sans text-[0.9375rem] font-bold tracking-[0.04em] text-ink hover:border-ink hover:bg-ink hover:text-surface-2 sm:inline-flex"
             />
             <button
               type="button"
@@ -243,7 +243,7 @@ function ServicesItem({
         <ChevronDown
           aria-hidden
           className={cn(
-            "size-5 transition-transform duration-200 ease-out-soft",
+            "size-4 transition-transform duration-200 ease-out-soft",
             expanded && "rotate-180",
           )}
         />
