@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
 import { SpacetimeHero } from "@/components/sections/spacetime-hero";
@@ -133,34 +133,58 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Why it holds for a plant                                          */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      {/* The one section on the page with a ground of its own: the page
+          colour at the top running into the logo's deep pink at the foot,
+          with the four reasons as a row of cards over it. */}
+      <Section className="relative isolate overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(180deg, var(--color-surface-2) 0%, var(--color-surface-2) 28%, #3a0f2a 68%, #8e0c48 100%)",
+          }}
+        />
         <Container>
           <SectionHeading
+            align="left"
             eyebrow="Why Praxes"
             title="Return in your own numbers"
           />
 
-          <div className="mt-16 grid gap-5 sm:grid-cols-2">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
             {whyManufacturing.map((item, i) => (
               <Reveal
                 key={item.title}
                 delay={i * 60}
-                className="hover-lift flex gap-5 bg-surface p-8"
+                className="flex h-full flex-col rounded-[18px] border border-line-strong bg-surface/90 p-7 backdrop-blur-sm"
               >
-                <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-accent">
-                  <Check aria-hidden className="size-4 text-on-accent" />
-                </span>
-                <div>
-                  <h3 className="font-heading text-lg font-semibold text-ink">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
-                    {item.body}
-                  </p>
+                <h3 className="font-heading text-lg leading-snug font-semibold text-ink sm:text-xl">
+                  {item.title}
+                </h3>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                  {item.body}
+                </p>
+                <div className="mt-8 flex items-end justify-between gap-4">
+                  <span className="figure-num text-3xl text-ink sm:text-4xl">
+                    0{i + 1}
+                  </span>
+                  <Link
+                    href="/process"
+                    className="text-sm text-ink-soft underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    See the process &rarr;
+                  </Link>
                 </div>
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={200} className="mt-12 flex justify-center">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/services">See our services</Link>
+            </Button>
+          </Reveal>
         </Container>
       </Section>
 
