@@ -106,32 +106,37 @@ export function Hero() {
         <Reveal className="flex flex-col items-center">
           {/* The positioning line, in the same face the section labels use.
               Not the bordered Eyebrow chip: at fifty-eight characters that
-              pill is wider than the paragraph under the rule, and it reads
-              as a button nobody can press. */}
-          <p className="label-section max-w-[34ch] leading-[1.5] text-accent">
+              pill reads as a button nobody can press. Uncapped, so it sets
+              on one line wherever the container allows and wraps on its own
+              below that. */}
+          <p className="label-section leading-[1.5] text-accent">
             {hero.eyebrow}
           </p>
 
-          {/* 30ch: eighty-one characters over three lines rather than four.
-              Two is not reachable at this size — it would need about 41ch,
-              which at 4.25rem is 1400px and wider than the container — so
-              the measure stops where the page does. `text-balance` then
-              evens the three rather than leaving a short last line. */}
+          {/* 36ch, which the 78rem container clamps to its own width on a
+              wide screen — the headline now runs the full page measure. That
+              is the end of the road for it: two lines would need about 41ch,
+              or ~1400px at 4.25rem, which is wider than the page. So three
+              is the floor at this size, and `text-balance` evens them rather
+              than leaving a short last line. */}
           <h1
             id="hero-title"
-            className="mt-6 max-w-[30ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-balance text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
+            className="mt-6 max-w-[36ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-balance text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
             {hero.headline}
           </h1>
 
-          {/* The rule sits at the paragraph's own measure, so it reads as
-              that block's lid rather than as a divider across the page. */}
+          {/* The rule stays at the paragraph's own measure, so it reads as
+              that block's lid rather than as a divider across the page —
+              both now 3xl rather than lg. That puts the paragraph at roughly
+              eighty characters a line, which is the top of what reads
+              comfortably; wider and it stops being a paragraph. */}
           <hr
             aria-hidden
-            className="mt-10 w-full max-w-lg border-0 border-t border-line-strong"
+            className="mt-10 w-full max-w-3xl border-0 border-t border-line-strong"
           />
 
-          <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink-soft sm:text-xl">
+          <p className="mt-8 max-w-3xl text-lg leading-relaxed text-ink-soft sm:text-xl">
             {hero.sub}
           </p>
         </Reveal>
