@@ -104,24 +104,15 @@ export function Hero() {
           centre is the section's centre. */}
       <Container className="relative z-10 flex min-h-[78svh] flex-col items-center justify-center py-28 text-center">
         <Reveal className="flex flex-col items-center">
-          {/* The positioning line, in the same face the section labels use.
-              Not the bordered Eyebrow chip: at fifty-eight characters that
-              pill reads as a button nobody can press. Uncapped, so it sets
-              on one line wherever the container allows and wraps on its own
-              below that. */}
-          <p className="label-section leading-[1.5] text-accent">
-            {hero.eyebrow}
-          </p>
-
-          {/* 36ch, which the 78rem container clamps to its own width on a
-              wide screen — the headline now runs the full page measure. That
-              is the end of the road for it: two lines would need about 41ch,
-              or ~1400px at 4.25rem, which is wider than the page. So three
-              is the floor at this size, and `text-balance` evens them rather
-              than leaving a short last line. */}
+          {/* The name of the thing, at full display size and first on the
+              page — there is no eyebrow above it now, so nothing competes.
+              36ch is clamped by the 78rem container on a wide screen; at
+              fifty-eight characters this sets on two lines, and
+              `text-balance` splits them evenly rather than leaving a short
+              second. */}
           <h1
             id="hero-title"
-            className="mt-6 max-w-[36ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-balance text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
+            className="max-w-[36ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-balance text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
             {hero.headline}
           </h1>
