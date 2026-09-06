@@ -71,31 +71,32 @@ export const servicesSection = {
  *
  * Four of the deck's "Why This Exists" gaps. Four rather than six because
  * the scene is a sticky panel inside one viewport, and six rows overflow it
- * on a short laptop.
+ * on a short laptop — which is also why each `body` is held to two sentences
+ * under a `title` that now carries the statement itself.
  *
- * The closing sentence of each `body` is its stakes line, which is what turns
- * a description into a reason to act.
+ * `body` is hidden below the sm breakpoint, so the title has to stand alone
+ * on a phone. The closing sentence of each body is its stakes line.
  */
 export const painPoints = [
   {
     n: "01",
-    title: "You cannot say which distributors actually list your products",
-    body: "You fund their inventory, their co-op marketing, their training and their incentives. What you do not have is a list of which of them publish your products online at all, and which have your catalog sitting in a drawer. Spend is allocated on relationship history rather than on published evidence.",
+    title: "No accurate data on which distributors actually list your SKUs online",
+    body: "You fund their inventory, their co-op marketing, their training and their incentives on relationship history rather than on published evidence. Nobody upstream can name which of them put your catalog on the web at all.",
   },
   {
     n: "02",
-    title: "You cannot see which competitor brands they stock instead",
-    body: "The same distributor carrying your line carries rival brands in the same categories, and publishes both. That is visible on their website today, and nobody on your side reads it. Your rep walks into the meeting without knowing they are one of four brands on the shelf.",
+    title: "Competitor brands occupy the same distributor e-commerce pages without your reps knowing before sales calls",
+    body: "The distributor carrying your line publishes three rivals in the same categories, on the same pages, today. Your rep walks in as one of four brands on the shelf and finds that out in the room.",
   },
   {
     n: "03",
-    title: "You cannot tell which of your lines never made it online",
-    body: "Product families that are in your catalog, in their agreement, and absent from their website. Nobody notices, because noticing would mean reading tens of thousands of listings across dozens of domains. Inventory a customer cannot find is inventory that does not sell.",
+    title: "Incomplete part attributes, cross-references and fitment data cause distributor search engines to hide your products",
+    body: "A listing without the attributes a filter needs is a listing their customers never reach. The stock is on the distributor's shelf and invisible in the distributor's own search.",
   },
   {
     n: "04",
-    title: "You cannot tell what changed since the last visit",
-    body: "Catalogs launch, expand, get pruned, and go dark. A competitor brand appears across a region over a quarter. By the time it reaches you as anecdote from a sales call, it has been published for months, and the reaction is late by exactly that long.",
+    title: "Competitor brands expand across regional dealer catalogs for months before your team notices",
+    body: "It is published the day it happens and reaches you as anecdote from a sales call two quarters later. The response is late by exactly that long.",
   },
 ] as const;
 

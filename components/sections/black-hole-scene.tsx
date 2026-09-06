@@ -375,9 +375,9 @@ export function BlackHoleScene() {
             <div className="mx-auto max-w-4xl text-center">
               <Eyebrow tone="onDark">The problem</Eyebrow>
               <h2 className="mt-6 text-3xl leading-[1.05] text-white sm:text-4xl lg:text-5xl">
-                The catalogs are public.
+                The market exists.
                 <br />
-                Nobody reads them.
+                The channel hides it.
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base lg:text-lg">
                 Everything you need to know about your channel is already
