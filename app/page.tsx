@@ -6,6 +6,7 @@ import { Container, Section } from "@/components/container";
 import { Hero } from "@/components/sections/hero";
 import { BlackHoleScene } from "@/components/sections/black-hole-scene";
 import { ServicesPanel } from "@/components/sections/services-panel";
+import { IntegrationsBand } from "@/components/sections/integrations-band";
 import { IndustriesBand } from "@/components/sections/industries-band";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqList } from "@/components/sections/faq";
@@ -59,9 +60,9 @@ export const metadata: Metadata = {
  * points inside it; then the
  * camera pulling back until the hole is a dome on the bottom edge with the
  * six capability areas in orbit around it. The panel under that is what you
- * can actually buy — the offers, one card each. Then who this is for, how
- * the engagement runs, why us, the usual questions, and the one action
- * every page funnels to.
+ * can actually buy — the offers, a row each. Then what it all connects to
+ * and what we do to it, who this is for, how the engagement runs, why us,
+ * the usual questions, and the one action every page funnels to.
  */
 export default function HomePage() {
   return (
@@ -78,6 +79,7 @@ export default function HomePage() {
       <Hero />
       <BlackHoleScene />
       <ServicesPanel />
+      <IntegrationsBand />
       <IndustriesBand />
 
       {/* ---------------------------------------------------------------- */}

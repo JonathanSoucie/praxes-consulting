@@ -219,6 +219,10 @@
   --animate-accordion-up: accordion-up 240ms var(--ease-out-soft);
   --animate-gradient-shift: gradient-shift 6s ease-in-out infinite;
   --animate-eyebrow-ping: eyebrow-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  /* The integrations row. Slow on purpose: it is a list to be read, not an
+     effect. The distance is exactly half the track, because the track holds
+     the list twice — see components/sections/integrations-band.tsx. */
+  --animate-marquee: marquee 46s linear infinite;
 }
 
 @keyframes accordion-down {
@@ -250,6 +254,15 @@
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -339,6 +352,13 @@
       transition-property:
         opacity, color, background-color, border-color, box-shadow, fill, stroke !important;
       transition-duration: 160ms !important;
+    }
+
+    /* The integrations row does not creep to its end state in 0.001ms — it
+       simply does not move, and shows the first pass of the list. */
+    .marquee-track {
+      animation: none !important;
+      transform: none !important;
     }
 
     /* The decorative travel itself, neutralised at the source. */
