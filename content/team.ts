@@ -36,11 +36,11 @@ export const team: TeamMember[] = [
     image: "/team/jon.jpg",
     focus: "50% 48%",
     zoom: 1.5,
-    bio: "Canadian engineer with a background in robotics, embedded systems and automation design. Leads technical assessment, system architecture and the build — including the part where we prove a solution works against your real data before it touches live work.",
+    bio: "Canadian engineer with a background in robotics, embedded systems and automation design. Leads the crawling and extraction pipeline, manufacturer resolution, and the evidence layer — the part that makes every number in a report clickable back to the page it came from.",
     credentials: [
-      "Robotics engineering",
-      "Systems integration",
-      "Technical assessment",
+      "Crawling & extraction",
+      "Data engineering",
+      "Evidence pipelines",
     ],
   },
   {
@@ -49,8 +49,8 @@ export const team: TeamMember[] = [
     image: "/team/karlo.jpeg",
     focus: "50% 37%",
     zoom: 1.4,
-    bio: "Finance and accounting specialist. Builds the ROI models behind every audit and holds the assumptions to account — the reason our projections are ranges with stated conditions rather than a single flattering number.",
-    credentials: ["Finance & accounting", "ROI modelling", "Business analysis"],
+    bio: "Finance and accounting specialist. Builds the commercial case under every engagement and holds the assumptions to account — the reason a displacement finding arrives as a ranked account opportunity rather than a part count.",
+    credentials: ["Finance & accounting", "Opportunity modelling", "Business analysis"],
   },
   {
     name: "Nicola Sartori",
@@ -58,7 +58,7 @@ export const team: TeamMember[] = [
     image: "/team/nick.jpeg",
     focus: "50% 43%",
     zoom: 1.2,
-    bio: "International business graduate with experience in strategy, market research and brand positioning across Italy and North America. Leads client engagement, discovery and the translation between what a business needs and what gets built.",
+    bio: "International business graduate with experience in strategy, market research and brand positioning across Italy and North America. Leads client engagement, category and competitor scoping, and the translation of a crawl into the conversation a rep actually has with a distributor.",
     credentials: [
       "International business",
       "Strategy & positioning",
@@ -71,18 +71,18 @@ export const team: TeamMember[] = [
 export const values = [
   {
     title: "Evidence, or it does not ship",
-    body: "A match arrives with what it was matched on and how confident the system is. Anything below your threshold, and anything safety-critical, goes to a person. A system that silently invents a fitment relationship is worse than no system, because it is wrong at scale.",
+    body: "Every value we report carries the source URL and a verbatim quote from the page it came from. No estimates, no modelled share, no dashboard without a source. A number your distributor can contradict by opening their own website costs your rep the meeting.",
   },
   {
-    title: "Your ERP stays the system of record",
-    body: "We build a layer around what you run, not a replacement for it. Read-only first, controlled write-back only after your approvals exist, and RPA where a legacy system has no usable API. Nobody should have to replace a working ERP to fix a search problem.",
+    title: "We name the ceiling first",
+    body: "This measures what distributors publish, not what they sell. Not order volume, not content behind a dealer login, not prices nobody posts. We say that before an engagement rather than when a client finds it — naming the limit is what makes the rest credible.",
   },
   {
-    title: "You own the enriched data",
-    body: "The records, the relationships, the documentation and the admin access are yours, and you keep them if the engagement ends. Ongoing operations are how the return holds as suppliers and systems change — not a licence you have to keep buying to use your own catalog.",
+    title: "Public pages, and nothing else",
+    body: "One request per second, robots.txt respected, dealer logins left alone. A gated distributor is reported as gated with a recommendation for manual review, never worked around and never counted as an empty catalog.",
   },
   {
-    title: "The measures are agreed before we start",
-    body: "Search time, unmatched RFQ lines, time to first quote, publish-ready SKU rate, document-error rate. Same definitions before and after, written down first, precisely so the answer cannot be moved once the results are in.",
+    title: "Your channel data is yours",
+    body: "Your distributor list, your categories, your competitor universe and your reports stay confidential and are not sold on. The only thing we build across clients is the interchange database of tables distributors publish themselves.",
   },
 ] as const;

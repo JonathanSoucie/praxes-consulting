@@ -1,11 +1,14 @@
 /**
  * Central site configuration.
  *
- * The site's positioning is AI integration for equipment-parts manufacturers,
- * aftermarket suppliers and international distributors: part identification,
- * RFQ and quoting, catalog and distributor data, legacy ERP integration,
- * export documents, and obsolescence. All of the page copy derives from the
- * copy deck in website-copy-manufacturing-ai.pdf.
+ * The site sells one thing: Channel Intelligence — crawling a manufacturer's
+ * distributor network, extracting the catalogs those distributors publish,
+ * and turning that into evidence-backed commercial intelligence. Everything
+ * else on the site (census, displacement, whitespace, monitoring,
+ * qualification, interchange) is a layer or a subservice inside it, not a
+ * separate offer.
+ *
+ * All of the page copy derives from the Channel Intelligence copy deck.
  */
 
 export const site = {
@@ -13,9 +16,9 @@ export const site = {
   legalName: "Praxes Consulting",
   /** Used in the <title>, OG tags and the OG card. Keep it in step with the
       Home page hero copy in content/manufacturing.ts. */
-  tagline: "AI integration for equipment-parts manufacturers and distributors",
+  tagline: "Channel intelligence for manufacturers selling through distributors",
   description:
-    "Praxes connects your ERP, product data, RFQs, distributor catalogs and export documents, so your team can identify the correct part, prepare accurate quotes, and move international orders with confidence.",
+    "Praxes crawls your distributor network, extracts the catalogs those distributors publish, and turns them into commercial intelligence: who carries your products, which competitor brands they stock instead, which categories nobody supplies, and what changed since last month. Every finding links to the live listing it came from.",
   /** Canonical origin, no trailing slash. Drives canonicals, the sitemap and
       OG URLs, so it must match the live domain. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://praxes.io",
@@ -59,9 +62,9 @@ export const features = {
  * also the left-to-right order across it: the first half sits left of the
  * mark, the rest to its right.
  *
- * Services is a route: the index at /services and one page per service in
- * content/services.ts. The solutions in the black-hole scene on Home are the
- * things those services build.
+ * Services is a route: the index at /services and one page per subservice in
+ * content/services.ts. The layers in the black-hole scene on Home are what
+ * those subservices are assembled from.
  */
 export const nav = [
   { href: "/process", label: "Process" },
@@ -83,13 +86,13 @@ export const legalNav = [
  *
  * `label` is what fits in the navbar and on a card; `longLabel` is the copy
  * deck's own wording, used where there is room for it. They name the same
- * meeting — the deck's primary CTA is "Book a Part-Data Assessment", which
- * is 27 characters and does not fit the bar without shrinking the type
+ * meeting — the deck's primary CTA is "Schedule a Discovery Call", which is
+ * 25 characters and does not fit the bar without shrinking the type
  * everything else in it is set at.
  */
 export const primaryCta = {
-  label: "Book an Assessment",
-  longLabel: "Book a Part-Data Assessment",
+  label: "Book a Call",
+  longLabel: "Schedule a Discovery Call",
   /** Shown under CTAs as a risk-reducer. */
-  note: "Free · 15 minutes · no obligation",
+  note: "Free · 30 minutes · no obligation",
 } as const;

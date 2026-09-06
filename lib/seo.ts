@@ -75,12 +75,12 @@ export function pageMetadata({
  * new domain, whereas "AI automation consultant Ottawa" is reachable.
  */
 export const siteKeywords = [
-  "part number cross reference software",
-  "RFQ automation manufacturing",
-  "quote automation parts distributor",
-  "product data enrichment manufacturing",
-  "distributor catalog synchronization",
-  "legacy ERP integration layer",
-  "export document validation",
-  "obsolete parts sourcing",
+  "distributor channel intelligence",
+  "distributor network audit",
+  "competitor brand monitoring distributors",
+  "distributor catalog crawling",
+  "channel displacement analysis",
+  "distributor whitespace analysis",
+  "distributor qualification manufacturers",
+  "B2B industrial channel analytics",
 ] as const;

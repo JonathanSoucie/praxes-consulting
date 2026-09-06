@@ -7,9 +7,9 @@ import {
 } from "@/content/integrations";
 
 /**
- * The systems we integrate with, as a slow scrolling row, and underneath it
- * the answer to the question the row provokes: fine, but what do you do to
- * my ERP?
+ * The platforms distributor catalogs run on and the systems findings land
+ * in, as a slow scrolling row, and underneath it the answer to the question
+ * the row provokes: fine, but what exactly are you doing to those sites?
  *
  * HOW THE ROW LOOPS
  *
@@ -33,7 +33,7 @@ export function IntegrationsBand() {
       <Container>
         <Reveal>
           <p className="text-center text-base text-ink-soft sm:text-lg">
-            Systems we integrate with, not around
+            Platforms we read, and systems findings land in
           </p>
         </Reveal>
       </Container>

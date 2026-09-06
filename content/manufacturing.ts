@@ -1,11 +1,12 @@
 /**
  * Home page content.
  *
- * All of it comes from the copy deck (website-copy-manufacturing-ai.pdf):
- * the hero, who the firm helps, the pain points that sit inside the black
- * hole, the solution areas arranged around it once the page zooms out, and
- * the reasons under both. Copy only — the scenes that draw these are in
- * components/sections/hero.tsx and black-hole-scene.tsx.
+ * All of it comes from the Channel Intelligence copy deck: the hero, who the
+ * firm helps, the questions a manufacturer cannot answer today (the pain
+ * points inside the black hole), the four layers and six subservices
+ * arranged around it once the page zooms out, and the reasons under both.
+ * Copy only — the scenes that draw these are in components/sections/hero.tsx
+ * and black-hole-scene.tsx.
  */
 
 /**
@@ -13,160 +14,162 @@
  * the action is in the bar above. Both are the deck's own hero copy.
  */
 export const hero = {
-  headline: "Find the right part. Quote faster. Ship with the right paperwork.",
-  sub: "We connect your ERP, product data, RFQs, distributor catalogs and export documents — so your team can identify the correct part, prepare accurate quotes, and move international orders with confidence.",
+  headline: "See what your distributors publish — and what they publish instead.",
+  sub: "Channel Intelligence crawls your distributor network, extracts the catalogs they publish, and converts raw product data into commercial intelligence — with every finding traced to the live listing it came from.",
 } as const;
 
 /**
- * Who we help. The deck's segments, each with the shortest true account of
- * what the work is in that market.
+ * Who we help. The deck's client profile, each with the shortest true account
+ * of what the channel question looks like in that market.
  *
- * These were the deck's full Industries paragraphs. At six of them stacked
- * down a page that was a wall nobody reads, and the section's job is
- * qualification — a reader either recognises their own business in one line
- * or does not. The full versions are the deck's to reinstate on a page of
- * their own if that is ever wanted.
+ * The deck states this as five categories; industrial is split in two here so
+ * the grid reads as six cells rather than five and an orphan. A reader either
+ * recognises their own business in one line or does not — that is the whole
+ * job of this section.
  */
 export const industries = [
   {
-    name: "Truck, trailer and off-highway",
-    body: "Cross-references, distributor coverage and export-ready orders.",
+    name: "Heavy equipment, mining and construction",
+    body: "Dealer networks that publish partial catalogs, and rivals who publish more.",
   },
   {
-    name: "Construction, mining and earthmoving",
-    body: "Mixed fleets, serial ranges, and urgent downtime requests.",
+    name: "Oil, gas and energy services",
+    body: "Regional distributors, long tails, and coverage nobody has mapped.",
   },
   {
-    name: "Agricultural machinery",
-    body: "Serial-aware replacements through the seasonal peaks.",
+    name: "Heavy-duty truck and trailer aftermarket",
+    body: "Crowded categories where displacement happens listing by listing.",
   },
   {
-    name: "Industrial MRO, power, oil and gas",
-    body: "Material masters, critical spares, approved alternatives.",
+    name: "Passenger vehicle, HVAC and refrigeration",
+    body: "High-SKU catalogs where your lines quietly go missing online.",
   },
   {
-    name: "Marine, rail and port equipment",
-    body: "Nameplate and photo requests, documented for port delivery.",
+    name: "Power transmission, hydraulics, pneumatics, bearings",
+    body: "Category-level competition you can only see in published data.",
   },
   {
-    name: "Automation, electrical, hydraulics and HVAC",
-    body: "Datasheet attributes, discontinued items, compatible alternatives.",
+    name: "Electrical, automation and industrial MRO",
+    body: "Distributors carrying six brands in a category you thought was yours.",
   },
 ] as const;
 
-/** The head of the services panel, under the solutions. */
+/** The head of the services panel, under the layers. */
 export const servicesSection = {
-  eyebrow: "Services",
-  title: "Start with one workflow. Prove it. Then scale.",
+  eyebrow: "Inside Channel Intelligence",
+  title: "Start with a census. Then map the channel. Then watch it.",
 } as const;
 
 /**
- * Inside the black hole: where the hours go before any of this is connected.
+ * Inside the black hole: the questions your channel team cannot answer
+ * before a distributor meeting.
  *
- * Four of the deck's six pain points. The other two — ERP, catalog and
- * distributor data disagreeing, and obsolete parts becoming sourcing
- * emergencies — are argued in the solutions around the hole and on the
- * service pages. Four rather than six because the scene is a sticky panel
- * inside one viewport, and six rows overflow it on a short laptop.
+ * Four of the deck's "Why This Exists" gaps. Four rather than six because
+ * the scene is a sticky panel inside one viewport, and six rows overflow it
+ * on a short laptop.
  *
- * `body` is the deck's description; the closing sentence of each is its
- * "Business impact" line, which is what turns a description into stakes.
+ * The closing sentence of each `body` is its stakes line, which is what turns
+ * a description into a reason to act.
  */
 export const painPoints = [
   {
     n: "01",
-    title: "Customers cannot reliably find the right part",
-    body: "They search with an old OEM number, a machine model, a serial, a drawing reference or a photo. The part exists in your ERP, but fitment, equivalencies and supersessions live in disconnected files and experienced employees' heads. The cost is wrong-part returns and lost orders.",
+    title: "You cannot say which distributors actually list your products",
+    body: "You fund their inventory, their co-op marketing, their training and their incentives. What you do not have is a list of which of them publish your products online at all, and which have your catalog sitting in a drawer. Spend is allocated on relationship history rather than on published evidence.",
   },
   {
     n: "02",
-    title: "Sales teams spend too long building quotes",
-    body: "RFQs arrive by email, PDF, spreadsheet, portal and messaging app. Someone interprets the request, identifies the part, checks several systems for stock and price, considers alternatives, and assembles the quote by hand. Faster competitors win with your product in stock.",
+    title: "You cannot see which competitor brands they stock instead",
+    body: "The same distributor carrying your line carries rival brands in the same categories, and publishes both. That is visible on their website today, and nobody on your side reads it. Your rep walks into the meeting without knowing they are one of four brands on the shelf.",
   },
   {
     n: "03",
-    title: "Catalog growth outpaces data operations",
-    body: "New SKUs, supplier changes, technical PDFs and distributor requirements arrive faster than anyone can key them in. Products sit in the ERP and never reach the website or the distributor network with complete attributes, images or fitment. Inventory you cannot find is inventory you cannot sell.",
+    title: "You cannot tell which of your lines never made it online",
+    body: "Product families that are in your catalog, in their agreement, and absent from their website. Nobody notices, because noticing would mean reading tens of thousands of listings across dozens of domains. Inventory a customer cannot find is inventory that does not sell.",
   },
   {
     n: "04",
-    title: "Export documents create avoidable delays",
-    body: "Invoices, packing lists, transport documents, origin evidence, certificates, weights, values and Incoterms all have to agree. Manual copying across fragmented shipment data produces the exceptions that hold a shipment at the border, and the demurrage and expedite costs that follow.",
+    title: "You cannot tell what changed since the last visit",
+    body: "Catalogs launch, expand, get pruned, and go dark. A competitor brand appears across a region over a quarter. By the time it reaches you as anecdote from a sales call, it has been published for months, and the reaction is late by exactly that long.",
   },
 ] as const;
 
 /**
- * The solution areas, arranged around the hole once the page zooms out.
+ * The layers and subservices, arranged around the hole once the page zooms
+ * out. This is Channel Intelligence broken into its parts.
  *
- * These are the deck's six Solutions — the capability areas. What you buy is
- * a level down from this, in content/services.ts, and the panel under this
- * scene lists those. `label` is what sits on the orbit, so it has to be short
- * enough to read at a small size; `summary` is the hover card.
+ * These are the deck's six core services. What you buy is a level down from
+ * this, in content/services.ts, and the panel under this scene lists those.
+ * Interchange harvesting has no page of its own on purpose: it is held as an
+ * asset and licensed, rather than sold as a deliverable.
+ *
+ * `label` is what sits on the orbit, so it has to be short enough to read at
+ * a small size; `summary` is the hover card.
  *
  * The labels are keyed to icons in components/sections/black-hole-scene.tsx.
  * Renaming one here means renaming it there.
  */
 export const solutions = [
   {
-    label: "Part intelligence",
-    summary: "OEM, aftermarket, legacy and private-label numbers connected into governed relationships.",
-    title: "A trusted product identity layer",
-    body: "OEM, aftermarket, supplier, competitor, legacy and customer part numbers connected into governed relationships — searchable by number, description, drawing, model, serial range or photo, and answered with ranked matches, evidence and confidence.",
+    label: "Channel census",
+    summary: "What in this channel is machine-readable at all — reachability, catalogs, platforms and gates.",
+    title: "The map before the campaign",
+    body: "Every distributor domain checked for reachability, catalog presence and depth, the platform it runs on, and whether access is restricted by a dealer login, robots.txt or automated-access blocking. It answers a question you cannot answer today, and it costs almost nothing to run.",
   },
   {
-    label: "RFQ automation",
-    summary: "An incoming request turned into a reviewable, accurate quote.",
-    title: "From request to reviewable quote",
-    body: "The important information extracted from an RFQ, likely parts and approved alternatives identified, stock, price, lead time and customer terms retrieved, and a quote prepared for your sales team to review and send.",
+    label: "Displacement mapping",
+    summary: "Which competitor brands your distributors carry, in your categories, with the listing as proof.",
+    title: "The shelf you are actually on",
+    body: "Competing parts per distributor, broken down by product category and rival brand, with every claim linked to the live listing. Category-level concentration is where it bites: one distributor listing 102 air springs, 85 of them a single rival's.",
   },
   {
-    label: "Catalog intelligence",
-    summary: "Product data made complete, consistent and publish-ready across every channel.",
-    title: "Every product easier to find and sell",
-    body: "Technical attributes extracted from supplier files, drawings and documentation, normalized to your schema, checked for what is missing, and published as governed records to your website, PIM, marketplaces and distributor channels.",
+    label: "Whitespace mapping",
+    summary: "Categories a distributor stocks from nobody — an opening with no incumbent to dislodge.",
+    title: "The easier conversation",
+    body: "The inverse of displacement, and usually the easier sales call: no rival to displace, just a category the distributor does not serve. One distributor in our reference set lists zero U-bolts and zero hangers.",
   },
   {
-    label: "ERP integration",
-    summary: "A secure layer around the system of record, not a replacement for it.",
-    title: "Better workflow, same system of record",
-    body: "A secure integration layer around what you already rely on — SAP, Oracle, NetSuite, Infor, Epicor, WMS, PIM, CRM and legacy dealer systems. Read-only to start, controlled write-back after approval, RPA where the APIs will not reach.",
+    label: "Change monitoring",
+    summary: "What moved since last month — lines added or dropped, catalogs launched, distributors gone dark.",
+    title: "A standing reason to be in the account",
+    body: "Product lines added or dropped, new catalogs launched, distributors gone dark, competitor brands appearing or disappearing, categories expanding or contracting. The resolution cache absorbs most of the work, so a recurring run costs a fraction of the first.",
   },
   {
-    label: "Export documents",
-    summary: "The shipment validated before it reaches the border.",
-    title: "Caught before the border, not at it",
-    body: "Shipment data extracted, generated and compared across invoices, packing lists, bills of lading, certificates, purchase orders and ERP records, with missing or inconsistent fields flagged before handoff to your broker or carrier.",
+    label: "Distributor qualification",
+    summary: "Before you sign them, what a prospective distributor actually publishes.",
+    title: "Diligence on the digital half",
+    body: "Catalog depth and range, platform and technical maturity, whether they could carry a product feed or co-branded imagery, and which competitor brands they already list. One domain, roughly ten minutes of crawl time.",
   },
   {
-    label: "Obsolescence",
-    summary: "Discontinued components traced to technically appropriate, evidenced alternatives.",
-    title: "Sourcing options, not guesses",
-    body: "Duplicate materials identified, critical spares found, obsolete components traced, and technically appropriate alternatives evaluated with the evidence — fit, condition, certification, availability and lead time — a controlled decision needs.",
+    label: "Interchange harvesting",
+    summary: "Distributor cross-reference tables, harvested deliberately and mapped to manufacturer part numbers.",
+    title: "Held as an asset, not sold as a file",
+    body: "Distributors publish competitor cross-reference tables. Harvested deliberately, they map distributor codes to manufacturer part numbers. This compounds across clients, so we build these databases selectively and license access rather than selling raw data.",
   },
 ] as const;
 
 export type Solution = (typeof solutions)[number];
 
 /**
- * Why us. The deck's four, kept in its order: the argument runs from what we
- * know, to how we work with what you have, to what stops it inventing
- * things, to how an engagement starts.
+ * Why us. Four reasons, in the deck's own order of argument: what makes a
+ * finding trustworthy, why manual research is not the same thing, why a B2C
+ * shelf-analytics platform is not either, and why we state the ceiling first.
  */
 export const whyManufacturing = [
   {
-    title: "Built for parts businesses, not generic workflows",
-    body: "We work on the data relationships that decide a parts business: OEM numbers, fitment, supersessions, technical specifications, condition, pricing tiers, stock, certificates and export documentation.",
+    title: "Every claim links to the live listing",
+    body: "We store the source URL and a verbatim quote for every value we report. No estimates, no modelled share, no dashboard without a source. Your channel team can click any finding and see the page it came from — which is the difference between intelligence and a slide.",
   },
   {
-    title: "Works with the systems you already run",
-    body: "Your ERP remains the system of record. We build a practical integration layer around it, starting with low-risk read-only pilots and expanding through controlled approvals.",
+    title: "Built for B2B distribution, not Amazon",
+    body: "Digital shelf platforms are built for CPG brands optimising marketplace listings. We read industrial distributor catalogs — heavy equipment, aftermarket, power transmission, MRO — and report in the form a manufacturer's rep can take into a distributor meeting.",
   },
   {
-    title: "Evidence and human control by design",
-    body: "A system should never silently invent a fitment relationship or approve a safety-critical substitute. Source evidence, confidence levels, review steps and auditable decision history are preserved.",
+    title: "Coverage manual research cannot reach",
+    body: "A 24-distributor census took one hour of crawling. Doing it by hand takes days, misses the long tail, and happens once. Our monitoring runs every month against the same definitions, so the second report is comparable to the first.",
   },
   {
-    title: "Start small, prove value, then scale",
-    body: "We start with one measurable workflow — OEM cross-reference, RFQ automation, catalog enrichment or export-document validation — and expand once the data and the workflow are trusted.",
+    title: "We name the ceiling before you find it",
+    body: "This measures what distributors publish, not what they sell. Not order volume, not content behind a dealer login, not prices nobody posts. We state those limits up front, because naming the ceiling is what makes the rest credible.",
   },
 ] as const;

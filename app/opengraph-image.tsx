@@ -57,7 +57,7 @@ export default function OpengraphImage() {
             letterSpacing: "-0.03em",
           }}
         >
-          Identifying where AI automation
+          See what your distributors
         </div>
         <div
           style={{
@@ -68,7 +68,7 @@ export default function OpengraphImage() {
             letterSpacing: "-0.03em",
           }}
         >
-          creates measurable return.
+          publish, with the receipts.
         </div>
       </div>
 

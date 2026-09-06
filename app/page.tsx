@@ -56,13 +56,13 @@ export const metadata: Metadata = {
  *
  * It opens on a statement on the bare page, with the black hole's halo
  * already rising into the bottom of the first screen and nothing between
- * the two. Then the hole, close enough to fill the viewport, with the pain
- * points inside it; then the
- * camera pulling back until the hole is a dome on the bottom edge with the
- * six capability areas in orbit around it. The panel under that is what you
- * can actually buy — the offers, a row each. Then what it all connects to
- * and what we do to it, who this is for, how the engagement runs, why us,
- * the usual questions, and the one action every page funnels to.
+ * the two. Then the hole, close enough to fill the viewport, with the
+ * questions nobody can answer inside it; then the camera pulling back until
+ * the hole is a dome on the bottom edge with the six parts of Channel
+ * Intelligence in orbit around it. The panel under that is what you can
+ * actually buy — the five subservices, a row each. Then the platforms we
+ * read and how we read them, who this is for, how an engagement runs, why
+ * us, the usual questions, and the one action every page funnels to.
  */
 export default function HomePage() {
   return (
@@ -94,8 +94,8 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="How it runs"
-            title="Connect, normalize, automate, approve, improve"
-            deck="Nothing is matched until the identifiers are governed, and nothing writes back to your ERP until a person has approved it."
+            title="Scope, reconnaissance, harvest, resolution, evidence"
+            deck="Nothing is harvested from a domain until we know what it is, and nothing is reported without the source URL it came from."
           />
 
           <ol className="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5 lg:gap-x-6">
@@ -153,7 +153,7 @@ export default function HomePage() {
           <SectionHeading
             align="left"
             eyebrow="Why Praxes"
-            title="Built for parts businesses"
+            title="Built for industrial distribution"
           />
 
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
@@ -186,7 +186,7 @@ export default function HomePage() {
 
           <Reveal delay={200} className="mt-12 flex justify-center">
             <Button asChild variant="outline" size="lg">
-              <Link href="/services">See our services</Link>
+              <Link href="/services">What is inside it</Link>
             </Button>
           </Reveal>
         </Container>
@@ -205,9 +205,9 @@ export default function HomePage() {
       </Section>
 
       <CtaSection
-        title="Where is the friction?"
-        body="Fifteen minutes, no preparation needed. Tell us where the work backs up — part identification, RFQs, catalog data, export documents — and we'll tell you which workflow is worth measuring first, including when the answer is none of them."
-        secondary={{ href: "/process", label: "See the process" }}
+        title="Which distributors carry you?"
+        body="Thirty minutes, no preparation needed. Tell us roughly how many distributors you sell through, which categories you are contesting, and which competitors you worry about — and we'll tell you whether a census is worth running, including when the answer is no."
+        secondary={{ href: "/process", label: "See how it runs" }}
       />
     </>
   );

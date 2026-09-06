@@ -23,8 +23,8 @@ export function IndustriesBand() {
       <Container>
         <SectionHeading
           eyebrow="Who we help"
-          title="Large catalogs, legacy systems"
-          deck="Equipment-parts manufacturers, aftermarket suppliers and international distributors — the businesses where finding the right part is a skill, and where the paperwork behind it has to agree."
+          title="Eight-figure manufacturers, independent distributors"
+          deck="Manufacturers who sell through distributors they do not control, in categories where a rival brand can take a shelf one listing at a time — and where nobody upstream is reading what those distributors publish."
         />
 
         <ul className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">

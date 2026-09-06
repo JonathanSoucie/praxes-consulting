@@ -40,9 +40,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 /**
- * One service. The masthead carries its commercial shape; then the problem
- * it exists for, the process as a timeline, worked examples where the
- * service has them, and the other two services as a way out.
+ * One subservice of Channel Intelligence. The masthead carries its
+ * commercial shape; then the problem it exists for, the process as a
+ * timeline, worked examples where it has them, and the other subservices as
+ * a way out.
  */
 export default async function ServicePage({ params }: Params) {
   const { slug } = await params;
@@ -52,8 +53,8 @@ export default async function ServicePage({ params }: Params) {
   const others = services.filter((s) => s.slug !== service.slug);
   // The engagement FAQ is about commercial mechanics — what is paid, what
   // happens if the answer is no, whether you are locked in — so it belongs on
-  // the audit page, which is the thing being bought, and nowhere else.
-  const showFaqs = service.slug === "automations-audit";
+  // the census page, which is the thing bought first, and nowhere else.
+  const showFaqs = service.slug === "channel-census";
 
   return (
     <>
@@ -82,7 +83,7 @@ export default async function ServicePage({ params }: Params) {
       />
 
       <PageHeader
-        eyebrow="What we offer"
+        eyebrow="Inside Channel Intelligence"
         title={service.title}
         deck={service.standfirst}
       >
@@ -192,10 +193,10 @@ export default async function ServicePage({ params }: Params) {
         </Section>
       ) : null}
 
-      {/* The other two services. */}
+      {/* The other subservices. */}
       <Section className="pt-0 sm:pt-0 lg:pt-0">
         <Container>
-          <p className="label-section text-muted">Also</p>
+          <p className="label-section text-muted">Also inside Channel Intelligence</p>
           <div className="mt-8 grid border-t border-line-strong sm:grid-cols-2">
             {others.map((other) => (
               <Link

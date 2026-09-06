@@ -3,13 +3,13 @@
 import * as React from "react";
 import Link from "next/link";
 import {
+  Activity,
   ArrowRight,
   Boxes,
   ClipboardList,
   FileText,
-  Plug,
+  LayoutGrid,
   Search,
-  Wrench,
   type LucideIcon,
 } from "lucide-react";
 
@@ -322,7 +322,7 @@ export function BlackHoleScene() {
       id="services"
       className="relative bg-surface-2"
       style={{ height: "340svh" }}
-      aria-label="The problem, and what we build for it"
+      aria-label="The problem, and what Channel Intelligence answers"
     >
       <div ref={stickyRef} className="sticky top-0 h-svh overflow-hidden">
         {/* Sky */}
@@ -375,16 +375,17 @@ export function BlackHoleScene() {
             <div className="mx-auto max-w-4xl text-center">
               <Eyebrow tone="onDark">The problem</Eyebrow>
               <h2 className="mt-6 text-3xl leading-[1.05] text-white sm:text-4xl lg:text-5xl">
-                The data exists.
+                The catalogs are public.
                 <br />
-                Nothing connects it.
+                Nobody reads them.
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base lg:text-lg">
-                Your trusted data is already there — scattered across ERP
-                screens, spreadsheets, PDFs, drawings, supplier files, emails
-                and distributor portals. Sales, parts, procurement and export
-                become the human bridge between systems that should already
-                work together.
+                Everything you need to know about your channel is already
+                published — on the websites of the distributors you fund. It
+                sits there across dozens of domains and tens of thousands of
+                listings, which is exactly why no manufacturer has read it.
+                Meanwhile your competitors may already know which distributors
+                carry them, and which ones do not.
               </p>
             </div>
 
@@ -416,18 +417,18 @@ export function BlackHoleScene() {
           <Container className="pt-20 sm:pt-24">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
               <div>
-                <Eyebrow>Our solutions</Eyebrow>
+                <Eyebrow>The solution</Eyebrow>
                 <h2 className="mt-5 text-3xl leading-[1.05] text-ink sm:text-4xl lg:text-5xl">
-                  One connected
+                  One system:
                   <br />
-                  workflow
+                  Channel Intelligence
                 </h2>
               </div>
               <div className="lg:pt-2">
                 <p className="max-w-md text-sm leading-relaxed text-muted sm:text-base lg:text-lg">
-                  Each one reads from the systems you already run and writes
-                  back to them, under your approval. Hover a label to see what
-                  it does.
+                  One crawl of your distributor network, read six ways. Every
+                  answer carries the source URL it came from. Hover a label to
+                  see what it does.
                 </p>
               </div>
             </div>
@@ -529,12 +530,12 @@ const PAD = 16;
 /** Keyed by the `label` in content/manufacturing.ts. Rename one there and
     it falls back to the document glyph until it is renamed here too. */
 const ICONS: Record<string, LucideIcon> = {
-  "Part intelligence": Search,
-  "RFQ automation": FileText,
-  "Catalog intelligence": Boxes,
-  "ERP integration": Plug,
-  "Export documents": ClipboardList,
-  Obsolescence: Wrench,
+  "Channel census": Search,
+  "Displacement mapping": Boxes,
+  "Whitespace mapping": LayoutGrid,
+  "Change monitoring": Activity,
+  "Distributor qualification": ClipboardList,
+  "Interchange harvesting": FileText,
 };
 
 type Rect = { x: number; y: number; w: number; h: number };

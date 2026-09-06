@@ -13,7 +13,7 @@ import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 const description =
-  "Five offers, each scoped to one workflow with success measures agreed before it starts: part intelligence, RFQ-to-quote, catalog intelligence, export operations, and integration with managed operations once a pilot has proved itself.";
+  "The five subservices inside Channel Intelligence: the channel census, displacement mapping, whitespace mapping, change monitoring, and distributor qualification — one crawl of your distributor network, read five ways, every finding linked to a live listing.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Services",
@@ -22,8 +22,9 @@ export const metadata: Metadata = pageMetadata({
 });
 
 /**
- * The services index: three offerings, in the order they are bought, each
- * with its commercial shape beside it and a link into its own page.
+ * The services index: the five subservices of Channel Intelligence, in the
+ * order they are bought, each with its commercial shape beside it and a link
+ * into its own page.
  */
 export default function ServicesPage() {
   return (
@@ -44,9 +45,9 @@ export default function ServicesPage() {
       />
 
       <PageHeader
-        eyebrow="What we offer"
-        title="One workflow. One product family. Measures agreed up front."
-        deck="Every offer here is scoped small enough to prove or disprove on your own data, and every one names what it will be judged on before it starts. Nothing writes back to your ERP until your people have approved it."
+        eyebrow="Inside Channel Intelligence"
+        title="One crawl of your channel, read five ways."
+        deck="These are not five products. They are five questions asked of the same harvested data — who carries you, who carries your rivals, what nobody serves at all, what changed, and whether a prospect is worth signing. Every answer links to the listing it came from."
       />
 
       <Section className="pt-0 sm:pt-0 lg:pt-0">
@@ -101,30 +102,42 @@ export default function ServicesPage() {
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
             <SectionHeading
               align="left"
-              eyebrow="Why this order"
-              title="Part data first. Everything else depends on it."
+              eyebrow="How it is packaged"
+              title="Census first. Then the map. Then the monitor."
             />
             <Reveal delay={100}>
               <div className="space-y-6 text-base leading-relaxed text-muted sm:text-lg">
                 <p>
-                  This is the one sequencing rule we do not bend, and it is
-                  worth saying why rather than presenting it as a preference.
+                  The pilot is a channel census over up to 25 distributor
+                  domains: three to five business days, $7,500 to $15,000, one
+                  time. It exists because nobody — including us — knows what a
+                  displacement map across your network would cover until the
+                  domains have been checked. It either de-risks the project
+                  behind it or tells you not to buy one.
                 </p>
                 <p>
-                  Quoting, catalog publishing and export checks are all the
-                  same question asked in different places: which part is this,
-                  and what is true about it? Automate the quote before the part
-                  relationships are governed and you have built something that
-                  produces confident wrong answers faster than a person could
-                  produce careful right ones. The catalog publishes the same
-                  error to every channel at once. The export documents disagree
-                  in a way nobody catches until the shipment is held.
+                  The project is displacement and whitespace mapping together,
+                  over up to 10 distributors: 10 to 15 business days, $25,000
+                  to $40,000. Both come off one crawl, which is why they are
+                  bundled — the harvest is the expensive part, and asking it a
+                  second question costs almost nothing.
                 </p>
                 <p>
-                  So the identifiers get resolved first, with the
-                  non-interchangeable pairs recorded and the uncertain cases
-                  routed to a person. After that, the other three are largely a
-                  question of where the answer needs to appear.
+                  The retainer is change monitoring over 30 to 60 domains at
+                  $12,500 to $20,000 a month on an annual commitment: monthly
+                  change reports, a quarterly displacement and whitespace
+                  refresh, up to 500 manufacturer resolutions a month, sales
+                  call briefs and distributor scorecards. A census is a
+                  project; knowing what moved is a standing reason to be in the
+                  account.
+                </p>
+                <p>
+                  Above that is enterprise: 100+ domains across multiple
+                  countries and languages, custom taxonomies and competitor
+                  universes, CRM or BI integration, dedicated analyst support
+                  and a cross-reference database of your own, quoted from
+                  $25,000 a month. Every tier is the same four layers. What
+                  changes is how much of your channel they are pointed at.
                 </p>
               </div>
             </Reveal>
@@ -132,7 +145,7 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      <CtaSection secondary={{ href: "/process", label: "See the process" }} />
+      <CtaSection secondary={{ href: "/process", label: "See how it runs" }} />
     </>
   );
 }

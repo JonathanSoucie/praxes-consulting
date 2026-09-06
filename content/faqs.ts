@@ -2,94 +2,94 @@
 
 export type Faq = { q: string; a: string };
 
-/** Home page — the objections a parts business actually raises. */
+/** Home page — the questions a manufacturer actually asks about the data. */
 export const generalFaqs: Faq[] = [
   {
-    q: "Do we have to replace our ERP?",
-    a: "No, and we would argue against it. Your ERP stays the system of record. We build a secure integration layer around it — SAP ECC or S/4HANA, Oracle E-Business Suite, NetSuite, Infor, Epicor, the WMS, the PIM, the CRM, legacy dealer systems — starting read-only, and moving to controlled write-back only after your approvals are in place. Where a system has no usable API, we use RPA rather than making its replacement your problem.",
+    q: "How many distributors can you monitor?",
+    a: "There is no hard limit. Our reference engagement covered 24 distributors; enterprise clients monitor more than 100 across multiple countries and languages. Pricing scales with distributor count and catalog size, not with seats — a census of 25 domains and a monitoring programme over 60 are different engagements, but neither is priced per user.",
   },
   {
-    q: "Our part data is a mess. Is that a reason to wait?",
-    a: "It is the reason to start. Every parts business we work with has the same shape of problem: the data exists, but no two copies of it agree, and the relationships that make it findable live in spreadsheets and in people's heads. Normalizing that is the first week of the work, not a prerequisite for it. What you get out of that week — the duplicates, the gaps, the disagreements between channels — is useful whether or not anything is automated afterwards.",
+    q: "How do you ensure the findings are accurate?",
+    a: "Every value we report is stored with the source URL and a verbatim quote from the page it came from. Nothing is estimated or modelled. Our QA validates manufacturer resolution, competitor classification and category mapping, and you can audit any finding by clicking its evidence link — including in the distributor meeting, on a laptop, in front of the distributor.",
   },
   {
-    q: "Will the system invent a fitment or approve a substitute on its own?",
-    a: "No. Matches are returned with the evidence they were made on and a confidence level; anything below your threshold, and anything safety-critical, routes to a person instead of being guessed at. New fitment and interchangeability decisions are made by your technical people and recorded with who made them. A system that silently invents a relationship is worse than no system, because it is wrong at scale.",
+    q: "What if a distributor blocks automated access?",
+    a: "We respect robots.txt and access restrictions, without exception. If a site requires a dealer login or blocks automated access, it is reported as gated with a recommendation to handle it by manual review or direct outreach. It is never worked around, and it is never quietly counted as a distributor with no catalog — those are different findings and we keep them separate.",
   },
   {
-    q: "How small can we start?",
-    a: "One product family, roughly 5,000 to 25,000 active part records, two to five source datasets, and one high-volume request channel. That is deliberately small. It is enough to prove or disprove the case on your own data, and it is a scope we can stand a fixed price and a set of success measures against.",
+    q: "How often do you crawl distributor websites?",
+    a: "Monthly is standard, and weekly or quarterly cadences are available. Critical changes — a distributor going dark, a major competitor brand appearing across accounts, one of your lines being dropped — trigger an alert when they are detected rather than waiting for the report. Everything else is deliberately not an alert, because a monitoring service that pages you about a price change is one you will mute.",
   },
   {
-    q: "What if the pilot does not move the numbers?",
-    a: "Then that is the finding, and you get it in writing with the measures behind it. We agree what we are measuring — search time, unmatched RFQs, time to first quote, publish-ready SKU rate, document-error rate — before the pilot starts, precisely so the answer cannot be moved afterwards. You keep the normalized data and the gap analysis either way.",
+    q: "Can you track our competitors' distributors too?",
+    a: "Yes. Give us the competitor brands you care about and we track which distributors carry them and tell you when that changes. This is included in displacement mapping and in change monitoring rather than priced as an extra, because a displacement map without a competitor universe is just a list of your own listings.",
   },
   {
-    q: "Who owns the enriched data?",
-    a: "You do. The enriched records, the relationships, the documentation and the administrative access are yours, and you keep them if the engagement ends. Ongoing operations are how we make sure the return holds as suppliers and systems change, not a licence you have to keep buying to keep your own catalog.",
+    q: "Do you integrate with our CRM or BI stack?",
+    a: "For enterprise engagements, yes: API access or scheduled data exports into Salesforce, HubSpot, Microsoft Dynamics, SAP, a BI tool or a custom system. For pilots and projects, the deliverable is a report with evidence links, because the first question is whether the findings are worth acting on, not where to pipe them.",
   },
   {
-    q: "Do you resell software or take vendor commissions?",
-    a: "No. We hold no reseller agreements and take no commissions from any platform. What we recommend is shaped by your data and your workflow, not by someone else's margin.",
+    q: "Do you sell our data to other manufacturers?",
+    a: "No. Client data is confidential and we do not sell raw harvested data to third parties. The one thing we build across clients is the interchange database — cross-reference tables that distributors themselves publish — and access to that is licensed selectively. Your distributor list, your categories, your competitor universe and your reports stay yours.",
   },
   {
-    q: "Will this replace our parts people?",
-    a: "It changes what they spend the day on. The work it removes is the searching, the retyping, the cross-checking of documents that must agree — not the judgement about whether a substitute is appropriate for a customer's machine. That judgement is the thing we route work to, deliberately, and it is the reason a parts business is worth calling in the first place.",
+    q: "How quickly can we start?",
+    a: "A census can begin within five business days of signing and delivers in three to five business days after that. Larger displacement and whitespace projects need 10 to 15 business days for setup and the initial crawl. The scoping call in front of both is 30 minutes and needs no preparation from you.",
   },
 ];
 
 /** /process — commercial and engagement mechanics. */
 export const processFaqs: Faq[] = [
   {
-    q: "Why start read-only?",
-    a: "Because a pilot should not be able to damage the system your business runs on. Read-only means we can prove the matching, the enrichment or the document checks against your real data with no path to changing it. Write-back is switched on later, deliberately, once the approval queues exist and your team has decided what the system is allowed to conclude.",
+    q: "Why start with a census rather than the displacement map?",
+    a: "Because the census tells us what the displacement map would actually cost and cover. Until the domains have been checked, nobody knows how many publish a readable catalog, how deep those catalogs go, or how many are gated. A census is a few days and a small number, and it either de-risks the project behind it or tells you not to buy one.",
   },
   {
-    q: "What do you need from us during a pilot?",
-    a: "Access to the source data, and time from the people who know it — the parts person who knows which cross-references are wrong, the export coordinator who knows which field causes the exceptions every month. Typically a few hours a week. Their knowledge is most of what gets encoded; the software is the easy half.",
+    q: "What do you need from us to start?",
+    a: "A list of distributor domains, your product categories, and the competitor brands you want counted. That is genuinely it — no system access, no integration, no involvement from the distributors. Everything we read is a public page. What helps most is an hour with whoever knows the channel, because their view of who carries what is the thing the census confirms or corrects.",
   },
   {
-    q: "How long before anything is live?",
-    a: "Assessment: 15 minutes. Connect and normalize: one week. Building the workflow: two to three weeks. Approval and go-live: one week. Most pilots are running against live work about five weeks after the first call, and then we monitor and expand from there.",
+    q: "How long does each stage take?",
+    a: "Scoping call: 30 minutes. Reconnaissance: three to five business days. Harvest and resolution: three to five. Evidence and reporting: three to five. A census alone is 3–5 business days for up to 25 distributors; a full displacement and whitespace project is 10–15 business days for up to 10 distributors; monitoring delivers its first report within 15 business days.",
   },
   {
-    q: "Can we take the normalized data and go elsewhere?",
-    a: "Yes. The enriched records and the relationship structure are yours, they are exportable, and they are specific enough to hand to an internal team or another supplier. We would rather be the firm whose data work is worth taking elsewhere than the one that holds it hostage.",
+    q: "Why do recurring runs cost less than the first one?",
+    a: "Because manufacturer resolution is the only part of the pipeline with a real per-unit cost — $0.28 per part — and every resolved identity is cached permanently. Reconnaissance and harvesting are HTTP requests at one per second, which cost almost nothing. So the second month pays for the parts that are new, not for the catalog again.",
   },
   {
-    q: "How much disruption should we expect?",
-    a: "The connection and normalization stage happens alongside your operation rather than through it. Rollout is staged, with the previous process running as a fallback until the measures hold. The one thing we do ask for is that exceptions get worked rather than ignored — a queue nobody opens is how these systems quietly stop being trusted.",
+    q: "What does this not measure?",
+    a: "Actual order volume or sell-through — only your own order history is a true demand signal. Content behind dealer logins or gated portals. Prices where a distributor does not publish them. Inventory or stock levels unless the site states them. Coverage is bounded by what each site exposes, and we state that before you find it yourself.",
   },
   {
-    q: "What happens when a supplier changes their file format?",
-    a: "We absorb it. That is a large part of what ongoing operations covers: supplier formats change, product lines are discontinued, sites merge their material masters, a distributor asks for a new attribute. Without someone owning that, an enriched catalog goes stale within about a quarter and nobody notices until a customer does.",
+    q: "Is a whitespace finding reliable? Absence is a strong claim.",
+    a: "It is the claim we are most careful with. A category can look empty because the distributor does not serve it, because that part of the catalog is gated, or because they name it something our taxonomy did not match. All three are reported differently, and only the first is called whitespace. An overstated opening is the fastest way to lose a rep's trust in the whole report.",
   },
   {
-    q: "How do you measure whether it worked?",
-    a: "With the measures agreed before it started, using the same definitions before and after: search time, unmatched RFQ lines, wrong-part rate, time to first quote, manual touches per RFQ, publish-ready SKU rate, document-error rate, exception volume, and workflow adoption. Adoption is the one people skip and the one that predicts everything else.",
+    q: "Who owns the reports and the underlying data?",
+    a: "You do. The reports, the evidence links, the extracted records for your network and the analysis are yours, and you keep them if the engagement ends. Monitoring is how the picture stays current as catalogs change — not a licence you have to keep buying to keep findings you already paid for.",
   },
   {
-    q: "Does ongoing support mean we are locked in?",
-    a: "No. You own the enriched data, the documentation and the admin access outright, and you get the training to run the workflow in-house. What ongoing support buys is somebody watching when a format changes on a Tuesday — not permission to use your own systems.",
+    q: "Is any of this legally risky for us?",
+    a: "We read public pages at one request per second, respect robots.txt and website terms, and never access content behind a dealer login. Gated sites are reported as gated. The data is used for commercial intelligence only, and every finding is traceable to a page the distributor chose to publish.",
   },
 ];
 
 /** /contact — short set, focused on the call itself. */
 export const contactFaqs: Faq[] = [
   {
-    q: "What happens on the assessment call?",
-    a: "We ask where the friction is — part identification, RFQs, quoting, catalog data, distributor sync, ERP integration, export documents, MRO or obsolete components — and which systems hold the data today. You get a straight read on which workflow is worth measuring first. Nothing is quoted on the call itself.",
+    q: "What happens on the discovery call?",
+    a: "We ask about your distributor network — how many domains, which regions, which categories you are contesting and which competitor brands you want counted. You get a straight read on whether a census is worth running and what it would cover. Nothing is quoted on the call itself.",
   },
   {
     q: "Do I need to prepare anything?",
-    a: "No. A rough sense of your SKU count, which ERP you run, and which request channel causes the most manual work is plenty. Anything precise we need, we gather properly at the assessment stage.",
+    a: "No. A rough distributor count, the categories you sell into, and the names of two or three competitors is plenty. If you have a distributor list in a spreadsheet, bring it; if you do not, assembling one is part of the scoping.",
   },
   {
-    q: "What if our situation does not fit any of your services?",
-    a: "Say so on the call and we will tell you honestly. The offers are shaped around the workflows we see most often in parts businesses; they are not the only ones that exist. If the first useful step for you is something we do not do, that is a more useful answer than a proposal.",
+    q: "Can we see a sample report first?",
+    a: "Yes. We will share an anonymised displacement or whitespace sample from a reference engagement so you can see the shape of the findings and the evidence links before committing to anything. Ask on the call or by email and it goes out the same day.",
   },
   {
-    q: "Can we talk by email instead?",
-    a: "Yes — use the form below or write to us directly. A call is faster for the first pass, but we will work the way you prefer.",
+    q: "What if our channel is not a fit?",
+    a: "Then we will say so. If your distributors publish nothing online, or you sell direct, or your network is three accounts you already know intimately, there is nothing here worth buying. That is a more useful answer than a proposal.",
   },
 ];

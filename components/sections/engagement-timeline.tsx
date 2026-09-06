@@ -23,39 +23,39 @@ type Phase = {
 
 const phases: Phase[] = [
   {
-    label: "Part-data assessment",
-    duration: "Week 0",
+    label: "Channel scoping",
+    duration: "Day 0",
     span: 1,
     fill: "bg-accent/20",
-    detail: "Free, 15 minutes",
+    detail: "Free, 30 minutes",
   },
   {
-    label: "Connect & normalize",
-    duration: "1 week",
-    span: 1.4,
+    label: "Reconnaissance",
+    duration: "3–5 days",
+    span: 1.6,
     fill: "bg-accent/40",
-    detail: "Governed data + gap report",
+    detail: "Census report + gated list",
   },
   {
-    label: "Automate the workflow",
-    duration: "2–3 weeks",
-    span: 3,
+    label: "Harvest & resolution",
+    duration: "3–5 days",
+    span: 2.4,
     fill: "bg-accent/65",
-    detail: "Built and tested on your data",
+    detail: "Records extracted and resolved",
   },
   {
-    label: "Approve & go live",
-    duration: "1 week",
-    span: 1.4,
+    label: "Evidence & report",
+    duration: "3–5 days",
+    span: 1.8,
     fill: "bg-accent/85",
-    detail: "Write-back after approval",
+    detail: "Every claim linked to a listing",
   },
   {
-    label: "Measure & improve",
+    label: "Monitor & expand",
     duration: "Ongoing",
     span: 2,
     fill: "bg-accent",
-    detail: "Watched and kept current",
+    detail: "What moved, every month",
   },
 ];
 
@@ -71,8 +71,8 @@ export function EngagementTimeline({ className }: { className?: string }) {
           Typical engagement
         </p>
         <p className="text-sm text-muted">
-          Live in roughly{" "}
-          <span className="font-medium text-accent">five weeks</span> from the
+          First report in roughly{" "}
+          <span className="font-medium text-accent">three weeks</span> from the
           first call
         </p>
       </div>

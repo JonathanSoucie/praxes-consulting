@@ -39,6 +39,24 @@ export default function TermsPage() {
         </p>
       </LegalSection>
 
+      <LegalSection heading="How we collect published data">
+        <p>
+          Our Channel Intelligence engagements read publicly published pages on
+          distributor websites. We respect robots.txt and website terms of
+          service, request pages at a rate of roughly one per second, and do not
+          access content behind dealer logins or gated portals. Where a site
+          restricts automated access, it is reported to the client as gated,
+          with a recommendation for manual review or direct outreach.
+        </p>
+        <p>
+          Data collected this way is used for commercial intelligence purposes
+          only. Findings are evidence-backed and traceable to the source URL
+          they were read from. Client data — distributor lists, category
+          taxonomies, competitor universes and delivered reports — is
+          confidential and is not shared with or sold to third parties.
+        </p>
+      </LegalSection>
+
       <LegalSection heading="Case studies and testimonials">
         <p>
           Case studies describe real engagements and are published with client

@@ -18,7 +18,7 @@ export default function PrivacyPage() {
     <LegalPage eyebrow="Legal" title="Privacy Policy" updated="2026-08-03">
       <LegalSection heading="Who we are">
         <p>
-          {site.legalName} ({site.name}) is an AI consulting firm based in{" "}
+          {site.legalName} ({site.name}) is a channel intelligence firm based in{" "}
           {site.address.locality}, {site.address.region}, {site.address.country}
           . We are the data controller for personal data collected through this
           website. You can reach us at{" "}

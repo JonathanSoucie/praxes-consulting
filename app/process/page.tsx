@@ -19,14 +19,14 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "How an Engagement Runs",
   description:
-    "Five stages, from a free part-data assessment to a measured, monitored workflow: connect the sources read-only, normalize the identifiers, automate the workflow, approve before anything writes back, then measure and improve.",
+    "Five stages, from a free channel scoping call to a monitored distributor network: reconnaissance on every domain, harvest of the published catalogs, manufacturer resolution, evidence-backed reporting, then monthly change monitoring.",
   path: "/process",
   keywords: [
-    "ERP integration process",
-    "part data normalization",
-    "RFQ automation pilot",
-    "read-only ERP integration",
-    "catalog data governance",
+    "distributor network audit",
+    "distributor catalog crawl",
+    "competitor brand monitoring",
+    "channel census manufacturers",
+    "distributor whitespace analysis",
   ],
 });
 
@@ -37,24 +37,24 @@ export const metadata: Metadata = pageMetadata({
  */
 const clientInputs = [
   {
-    title: "Time from the people who know the data",
-    cost: "3–5 hrs",
-    body: "Spread across the first week. The parts person who knows which cross-references are wrong, and the export coordinator who knows which field causes the exceptions every month. Their knowledge is most of what gets encoded; the software is the easy half.",
-  },
-  {
-    title: "Read access to the source systems",
-    cost: "Setup only",
-    body: "ERP, WMS, PIM and the supplier files, read-only. Scoped to the specific workflow, arranged in writing before we connect anything, and revoked or handed back at the end if you decide not to proceed.",
-  },
-  {
-    title: "Someone who can approve a fitment decision",
-    cost: "Ongoing",
-    body: "A technical person with the authority to say a substitute is or is not acceptable. The system routes uncertainty to a human by design, and that only works if the human exists and has the mandate.",
-  },
-  {
-    title: "The awkward numbers, not the presentable ones",
+    title: "A list of distributor domains",
     cost: "Once",
-    body: "Wrong-part returns, unmatched RFQ lines, document exceptions, SKUs that never made it to the website. We are building the baseline you will be measured against later, so a flattering starting number only makes the final comparison look worse.",
+    body: "A spreadsheet is fine, and an out-of-date one is fine too — which entries are dead is one of the things the census reports. No system access, no integration, and nothing asked of the distributors themselves: every page we read is one their customers can already open.",
+  },
+  {
+    title: "Your categories, in your own words",
+    cost: "1–2 hrs",
+    body: "The category taxonomy you actually sell against. Whitespace measured against a generic industry tree returns a list of things you do not make, which is noise dressed as opportunity. Yours is the only version worth counting.",
+  },
+  {
+    title: "The competitor brands you want counted",
+    cost: "1 hr",
+    body: "A displacement map without a named competitor universe is just an inventory of your own listings. Two or three obvious rivals is a start; the crawl usually surfaces several more you had not been tracking, and you decide which of those stay in.",
+  },
+  {
+    title: "What you currently believe about the channel",
+    cost: "1 hr",
+    body: "Which distributors you think are active, who you think carries you, where you think you are strong. Say it before the crawl rather than after — the value of the first report is largely in which of those beliefs it confirms and which it does not.",
   },
 ];
 
@@ -65,9 +65,9 @@ export default function ProcessPage() {
         schema={[
           webPageSchema({
             type: "WebPage",
-            name: "Our AI Consulting Process",
+            name: "How a Channel Intelligence Engagement Runs",
             description:
-              "The five-step Praxes engagement, from free discovery call to measured go-live.",
+              "The five-stage Praxes engagement, from a free channel scoping call to monthly change monitoring across a distributor network.",
             path: "/process",
           }),
           // Valid because <FaqList> below renders these exact items.
@@ -81,8 +81,8 @@ export default function ProcessPage() {
 
       <PageHeader
         eyebrow="Process"
-        title="Read-only first. Approved before anything writes back."
-        deck="A free assessment, then a fixed-fee week that leaves you with governed data whatever you decide next, then a scoped pilot on one workflow. Your exposure grows only after the case for it has been measured on your own data."
+        title="Reconnaissance first. Evidence on every claim."
+        deck="A free scoping call, then a census that tells you what your channel actually publishes, then the harvest and reporting built on top of it. Your exposure grows only after a cheap first layer has shown what is there to be found."
       >
         <div className="mt-10 flex flex-col items-center gap-4">
           <BookACall size="lg" withArrow />
@@ -97,7 +97,7 @@ export default function ProcessPage() {
           <SectionHeading
             eyebrow="The engagement"
             title="Five stages."
-            deck="Connect, normalize, automate, approve, improve — what happens at each stage, what you receive, and how long it typically takes."
+            deck="Scope, reconnaissance, harvest and resolution, evidence, then monitoring — what happens at each stage, what you receive, and how long it typically takes."
           />
 
           <div className="mt-16">
@@ -118,7 +118,7 @@ export default function ProcessPage() {
           <SectionHeading
             eyebrow="Your side"
             title="What we need from you."
-            deck="Not much, and almost all of it lands in the first week. The most common worry we hear is that this becomes another project your team has to carry. It doesn't — but the part that cannot be outsourced is the knowledge in your parts people's heads."
+            deck="Less than any engagement you have run before, because nothing here touches your systems. A domain list and a few hours of channel knowledge is the whole ask — the part that cannot be outsourced is knowing which categories and which rivals are worth counting."
           />
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2">
@@ -164,8 +164,8 @@ export default function ProcessPage() {
       </Section>
 
       <CtaSection
-        title="Start with fifteen minutes."
-        body="No preparation, no deck, no pricing conversation. Tell us where the work backs up and which systems hold the data, and we'll tell you which workflow is worth measuring first."
+        title="Start with thirty minutes."
+        body="No preparation, no deck, no pricing conversation. Tell us how many distributors you sell through and which categories you are contesting, and we'll tell you what a census of your channel would cover."
         secondary={{ href: "/about", label: "Who you\u2019d work with" }}
       />
     </>

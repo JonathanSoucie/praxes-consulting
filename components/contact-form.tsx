@@ -126,7 +126,7 @@ export function ContactForm() {
 
       <Field
         id="message"
-        label="Which workflow is causing the most manual work?"
+        label="What would you want to know about your distributor network?"
         error={errors.message}
       >
         <Textarea
@@ -134,7 +134,7 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
-          placeholder="Part identification, RFQs and quoting, catalog data, export documents, obsolete parts — plus your ERP and rough SKU count if you have them to hand."
+          placeholder="Roughly how many distributors you sell through, the regions and categories that matter, and any competitor brands you would want counted."
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-error" : undefined}
         />

@@ -17,33 +17,33 @@ import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Book a Part-Data Assessment",
+  title: "Schedule a Discovery Call",
   description:
-    "Tell us where the friction is — part identification, RFQs, quoting, catalog data, distributor sync, ERP integration, export documents or obsolete components — and we'll help you identify a practical first workflow and a measurable pilot scope.",
+    "Tell us about your distributor network — how many domains, which regions, which categories you are contesting and which competitor brands you want counted — and we'll tell you what a census of your channel would cover.",
   path: "/contact",
   keywords: [
-    "part data assessment",
-    "RFQ automation consultation",
-    "catalog health check",
-    "ERP integration consultation",
+    "distributor channel audit",
+    "channel census consultation",
+    "displacement mapping distributors",
+    "competitor brand analysis manufacturers",
   ],
 });
 
 const expectations = [
   {
     icon: Clock,
-    title: "Fifteen minutes, and we keep to it",
-    body: "Where the work backs up, which systems hold the data, and who approves a fitment decision today. No presentation, and no preparation needed from you.",
+    title: "Thirty minutes, and we keep to it",
+    body: "How many distributors you sell through, which regions, which categories you are contesting, and which competitors you already worry about. No presentation, and no preparation needed from you.",
   },
   {
     icon: Scale,
-    title: "One workflow, named",
-    body: "You leave with a straight read on which workflow is worth measuring first and the source datasets a pilot on it would need — including when the answer is that none of them are worth it yet.",
+    title: "A scope, and a straight read",
+    body: "You leave knowing what a census of your network would actually cover and what it would cost — including when the answer is that your channel is too small or too offline to be worth crawling.",
   },
   {
     icon: MessageSquare,
-    title: "No pricing pressure",
-    body: "Nothing is quoted on this call. The only possible next step is a scoped pilot, and only once there is a workflow worth scoping one around.",
+    title: "A sample report if you want one",
+    body: "We will share an anonymised displacement or whitespace sample from a reference engagement so you can see the findings and the evidence links before committing to anything.",
   },
 ];
 
@@ -54,9 +54,9 @@ export default function ContactPage() {
         schema={[
           webPageSchema({
             type: "ContactPage",
-            name: "Book a Free AI Consultation",
+            name: "Schedule a Channel Discovery Call",
             description:
-              "Book a free 15-minute AI discovery call with Praxes, or send a message.",
+              "Book a free 30-minute channel discovery call with Praxes, or send a message.",
             path: "/contact",
           }),
           // Valid because <FaqList> below renders these exact items.
@@ -70,8 +70,8 @@ export default function ContactPage() {
 
       <PageHeader
         eyebrow="Contact"
-        title="Bring the systems that run your parts business into one workflow."
-        deck="Tell us where the friction is: part identification, RFQs, quoting, catalog data, distributor sync, legacy ERP integration, export documents, MRO or obsolete components. Pick a time below, or write to us with the form further down."
+        title="Find out what your distributors are publishing."
+        deck="Tell us about your channel: how many distributors, which regions and categories, and which competitor brands you want counted. Pick a time below, or write to us with the form further down."
       />
       {/* ---------------------------------------------------------------- */}
       {/* Booking widget — lifted into the seam under the header            */}
@@ -124,7 +124,7 @@ export default function ContactPage() {
                 align="left"
                 eyebrow="Or write to us"
                 title="Prefer email?"
-                deck="Tell us which workflow is causing the most manual work, and roughly what you run — ERP, SKU count, export markets. We reply to everything within one business day."
+                deck="Tell us roughly how many distributors you sell through, the categories you are contesting, and one or two competitor brands you would want counted. We reply to everything within one business day."
               />
 
               <Reveal delay={80} className="mt-10 space-y-5 text-sm">

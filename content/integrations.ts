@@ -1,16 +1,13 @@
 /**
- * The systems we build against, and how.
+ * The platforms we read, and the systems findings land in.
  *
- * ⚠️ READ BEFORE LAUNCH — the list below is a capability claim, and only
- * part of it comes from the copy deck.
+ * ⚠️ READ BEFORE LAUNCH — the list below is a capability claim.
  *
- * `fromDeck: true` marks the ones the deck names itself: "SAP ECC, SAP
- * S/4HANA, Oracle E-Business Suite, NetSuite, Infor, Epicor, WMS, PIM, CRM,
- * and legacy dealer systems". The rest are the mainstream members of those
- * same categories, added so the row reads as a list of systems rather than a
- * list of six. Confirm each one you are willing to stand behind and delete
- * the others — a name here says "we integrate with this", and the deck's own
- * position is that the integration layer is built around whatever you run.
+ * The `Storefront` entries are the platforms distributor catalogs are built
+ * on, which the census layer detects and reports; naming one here says we can
+ * read catalogs published on it. The `CRM`, `BI` and `Export` entries are
+ * where findings are delivered for enterprise engagements. Confirm each one
+ * you are willing to stand behind and delete the others.
  *
  * Set as wordmarks rather than brand logos. Every one of these is a third
  * party's trademark, we hold no partnership with any of them, and a wall of
@@ -21,63 +18,63 @@
 
 export type IntegrationSystem = {
   name: string;
-  /** ERP, CRM, PIM, WMS, commerce — shown under the name in the row. */
+  /** Storefront, CRM, BI, Export — shown under the name in the row. */
   kind: string;
-  /** True when the copy deck names this system explicitly. */
+  /** True when this is a platform we read distributor catalogs from. */
   fromDeck?: boolean;
 };
 
 export const integrationSystems: IntegrationSystem[] = [
-  { name: "SAP ECC", kind: "ERP", fromDeck: true },
-  { name: "SAP S/4HANA", kind: "ERP", fromDeck: true },
-  { name: "Oracle E-Business Suite", kind: "ERP", fromDeck: true },
-  { name: "NetSuite", kind: "ERP", fromDeck: true },
-  { name: "Infor", kind: "ERP", fromDeck: true },
-  { name: "Epicor", kind: "ERP", fromDeck: true },
-  { name: "Microsoft Dynamics 365", kind: "ERP / CRM" },
-  { name: "Sage", kind: "ERP" },
-  { name: "IFS", kind: "ERP" },
-  { name: "Acumatica", kind: "ERP" },
+  { name: "Shopify", kind: "Storefront", fromDeck: true },
+  { name: "WooCommerce", kind: "Storefront", fromDeck: true },
+  { name: "Adobe Commerce", kind: "Storefront" },
+  { name: "BigCommerce", kind: "Storefront" },
+  { name: "Salesforce B2B Commerce", kind: "Storefront" },
+  { name: "Optimizely", kind: "Storefront" },
+  { name: "Unilog CIMM2", kind: "Storefront" },
+  { name: "Custom catalogs", kind: "Storefront", fromDeck: true },
+  { name: "Marketplace storefronts", kind: "Storefront", fromDeck: true },
   { name: "Salesforce", kind: "CRM" },
   { name: "HubSpot", kind: "CRM" },
-  { name: "Akeneo", kind: "PIM" },
-  { name: "inRiver", kind: "PIM" },
-  { name: "Manhattan", kind: "WMS" },
-  { name: "Blue Yonder", kind: "WMS" },
-  { name: "Shopify", kind: "Commerce" },
-  { name: "Adobe Commerce", kind: "Commerce" },
-  { name: "Legacy dealer systems", kind: "Bespoke", fromDeck: true },
+  { name: "Microsoft Dynamics", kind: "CRM" },
+  { name: "SAP", kind: "ERP" },
+  { name: "Power BI", kind: "BI" },
+  { name: "Tableau", kind: "BI" },
+  { name: "Looker", kind: "BI" },
+  { name: "Snowflake", kind: "Warehouse" },
+  { name: "Scheduled CSV", kind: "Export" },
+  { name: "REST API", kind: "Export" },
 ];
 
 /**
- * How the integration is actually done. The deck's Legacy ERP Integration
- * bullets, which are the answer to the question the row above provokes:
- * fine, but what do you do to my ERP?
+ * How the crawling is actually done. These are the answers to the question
+ * the row above provokes: fine, but what exactly are you doing to my
+ * distributors' websites?
  */
 export const integrationApproach = {
-  eyebrow: "How we connect",
-  title: "Your ERP stays the system of record",
-  deck: "We do not replace what runs your business. We build a secure layer around it and earn our way from reading to writing — so the first week cannot break anything, and nothing writes back until your people have said it may.",
+  eyebrow: "How we work",
+  title: "Public pages, one request per second",
+  deck: "Nothing here depends on your distributors' cooperation, and nothing here goes anywhere a browser could not. We read what they chose to publish, at a rate that costs them nothing, and we keep the receipt for every value we report.",
   points: [
     {
-      title: "Read-only to start",
-      body: "A pilot connects with no path to changing your system of record. It can prove the matching, the enrichment or the document checks against real data and still be unable to touch it.",
+      title: "Reconnaissance before extraction",
+      body: "We establish what each domain is — reachable, catalogued, gated, parked — before harvesting anything from it. That is what makes the first layer cheap, and what stops a project being scoped against a channel nobody has looked at.",
     },
     {
-      title: "Controlled write-back after approval",
-      body: "Writing is switched on deliberately, once the approval queues exist and your team has decided what the system is allowed to conclude on its own.",
+      title: "robots.txt and dealer logins are respected",
+      body: "A site that excludes automated access, or puts its catalog behind a dealer login, is reported as gated with a recommendation for manual review or direct outreach. It is never worked around and never counted as an empty catalog.",
     },
     {
-      title: "RPA where the APIs will not reach",
-      body: "Older systems often have no usable interface. We drive them the way your team does rather than making their replacement a precondition of the work.",
+      title: "Evidence stored with every value",
+      body: "The source URL and a verbatim quote are kept for every field we report. A finding you cannot open and check is a finding your sales team will not use in front of a distributor, and they would be right not to.",
     },
     {
-      title: "Master data harmonized across sites",
-      body: "Where the same part is three records in three plants, the relationships are resolved once and kept resolved, rather than reconciled by hand each time someone notices.",
+      title: "Resolution cached permanently",
+      body: "Mapping a part number to its manufacturer costs $0.28 and is the only real per-unit cost in the pipeline. Every result is cached forever, so the same part is never paid for twice and recurring runs cost a fraction of the first.",
     },
     {
-      title: "Audit trails and exception queues",
-      body: "Every decision keeps its evidence, its confidence and who approved it. What the system was unsure of goes to a person with the reason attached, not into a silent default.",
+      title: "Your channel data stays yours",
+      body: "Your distributor list, categories, competitor universe and reports are confidential and are not sold on. The one asset we build across clients is the interchange database of cross-reference tables distributors publish themselves, and access to that is licensed selectively.",
     },
   ],
 } as const;

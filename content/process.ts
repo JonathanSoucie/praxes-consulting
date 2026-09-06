@@ -2,11 +2,11 @@
  * The engagement stages. This is the spine of the whole site — the Home page
  * shows a condensed version, /process shows the full timeline.
  *
- * The five stages are the copy deck's own method — connect, normalize,
- * automate, approve, improve — with the commercial shape of the engagement
+ * The five stages are the four Channel Intelligence layers — reconnaissance,
+ * harvest, resolution, evidence — with a free scoping call in front of them
+ * and monitoring behind them, and the commercial shape of the engagement
  * attached to each: what it costs, how long it takes, and what you are left
- * holding. The deck describes the method; the tags and durations here are the
- * firm's own terms and are the numbers quoted on the call.
+ * holding.
  *
  * Durations here are mirrored in components/sections/engagement-timeline.tsx.
  * Update both together.
@@ -33,85 +33,85 @@ export type ProcessStep = {
 export const processSteps: ProcessStep[] = [
   {
     n: "01",
-    title: "Part-data assessment",
-    brief: "Which workflow, and the data it would need",
+    title: "Channel scoping call",
+    brief: "Your domains, your categories, your rivals",
     tag: "Free",
     summary:
-      "Fifteen minutes to find the highest-value workflow and the data it would need.",
+      "Thirty minutes to agree which distributors, which categories and which competitor brands are worth counting.",
     detail:
-      "A short, structured conversation about where the friction actually is: part identification, RFQs and quoting, catalog and distributor data, legacy ERP integration, export documents, MRO or obsolete components. We ask what systems hold the data and who approves decisions today. If we cannot see a workflow worth measuring, we say so on the call and you have lost fifteen minutes.",
+      "A short, structured conversation about your distributor network: how many domains, which regions, which categories you are actually contesting, and which competitor brands you want tracked. We also ask what you already believe about the channel, because the census either confirms it or does not, and both are useful. If your network is too small or too offline for this to pay, we say so on the call.",
     deliverables: [
-      "A straight read on which workflow is worth attacking first",
-      "The source datasets a pilot on it would need",
-      "A clear picture of what a pilot would involve, and what it would not",
+      "An agreed distributor list and category taxonomy",
+      "The competitor brand universe to be counted",
+      "A clear picture of what a census would cover, and what it would not",
     ],
-    duration: "15 minutes",
+    duration: "30 minutes",
   },
   {
     n: "02",
-    title: "Connect and normalize",
-    brief: "Read-only, then the identifiers resolved",
+    title: "Reconnaissance",
+    brief: "What is reachable, and what is gated",
     tag: "Paid",
     summary:
-      "We connect the sources read-only and turn fragmented identifiers into a controlled structure.",
+      "Every domain checked for reachability, catalog presence, platform and access restrictions.",
     detail:
-      "We connect the systems and files that already hold your operational knowledge — ERP, WMS, PIM, CRM, supplier files, PDFs, drawings, catalogs, RFQs and document repositories — read-only, so nothing can change your system of record. Then we organize the fragmented identifiers, descriptions, specifications, fitment rules, documents and commercial data into a controlled structure, and agree the measures the pilot will be judged on before anything is built.",
+      "Layer one. Each distributor domain is checked for whether it is reachable, whether a catalog exists behind it, what platform it runs on, and whether access is restricted by a dealer login, a robots.txt exclusion or automated-access blocking. Catalog depth and digital maturity signals are measured at the same time. These are HTTP requests at one per second on public pages, which is why this layer costs almost nothing to run.",
     deliverables: [
-      "Read-only connections to the systems that hold the data",
-      "Fragmented identifiers resolved into governed relationships",
-      "A gap and duplicate report you can act on independently",
-      "Success measures and a fixed pilot scope, agreed in writing",
+      "Reachability, catalog presence and platform per distributor",
+      "An explicit gated list, with the reason for each",
+      "Catalog depth and digital maturity signals",
+      "A census report you can act on independently",
     ],
-    duration: "1 week",
+    duration: "3–5 days",
   },
   {
     n: "03",
-    title: "Automate the workflow",
-    brief: "Built and validated on your own data",
+    title: "Harvest and resolution",
+    brief: "Records extracted, part numbers resolved",
     tag: "Small deposit",
     summary:
-      "Requests extracted, parts matched, records enriched, quotes and documents drafted.",
+      "Product records extracted with their source URLs, then part numbers mapped to manufacturers.",
     detail:
-      "We build the workflow against the agreed scope: extracting requests, matching parts, enriching product records, drafting quotes, validating shipment documents — and routing anything uncertain to the right person instead of guessing at it. It is validated against your own historical data before it touches live work, and where an API does not exist we use RPA rather than asking you to replace a system that works.",
+      "Layers two and three. Every published product record is extracted — name, part number, brand, price, category and URL — and stored with the page it came from. Then part numbers are resolved to manufacturers at $0.28 per resolution. Resolved identities are cached permanently, so the same part is never paid for twice, on this engagement or on any run after it.",
     deliverables: [
-      "The workflow running against your real data in a staging environment",
-      "Confidence thresholds and exception routing you set",
-      "Validation against historical cases, with the misses shown",
-      "A walkthrough with the people who will use it",
+      "Every published product record, with its source URL",
+      "Manufacturer identity resolved per part",
+      "A permanent resolution cache that makes later runs cheaper",
+      "Coverage stated honestly, including what each site did not expose",
     ],
-    duration: "2–3 weeks",
+    duration: "3–5 days",
   },
   {
     n: "04",
-    title: "Approve and go live",
-    brief: "Your people approve; write-back switches on",
+    title: "Evidence and report",
+    brief: "Every claim linked to a live listing",
     tag: "Final payment",
     summary:
-      "Your teams keep control: the system presents evidence and exceptions, people approve.",
+      "Findings assembled into displacement, whitespace and account-level reporting, each claim traceable.",
     detail:
-      "Your technical, sales, procurement and compliance teams keep the decisions. The system presents evidence, confidence and exceptions; people approve the high-impact ones. Write-back to the ERP is switched on only after those approvals are in place, and rollout is staged with the previous process running alongside until the measures hold.",
+      "Layer four, and the deliverable. Records are classified against your categories and your competitor set, concentration is analysed, and the findings are written up per distributor, per category and per meeting. The source URL and a verbatim quote are stored for every value, so any finding in any report can be opened and checked against the page it came from — including in the distributor meeting itself.",
     deliverables: [
-      "Approval queues owned by your own teams",
-      "Controlled write-back, enabled after approval and not before",
-      "Staged rollout with the previous process as fallback",
-      "Documentation, admin access and training",
+      "Displacement and whitespace reports with evidence links",
+      "Category concentration analysis",
+      "Sales-call briefs and distributor scorecards",
+      "An executive presentation with recommended plays",
     ],
-    duration: "1 week",
+    duration: "3–5 days",
   },
   {
     n: "05",
-    title: "Measure and improve",
-    brief: "Against the baseline agreed at the start",
+    title: "Monitor and expand",
+    brief: "What moved, every month, against the baseline",
     // No tag — the duration column already reads "Ongoing".
     summary:
-      "Search time, quote speed, data completeness, exception rates and adoption, measured and reported.",
+      "Lines added and dropped, catalogs launched, brands arriving, distributors going dark — reported monthly.",
     detail:
-      "We measure search time, quote speed, data completeness, exception rates, document errors and workflow adoption against the baseline agreed at the start — then use what those say to scale to new products, channels and markets. Adoption is the one that predicts the rest: a workflow the team has quietly routed around is not saving anything, whatever the other numbers look like.",
+      "The delivered reports become the baseline. From there the network is re-crawled on your cadence and only the differences are reported: product lines added or dropped, new catalogs launched, distributors gone dark, competitor brands arriving or leaving, categories expanding or contracting. Critical changes alert immediately. The resolution cache carries over, so recurring runs cost a fraction of the first, and coverage expands to new regions and languages from the same base.",
     deliverables: [
-      "Measured results against the agreed baseline, in writing",
-      "Continuous monitoring, including supplier and format changes",
-      "A sequenced roadmap for the next workflow or market",
-      "Ownership of your enriched data, throughout",
+      "Monthly change reports against the agreed baseline",
+      "Immediate alerts on distributors going dark or major brand additions",
+      "Quarterly displacement and whitespace refresh",
+      "Ownership of every report and its evidence, throughout",
     ],
     duration: "Ongoing",
   },

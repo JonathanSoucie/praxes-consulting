@@ -18,12 +18,12 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "About Praxes",
   description:
-    "Praxes builds AI integration for equipment-parts manufacturers and international distributors: part intelligence, RFQ automation, catalog data, export documents. Evidence and human approval by design. Meet the team and how we think.",
+    "Praxes builds channel intelligence for manufacturers selling through distributors: distributor census, displacement and whitespace mapping, change monitoring. Every finding traced to a live listing. Meet the team and how we think.",
   path: "/about",
   keywords: [
-    "AI integration manufacturers",
-    "parts data consultants",
-    "ERP integration consultants Canada",
+    "channel intelligence manufacturers",
+    "distributor network analysis",
+    "competitor brand monitoring distributors",
     "about Praxes",
   ],
 });
@@ -50,8 +50,8 @@ export default function AboutPage() {
 
       <PageHeader
         eyebrow="About"
-        title="Evidence, not confident guesses."
-        deck="Praxes makes a narrower promise than most consultancies: we will connect what your business already knows, show you the evidence behind every match, and route the uncertain cases to your people rather than guessing at them."
+        title="Evidence, not estimates."
+        deck="Praxes makes a narrower promise than most consultancies: we will read what your distributors publish, link every claim to the page it came from, and tell you plainly which questions this method cannot answer."
       />
       {/* ---------------------------------------------------------------- */}
       {/* Story                                                             */}
@@ -74,32 +74,32 @@ export default function AboutPage() {
                 the investment isn&apos;t worth it.
               </p>
               <p className="text-base leading-relaxed text-muted">
-                What kept appearing in parts businesses was a different shape of
-                problem. The data was not missing. It was everywhere: in the
-                ERP, in supplier spreadsheets, in technical PDFs, in drawings,
-                in distributor portals, and in the head of whoever had been at
-                the parts counter longest. Nothing connected any of it, so the
-                same question — which part is this, and what is true about it? —
-                was answered from scratch, by a person, several hundred times a
-                week.
+                What kept appearing in manufacturers who sell through
+                distributors was a different shape of problem. The information
+                was not missing. It was published — on the websites of the
+                distributors they funded, in catalogs anyone could open, listing
+                the rival brands sitting in their categories. Nobody upstream
+                had read any of it, because reading it means working through
+                tens of thousands of listings across dozens of domains, and no
+                channel team has a week to spend that way.
               </p>
               <p className="text-base leading-relaxed text-muted">
                 Meanwhile the tools being sold into that gap were confident
-                where they should have been careful. A system that will invent a
-                fitment relationship rather than admit it does not know is not a
-                productivity gain; it is a wrong-part return, a held shipment,
-                or a machine down for another week — produced faster and at
-                greater scale than any person could manage.
+                where they should have been careful. Modelled market share,
+                estimated coverage, a dashboard with no source under any number.
+                A confident figure a distributor can contradict by opening their
+                own website is worse than no figure, because it costs your rep
+                the meeting.
               </p>
               <p className="text-base leading-relaxed text-muted">
                 Praxes exists to close that gap the careful way. We bring{" "}
                 <ProseLink href="/process">the same method</ProseLink> every
-                time: connect the sources read-only, normalize the identifiers
-                into governed relationships, automate one workflow, route what
-                is uncertain to the people who can judge it, and measure the
-                result against numbers agreed before the work started. It is
-                ordinary engineering discipline applied to a field that
-                currently runs on enthusiasm.
+                time: establish what each domain is before extracting anything,
+                harvest only what is published, resolve part numbers to real
+                manufacturers, store the source URL and a verbatim quote for
+                every value, and state the limits of the method before a client
+                finds them. It is ordinary engineering discipline applied to a
+                field that currently runs on estimates.
               </p>
               <p className="text-base leading-relaxed text-muted">
                 Praxes is the Greek for practice: action informed by theory
@@ -229,8 +229,8 @@ export default function AboutPage() {
 
       <CtaSection
         title="Talk to the team."
-        body="No account manager, no discovery deck. Fifteen minutes with the person who would run your assessment."
-        secondary={{ href: "/process", label: "See the process" }}
+        body="No account manager, no discovery deck. Thirty minutes with the person who would run the crawl of your channel."
+        secondary={{ href: "/process", label: "See how it runs" }}
       />
     </>
   );

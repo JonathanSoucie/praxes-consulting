@@ -53,9 +53,10 @@ export function organizationSchema(): Json {
     })),
     knowsAbout: [
       ...services.map((service) => service.title),
-      "Business process automation",
-      "ROI modelling",
-      "AI readiness assessment",
+      "Channel intelligence",
+      "Distributor network analysis",
+      "Competitive brand displacement",
+      "Interchange and cross-reference data",
     ],
     sameAs: [site.social.linkedin],
     contactPoint: {
@@ -68,7 +69,7 @@ export function organizationSchema(): Json {
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "AI consulting services",
+      name: "Channel Intelligence services",
       itemListElement: services.map((service) => ({
         "@type": "Offer",
         itemOffered: {
@@ -173,7 +174,7 @@ export function serviceSchema({
     url: `${site.url}${path}`,
     provider: { "@id": ORG_ID },
     areaServed: { "@type": "Country", name: "Canada" },
-    serviceType: "Manufacturing process automation",
+    serviceType: "Distributor channel intelligence",
   };
 }
 
