@@ -3,11 +3,10 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
-import { TunnelHero } from "@/components/sections/tunnel-hero";
+import { Hero } from "@/components/sections/hero";
 import { BlackHoleScene } from "@/components/sections/black-hole-scene";
 import { ServicesPanel } from "@/components/sections/services-panel";
 import { IndustriesBand } from "@/components/sections/industries-band";
-import { DividerBand } from "@/components/sections/divider-band";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqList } from "@/components/sections/faq";
 import { CtaSection } from "@/components/sections/cta";
@@ -16,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/json-ld";
 
 import { generalFaqs } from "@/content/faqs";
-import { dividerLine, whyManufacturing } from "@/content/manufacturing";
+import { whyManufacturing } from "@/content/manufacturing";
 import { processSteps } from "@/content/process";
 import { site } from "@/content/site";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/schema";
@@ -54,9 +53,10 @@ export const metadata: Metadata = {
 /**
  * Home.
  *
- * It opens on a statement inside a wireframe room, with a one-line band
- * under it saying who the statement is for. Then the black hole, close
- * enough to fill the viewport, with the pain points inside it; then the
+ * It opens on a statement on the bare page, with the black hole's halo
+ * already rising into the bottom of the first screen and nothing between
+ * the two. Then the hole, close enough to fill the viewport, with the pain
+ * points inside it; then the
  * camera pulling back until the hole is a dome on the bottom edge with the
  * six capability areas in orbit around it. The panel under that is what you
  * can actually buy — the offers, one card each. Then who this is for, how
@@ -75,8 +75,7 @@ export default function HomePage() {
         ]}
       />
 
-      <TunnelHero />
-      <DividerBand>{dividerLine}</DividerBand>
+      <Hero />
       <BlackHoleScene />
       <ServicesPanel />
       <IndustriesBand />

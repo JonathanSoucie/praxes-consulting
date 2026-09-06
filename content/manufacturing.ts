@@ -5,7 +5,7 @@
  * the hero, who the firm helps, the pain points that sit inside the black
  * hole, the solution areas arranged around it once the page zooms out, and
  * the reasons under both. Copy only — the scenes that draw these are in
- * components/sections/tunnel-hero.tsx and black-hole-scene.tsx.
+ * components/sections/hero.tsx and black-hole-scene.tsx.
  */
 
 /**
@@ -16,10 +16,6 @@ export const hero = {
   headline: "Find the right part. Quote faster. Ship with the right paperwork.",
   sub: "We connect your ERP, product data, RFQs, distributor catalogs and export documents — so your team can identify the correct part, prepare accurate quotes, and move international orders with confidence.",
 } as const;
-
-/** The band under the hero: who this is for, in one line. */
-export const dividerLine =
-  "Built for equipment-parts manufacturers, aftermarket suppliers and international distributors.";
 
 /**
  * Who we help. The deck's five segments, each with the line from its

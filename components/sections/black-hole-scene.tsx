@@ -15,6 +15,12 @@ import {
 
 import { Container } from "@/components/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import {
+  CREST_BELOW_TOP,
+  HALO,
+  HOLE_BACKGROUND,
+  R0_OF_LONG_SIDE,
+} from "@/components/sections/hole-geometry";
 import { painPoints, solutions, type Solution } from "@/content/manufacturing";
 import { cn } from "@/lib/utils";
 
@@ -50,13 +56,6 @@ const EASE = 0.09;
 
 /** Orbit radius, as a multiple of the final hole radius. */
 const ORBIT = 1.58;
-/** How far the halo reaches, as a multiple of the hole radius. The hole
-    element is drawn this much larger than the hole, with the disc, the
-    photon ring and the halo all stops of one radial gradient. */
-const HALO = 1.5;
-const DISC = 1 / HALO;
-const pct = (k: number) => `${(k * DISC * 100).toFixed(2)}%`;
-const HOLE_BACKGROUND = `radial-gradient(circle farthest-side at 50% 50%, #0b0a0c 0%, #0f0d10 ${pct(0.6)}, #17131a ${pct(0.84)}, #2a1520 ${pct(0.95)}, #ff6e9e ${pct(0.985)}, #f8206d ${pct(1)}, rgba(248,32,109,0.5) ${pct(1.02)}, rgba(255,110,158,0.2) ${pct(1.1)}, rgba(181,17,91,0.08) ${pct(1.25)}, rgba(181,17,91,0) 100%)`;
 
 /** Angles (degrees, counter-clockwise from +x) for the solution labels along
     the orbit. Spread from just above the left edge, over the top, to just
@@ -84,8 +83,10 @@ function computeLayout(vw: number, vh: number): Layout {
   const cy1 = vh - r1 * 0.12;
   // Initial: so large only the crown shows, its crest a little below the top
   // of the viewport with the corners of the page still visible around it.
-  const r0 = Math.max(vw, vh) * 0.66;
-  const cy0 = r0 + vh * 0.05;
+  // The hero above draws the same halo from these numbers (hole-geometry.ts),
+  // which is what lets the two meet at the seam.
+  const r0 = Math.max(vw, vh) * R0_OF_LONG_SIDE;
+  const cy0 = r0 + vh * CREST_BELOW_TOP;
   return { vw, vh, r1, cy1, r0, cy0 };
 }
 
@@ -340,20 +341,6 @@ export function BlackHoleScene() {
             ) : null}
           </g>
         </svg>
-
-        {/* The scene's top edge, dissolved.
-
-            The hero above ends on the page colour, but the halo around the
-            hole is at strength right up to this frame's top edge, so with
-            nothing here the two met on a straight line — dark, then haze,
-            in one step. This ramps the haze in from the page colour instead.
-            It is 40px tall because the crest of the ring sits about 5% of
-            the viewport below the top (see computeLayout), and the ring is
-            the thing the hero is letting the reader see coming. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-linear-to-b from-surface-2 to-transparent"
-        />
 
         {/* ---- The problem, inside the hole -------------------------- */}
         <div
