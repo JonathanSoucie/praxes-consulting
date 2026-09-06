@@ -29,11 +29,19 @@ import { services } from "@/content/services";
  */
 export function ServicesPanel() {
   return (
+    /* The panel runs to the page's margin — the inner edge of the fixed frame
+       — and no further. Running it to the viewport edge instead puts the
+       corner curve underneath the frame's mat, which paints in the page
+       colour over the top of it: the panel would still look full width, but
+       the rounding would be sliced off at both ends. Insetting by the frame's
+       own thickness puts the whole radius where it can be seen.
+
+       The vertical inset stays small and is what the corners round against. */
     <section
       aria-labelledby="services-title"
-      className="px-2 pt-2 pb-4 sm:px-3 sm:pt-3 sm:pb-6"
+      className="px-[var(--frame-x)] pt-2 pb-4 sm:pt-3 sm:pb-6"
     >
-      <div className="relative isolate overflow-hidden rounded-[24px] bg-surface">
+      <div className="relative isolate overflow-hidden rounded-[40px] bg-surface">
         {/* The ring. Sized off the viewport so it stays a single large
             sweep at any panel width, and blurred well past its own border
             width so what is left is a haze with a curve in it. */}
