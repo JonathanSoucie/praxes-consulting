@@ -80,14 +80,15 @@
   /* --- Type ------------------------------------------------------------- */
   /* Three faces on three levels, and a mono for labels.
 
-       --font-display  IBM Plex Sans   headers: H1, H2, the wordmark
-       --font-heading  IBM Plex Serif  sub-headings: H3, card and step titles
+       --font-display  IBM Plex Serif  headers: H1, H2, the wordmark
+       --font-heading  IBM Plex Sans   sub-headings: H3, card and step titles
        --font-sans     Inter           sentences, and the interface
        --font-mono     JetBrains Mono  technical labels and buttons
 
-     The serif is the only face here that is not a grotesque, and that is
-     what earns it a place: a sub-heading set in it reads as a different
-     level rather than as the same level at a smaller size.
+     The serif is the only face here that is not a grotesque, and it carries
+     the top level: the H1 and the section titles. Everything under a heading
+     is a grotesque, so the serif marks the largest type on a screen rather
+     than a second tier within it.
 
      `--font-heading` is for headings, despite a handful of places having
      reached for it as "the slightly-more-formal small text". Data readouts
@@ -98,9 +99,9 @@
   --font-sans:
     var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display:
-    var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-heading:
     var(--font-plex-serif), ui-serif, Georgia, "Times New Roman", serif;
+  --font-heading:
+    var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 

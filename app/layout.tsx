@@ -15,13 +15,11 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Headers. IBM Plex Sans carries the H1 and H2 — the hero, the page
-   mastheads, the section titles — and the wordmark in the bar.
+/* Sub-headings. IBM Plex Sans carries the H3 level — card titles, step and
+   service names, the rows in the who-we-help grid.
 
-   Weights are named rather than left to a variable axis. The face tops out
-   at 700, so anything asking for 800 would be rendered by the browser as
-   700 anyway or, worse, synthesised; naming the four we use makes what
-   ships explicit. */
+   Weights are named rather than left to a variable axis, so what ships is
+   explicit rather than whatever the axis happens to resolve to. */
 const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -29,14 +27,13 @@ const plexSans = IBM_Plex_Sans({
   display: "swap",
 });
 
-/* Sub-headings. The serif is the one face on the site that is not a
-   grotesque, which is the point: a card title or a step name set in it
-   reads as a different level rather than as the same level at a smaller
-   size, which is the job a third face is worth having for.
+/* Headers. The serif is the one face on the site that is not a grotesque,
+   and it takes the top level: the hero H1, the page mastheads, the section
+   titles and the wordmark in the bar. Everything beneath a heading is a
+   grotesque, so the serif marks the largest type on a screen.
 
-   It is for headings only. Data readouts, product names and buttons that
-   happen to use the same token are switched to the body face — see the
-   note in globals.css. */
+   It tops out at 700, which is why the hero asks for bold rather than the
+   extrabold it used to — 800 would be clamped or synthesised. */
 const plexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
