@@ -34,3 +34,54 @@ export const HOLE_BACKGROUND = `radial-gradient(circle farthest-side at 50% 50%,
  */
 export const R0_OF_LONG_SIDE = 0.66;
 export const CREST_BELOW_TOP = 0.05;
+
+/* --- Stars --------------------------------------------------------------
+   The scene paints its stars on a canvas, positioned in the hole's own
+   coordinate space and scaled by the zoom, so they spread as the camera
+   pulls back. The hero cannot reuse that: at the opening zoom the stars sit
+   between 1.25 and 7.25 hole-radii out, which puts about five of them inside
+   the hero's box — the density the reader actually sees is the one from the
+   far end of the scrub.
+
+   So the hero gets its own field, and what the two share is the look. These
+   are the scene's own values at the end of its zoom: alpha is `m * 0.7` for
+   m in 0.4-1.0, and the radius is 0.6-1.7px, quoted here as diameters. */
+export const STAR_COLOR = "#f5f3f4";
+const STAR_MIN_D = 1.2;
+const STAR_MAX_D = 3.4;
+const STAR_MIN_A = 0.28;
+const STAR_MAX_A = 0.7;
+
+/** Deterministic, so the field is identical on every render and on every
+    machine. A star field that changed between the server's HTML and the
+    client's would be a hydration mismatch, and one that changed per build
+    would make every screenshot diff noise. */
+function mulberry32(seed: number) {
+  return () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+export type Star = { x: number; y: number; d: number; a: number };
+
+/**
+ * A field of `count` stars as percentages of whatever box they are placed
+ * in, with a diameter in px and a final opacity.
+ *
+ * Percentages rather than a viewBox because the box is a different shape at
+ * every viewport: scaling an SVG to fit would stretch round stars into
+ * ellipses, and cropping one would leave a wide screen's edges empty.
+ */
+export function starField(count: number, seed = 0x9e37): Star[] {
+  const rand = mulberry32(seed);
+  return Array.from({ length: count }, () => ({
+    x: rand() * 100,
+    y: rand() * 100,
+    d: +(STAR_MIN_D + rand() * (STAR_MAX_D - STAR_MIN_D)).toFixed(2),
+    a: +(STAR_MIN_A + rand() * (STAR_MAX_A - STAR_MIN_A)).toFixed(3),
+  }));
+}

@@ -6,16 +6,17 @@ import {
   HALO,
   HOLE_BACKGROUND,
   R0_OF_LONG_SIDE,
+  STAR_COLOR,
+  starField,
 } from "@/components/sections/hole-geometry";
 
 /**
  * The home hero: a statement on the page's own ground, with the black hole
  * already rising into the bottom of the screen.
  *
- * Nothing is drawn behind the copy. The picture is the hole, and the hole
- * belongs to the scene beneath — so the hero stops short of the viewport and
- * lets the top of that scene show in the last stretch of the first screen:
- * the halo, and the crest of the ring under it.
+ * Behind the copy: the same sky the scene has, and the top of the same
+ * hole. The hero stops short of the viewport so the crest of the ring shows
+ * in the last stretch of the first screen, with the halo above it.
  *
  * HOW THE HALO CROSSES THE SEAM
  *
@@ -33,6 +34,10 @@ import {
  * visible here; the ring itself sits below the seam, in the scene.
  */
 
+/** The sky behind the copy. Generated once at module scope rather than per
+    render — it never changes, and it is the same field on every page. */
+const STARS = starField(110);
+
 /** The hole's radius at the top of the scrub, in CSS. */
 const R0 = `(${R0_OF_LONG_SIDE} * max(100vw, 100vh))`;
 /** The hole element is HALO times the hole's radius on every side. */
@@ -47,6 +52,37 @@ export function Hero() {
       className="relative isolate overflow-hidden bg-surface-2"
       aria-labelledby="hero-title"
     >
+      {/* The sky. Masked away toward the bottom, where the halo takes over:
+          the glow would wash the stars out there anyway, and fading them
+          means there is no step in star density at the seam, where the
+          scene's own field is sparse. Before the halo in the DOM so the
+          halo paints over it, which is the order the scene uses too. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          maskImage:
+            "linear-gradient(to bottom, #000 0%, #000 42%, transparent 88%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, #000 0%, #000 42%, transparent 88%)",
+        }}
+      >
+        {STARS.map((star, i) => (
+          <span
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: `${star.d}px`,
+              height: `${star.d}px`,
+              opacity: star.a,
+              backgroundColor: STAR_COLOR,
+            }}
+          />
+        ))}
+      </div>
+
       {/* The black hole's halo, continued up into the hero — see the note
           above. Centred on the section, which is full-bleed, so its centre
           is the viewport's centre, the same as the scene's. */}
