@@ -39,7 +39,7 @@ import { cn } from "@/lib/utils";
 /** Ground colour — the page background, so the hero has no edge. Empty cells
     are simply this, because nothing is drawn over them. Tracks
     --color-surface-2. */
-const GROUND = "#181818";
+const GROUND = "#0b0c10";
 
 const PIXEL_SIZE_DESKTOP = 6;
 /** Small canvases need a *finer* grid, not a coarser one, or the arms merge. */

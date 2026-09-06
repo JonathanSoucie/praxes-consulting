@@ -90,7 +90,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   // Matches --color-surface-2, so the mobile browser chrome blends with the
   // page instead of staying white above a dark site.
-  themeColor: "#181818",
+  themeColor: "#0b0c10",
   width: "device-width",
   initialScale: 1,
 };

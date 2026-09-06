@@ -121,14 +121,19 @@
   --color-muted: var(--t-light, #5c515a) var(--t-dark, #b0a9ae); /* secondary — 7.7:1 page / 6.9:1 card */
 
   /* --- Surfaces --------------------------------------------------------- */
-  /* Light: white cards over the palette's white-smoke page. Dark: the two
-     carbon blacks — page #181818, cards a step lighter at #222222, which is
-     how elevation reads without shadows on a dark ground. The dark side is
-     deliberately neutral: the hero's dot field sits directly on the page
-     colour, and a blue-cast ground pulled the whole galaxy toward navy.
-     Prussian blue #040c24 stays in play as the wash trough below. */
+  /* Light: white cards over the palette's white-smoke page. Dark: the page is
+     #0B0C10, near-black with a trace of blue in it, and cards sit a step
+     above at #222222 — which is how elevation reads without shadows on a
+     dark ground.
+
+     The page colour is not only a token. Two other things paint it directly
+     and have to be changed with it, because their whole job is to have no
+     edge against the page: the dither field's ground
+     (components/sections/dithered-galaxy-field.tsx) and the browser chrome
+     colour (app/layout.tsx). Contrast ratios quoted through this file are
+     against the page and the card. */
   --color-surface: var(--t-light, #ffffff) var(--t-dark, #222222); /* cards */
-  --color-surface-2: var(--t-light, #f5f5f2) var(--t-dark, #181818); /* page background */
+  --color-surface-2: var(--t-light, #f5f5f2) var(--t-dark, #0b0c10); /* page background */
   --color-surface-3: var(--t-light, #fafaf9) var(--t-dark, #2a2a2a);
   --color-line: var(--t-light, #e4e6ec) var(--t-dark, #2e2e2e);
   --color-line-strong: var(--t-light, #ccd1dd) var(--t-dark, #3d3d3d);
@@ -141,12 +146,13 @@
      pink is going to sit on them.
 
      Which of the three does what is decided by contrast, against the dark
-     surfaces — page #181818, card #222222 — since those are the only ones
-     that render.
+     surfaces — page #0B0C10, card #222222 — since those are the only ones
+     that render. The page went darker, so every ratio against it improved;
+     the card is unchanged and is the binding one.
 
-       #FF6E9E  6.7:1 page / 6.0:1 card  -> everything made of words
-       #F8206D  4.6:1 page / 4.1:1 card  -> hover, and decoration
-       #B5115B  2.7:1 page               -> never type; grounds only */
+       #FF6E9E  7.7:1 page / 6.0:1 card  -> everything made of words
+       #F8206D  5.3:1 page / 4.1:1 card  -> hover, and decoration
+       #B5115B  3.1:1 page               -> never type; grounds only */
   --color-accent: var(--t-light, #b5115b) var(--t-dark, #ff6e9e);
   /* Hover darkens rather than lightens: on a filled button the label still
      clears at 4.9:1, and going paler would have washed the button out. */
