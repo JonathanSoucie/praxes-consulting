@@ -5,30 +5,37 @@ import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { StepPanelView } from "@/components/process/step-panel";
 import { STAR_COLOR, starField } from "@/components/sections/hole-geometry";
 import { servicesSection } from "@/content/manufacturing";
 import { services } from "@/content/services";
+import { cn } from "@/lib/utils";
 
 /**
- * The services, on the home page: one card per offer, on the same ground as
- * the scene above it.
+ * The services on the home page: one row per engagement, alternating — copy
+ * on the left and the output beside it, then the output on the left and the
+ * copy beside it, and so on down.
  *
- * It used to be a rounded plate a step up from the page with a pink ring
- * sweeping through it. That put three grounds in a row — the scene's, the
- * plate's, and the page's again beneath — and the plate's top edge read as a
- * lid closing over the scene rather than as the scene carrying on. Now it is
- * the page colour with the same sky on it, so the black hole's field runs
- * straight through into the cards.
+ * The alternation is a `lg:order-*` swap rather than two different row
+ * markups. Below lg the grid collapses to one column, and there the copy
+ * must lead every time: a reader on a phone should meet the name of the
+ * thing before the diagram of its output, whatever side it would have sat on
+ * upstairs. Source order is copy-then-panel throughout, so that is what a
+ * screen reader and a narrow screen both get.
  *
- * The top padding is deliberately large. The scene ends on the circle with
- * its labels around it, and starting the cards immediately under that crowds
- * both.
+ * There are five rows because there are five engagements. The sixth would
+ * have to be invented.
  *
- * The cards are the offers in content/services.ts — the engagements
- * themselves, each named for the workflow it covers rather than for a
- * category. The capability areas they draw on are a level up, orbiting the
- * black hole in the scene above. Every card goes to its own page, so
- * "Read more" is a promise the site keeps.
+ * The output panels are drawn, not photographed. That is the same argument
+ * components/process/step-panel.tsx makes about the process visuals: a
+ * screenshot of a system not yet built for the client reading it would be a
+ * lie, and a stock illustration says nothing. These say the specific thing
+ * the copy beside them is claiming. Their figures are illustrative of shape
+ * and are flagged as such in content/services.ts.
+ *
+ * The section sits on the page colour with the same sky as the scene above,
+ * so the black hole's field runs straight through into it, and starts a long
+ * way down because that scene ends on the circle and its labels.
  */
 
 /** A different seed from the hero's, so the two skies are not the same
@@ -81,35 +88,48 @@ export function ServicesPanel() {
           </h2>
         </Reveal>
 
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
-          {services.map((service, i) => (
-            <Reveal
-              key={service.slug}
-              as="li"
-              delay={(i % 3) * 70}
-              className="flex flex-col rounded-[14px] border border-line-strong bg-surface p-7"
-            >
-              <h3 className="font-heading text-xl leading-snug font-semibold text-ink">
-                {service.name}
-              </h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
-                {service.summary}
-              </p>
-              <Link
-                href={`/services/${service.slug}`}
-                className="group mt-8 inline-flex w-fit items-center gap-1.5 text-sm text-ink-soft underline decoration-line-strong underline-offset-[5px] transition-colors hover:text-accent hover:decoration-accent"
+        <ul className="mt-16 grid gap-20 lg:mt-24 lg:gap-28">
+          {services.map((service, i) => {
+            const panelFirst = i % 2 === 1;
+            return (
+              <Reveal
+                key={service.slug}
+                as="li"
+                className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16 xl:gap-20"
               >
-                Read more
-                <ArrowRight
-                  aria-hidden
-                  className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
-                />
-              </Link>
-            </Reveal>
-          ))}
+                <div className={cn(panelFirst && "lg:order-2")}>
+                  <span className="label-tech text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-4 font-heading text-2xl leading-snug font-semibold text-ink sm:text-3xl">
+                    {service.name}
+                  </h3>
+                  <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
+                    {service.showcase.blurb}
+                  </p>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="group mt-7 inline-flex w-fit items-center gap-1.5 text-sm text-ink-soft underline decoration-line-strong underline-offset-[5px] transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    How it works
+                    <ArrowRight
+                      aria-hidden
+                      className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
+                    />
+                  </Link>
+                </div>
+
+                <div className={cn(panelFirst && "lg:order-1")}>
+                  {/* `active` is what fills the bars. There is no scrub here
+                      to drive it, so they are drawn at full length. */}
+                  <StepPanelView panel={service.showcase.panel} active />
+                </div>
+              </Reveal>
+            );
+          })}
         </ul>
 
-        <Reveal delay={240} className="mt-12 flex justify-center lg:mt-14">
+        <Reveal delay={120} className="mt-20 flex justify-center lg:mt-28">
           <Button asChild variant="outline" size="lg">
             <Link href="/services">View all services</Link>
           </Button>

@@ -95,6 +95,14 @@ export type Service = {
   definition: string;
   /** Commercial shape. Deliberately concrete. */
   shape: { label: string; value: string }[];
+  /** The home page row: a brief account of the engagement, and a schematic
+      of what it actually hands back. Drawn with the same three shapes the
+      process steps use — see components/process/step-panel.tsx for why these
+      are diagrams rather than screenshots. */
+  showcase: {
+    blurb: string;
+    panel: StepPanel;
+  };
   processTitle: string;
   processStandfirst: string;
   process: ProcessStep[];
@@ -123,6 +131,20 @@ export const services: Service[] = [
       { label: "ERP access", value: "Read-only" },
       { label: "Measured on", value: "Search time, unmatched RFQs, wrong-part rate" },
     ],
+    showcase: {
+      blurb:
+        "A number, a description, a drawing or a photo goes in. Ranked candidates come back, each carrying the evidence it was matched on and a confidence level — and the pairs your engineers have ruled out stay ruled out.",
+      panel: {
+        kind: "rows",
+        caption: "Search — customer sent \"1R0750, old Cat filter\"",
+        rows: [
+          { label: "1R-0750 · exact replacement", value: "98%", state: "ok" },
+          { label: "P551313 · approved alternate", value: "91%", state: "ok" },
+          { label: "LF3970 · competitor cross-ref", value: "84%", state: "ok" },
+          { label: "1R-0716 · non-interchangeable", value: "Blocked", state: "warn" },
+        ],
+      },
+    },
     processTitle: "How the pilot runs",
     processStandfirst:
       "Connect, normalize, automate, approve, improve. The order matters: nothing is matched until the identifiers are governed, and nothing is written back until a person has approved it.",
@@ -267,6 +289,18 @@ export const services: Service[] = [
       { label: "ERP handoff", value: "Controlled, after review" },
       { label: "Measured on", value: "Time to first quote, manual touches, exception rate" },
     ],
+    showcase: {
+      blurb:
+        "The request is read as it arrives, its lines matched and priced from your ERP, and a draft assembled for your salesperson to edit and send. Anything it is unsure of waits in a queue with the reason attached.",
+      panel: {
+        kind: "flow",
+        nodes: [
+          { label: "RFQ arrives", note: "Email, PDF, portal", state: "live" },
+          { label: "14 lines extracted", note: "Part, qty, date, destination" },
+          { label: "Draft ready to send", note: "1 line held for review", state: "flag" },
+        ],
+      },
+    },
     processTitle: "How the pilot runs",
     processStandfirst:
       "The request is structured before anything is matched, and the quote is drafted rather than sent — because the last judgement on a price belongs to the person whose name is on it.",
@@ -378,6 +412,20 @@ export const services: Service[] = [
       { label: "Outputs", value: "Website, PIM, marketplaces, distributors" },
       { label: "Measured on", value: "Publish-ready SKU rate, completeness, coverage" },
     ],
+    showcase: {
+      blurb:
+        "Supplier files and technical documents become governed product records in your own taxonomy, then go out to every channel in the shape that channel requires — and anything that fails your rules is held back with the reason.",
+      panel: {
+        kind: "bars",
+        caption: "Publish-ready records, by channel",
+        bars: [
+          { label: "Website", value: 94 },
+          { label: "PIM", value: 97 },
+          { label: "Distributor feed", value: 88 },
+          { label: "Marketplace", value: 76, note: "Needs 3 attributes" },
+        ],
+      },
+    },
     processTitle: "How the program runs",
     processStandfirst:
       "Ingest, extract, reconcile, publish, monitor. The last one is what separates a program from a cleanup — the catalog goes out of date the day after it is finished.",
@@ -520,6 +568,20 @@ export const services: Service[] = [
       { label: "Checks", value: "Origin, HS code, Incoterms, quantity, weight, value" },
       { label: "Measured on", value: "Document-error rate, exception volume, clearance delays" },
     ],
+    showcase: {
+      blurb:
+        "Every document in the set is compared against the others and against the order. Where two that must agree do not, the shipment stops at your desk with both sources named — rather than at the border.",
+      panel: {
+        kind: "rows",
+        caption: "Shipment DE-4471 · pre-broker check",
+        rows: [
+          { label: "Line quantities · invoice vs packing list", value: "Match", state: "ok" },
+          { label: "Gross weight · packing list vs BOL", value: "12kg apart", state: "warn" },
+          { label: "HS code · vs product record", value: "Match", state: "ok" },
+          { label: "Incoterm · vs order terms", value: "Match", state: "ok" },
+        ],
+      },
+    },
     processTitle: "How it runs",
     processStandfirst:
       "Every check is a comparison. The system does not decide what is correct — it finds the places where two documents that must agree do not, and says which two.",
@@ -632,6 +694,20 @@ export const services: Service[] = [
       { label: "You own", value: "Your enriched data and every approval" },
       { label: "Measured on", value: "Workflow adoption, exception rates, data completeness" },
     ],
+    showcase: {
+      blurb:
+        "Past the pilot, someone has to own the integration layer, steward the data as suppliers and systems change, and watch the numbers. That is this — with every approval decision still yours.",
+      panel: {
+        kind: "rows",
+        caption: "Month three · against the agreed baseline",
+        rows: [
+          { label: "Workflow adoption", value: "88%", state: "ok" },
+          { label: "Data completeness", value: "94%", state: "ok" },
+          { label: "Exception rate", value: "3.1%", state: "ok" },
+          { label: "Supplier format changes absorbed", value: "7", state: "ok" },
+        ],
+      },
+    },
     processTitle: "How the engagement runs",
     processStandfirst:
       "Expansion is sequenced the same way the first pilot was: connect, normalize, automate, approve, improve — one new workflow or market at a time, against measures agreed before it starts.",
