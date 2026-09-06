@@ -71,7 +71,7 @@ function FlowPanel({ panel }: { panel: Extract<StepPanel, { kind: "flow" }> }) {
                   (!node.state || node.state === "idle") && "bg-line-strong",
                 )}
               />
-              <span className="flex-1 font-heading text-base leading-tight font-semibold text-ink">
+              <span className="flex-1 font-sans text-base leading-tight font-semibold text-ink">
                 {node.label}
               </span>
               {node.note ? (
@@ -111,7 +111,7 @@ function RowsPanel({ panel }: { panel: Extract<StepPanel, { kind: "rows" }> }) {
             </dt>
             <dd
               className={cn(
-                "shrink-0 text-right font-heading font-semibold",
+                "shrink-0 text-right font-sans font-semibold",
                 row.state === "warn" ? "text-accent" : "text-ink",
               )}
             >
@@ -141,7 +141,7 @@ function BarsPanel({
               <span className="text-ink-soft">{bar.label}</span>
               <span
                 className={cn(
-                  "font-heading text-sm font-semibold",
+                  "font-sans text-sm font-semibold",
                   bar.muted ? "text-muted" : "text-accent",
                 )}
               >

@@ -78,23 +78,29 @@
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* Two faces, split by role: Inter carries every heading, from the hero
-     wordmark down to a card title, and Work Sans carries everything else —
-     body copy, decks, notes, list items. Mono is the one exception and is
-     used only for the small technical labels and the buttons.
+  /* Three faces on three levels, and a mono for labels.
 
-     --font-display and --font-heading both resolve to Inter. They are kept
-     apart rather than collapsed into one token because they are two
-     questions — which face sets the big headings, which sets the small ones
-     — and the answer being the same today is not a reason to lose the
-     ability to answer them differently tomorrow. */
+       --font-display  IBM Plex Sans   headers: H1, H2, the wordmark
+       --font-heading  IBM Plex Serif  sub-headings: H3, card and step titles
+       --font-sans     Inter           sentences, and the interface
+       --font-mono     JetBrains Mono  technical labels and buttons
+
+     The serif is the only face here that is not a grotesque, and that is
+     what earns it a place: a sub-heading set in it reads as a different
+     level rather than as the same level at a smaller size.
+
+     `--font-heading` is for headings, despite a handful of places having
+     reached for it as "the slightly-more-formal small text". Data readouts
+     inside the process panels, the ERP product names in the integrations
+     row, and the commercial-shape values on the service pages all take the
+     body face instead — they are figures and proper nouns, not headings,
+     and in a serif they read as a book index. */
   --font-sans:
-    var(--font-work-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display:
-    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  /* Small headings, card titles and the nav. */
+    var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-heading:
-    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    var(--font-plex-serif), ui-serif, Georgia, "Times New Roman", serif;
   --font-mono:
     var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 

@@ -68,7 +68,7 @@ export function IntegrationsBand() {
                     key={system.name}
                     className="flex shrink-0 flex-col justify-center border-l border-line px-8 lg:px-12"
                   >
-                    <span className="font-heading text-lg font-semibold whitespace-nowrap text-ink-soft lg:text-xl">
+                    <span className="font-sans text-lg font-semibold whitespace-nowrap text-ink-soft lg:text-xl">
                       {system.name}
                     </span>
                     <span className="label-tech mt-1.5 text-muted">

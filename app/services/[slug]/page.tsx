@@ -90,7 +90,7 @@ export default async function ServicePage({ params }: Params) {
           {service.shape.map((item) => (
             <div key={item.label}>
               <dt className="label-tech text-muted">{item.label}</dt>
-              <dd className="mt-3 font-heading text-base font-semibold text-ink">
+              <dd className="mt-3 font-sans text-base font-semibold text-ink">
                 {item.value}
               </dd>
             </div>

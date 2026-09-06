@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Work_Sans } from "next/font/google";
+import {
+  IBM_Plex_Sans,
+  IBM_Plex_Serif,
+  Inter,
+  JetBrains_Mono,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Frame } from "@/components/layout/frame";
@@ -10,28 +15,46 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Every heading on the site, from the hero wordmark down to a card title.
-   Inter is drawn to be neutral, which is what makes it work at both ends of
-   that range: it does not develop a personality at 120px that a card title
-   at 18px then has to live with.
+/* Headers. IBM Plex Sans carries the H1 and H2 — the hero, the page
+   mastheads, the section titles — and the wordmark in the bar.
 
-   Loaded through next/font rather than the Google Fonts <link> tags: same
-   families, but self-hosted at build time, so there is no render-blocking
-   request to fonts.googleapis.com and no flash of a fallback face. */
-const inter = Inter({
+   Weights are named rather than left to a variable axis. The face tops out
+   at 700, so anything asking for 800 would be rendered by the browser as
+   700 anyway or, worse, synthesised; naming the four we use makes what
+   ships explicit. */
+const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plex-sans",
   display: "swap",
 });
 
-/* Everything that is not a heading: body copy, decks, list items, notes.
-   Work Sans is a humanist grotesk — slightly warmer and more open than Inter
-   at a paragraph's size, which is the difference that keeps the two apart
-   when a heading sits directly on top of the text it introduces. Variable
-   across 100-900, so the whole axis comes from one file. */
-const workSans = Work_Sans({
+/* Sub-headings. The serif is the one face on the site that is not a
+   grotesque, which is the point: a card title or a step name set in it
+   reads as a different level rather than as the same level at a smaller
+   size, which is the job a third face is worth having for.
+
+   It is for headings only. Data readouts, product names and buttons that
+   happen to use the same token are switched to the body face — see the
+   note in globals.css. */
+const plexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
-  variable: "--font-work-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plex-serif",
+  display: "swap",
+});
+
+/* Everything made of sentences, and the interface: body copy, decks, notes,
+   list items, the nav. Variable, so the whole weight axis comes from one
+   file.
+
+   Loaded through next/font rather than the Google Fonts <link> tags: the
+   same three families, but self-hosted at build time, so there is no
+   render-blocking request to fonts.googleapis.com and no flash of a
+   fallback face. */
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -101,7 +124,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${workSans.variable} ${jetBrainsMono.variable}`}
+      className={`${plexSans.variable} ${plexSerif.variable} ${inter.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a

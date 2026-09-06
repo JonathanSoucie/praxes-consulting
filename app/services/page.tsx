@@ -83,7 +83,7 @@ export default function ServicesPage() {
                         className="flex items-baseline justify-between gap-6 border-b border-line py-3.5 first:border-t"
                       >
                         <dt className="text-sm text-muted">{item.label}</dt>
-                        <dd className="text-right font-heading text-sm font-semibold text-ink">
+                        <dd className="text-right font-sans text-sm font-semibold text-ink">
                           {item.value}
                         </dd>
                       </div>
