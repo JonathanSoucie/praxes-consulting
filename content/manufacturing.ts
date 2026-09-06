@@ -10,11 +10,16 @@
  */
 
 /**
- * The hero. One statement, one line under it, nothing else on the screen —
- * the action is in the bar above. Both are the deck's own hero copy.
+ * The hero. A positioning line, the three-beat statement of what the engine
+ * does, a rule, and the account of how it does it — nothing else on the
+ * screen, because the action is in the bar above.
  */
 export const hero = {
-  headline: "See what your distributors publish — and what they publish instead.",
+  /** Sits above the headline in the section-label face. */
+  eyebrow: "The Channel & Product Intelligence Engine for Manufacturers",
+  headline:
+    "Expose competitor parts. Accelerate sales cycles. Capture distributor whitespace.",
+  /** Under the rule. */
   sub: "Channel Intelligence crawls your distributor network, extracts the catalogs they publish, and converts raw product data into commercial intelligence — with every finding traced to the live listing it came from.",
 } as const;
 

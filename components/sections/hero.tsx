@@ -104,12 +104,30 @@ export function Hero() {
           centre is the section's centre. */}
       <Container className="relative z-10 flex min-h-[78svh] flex-col items-center justify-center py-28 text-center">
         <Reveal className="flex flex-col items-center">
+          {/* The positioning line, in the same face the section labels use.
+              Not the bordered Eyebrow chip: at fifty-eight characters that
+              pill is wider than the paragraph under the rule, and it reads
+              as a button nobody can press. */}
+          <p className="label-section max-w-[34ch] leading-[1.5] text-accent">
+            {hero.eyebrow}
+          </p>
+
+          {/* 20ch rather than 17ch: the headline is three sentences and 80
+              characters, and the wider measure holds it to the same four
+              lines — and so the same silhouette — the previous one had. */}
           <h1
             id="hero-title"
-            className="max-w-[17ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
+            className="mt-6 max-w-[20ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
             {hero.headline}
           </h1>
+
+          {/* The rule sits at the paragraph's own measure, so it reads as
+              that block's lid rather than as a divider across the page. */}
+          <hr
+            aria-hidden
+            className="mt-10 w-full max-w-lg border-0 border-t border-line-strong"
+          />
 
           <p className="mt-8 max-w-lg text-lg leading-relaxed text-ink-soft sm:text-xl">
             {hero.sub}
