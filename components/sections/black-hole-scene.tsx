@@ -58,12 +58,11 @@ const EASE = 0.09;
 const ORBIT = 1.58;
 
 /** Angles (degrees, counter-clockwise from +x) for the solution labels along
-    the orbit. Spread from just above the left edge, over the top, to just
-    above the right edge — the reference's layout. */
+    the orbit. Evenly around the whole circle, the first at the top and the
+    rest clockwise from it, so the ring reads as a cycle rather than as an
+    arc with two ends. */
 function labelAngles(n: number) {
-  const start = 168;
-  const end = 12;
-  return Array.from({ length: n }, (_, i) => start - ((start - end) * i) / (n - 1));
+  return Array.from({ length: n }, (_, i) => 90 - (360 * i) / n);
 }
 
 type Layout = {
@@ -77,17 +76,42 @@ type Layout = {
   cy0: number;
 };
 
+/** Where the orbit labels appear. Below this the labels are chips in the
+    flow instead, so there is no ring to fit and no reason to shrink the
+    hole for one — see the markup. Matches Tailwind's `md`. */
+const MD = 768;
+/** Vertical room the heading block above the circle needs. */
+const HEAD = 250;
+/** Room a label needs beyond the orbit it is centred on: half its height,
+    plus enough that it is not touching the dashes. */
+const LABEL_ROOM = 34;
+
 function computeLayout(vw: number, vh: number): Layout {
-  // Final: a dome sitting on the bottom edge, its centre just below it.
-  const r1 = Math.min(300, Math.max(140, vw * 0.22));
-  const cy1 = vh - r1 * 0.12;
   // Initial: so large only the crown shows, its crest a little below the top
   // of the viewport with the corners of the page still visible around it.
   // The hero above draws the same halo from these numbers (hole-geometry.ts),
-  // which is what lets the two meet at the seam.
+  // which is what lets the two meet at the seam. Both are independent of r1,
+  // so the final frame can be sized freely without moving the seam.
   const r0 = Math.max(vw, vh) * R0_OF_LONG_SIDE;
   const cy0 = r0 + vh * CREST_BELOW_TOP;
-  return { vw, vh, r1, cy1, r0, cy0 };
+
+  // Final, small screens: a dome on the bottom edge, its centre just below
+  // it. There is no orbit here, and the chips and the card need the height
+  // more than a whole circle does.
+  if (vw < MD) {
+    const r1 = Math.min(300, Math.max(140, vw * 0.22));
+    return { vw, vh, r1, cy1: vh - r1 * 0.12, r0, cy0 };
+  }
+
+  // Final, from md up: the whole circle in view, centred in what is left
+  // under the heading, sized so the orbit and a label at the top and the
+  // bottom of it all fit. Height is what binds on a laptop; width binds on a
+  // tall narrow tablet, which is why both are measured.
+  const cy1 = HEAD + (vh - HEAD) / 2;
+  const fitsVertically = (vh - HEAD) / 2 - LABEL_ROOM - 16;
+  const fitsHorizontally = vw / 2 - 150;
+  const orbit = Math.max(120, Math.min(fitsVertically, fitsHorizontally));
+  return { vw, vh, r1: orbit / ORBIT, cy1, r0, cy0 };
 }
 
 function clamp01(v: number) {
