@@ -40,38 +40,45 @@ export function IntegrationsBand() {
 
       {/* Full-bleed, and outside the Container: the row should run off both
           edges of the page rather than stopping at the gutter, or it reads as
-          a widget instead of as something passing through. */}
-      <div
-        className="relative mt-10 lg:mt-12"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
-        }}
-      >
-        <div className="marquee-track flex w-max animate-marquee items-stretch">
-          {[0, 1].map((copy) => (
-            <ul
-              key={copy}
-              aria-hidden={copy === 1 || undefined}
-              className="flex shrink-0 items-stretch"
-            >
-              {integrationSystems.map((system) => (
-                <li
-                  key={system.name}
-                  className="flex shrink-0 flex-col justify-center border-l border-line px-8 py-2 lg:px-12"
-                >
-                  <span className="font-heading text-lg font-semibold whitespace-nowrap text-ink-soft lg:text-xl">
-                    {system.name}
-                  </span>
-                  <span className="label-tech mt-1.5 text-muted">
-                    {system.kind}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          ))}
+          a widget instead of as something passing through.
+
+          Two elements, and that is deliberate. The rules belong to the outer
+          one and the fade to the inner one, because a mask applies to an
+          element's border as well as its content — put both on one element
+          and the rules dissolve at the ends along with the wordmarks, which
+          is the opposite of what a rule is for. */}
+      <div className="relative mt-10 border-y border-line-strong py-7 lg:mt-12">
+        <div
+          style={{
+            maskImage:
+              "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
+          }}
+        >
+          <div className="marquee-track flex w-max animate-marquee items-stretch">
+            {[0, 1].map((copy) => (
+              <ul
+                key={copy}
+                aria-hidden={copy === 1 || undefined}
+                className="flex shrink-0 items-stretch"
+              >
+                {integrationSystems.map((system) => (
+                  <li
+                    key={system.name}
+                    className="flex shrink-0 flex-col justify-center border-l border-line px-8 lg:px-12"
+                  >
+                    <span className="font-heading text-lg font-semibold whitespace-nowrap text-ink-soft lg:text-xl">
+                      {system.name}
+                    </span>
+                    <span className="label-tech mt-1.5 text-muted">
+                      {system.kind}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
         </div>
       </div>
 

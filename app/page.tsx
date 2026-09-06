@@ -85,46 +85,45 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* How it runs                                                       */}
       {/* ---------------------------------------------------------------- */}
+      {/* Five stages across, one line each. It was a sticky heading beside a
+          stack of five, which said the same thing at four times the height
+          and made the page's third column-of-paragraphs in a row. Laid out
+          this way the sequence is the point, which is what the stage names
+          are for; /process carries the detail, one click away. */}
       <Section>
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-            <SectionHeading
-              align="left"
-              eyebrow="How it runs"
-              title="Connect, normalize, automate, approve, improve"
-              deck="Nothing is matched until the identifiers are governed, and nothing is written back to your ERP until a person has approved it. The assessment is free, the first week is fixed-fee and yours to keep, and every stage is measured against what we agreed before it started."
-              className="lg:sticky lg:top-28 lg:self-start"
-            />
+          <SectionHeading
+            eyebrow="How it runs"
+            title="Connect, normalize, automate, approve, improve"
+            deck="Nothing is matched until the identifiers are governed, and nothing writes back to your ERP until a person has approved it."
+          />
 
-            <ol className="grid gap-8">
-              {processSteps.map((step, i) => (
-                <Reveal
-                  key={step.n}
-                  as="li"
-                  delay={i * 70}
-                  className="grid gap-x-6 border-t border-line-strong pt-6 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto]"
-                >
-                  <span className="label-tech text-accent">{step.n}</span>
-                  <div>
-                    <h3 className="font-heading text-lg font-semibold text-ink sm:text-xl">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">
-                      {step.summary}
-                    </p>
-                  </div>
-                  <div className="label-tech mt-3 flex gap-3 text-muted sm:mt-1 sm:flex-col sm:items-end sm:gap-1.5">
-                    {step.tag ? (
-                      <span className="text-accent">{step.tag}</span>
-                    ) : null}
-                    <span>{step.duration}</span>
-                  </div>
-                </Reveal>
-              ))}
-            </ol>
-          </div>
+          <ol className="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5 lg:gap-x-6">
+            {processSteps.map((step, i) => (
+              <Reveal
+                key={step.n}
+                as="li"
+                delay={i * 60}
+                className="flex flex-col border-t border-line-strong pt-5"
+              >
+                <span className="label-tech text-accent">{step.n}</span>
+                <h3 className="mt-4 font-heading text-lg leading-snug font-semibold text-ink">
+                  {step.title}
+                </h3>
+                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-muted">
+                  {step.brief}
+                </p>
+                <p className="label-tech mt-5 text-muted">
+                  {step.tag ? (
+                    <span className="text-accent">{step.tag} · </span>
+                  ) : null}
+                  {step.duration}
+                </p>
+              </Reveal>
+            ))}
+          </ol>
 
-          <Reveal delay={80} className="mt-12 lg:mt-16">
+          <Reveal delay={80} className="mt-14 flex justify-center lg:mt-16">
             <Button asChild variant="outline">
               <Link href="/process">
                 The full process

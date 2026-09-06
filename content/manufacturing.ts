@@ -18,34 +18,39 @@ export const hero = {
 } as const;
 
 /**
- * Who we help. The deck's five segments, each with the line from its
- * Industries entry — so the section says what the work is in that market
- * rather than only naming the market.
+ * Who we help. The deck's segments, each with the shortest true account of
+ * what the work is in that market.
+ *
+ * These were the deck's full Industries paragraphs. At six of them stacked
+ * down a page that was a wall nobody reads, and the section's job is
+ * qualification — a reader either recognises their own business in one line
+ * or does not. The full versions are the deck's to reinstate on a page of
+ * their own if that is ever wanted.
  */
 export const industries = [
   {
     name: "Truck, trailer and off-highway",
-    body: "Connect OEM and aftermarket references, improve distributor catalog coverage, accelerate RFQs, and prepare export-ready orders for complex commercial-vehicle portfolios.",
+    body: "Cross-references, distributor coverage and export-ready orders.",
   },
   {
     name: "Construction, mining and earthmoving",
-    body: "Identify parts across mixed fleets, drawings, OEM numbers, serial ranges and new, rebuilt or used alternatives — then turn urgent downtime requests into controlled sourcing and quotes.",
+    body: "Mixed fleets, serial ranges, and urgent downtime requests.",
   },
   {
     name: "Agricultural machinery",
-    body: "Help dealers and parts teams identify serial-aware replacements during seasonal peaks, while connecting old part numbers, fitment, supplier availability and export workflows.",
+    body: "Serial-aware replacements through the seasonal peaks.",
   },
   {
     name: "Industrial MRO, power, oil and gas",
-    body: "Harmonize material masters across sites, identify critical spares and duplicates, link certificates and supplier identifiers, and enable approved alternatives before a stockout becomes downtime.",
+    body: "Material masters, critical spares, approved alternatives.",
   },
   {
     name: "Marine, rail and port equipment",
-    body: "Turn urgent requests involving maker, model, serial, nameplate, photo and condition into a documented sourcing and quote workflow for port delivery and international shipment.",
+    body: "Nameplate and photo requests, documented for port delivery.",
   },
   {
     name: "Automation, electrical, hydraulics and HVAC",
-    body: "Normalize technical attributes, identify discontinued items, extract datasheets, manage compatible alternatives, and make product data available to sales, maintenance and distributor channels.",
+    body: "Datasheet attributes, discontinued items, compatible alternatives.",
   },
 ] as const;
 

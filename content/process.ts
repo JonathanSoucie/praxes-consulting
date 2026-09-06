@@ -17,7 +17,10 @@ export type ProcessStep = {
   title: string;
   /** Commercial framing, rendered as plain text beside the title. */
   tag?: "Free" | "Paid" | "Small deposit" | "Final payment" | "Ongoing";
-  /** Short version, used in the Home page overview. */
+  /** A handful of words for the Home page strip — the stage in one phrase.
+      `summary` is a sentence, which is a size the strip has no room for. */
+  brief: string;
+  /** Short version, used where there is room for a sentence. */
   summary: string;
   /** Full version, used on /process. */
   detail: string;
@@ -31,6 +34,7 @@ export const processSteps: ProcessStep[] = [
   {
     n: "01",
     title: "Part-data assessment",
+    brief: "Which workflow, and the data it would need",
     tag: "Free",
     summary:
       "Fifteen minutes to find the highest-value workflow and the data it would need.",
@@ -46,6 +50,7 @@ export const processSteps: ProcessStep[] = [
   {
     n: "02",
     title: "Connect and normalize",
+    brief: "Read-only, then the identifiers resolved",
     tag: "Paid",
     summary:
       "We connect the sources read-only and turn fragmented identifiers into a controlled structure.",
@@ -62,6 +67,7 @@ export const processSteps: ProcessStep[] = [
   {
     n: "03",
     title: "Automate the workflow",
+    brief: "Built and validated on your own data",
     tag: "Small deposit",
     summary:
       "Requests extracted, parts matched, records enriched, quotes and documents drafted.",
@@ -78,6 +84,7 @@ export const processSteps: ProcessStep[] = [
   {
     n: "04",
     title: "Approve and go live",
+    brief: "Your people approve; write-back switches on",
     tag: "Final payment",
     summary:
       "Your teams keep control: the system presents evidence and exceptions, people approve.",
@@ -94,6 +101,7 @@ export const processSteps: ProcessStep[] = [
   {
     n: "05",
     title: "Measure and improve",
+    brief: "Against the baseline agreed at the start",
     // No tag — the duration column already reads "Ongoing".
     summary:
       "Search time, quote speed, data completeness, exception rates and adoption, measured and reported.",
