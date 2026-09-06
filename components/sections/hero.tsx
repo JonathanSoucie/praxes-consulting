@@ -112,12 +112,14 @@ export function Hero() {
             {hero.eyebrow}
           </p>
 
-          {/* 20ch rather than 17ch: the headline is three sentences and 80
-              characters, and the wider measure holds it to the same four
-              lines — and so the same silhouette — the previous one had. */}
+          {/* 30ch: eighty-one characters over three lines rather than four.
+              Two is not reachable at this size — it would need about 41ch,
+              which at 4.25rem is 1400px and wider than the container — so
+              the measure stops where the page does. `text-balance` then
+              evens the three rather than leaving a short last line. */}
           <h1
             id="hero-title"
-            className="mt-6 max-w-[20ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
+            className="mt-6 max-w-[30ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-balance text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
             {hero.headline}
           </h1>
