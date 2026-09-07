@@ -511,6 +511,24 @@
   text-transform: uppercase;
 }
 
+/* The knockout behind an orbit label in the black-hole scene.
+
+   The dashed ring runs straight through the word, so something has to hide
+   it. A solid rectangle of page colour did that, and read as a black box
+   wherever the halo is bright behind it — which is most of the ring, and got
+   worse when the labels moved to a wider face. This fades instead: opaque
+   under the glyphs, gone before it reaches an edge, so the dashes dissolve
+   toward the word rather than stopping against a border. */
+@utility orbit-knockout {
+  background: radial-gradient(
+    ellipse at center,
+    var(--color-surface-2) 0%,
+    var(--color-surface-2) 46%,
+    rgba(11, 12, 16, 0.72) 68%,
+    transparent 100%
+  );
+}
+
 /* Hero headline over the dithered field. See --hero-type-blend. */
 @utility hero-type {
   mix-blend-mode: var(--hero-type-blend);

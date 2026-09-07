@@ -343,7 +343,8 @@ export function BlackHoleScene() {
         />
 
         {/* Orbit: the dashed line and its labels. Dashes are knocked out
-            behind each label by the label's own page-coloured fill. */}
+            behind each label by the soft ellipse the label draws under
+            itself — see `orbit-knockout` in globals.css. */}
         <svg
           aria-hidden
           className="pointer-events-none absolute inset-0 h-full w-full"
@@ -474,16 +475,25 @@ export function BlackHoleScene() {
                   onFocus={(e) => openCard(solution, e.currentTarget)}
                   onBlur={scheduleClose}
                   onClick={(e) => openCard(solution, e.currentTarget)}
+                  aria-label={solution.label}
                   className={cn(
-                    // Page-coloured fill and padding are what knock the
-                    // dashes out behind the word, like the reference's arc.
-                    "bg-surface-2 px-3 py-1 font-heading text-lg font-semibold whitespace-nowrap transition-colors duration-150 ease-out-soft lg:text-xl",
+                    // One notch down from the old size: Plus Jakarta Sans is
+                    // a wider face than the one this was set in, and at the
+                    // previous size the longest labels reached the hole.
+                    "relative isolate px-3 py-1 font-heading text-base font-semibold whitespace-nowrap transition-colors duration-150 ease-out-soft lg:text-lg",
                     card?.solution === solution
                       ? "text-accent"
                       : "text-white hover:text-accent",
                   )}
                 >
-                  {solution.label}
+                  {/* Behind the word, hiding the dashes it sits on. Drawn
+                      wider than the text and faded at its edges, so there is
+                      no rectangle to see against the halo. */}
+                  <span
+                    aria-hidden
+                    className="orbit-knockout absolute -inset-x-5 -inset-y-2.5 -z-10"
+                  />
+                  {solution.short}
                 </button>
               </li>
             ))}

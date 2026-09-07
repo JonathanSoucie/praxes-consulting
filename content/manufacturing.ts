@@ -101,8 +101,11 @@ export const painPoints = [
  * Interchange harvesting has no page of its own on purpose: it is held as an
  * asset and licensed, rather than sold as a deliverable.
  *
- * `label` is what sits on the orbit, so it has to be short enough to read at
- * a small size; `summary` is the hover card.
+ * `short` is what sits on the orbit and nowhere else: at the radius the ring
+ * gets on a laptop, anything longer than about thirteen characters reaches
+ * into the hole at the four diagonal positions. `label` is the full name and
+ * still heads the hover card and the small-screen chips; `summary` is the
+ * card body.
  *
  * The labels are keyed to icons in components/sections/black-hole-scene.tsx.
  * Renaming one here means renaming it there.
@@ -110,36 +113,42 @@ export const painPoints = [
 export const solutions = [
   {
     label: "Channel census",
+    short: "Census",
     summary: "What in this channel is machine-readable at all — reachability, catalogs, platforms and gates.",
     title: "The map before the campaign",
     body: "Every distributor domain checked for reachability, catalog presence and depth, the platform it runs on, and whether access is restricted by a dealer login, robots.txt or automated-access blocking. It answers a question you cannot answer today, and it costs almost nothing to run.",
   },
   {
     label: "Displacement mapping",
+    short: "Displacement",
     summary: "Which competitor brands your distributors carry, in your categories, with the listing as proof.",
     title: "The shelf you are actually on",
     body: "Competing parts per distributor, broken down by product category and rival brand, with every claim linked to the live listing. Category-level concentration is where it bites: one distributor listing 102 air springs, 85 of them a single rival's.",
   },
   {
     label: "Whitespace mapping",
+    short: "Whitespace",
     summary: "Categories a distributor stocks from nobody — an opening with no incumbent to dislodge.",
     title: "The easier conversation",
     body: "The inverse of displacement, and usually the easier sales call: no rival to displace, just a category the distributor does not serve. One distributor in our reference set lists zero U-bolts and zero hangers.",
   },
   {
     label: "Change monitoring",
+    short: "Monitoring",
     summary: "What moved since last month — lines added or dropped, catalogs launched, distributors gone dark.",
     title: "A standing reason to be in the account",
     body: "Product lines added or dropped, new catalogs launched, distributors gone dark, competitor brands appearing or disappearing, categories expanding or contracting. The resolution cache absorbs most of the work, so a recurring run costs a fraction of the first.",
   },
   {
     label: "Distributor qualification",
+    short: "Qualification",
     summary: "Before you sign them, what a prospective distributor actually publishes.",
     title: "Diligence on the digital half",
     body: "Catalog depth and range, platform and technical maturity, whether they could carry a product feed or co-branded imagery, and which competitor brands they already list. One domain, roughly ten minutes of crawl time.",
   },
   {
     label: "Interchange harvesting",
+    short: "Interchange",
     summary: "Distributor cross-reference tables, harvested deliberately and mapped to manufacturer part numbers.",
     title: "Held as an asset, not sold as a file",
     body: "Distributors publish competitor cross-reference tables. Harvested deliberately, they map distributor codes to manufacturer part numbers. This compounds across clients, so we build these databases selectively and license access rather than selling raw data.",
