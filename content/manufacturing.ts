@@ -67,32 +67,28 @@ export const servicesSection = {
  *
  * Four of the deck's "Why This Exists" gaps. Four rather than six because
  * the scene is a sticky panel inside one viewport, and six rows overflow it
- * on a short laptop — which is also why each `body` is held to two sentences
- * under a `title` that now carries the statement itself.
+ * on a short laptop.
  *
- * `body` is hidden below the sm breakpoint, so the title has to stand alone
- * on a phone. The closing sentence of each body is its stakes line.
+ * Title only — there is no supporting paragraph under these. Each one has to
+ * land as a single statement, so it carries the stakes itself rather than
+ * setting up a sentence underneath.
  */
 export const painPoints = [
   {
     n: "01",
     title: "No accurate data on which distributors actually list your SKUs online",
-    body: "You fund their inventory, their co-op marketing, their training and their incentives on relationship history rather than on published evidence. Nobody upstream can name which of them put your catalog on the web at all.",
   },
   {
     n: "02",
     title: "Competitor brands occupy the same distributor e-commerce pages without your reps knowing before sales calls",
-    body: "The distributor carrying your line publishes three rivals in the same categories, on the same pages, today. Your rep walks in as one of four brands on the shelf and finds that out in the room.",
   },
   {
     n: "03",
     title: "Incomplete part attributes, cross-references and fitment data cause distributor search engines to hide your products",
-    body: "A listing without the attributes a filter needs is a listing their customers never reach. The stock is on the distributor's shelf and invisible in the distributor's own search.",
   },
   {
     n: "04",
     title: "Competitor brands expand across regional dealer catalogs for months before your team notices",
-    body: "It is published the day it happens and reaches you as anecdote from a sales call two quarters later. The response is late by exactly that long.",
   },
 ] as const;
 

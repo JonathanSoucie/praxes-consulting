@@ -399,9 +399,6 @@ export function BlackHoleScene() {
                   <h3 className="mt-2 font-heading text-base font-semibold text-white sm:text-lg">
                     {p.title}
                   </h3>
-                  <p className="mt-2 hidden text-sm leading-relaxed text-white/65 sm:block">
-                    {p.body}
-                  </p>
                 </li>
               ))}
             </ul>
