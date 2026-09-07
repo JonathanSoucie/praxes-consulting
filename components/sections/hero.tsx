@@ -112,20 +112,19 @@ export function Hero() {
               second. */}
           <h1
             id="hero-title"
-            className="max-w-[36ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.03em] text-balance text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
+            className="hero-reflect max-w-[36ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.03em] text-balance sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
             {hero.headline}
           </h1>
 
           {/* The rule stays at the paragraph's own measure, so it reads as
-              that block's lid rather than as a divider across the page —
-              both now 3xl rather than lg. That puts the paragraph at roughly
-              eighty characters a line, which is the top of what reads
-              comfortably; wider and it stops being a paragraph. */}
-          <hr
-            aria-hidden
-            className="mt-10 w-full max-w-3xl border-0 border-t border-line-strong"
-          />
+              that block's lid rather than as a divider across the page. That
+              puts the paragraph at roughly eighty characters a line, which is
+              the top of what reads comfortably; wider and it stops being a
+              paragraph.
+
+              It takes the glow through its middle — see `hero-rule`. */}
+          <hr aria-hidden className="hero-rule mt-10 w-full max-w-3xl" />
 
           <p className="mt-8 max-w-3xl text-lg leading-relaxed text-ink-soft sm:text-xl">
             {hero.sub}

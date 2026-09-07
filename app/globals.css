@@ -463,6 +463,62 @@
   margin-bottom: -0.16em;
 }
 
+/* The hero headline, lit from below.
+
+   The black hole's halo crests just under the hero, so the type is sitting on
+   the near edge of a light source and ought to show it. The gradient is that
+   bounce: page ink through most of the glyph, warming through the last third
+   to the halo's own #FF6E9E at the baseline. The pink lands on about a fifth
+   of the letter height and holds 7.5:1 on the page, so the headline is no
+   harder to read than it was.
+
+   `background-size` is one line box, repeated down, and that is the whole
+   trick. A single gradient across the block would paint the first line ink
+   and the second line pink — two coloured lines, not one lit surface. Per
+   line, every row catches the light on its own bottom edge, which is what a
+   reflection actually does.
+
+   1.02em matches the `leading-[1.02]` on the element. If that leading
+   changes, this has to change with it or the light will drift off the
+   baseline. */
+@utility hero-reflect {
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-ink) 0%,
+    var(--color-ink) 54%,
+    #ffc3d7 78%,
+    #ff6e9e 96%
+  );
+  background-size: 100% 1.02em;
+  background-repeat: repeat-y;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  /* What the letters throw back at the page. Wide and weak on purpose: a
+     tight shadow reads as a drop shadow, which is the opposite of a bounce. */
+  text-shadow: 0 0 30px rgba(248, 32, 109, 0.22);
+  /* Same fix as text-gradient — the paint box stops above the descenders at
+     this leading, so extend it and pull the next element back up. */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+
+/* The rule under the hero headline, catching the same light. Line colour at
+   the ends, the halo's pink through the middle — which is the stretch of it
+   sitting directly over the glow, since the hole is centred on the page. */
+@utility hero-rule {
+  height: 1px;
+  border: 0;
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--color-line-strong) 20%,
+    rgba(255, 110, 158, 0.5) 50%,
+    var(--color-line-strong) 80%,
+    transparent 100%
+  );
+}
+
 /* Card title: uppercase, in the accent, per the reference layout. Applied to
    card and list-item headings only — not to status messages or people's
    names, where setting a name in caps reads wrong. */
