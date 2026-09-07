@@ -467,40 +467,45 @@
 
    The black hole's halo crests just under the hero, so the type is sitting on
    the near edge of a light source and ought to show it. The gradient is that
-   bounce: page ink through most of the glyph, warming through the last third
-   to the halo's own #FF6E9E at the baseline. The pink lands on about a fifth
-   of the letter height and holds 7.5:1 on the page, so the headline is no
-   harder to read than it was.
+   bounce: page ink through the upper half, warming to the halo's own #FF6E9E
+   at the foot of the block.
 
-   `background-size` is one line box, repeated down, and that is the whole
-   trick. A single gradient across the block would paint the first line ink
-   and the second line pink — two coloured lines, not one lit surface. Per
-   line, every row catches the light on its own bottom edge, which is what a
-   reflection actually does.
+   WHY ONE SWEEP AND NOT ONE PER LINE
 
-   1.02em matches the `leading-[1.02]` on the element. If that leading
-   changes, this has to change with it or the light will drift off the
-   baseline. */
+   Tiling the gradient per line box is the obvious way to light every row, and
+   it cannot work at this leading. A descender reaches 112% of its line box —
+   12% into the next tile, which begins again at ink — so every "g" and "y"
+   lost its light halfway down. The overlap cannot be painted pink either:
+   line one's descender lands at 50.4% of a two-line block and line two's
+   capitals start at 52.2%, so anything reaching down for the tails catches
+   the tops of the caps underneath them.
+
+   So the light falls across the whole block instead, which is what a source
+   below actually does: the bottom line is lit, the line above it warms
+   slightly, and the descenders on the last line stay inside the paint
+   because the padding below extends it past them.
+
+   The stops are placed against measured positions: caps at 52% take ink,
+   the baseline at 84% takes pink, tails at 96% take all of it. */
 @utility hero-reflect {
   background-image: linear-gradient(
     to bottom,
     var(--color-ink) 0%,
-    var(--color-ink) 54%,
-    #ffc3d7 78%,
+    var(--color-ink) 46%,
+    #ffc3d7 76%,
     #ff6e9e 96%
   );
-  background-size: 100% 1.02em;
-  background-repeat: repeat-y;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   /* What the letters throw back at the page. Wide and weak on purpose: a
      tight shadow reads as a drop shadow, which is the opposite of a bounce. */
   text-shadow: 0 0 30px rgba(248, 32, 109, 0.22);
-  /* Same fix as text-gradient — the paint box stops above the descenders at
-     this leading, so extend it and pull the next element back up. */
-  padding-bottom: 0.16em;
-  margin-bottom: -0.16em;
+  /* The paint box stops at the last line box, which is above the descenders.
+     Extend it past them and pull the next element back up, so the tails are
+     lit and the layout is unchanged. */
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
 }
 
 /* The rule under the hero headline, catching the same light. Line colour at
