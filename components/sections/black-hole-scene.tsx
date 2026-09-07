@@ -342,9 +342,9 @@ export function BlackHoleScene() {
           style={{ background: HOLE_BACKGROUND }}
         />
 
-        {/* Orbit: the dashed line and its labels. Dashes are knocked out
-            behind each label by the soft ellipse the label draws under
-            itself — see `orbit-knockout` in globals.css. */}
+        {/* Orbit: the dashed line and its labels. Nothing is painted behind
+            a label — the dashes are held off the word by the shadow the
+            glyphs cast. See `orbit-label` in globals.css. */}
         <svg
           aria-hidden
           className="pointer-events-none absolute inset-0 h-full w-full"
@@ -480,19 +480,12 @@ export function BlackHoleScene() {
                     // One notch down from the old size: Plus Jakarta Sans is
                     // a wider face than the one this was set in, and at the
                     // previous size the longest labels reached the hole.
-                    "relative isolate px-3 py-1 font-heading text-base font-semibold whitespace-nowrap transition-colors duration-150 ease-out-soft lg:text-lg",
+                    "orbit-label px-3 py-1 font-heading text-base font-semibold whitespace-nowrap transition-colors duration-150 ease-out-soft lg:text-lg",
                     card?.solution === solution
                       ? "text-accent"
                       : "text-white hover:text-accent",
                   )}
                 >
-                  {/* Behind the word, hiding the dashes it sits on. Drawn
-                      wider than the text and faded at its edges, so there is
-                      no rectangle to see against the halo. */}
-                  <span
-                    aria-hidden
-                    className="orbit-knockout absolute -inset-x-5 -inset-y-2.5 -z-10"
-                  />
                   {solution.short}
                 </button>
               </li>
