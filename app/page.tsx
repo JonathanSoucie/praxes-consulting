@@ -98,7 +98,7 @@ export default function HomePage() {
             deck="Nothing is harvested from a domain until we know what it is, and nothing is reported without the source URL it came from."
           />
 
-          <ol className="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5 lg:gap-x-6">
+          <ol className="mt-10 grid gap-x-8 gap-y-9 sm:mt-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5 lg:gap-x-6">
             {processSteps.map((step, i) => (
               <Reveal
                 key={step.n}
@@ -123,7 +123,7 @@ export default function HomePage() {
             ))}
           </ol>
 
-          <Reveal delay={80} className="mt-14 flex justify-center lg:mt-16">
+          <Reveal delay={80} className="mt-12 flex justify-center lg:mt-16">
             <Button asChild variant="outline">
               <Link href="/process">
                 The full process
@@ -139,14 +139,23 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* The one section on the page with a ground of its own: the page
           colour at the top running into the logo's deep pink at the foot,
-          with the four reasons as a row of cards over it. */}
+          with the four reasons as a row of cards over it.
+
+          The ramp is measured up from the bottom in pixels, not in
+          percentages of the section. As a percentage it is a different
+          picture at every height: four cards in a row make a short section
+          on a desktop, where the pink is a foot; the same four stacked on a
+          phone make one three times taller, where those stops put a thousand
+          pixels of flat magenta behind the copy and left the closing button
+          on the hottest part of it. Anchored to the foot, a taller section
+          grows out of the top of the ramp rather than stretching it. */}
       <Section className="relative isolate overflow-hidden">
         <div
           aria-hidden
           className="absolute inset-0 -z-10"
           style={{
             background:
-              "linear-gradient(180deg, var(--color-surface-2) 0%, var(--color-surface-2) 28%, #3a0f2a 68%, #8e0c48 100%)",
+              "linear-gradient(to top, #8e0c48 0px, #3a0f2a 250px, var(--color-surface-2) 640px)",
           }}
         />
         <Container>
@@ -156,12 +165,12 @@ export default function HomePage() {
             title="Built for industrial distribution"
           />
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+          <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:mt-16 lg:grid-cols-4">
             {whyManufacturing.map((item, i) => (
               <Reveal
                 key={item.title}
                 delay={i * 60}
-                className="flex h-full flex-col rounded-[18px] border border-line-strong bg-surface/90 p-7 backdrop-blur-sm"
+                className="flex h-full flex-col rounded-[18px] border border-line-strong bg-surface/90 p-6 backdrop-blur-sm sm:p-7"
               >
                 <h3 className="font-heading text-lg leading-snug font-semibold text-ink sm:text-xl">
                   {item.title}
@@ -198,7 +207,7 @@ export default function HomePage() {
       <Section>
         <Container>
           <SectionHeading eyebrow="Questions" title="Common questions" />
-          <Reveal delay={80} className="mx-auto mt-16 max-w-3xl">
+          <Reveal delay={80} className="mx-auto mt-10 max-w-3xl sm:mt-16">
             <FaqList items={generalFaqs} />
           </Reveal>
         </Container>

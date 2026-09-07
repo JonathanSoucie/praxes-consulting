@@ -15,12 +15,17 @@ export function Container({
  * hero down, and elevation is expressed by bordered cards sitting on it rather
  * than by alternating full-width bands.
  *
+ * The phone step is smaller than a straight scale-down would give. Section
+ * padding is there to separate one idea from the next, and on a narrow screen
+ * the single column already does most of that work — while every pixel of it
+ * is spent twice, once above and once below, on a page that is twenty screens
+ * long there.
  */
 export function Section({
   className,
   ...props
 }: React.ComponentProps<"section">) {
   return (
-    <section className={cn("py-20 sm:py-24 lg:py-28", className)} {...props} />
+    <section className={cn("py-16 sm:py-24 lg:py-28", className)} {...props} />
   );
 }

@@ -23,7 +23,7 @@ export function StepPanelView({
   active: boolean;
 }) {
   return (
-    <div className="h-full rounded-[14px] border border-line-strong bg-surface p-7 sm:p-9">
+    <div className="h-full rounded-[14px] border border-line-strong bg-surface p-5 sm:p-7 lg:p-9">
       {panel.kind === "flow" ? <FlowPanel panel={panel} /> : null}
       {panel.kind === "rows" ? <RowsPanel panel={panel} /> : null}
       {panel.kind === "bars" ? (
@@ -34,7 +34,7 @@ export function StepPanelView({
 }
 
 function Caption({ children }: { children: React.ReactNode }) {
-  return <p className="label-tech mb-7 text-muted">{children}</p>;
+  return <p className="label-tech mb-6 text-muted sm:mb-7">{children}</p>;
 }
 
 function FlowPanel({ panel }: { panel: Extract<StepPanel, { kind: "flow" }> }) {
@@ -54,7 +54,7 @@ function FlowPanel({ panel }: { panel: Extract<StepPanel, { kind: "flow" }> }) {
             ) : null}
             <div
               className={cn(
-                "flex items-center gap-4 rounded-[10px] border p-4 transition-colors",
+                "flex items-center gap-3 rounded-[10px] border p-3.5 transition-colors sm:gap-4 sm:p-4",
                 node.state === "live" && "border-accent/40 bg-accent-soft",
                 node.state === "flag" && "border-dashed border-line-strong",
                 (!node.state || node.state === "idle") &&
@@ -71,7 +71,7 @@ function FlowPanel({ panel }: { panel: Extract<StepPanel, { kind: "flow" }> }) {
                   (!node.state || node.state === "idle") && "bg-line-strong",
                 )}
               />
-              <span className="flex-1 font-sans text-base leading-tight font-semibold text-ink">
+              <span className="flex-1 font-sans text-[0.9375rem] leading-tight font-semibold text-ink sm:text-base">
                 {node.label}
               </span>
               {node.note ? (
@@ -95,9 +95,9 @@ function RowsPanel({ panel }: { panel: Extract<StepPanel, { kind: "rows" }> }) {
         {panel.rows.map((row) => (
           <div
             key={row.label}
-            className="flex items-baseline justify-between gap-6 border-b border-line py-4 first:border-t"
+            className="flex items-baseline justify-between gap-4 border-b border-line py-4 first:border-t sm:gap-6"
           >
-            <dt className="flex items-center gap-3 text-ink-soft">
+            <dt className="flex items-center gap-2.5 text-[0.9375rem] text-ink-soft sm:gap-3 sm:text-base">
               <span
                 aria-hidden
                 className={cn(

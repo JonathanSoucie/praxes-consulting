@@ -1053,12 +1053,28 @@ export function DitheredGalaxyField({
       ) : null}
 
       {scrim === "center" ? (
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse 50% 62% at 50% 48%, ${GROUND}F2 0%, ${GROUND}DB 44%, ${GROUND}8C 70%, ${GROUND}00 94%)`,
-          }}
-        />
+        <>
+          {/* The phone gets its own ellipse, and a much larger one, for the
+              same reason "upper-left" does. The desktop shape is half the box
+              wide because the copy there is a centred column in a wide band
+              with field on either side of it. On a phone there is no either
+              side: the copy is the full measure, top to bottom, so a scrim
+              covering the middle half protects the middle of each line and
+              leaves both ends of it — and the buttons under it — sitting on
+              bare dots. */}
+          <div
+            className="absolute inset-0 sm:hidden"
+            style={{
+              background: `radial-gradient(ellipse 96% 78% at 50% 50%, ${GROUND}F7 0%, ${GROUND}F2 48%, ${GROUND}C4 74%, ${GROUND}00 100%)`,
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden sm:block"
+            style={{
+              background: `radial-gradient(ellipse 50% 62% at 50% 48%, ${GROUND}F2 0%, ${GROUND}DB 44%, ${GROUND}8C 70%, ${GROUND}00 94%)`,
+            }}
+          />
+        </>
       ) : null}
 
       {fadeBottom ? (

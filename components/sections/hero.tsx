@@ -2,10 +2,9 @@ import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { hero } from "@/content/manufacturing";
 import {
-  CREST_BELOW_TOP,
-  HALO,
   HOLE_BACKGROUND,
-  R0_OF_LONG_SIDE,
+  HOLE_SIZE_CSS,
+  holeTopCss,
   STAR_COLOR,
   starField,
 } from "@/components/sections/hole-geometry";
@@ -38,13 +37,11 @@ import {
     render — it never changes, and it is the same field on every page. */
 const STARS = starField(110);
 
-/** The hole's radius at the top of the scrub, in CSS. */
-const R0 = `(${R0_OF_LONG_SIDE} * max(100vw, 100vh))`;
-/** The hole element is HALO times the hole's radius on every side. */
-const SIZE = `calc(2 * ${HALO} * ${R0})`;
-/** Its top, relative to the seam: the centre is r0 + crest below the seam,
-    and the element starts HALO * r0 above the centre. */
-const TOP = `calc(100% + ${CREST_BELOW_TOP * 100}vh - ${HALO - 1} * ${R0})`;
+/** The hole, at the top of the scrub. The seam is the hero's bottom edge,
+    so the circle is placed relative to `100%` — see hole-geometry.ts, which
+    the scene's phone layout draws the other half of the same picture from. */
+const SIZE = HOLE_SIZE_CSS;
+const TOP = holeTopCss("100%");
 
 export function Hero() {
   return (
@@ -102,7 +99,7 @@ export function Hero() {
           the halo, and the ring at about five percent below the seam. The
           copy is centred in what is left, with symmetric padding so the
           centre is the section's centre. */}
-      <Container className="relative z-10 flex min-h-[78svh] flex-col items-center justify-center py-28 text-center">
+      <Container className="relative z-10 flex min-h-[78svh] flex-col items-center justify-center py-20 text-center sm:py-24 lg:py-28">
         <Reveal className="flex flex-col items-center">
           {/* The name of the thing, at full display size and first on the
               page — there is no eyebrow above it now, so nothing competes.
@@ -112,7 +109,7 @@ export function Hero() {
               second. */}
           <h1
             id="hero-title"
-            className="hero-reflect max-w-[36ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.03em] text-balance sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
+            className="hero-reflect max-w-[36ch] font-display text-[1.875rem] leading-[1.02] font-bold tracking-[-0.03em] text-balance min-[400px]:text-[2.25rem] sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
             {hero.headline}
           </h1>
@@ -124,9 +121,9 @@ export function Hero() {
               paragraph.
 
               It takes the glow through its middle — see `hero-rule`. */}
-          <hr aria-hidden className="hero-rule mt-10 w-full max-w-3xl" />
+          <hr aria-hidden className="hero-rule mt-8 w-full max-w-3xl sm:mt-10" />
 
-          <p className="mt-8 max-w-3xl text-lg leading-relaxed text-ink-soft sm:text-xl">
+          <p className="mt-6 max-w-3xl text-base leading-relaxed text-ink-soft sm:mt-8 sm:text-xl">
             {hero.sub}
           </p>
         </Reveal>

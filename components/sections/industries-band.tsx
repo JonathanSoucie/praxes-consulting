@@ -27,7 +27,7 @@ export function IndustriesBand() {
           deck="Manufacturers who sell through distributors they do not control, in categories where a rival brand can take a shelf one listing at a time — and where nobody upstream is reading what those distributors publish."
         />
 
-        <ul className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
+        <ul className="mt-10 grid gap-x-10 gap-y-7 sm:mt-14 sm:grid-cols-2 sm:gap-y-8 lg:mt-16 lg:grid-cols-3">
           {industries.map((industry, i) => (
             <Reveal
               key={industry.name}

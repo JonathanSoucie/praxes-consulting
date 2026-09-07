@@ -1,6 +1,32 @@
 @import "tailwindcss";
 
 /* ==========================================================================
+   Custom variants
+   ========================================================================== */
+
+/**
+ * `scrub:` — the viewport can hold the black hole scene's camera move.
+ *
+ * That scene is one viewport tall, sticky and clipping, with the problem
+ * block centred inside it. Whether it fits is a question about *height* as
+ * much as width: at 844x390 — a phone turned sideways — a `md`-only test says
+ * yes and then cuts three hundred and fifty pixels off the middle of it,
+ * which is unreachable because scrolling is what drives the camera rather
+ * than the page.
+ *
+ * So the scene asks for both dimensions, and below either one it falls back
+ * to the layout in <PhoneScene>, which is the same two beats in ordinary
+ * flow. 40rem of height is what a landscape phone and a genuinely tiny window
+ * fail and every laptop passes.
+ *
+ * Used unprefixed for the flow layout and `scrub:` for the camera, so the
+ * flow layout is what a viewport gets unless it has earned the other. The
+ * scene reads the same query through matchMedia — keep the two in step; the
+ * string is repeated in components/sections/black-hole-scene.tsx.
+ */
+@custom-variant scrub (@media (min-width: 48rem) and (min-height: 40rem));
+
+/* ==========================================================================
    Palette selection.
 
    The site is dark only. Tokens are still written as pairs —

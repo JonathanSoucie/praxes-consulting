@@ -85,3 +85,41 @@ export function starField(count: number, seed = 0x9e37): Star[] {
     a: +(STAR_MIN_A + rand() * (STAR_MAX_A - STAR_MIN_A)).toFixed(3),
   }));
 }
+
+/* --- The opening frame, in CSS ------------------------------------------
+   The scrub computes r0 and cy0 in JS from window.innerHeight. Two places
+   draw the same frame in flow instead, where there is no JS to ask: the hero
+   above the seam, and the phone layout of the scene below it, which does not
+   scrub at all. Both need the *same* circle, or the halo steps at the seam —
+   so the CSS is written once here rather than twice in the two files.
+
+   `vh` rather than `svh` on purpose: it is the unit the pair agrees on, and
+   a hole whose size changed as a phone's URL bar collapsed would slide
+   against the copy sitting over it. */
+export const HOLE_R0_CSS = `(${R0_OF_LONG_SIDE} * max(100vw, 100vh))`;
+/** The hole element is HALO times the hole's radius on every side. */
+export const HOLE_SIZE_CSS = `calc(2 * ${HALO} * ${HOLE_R0_CSS})`;
+/**
+ * The hole element's `top`, given where the seam falls in its own box: the
+ * hero's seam is its bottom edge ("100%"), the scene's is its top ("0px").
+ * The centre sits r0 + the crest offset below the seam, and the element
+ * starts HALO * r0 above the centre.
+ */
+export const holeTopCss = (seam: string) =>
+  `calc(${seam} + ${CREST_BELOW_TOP * 100}vh - ${HALO - 1} * ${HOLE_R0_CSS})`;
+
+/* --- The closing frame, on a phone --------------------------------------
+   Where the scrub ends, the desktop leaves the hole as a dome on the bottom
+   edge with the orbit around it. There is no room for an orbit on a phone
+   and nothing to scrub toward, so the dome is simply drawn once at the foot
+   of the scene. These are the same proportions the scrub settles on — the
+   centre a touch above the bottom edge (`0.12 * r`), which shows a little
+   over half the disc.
+
+   The band's height is the halo's full reach above that centre, so the glow
+   fades out inside the box instead of being cut off at its top. Get this
+   wrong in the short direction and the box crops the disc mid-face, which
+   draws a hard line across it. */
+export const DOME_R_CSS = "min(46vw, 200px)";
+export const DOME_BAND_H_CSS = `calc((${HALO} + 0.12) * ${DOME_R_CSS})`;
+export const DOME_SIZE_CSS = `calc(2 * ${HALO} * ${DOME_R_CSS})`;

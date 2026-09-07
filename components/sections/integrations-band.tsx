@@ -82,8 +82,8 @@ export function IntegrationsBand() {
         </div>
       </div>
 
-      <Container className="mt-24 lg:mt-32">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+      <Container className="mt-16 sm:mt-24 lg:mt-32">
+        <div className="grid gap-8 sm:gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
           <SectionHeading
             align="left"
             eyebrow={integrationApproach.eyebrow}

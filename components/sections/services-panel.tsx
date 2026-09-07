@@ -46,7 +46,7 @@ export function ServicesPanel() {
   return (
     <section
       aria-labelledby="services-title"
-      className="relative isolate overflow-hidden bg-surface-2 pt-36 pb-20 sm:pt-44 lg:pt-52 lg:pb-28"
+      className="relative isolate overflow-hidden bg-surface-2 pt-20 pb-16 sm:pt-44 sm:pb-20 lg:pt-52 lg:pb-28"
     >
       {/* The sky, faded out at the foot of the section: what follows has no
           stars, and a field that simply stopped would draw a line across the
@@ -88,7 +88,7 @@ export function ServicesPanel() {
           </h2>
         </Reveal>
 
-        <ul className="mt-16 grid gap-20 lg:mt-24 lg:gap-28">
+        <ul className="mt-12 grid gap-16 sm:mt-16 sm:gap-20 lg:mt-24 lg:gap-28">
           {services.map((service, i) => {
             const panelFirst = i % 2 === 1;
             return (
@@ -104,7 +104,7 @@ export function ServicesPanel() {
                   <h3 className="mt-4 font-heading text-2xl leading-snug font-semibold text-ink sm:text-3xl">
                     {service.name}
                   </h3>
-                  <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
+                  <p className="mt-4 max-w-md text-base leading-relaxed text-muted sm:mt-5">
                     {service.showcase.blurb}
                   </p>
                   <Link
@@ -129,7 +129,7 @@ export function ServicesPanel() {
           })}
         </ul>
 
-        <Reveal delay={120} className="mt-20 flex justify-center lg:mt-28">
+        <Reveal delay={120} className="mt-14 flex justify-center sm:mt-20 lg:mt-28">
           <Button asChild variant="outline" size="lg">
             <Link href="/services">View all services</Link>
           </Button>
