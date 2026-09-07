@@ -112,7 +112,7 @@ export function Hero() {
               second. */}
           <h1
             id="hero-title"
-            className="max-w-[36ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.028em] text-balance text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
+            className="max-w-[36ch] font-display text-[2.25rem] leading-[1.02] font-bold tracking-[-0.03em] text-balance text-ink sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
           >
             {hero.headline}
           </h1>

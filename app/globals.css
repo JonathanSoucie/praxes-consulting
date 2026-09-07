@@ -78,30 +78,33 @@
    ========================================================================== */
 @theme {
   /* --- Type ------------------------------------------------------------- */
-  /* Three faces on three levels, and a mono for labels.
+  /* Two faces and a mono.
 
-       --font-display  IBM Plex Serif  headers: H1, H2, the wordmark
-       --font-heading  IBM Plex Sans   sub-headings: H3, card and step titles
-       --font-sans     Inter           sentences, and the interface
-       --font-mono     JetBrains Mono  technical labels and buttons
+       --font-display  Plus Jakarta Sans  headers: H1, H2, the wordmark
+       --font-heading  Plus Jakarta Sans  sub-headings: H3, card and step titles
+       --font-sans     Inter              sentences, and the interface
+       --font-mono     JetBrains Mono     badges and terminal data
 
-     The serif is the only face here that is not a grotesque, and it carries
-     the top level: the H1 and the section titles. Everything under a heading
-     is a grotesque, so the serif marks the largest type on a screen rather
-     than a second tier within it.
+     Display and heading are the same face now. They stay separate variables
+     because the distinction they draw is real — the top level against the
+     level under it — and because every component already names one or the
+     other. Pointing both at Jakarta changes the voice in one place; merging
+     them would mean editing forty call sites to say the same thing.
+
+     Headings are set at semi-bold and bold with -0.03em tracking, which the
+     ramp below carries from 3xl up.
 
      `--font-heading` is for headings, despite a handful of places having
      reached for it as "the slightly-more-formal small text". Data readouts
-     inside the process panels, the ERP product names in the integrations
-     row, and the commercial-shape values on the service pages all take the
-     body face instead — they are figures and proper nouns, not headings,
-     and in a serif they read as a book index. */
+     inside the process panels, the product names in the integrations row,
+     and the commercial-shape values on the service pages all take the body
+     face instead — they are figures and proper nouns, not headings. */
   --font-sans:
     var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display:
-    var(--font-plex-serif), ui-serif, Georgia, "Times New Roman", serif;
+    var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-heading:
-    var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+    var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     var(--font-mono-label), ui-monospace, "SFMono-Regular", monospace;
 
@@ -208,22 +211,24 @@
      the size utility means every `text-*` class carries the right one and no
      component has to remember.
 
-     The ramp is kept gentle: Unbounded is already a wide face, and pulling
-     it tight closes its counters. Body sizes take a small *positive* value,
-     which is what keeps small text legible. */
+     Body sizes take a small *positive* value, which is what keeps small text
+     legible. From 3xl up the ramp flattens to -0.03em: those sizes are only
+     ever headings, and -0.03em is the tracking Plus Jakarta Sans is specified
+     at. Below 3xl the gentle ramp stays, because those sizes are Inter body
+     copy and a heading value would close it up. */
   --text-xs--letter-spacing: 0.01em;
   --text-sm--letter-spacing: 0.006em;
   --text-base--letter-spacing: 0em;
   --text-lg--letter-spacing: -0.003em;
   --text-xl--letter-spacing: -0.006em;
   --text-2xl--letter-spacing: -0.009em;
-  --text-3xl--letter-spacing: -0.011em;
-  --text-4xl--letter-spacing: -0.013em;
-  --text-5xl--letter-spacing: -0.015em;
-  --text-6xl--letter-spacing: -0.017em;
-  --text-7xl--letter-spacing: -0.019em;
-  --text-8xl--letter-spacing: -0.021em;
-  --text-9xl--letter-spacing: -0.022em;
+  --text-3xl--letter-spacing: -0.03em;
+  --text-4xl--letter-spacing: -0.03em;
+  --text-5xl--letter-spacing: -0.03em;
+  --text-6xl--letter-spacing: -0.03em;
+  --text-7xl--letter-spacing: -0.03em;
+  --text-8xl--letter-spacing: -0.03em;
+  --text-9xl--letter-spacing: -0.03em;
 
   /* --- Motion ----------------------------------------------------------- */
   --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -318,14 +323,15 @@
   h4 {
     font-family: var(--font-display);
     color: var(--color-ink);
-    /* 700 on the Inter axis: the reference sets its titles heavy, and Inter
-       has to be pushed to bold before it reads as a heading rather than as
-       large body copy. */
+    /* Bold. Semi-bold is the other specified weight and is asked for by the
+       components that want it — card titles, step names — rather than being
+       the default here. */
     font-weight: 700;
     /* Fallback only, for a heading that carries no `text-*` size utility.
        Anything sized explicitly gets the size-matched value from the tracking
-       ramp in @theme, which takes precedence over this. */
-    letter-spacing: -0.008em;
+       ramp in @theme, which takes precedence over this — and from 3xl up that
+       ramp is this same -0.03em. */
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
@@ -461,10 +467,11 @@
    card and list-item headings only — not to status messages or people's
    names, where setting a name in caps reads wrong. */
 @utility card-title {
-  /* The heading face, which is Inter here as everywhere else. It needs the
-     tracking, because uppercase always does: the letters have no ascenders
-     or descenders to separate them. And 1.05 leading is a display value that
-     crushes a two-line heading at a fifth of that size. */
+  /* The heading face. It needs positive tracking, because uppercase always
+     does: the letters have no ascenders or descenders to separate them — so
+     this is the one heading that does not take -0.03em. And 1.05 leading is
+     a display value that crushes a two-line heading at a fifth of that
+     size. */
   font-family: var(--font-heading);
   text-transform: uppercase;
   font-weight: 600;
@@ -485,6 +492,7 @@
 @utility label-tech {
   font-family: var(--font-mono);
   font-size: 0.625rem;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -497,6 +505,7 @@
 @utility label-section {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: 0.16em;
   text-transform: uppercase;

@@ -1,10 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import {
-  IBM_Plex_Sans,
-  IBM_Plex_Serif,
-  Inter,
-  JetBrains_Mono,
-} from "next/font/google";
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Frame } from "@/components/layout/frame";
@@ -15,29 +10,16 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Sub-headings. IBM Plex Sans carries the H3 level — card titles, step and
-   service names, the rows in the who-we-help grid.
+/* Headings and sub-headings, both levels. Plus Jakarta Sans replaces the two
+   IBM Plex faces that used to split this job — the serif on H1 and H2, the
+   sans beneath — so the whole heading stack is now one voice at two sizes.
 
-   Weights are named rather than left to a variable axis, so what ships is
-   explicit rather than whatever the axis happens to resolve to. */
-const plexSans = IBM_Plex_Sans({
+   Loaded as the variable font rather than a list of static weights: the axis
+   runs 200 to 800 and the site asks for 500, 600 and 700 in different
+   places, which is three files enumerated against one variable file. */
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plex-sans",
-  display: "swap",
-});
-
-/* Headers. The serif is the one face on the site that is not a grotesque,
-   and it takes the top level: the hero H1, the page mastheads, the section
-   titles and the wordmark in the bar. Everything beneath a heading is a
-   grotesque, so the serif marks the largest type on a screen.
-
-   It tops out at 700, which is why the hero asks for bold rather than the
-   extrabold it used to — 800 would be clamped or synthesised. */
-const plexSerif = IBM_Plex_Serif({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plex-serif",
+  variable: "--font-jakarta",
   display: "swap",
 });
 
@@ -55,7 +37,9 @@ const inter = Inter({
   display: "swap",
 });
 
-/* Mono: small technical labels inside the built data visuals only. */
+/* Badges and terminal data: the small uppercase labels on cards, in the
+   built data visuals, and on buttons. Medium is the weight those are set at,
+   so 500 ships alongside the regular. */
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono-label",
@@ -121,7 +105,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexSans.variable} ${plexSerif.variable} ${inter.variable} ${jetBrainsMono.variable}`}
+      className={`${jakarta.variable} ${inter.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a
