@@ -38,7 +38,6 @@ export function organizationSchema(): Json {
     description: site.description,
     slogan: site.tagline,
     foundingDate: String(site.founded),
-    priceRange: "$$$",
     address: {
       "@type": "PostalAddress",
       addressLocality: site.address.locality,

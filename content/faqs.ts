@@ -6,7 +6,7 @@ export type Faq = { q: string; a: string };
 export const generalFaqs: Faq[] = [
   {
     q: "How many distributors can you monitor?",
-    a: "There is no hard limit. Our reference engagement covered 24 distributors; enterprise clients monitor more than 100 across multiple countries and languages. Pricing scales with distributor count and catalog size, not with seats — a census of 25 domains and a monitoring programme over 60 are different engagements, but neither is priced per user.",
+    a: "There is no hard limit. Our reference engagement covered 24 distributors; enterprise clients monitor more than 100 across multiple countries and languages. Engagements are scoped by distributor count and catalog size rather than by seats, so nothing here is priced per user. We quote against your own network after the scoping call.",
   },
   {
     q: "How do you ensure the findings are accurate?",
@@ -42,7 +42,7 @@ export const generalFaqs: Faq[] = [
 export const processFaqs: Faq[] = [
   {
     q: "Why start with a census rather than the displacement map?",
-    a: "Because the census tells us what the displacement map would actually cost and cover. Until the domains have been checked, nobody knows how many publish a readable catalog, how deep those catalogs go, or how many are gated. A census is a few days and a small number, and it either de-risks the project behind it or tells you not to buy one.",
+    a: "Because the census tells us what the displacement map would actually cover. Until the domains have been checked, nobody knows how many publish a readable catalog, how deep those catalogs go, or how many are gated. A census takes a few days, and it either de-risks the project behind it or tells you not to buy one.",
   },
   {
     q: "What do you need from us to start?",
@@ -53,8 +53,8 @@ export const processFaqs: Faq[] = [
     a: "Scoping call: 30 minutes. Reconnaissance: three to five business days. Harvest and resolution: three to five. Evidence and reporting: three to five. A census alone is 3–5 business days for up to 25 distributors; a full displacement and whitespace project is 10–15 business days for up to 10 distributors; monitoring delivers its first report within 15 business days.",
   },
   {
-    q: "Why do recurring runs cost less than the first one?",
-    a: "Because manufacturer resolution is the only part of the pipeline with a real per-unit cost — $0.28 per part — and every resolved identity is cached permanently. Reconnaissance and harvesting are HTTP requests at one per second, which cost almost nothing. So the second month pays for the parts that are new, not for the catalog again.",
+    q: "Why is a recurring run lighter than the first one?",
+    a: "Because manufacturer resolution is the one step with real per-part work behind it, and every resolved identity is cached permanently. Reconnaissance and harvesting are HTTP requests at one per second. So the second month only resolves the parts that are new, rather than working through the catalog again.",
   },
   {
     q: "What does this not measure?",

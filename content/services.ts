@@ -129,12 +129,12 @@ export const services: Service[] = [
     problem:
       "Ask most manufacturers which of their distributors publish their products online and the honest answer is that nobody knows. There is a spreadsheet of domains, a set of relationships, and an assumption that the catalog made it onto the website. Some of those domains are parked. Some run a catalog with four hundred products and no part numbers. Some sit behind a dealer login, which is a legitimate answer and a different one from having no catalog at all. Until somebody separates those cases, every channel decision is made on a guess about what is out there.",
     definition:
-      "A crawl of up to 25 distributor domains that reports what in this channel is machine-readable at all. For each domain: reachability, catalog presence and depth, the platform it runs on, access restrictions, and digital maturity signals. It is a reconnaissance layer only — HTTP requests at one per second, no paid resolution — which is why it costs almost nothing to run and why it is the sensible first purchase.",
+      "A crawl of up to 25 distributor domains that reports what in this channel is machine-readable at all. For each domain: reachability, catalog presence and depth, the platform it runs on, access restrictions, and digital maturity signals. It is a reconnaissance layer only — HTTP requests at one per second, no resolution — which is why it is quick to run and why it is the sensible first step.",
     shape: [
       { label: "Scope", value: "Up to 25 distributor domains" },
       { label: "Layers", value: "Reconnaissance only" },
       { label: "Timeline", value: "3–5 business days" },
-      { label: "Investment", value: "$7,500–$15,000 one time" },
+      { label: "Deliverable", value: "Executive census report" },
     ],
     showcase: {
       blurb:
@@ -293,7 +293,7 @@ export const services: Service[] = [
       { label: "Scope", value: "Up to 10 distributors" },
       { label: "Layers", value: "Harvest, resolution, evidence" },
       { label: "Timeline", value: "7–10 business days" },
-      { label: "Investment", value: "From $25,000, bundled with whitespace" },
+      { label: "Deliverable", value: "Displacement report" },
     ],
     showcase: {
       blurb:
@@ -311,7 +311,7 @@ export const services: Service[] = [
     },
     processTitle: "How the mapping runs",
     processStandfirst:
-      "Harvest, resolve, classify, concentrate, evidence. Nothing is claimed that is not traceable to a page, and nothing is counted twice — the resolution cache means a part paid for once is never paid for again.",
+      "Harvest, resolve, classify, concentrate, evidence. Nothing is claimed that is not traceable to a page, and nothing is counted twice — the resolution cache means a part resolved once is never resolved again.",
     process: [
       {
         n: "01",
@@ -336,13 +336,13 @@ export const services: Service[] = [
         title: "We resolve part numbers to manufacturers",
         icon: "branches",
         body:
-          "A published part number does not tell you who made the part; a brand field, where one exists at all, is often the distributor's own label. Resolution maps the number to a manufacturer at $0.28 per resolution, and every result is cached permanently — so the same part is never paid for twice, on this engagement or any later one.",
+          "A published part number does not tell you who made the part; a brand field, where one exists at all, is often the distributor's own label. Resolution maps the number to a manufacturer, and every result is cached permanently — so the same part is only ever resolved once, on this engagement or any later one.",
         output: "Manufacturer identity per part, cached against future runs",
         panel: {
           kind: "flow",
           nodes: [
             { label: "Part number", state: "live" },
-            { label: "Resolved to manufacturer", note: "$0.28, once" },
+            { label: "Resolved to manufacturer", note: "Once per part" },
             { label: "Cached permanently", note: "Free on every later run" },
           ],
         },
@@ -451,7 +451,7 @@ export const services: Service[] = [
       { label: "Scope", value: "Same crawl as displacement" },
       { label: "Layers", value: "Harvest, resolution, evidence" },
       { label: "Timeline", value: "5–7 business days" },
-      { label: "Investment", value: "Bundled, or standalone on a census" },
+      { label: "Deliverable", value: "Whitespace report" },
     ],
     showcase: {
       blurb:
@@ -572,16 +572,16 @@ export const services: Service[] = [
     problem:
       "A census and a displacement map are true on the day they are delivered. Catalogs are not static: a distributor prunes a product line in March, a rival brand appears across four accounts in a region over a quarter, a site goes dark and nobody upstream notices for two more. Today those changes reach a manufacturer as anecdote from a sales call, months after they were published — which means the response is late by exactly the length of time the information sat unread on a public website.",
     definition:
-      "A recurring crawl of 30 to 60 distributor domains against the baseline established by your census and displacement map, reporting what changed. Product lines added or dropped, new catalogs launched, distributors gone dark, competitor brands added or removed, categories expanding or contracting. Critical changes trigger an alert rather than waiting for the monthly report. Because the resolution cache carries over, a recurring run costs a fraction of the first.",
+      "A recurring crawl of 30 to 60 distributor domains against the baseline established by your census and displacement map, reporting what changed. Product lines added or dropped, new catalogs launched, distributors gone dark, competitor brands added or removed, categories expanding or contracting. Critical changes trigger an alert rather than waiting for the monthly report. Because the resolution cache carries over, a recurring run is a fraction of the work of the first.",
     shape: [
       { label: "Scope", value: "30–60 distributor domains" },
       { label: "Cadence", value: "Monthly, weekly or quarterly" },
       { label: "First report", value: "Within 15 business days" },
-      { label: "Investment", value: "$12,500–$20,000 per month" },
+      { label: "Deliverable", value: "Monthly change report" },
     ],
     showcase: {
       blurb:
-        "Every month, the same crawl against the same definitions, and a report of the difference. The parts already resolved cost nothing to resolve again, so what you pay for on a recurring run is the change, not the catalog.",
+        "Every month, the same crawl against the same definitions, and a report of the difference. The parts already resolved never have to be resolved again, so a recurring run is spent on what changed rather than on the catalog.",
       panel: {
         kind: "rows",
         caption: "March · 41 domains",
@@ -620,11 +620,11 @@ export const services: Service[] = [
         title: "We re-crawl on your cadence",
         icon: "timer",
         body:
-          "Monthly as standard, weekly or quarterly where it suits the market. The crawl is the same one, at the same rate, against the same pages. Most of the cost of the first run was resolution, and resolution is cached permanently, so a recurring run is a fraction of it.",
+          "Monthly as standard, weekly or quarterly where it suits the market. The crawl is the same one, at the same rate, against the same pages. Most of the first run was resolution, and resolution is cached permanently, so a recurring run is a fraction of the work.",
         output: "A fresh read of every monitored domain, on schedule",
         panel: {
           kind: "bars",
-          caption: "Cost per run, indexed to the first",
+          caption: "Work per run, indexed to the first",
           bars: [
             { label: "First run", value: 100, muted: true },
             { label: "Month two", value: 31 },
@@ -704,7 +704,7 @@ export const services: Service[] = [
       { label: "Scope", value: "One domain, per unit" },
       { label: "Crawl time", value: "Roughly ten minutes" },
       { label: "Timeline", value: "2–3 business days" },
-      { label: "Investment", value: "Per unit, on demand" },
+      { label: "Deliverable", value: "Go/no-go report" },
     ],
     showcase: {
       blurb:

@@ -70,7 +70,7 @@ export const integrationApproach = {
     },
     {
       title: "Resolution cached permanently",
-      body: "Mapping a part number to its manufacturer costs $0.28 and is the only real per-unit cost in the pipeline. Every result is cached forever, so the same part is never paid for twice and recurring runs cost a fraction of the first.",
+      body: "Mapping a part number to its manufacturer is the one step in the pipeline with real per-part work behind it. Every result is cached forever, so the same part is only ever resolved once and recurring runs are a fraction of the first.",
     },
     {
       title: "Your channel data stays yours",

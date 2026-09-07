@@ -5,8 +5,9 @@
  * The five stages are the four Channel Intelligence layers — reconnaissance,
  * harvest, resolution, evidence — with a free scoping call in front of them
  * and monitoring behind them, and the commercial shape of the engagement
- * attached to each: what it costs, how long it takes, and what you are left
- * holding.
+ * attached to each: how long it takes and what you are left holding. The
+ * site quotes no prices — scope is agreed on the call and priced against
+ * your own distributor count.
  *
  * Durations here are mirrored in components/sections/engagement-timeline.tsx.
  * Update both together.
@@ -16,7 +17,7 @@ export type ProcessStep = {
   n: string;
   title: string;
   /** Commercial framing, rendered as plain text beside the title. */
-  tag?: "Free" | "Paid" | "Small deposit" | "Final payment" | "Ongoing";
+  tag?: "Free" | "Ongoing";
   /** A handful of words for the Home page strip — the stage in one phrase.
       `summary` is a sentence, which is a size the strip has no room for. */
   brief: string;
@@ -51,7 +52,6 @@ export const processSteps: ProcessStep[] = [
     n: "02",
     title: "Reconnaissance",
     brief: "What is reachable, and what is gated",
-    tag: "Paid",
     summary:
       "Every domain checked for reachability, catalog presence, platform and access restrictions.",
     detail:
@@ -68,11 +68,10 @@ export const processSteps: ProcessStep[] = [
     n: "03",
     title: "Harvest and resolution",
     brief: "Records extracted, part numbers resolved",
-    tag: "Small deposit",
     summary:
       "Product records extracted with their source URLs, then part numbers mapped to manufacturers.",
     detail:
-      "Layers two and three. Every published product record is extracted — name, part number, brand, price, category and URL — and stored with the page it came from. Then part numbers are resolved to manufacturers at $0.28 per resolution. Resolved identities are cached permanently, so the same part is never paid for twice, on this engagement or on any run after it.",
+      "Layers two and three. Every published product record is extracted — name, part number, brand, price, category and URL — and stored with the page it came from. Then part numbers are resolved to the manufacturers that made them. Resolved identities are cached permanently, so the same part is only ever resolved once, on this engagement or on any run after it.",
     deliverables: [
       "Every published product record, with its source URL",
       "Manufacturer identity resolved per part",
@@ -85,7 +84,6 @@ export const processSteps: ProcessStep[] = [
     n: "04",
     title: "Evidence and report",
     brief: "Every claim linked to a live listing",
-    tag: "Final payment",
     summary:
       "Findings assembled into displacement, whitespace and account-level reporting, each claim traceable.",
     detail:
@@ -106,7 +104,7 @@ export const processSteps: ProcessStep[] = [
     summary:
       "Lines added and dropped, catalogs launched, brands arriving, distributors going dark — reported monthly.",
     detail:
-      "The delivered reports become the baseline. From there the network is re-crawled on your cadence and only the differences are reported: product lines added or dropped, new catalogs launched, distributors gone dark, competitor brands arriving or leaving, categories expanding or contracting. Critical changes alert immediately. The resolution cache carries over, so recurring runs cost a fraction of the first, and coverage expands to new regions and languages from the same base.",
+      "The delivered reports become the baseline. From there the network is re-crawled on your cadence and only the differences are reported: product lines added or dropped, new catalogs launched, distributors gone dark, competitor brands arriving or leaving, categories expanding or contracting. Critical changes alert immediately. The resolution cache carries over, so recurring runs are a fraction of the work of the first, and coverage expands to new regions and languages from the same base.",
     deliverables: [
       "Monthly change reports against the agreed baseline",
       "Immediate alerts on distributors going dark or major brand additions",

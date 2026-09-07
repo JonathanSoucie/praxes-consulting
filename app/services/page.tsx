@@ -109,35 +109,35 @@ export default function ServicesPage() {
               <div className="space-y-6 text-base leading-relaxed text-muted sm:text-lg">
                 <p>
                   The pilot is a channel census over up to 25 distributor
-                  domains: three to five business days, $7,500 to $15,000, one
-                  time. It exists because nobody — including us — knows what a
-                  displacement map across your network would cover until the
-                  domains have been checked. It either de-risks the project
-                  behind it or tells you not to buy one.
+                  domains, delivered in three to five business days. It exists
+                  because nobody — including us — knows what a displacement map
+                  across your network would cover until the domains have been
+                  checked. It either de-risks the project behind it or tells
+                  you not to buy one.
                 </p>
                 <p>
                   The project is displacement and whitespace mapping together,
-                  over up to 10 distributors: 10 to 15 business days, $25,000
-                  to $40,000. Both come off one crawl, which is why they are
-                  bundled — the harvest is the expensive part, and asking it a
-                  second question costs almost nothing.
+                  over up to 10 distributors, in 10 to 15 business days. Both
+                  come off one crawl, which is why they are bundled — the
+                  harvest is the work, and asking it a second question adds
+                  almost none.
                 </p>
                 <p>
-                  The retainer is change monitoring over 30 to 60 domains at
-                  $12,500 to $20,000 a month on an annual commitment: monthly
-                  change reports, a quarterly displacement and whitespace
-                  refresh, up to 500 manufacturer resolutions a month, sales
-                  call briefs and distributor scorecards. A census is a
-                  project; knowing what moved is a standing reason to be in the
-                  account.
+                  The retainer is change monitoring over 30 to 60 domains on an
+                  annual commitment: monthly change reports, a quarterly
+                  displacement and whitespace refresh, up to 500 manufacturer
+                  resolutions a month, sales-call briefs and distributor
+                  scorecards. A census is a project; knowing what moved is a
+                  standing reason to be in the account.
                 </p>
                 <p>
                   Above that is enterprise: 100+ domains across multiple
                   countries and languages, custom taxonomies and competitor
                   universes, CRM or BI integration, dedicated analyst support
-                  and a cross-reference database of your own, quoted from
-                  $25,000 a month. Every tier is the same four layers. What
-                  changes is how much of your channel they are pointed at.
+                  and a cross-reference database of your own. Every tier is the
+                  same four layers. What changes is how much of your channel
+                  they are pointed at, and that is what an engagement is quoted
+                  against — after the scoping call, never from a page.
                 </p>
               </div>
             </Reveal>
