@@ -1,50 +1,49 @@
-import { Container, Section } from "@/components/container";
+import { Factory, Fuel, Truck, Car, Cog, Zap } from "lucide-react";
+import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
-import { SectionHeading } from "@/components/section-heading";
 import { industries } from "@/content/manufacturing";
+import styles from "./minimal-sections.module.css";
 
-/**
- * Who we help: the segments, three across, a line each.
- *
- * It was a sticky heading beside a stack of six paragraphs, which was the
- * third section on the page built that way and the tallest of them. The
- * section's whole job is qualification — a reader either recognises their
- * own business in one line or does not — so it does not need a column of
- * prose to do it, and the heading does not need to follow the reader down
- * a list they can take in at a glance.
- *
- * Centred heading, then a grid. The rule above each cell runs the width of
- * the cell rather than the row, so the grid reads as six entries rather than
- * as two banded rows.
- */
+const industryIcons = [Factory, Fuel, Truck, Car, Cog, Zap];
+
 export function IndustriesBand() {
   return (
-    <Section>
+    <section
+      className={`${styles.section} ${styles.divided}`}
+      aria-labelledby="industries-title"
+    >
       <Container>
-        <SectionHeading
-          eyebrow="Who we help"
-          title="Eight-figure manufacturers, independent distributors"
-          deck="Manufacturers who sell through distributors they do not control, in categories where a rival brand can take a shelf one listing at a time — and where nobody upstream is reading what those distributors publish."
-        />
-
-        <ul className="mt-10 grid gap-x-10 gap-y-7 sm:mt-14 sm:grid-cols-2 sm:gap-y-8 lg:mt-16 lg:grid-cols-3">
-          {industries.map((industry, i) => (
-            <Reveal
-              key={industry.name}
-              as="li"
-              delay={(i % 3) * 60}
-              className="border-t border-line-strong pt-5"
-            >
-              <h3 className="font-heading text-base font-semibold text-ink sm:text-lg">
-                {industry.name}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                {industry.body}
-              </p>
-            </Reveal>
-          ))}
+        <Reveal className={styles.intro}>
+          <div>
+            <p className={styles.eyebrow}>Who we help</p>
+            <h2 id="industries-title">Built for industrial channels.</h2>
+          </div>
+          <p className={styles.deck}>
+            For eight-figure manufacturers and independent distributors
+            competing for a place on the shelf.
+          </p>
+        </Reveal>
+        <ul className={styles.steps}>
+          {industries.map((industry, i) => {
+            const Icon = industryIcons[i];
+            return (
+              <Reveal
+                key={industry.name}
+                as="li"
+                delay={(i % 3) * 60}
+                className={styles.step}
+              >
+                <div className={styles.stepTop}>
+                  <Icon size={25} strokeWidth={1.4} aria-hidden />
+                  <span>0{i + 1}</span>
+                </div>
+                <h3>{industry.name}</h3>
+                <p>{industry.body}</p>
+              </Reveal>
+            );
+          })}
         </ul>
       </Container>
-    </Section>
+    </section>
   );
 }

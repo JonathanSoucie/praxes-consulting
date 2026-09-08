@@ -2,7 +2,7 @@ import { Container, Section } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import Link from "next/link";
 import { ArrowUpRight, ScanLine, ShieldCheck, FileCheck2 } from "lucide-react";
-import styles from "./how-we-work.module.css";
+import styles from "./minimal-sections.module.css";
 import {
   integrationApproach,
   integrationSystems,

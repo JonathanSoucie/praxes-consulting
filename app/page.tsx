@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
 
 import { Container, Section } from "@/components/container";
 import { Hero } from "@/components/sections/hero";
@@ -8,6 +7,7 @@ import { BlackHoleScene } from "@/components/sections/black-hole-scene";
 import { ServicesPanel } from "@/components/sections/services-panel";
 import { IntegrationsBand } from "@/components/sections/integrations-band";
 import { IndustriesBand } from "@/components/sections/industries-band";
+import { ProcessOverview } from "@/components/sections/process-overview";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqList } from "@/components/sections/faq";
 import { CtaSection } from "@/components/sections/cta";
@@ -17,7 +17,6 @@ import { JsonLd } from "@/components/json-ld";
 
 import { generalFaqs } from "@/content/faqs";
 import { whyManufacturing } from "@/content/manufacturing";
-import { processSteps } from "@/content/process";
 import { site } from "@/content/site";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/schema";
 import { ogImage, pageMetadata, siteKeywords } from "@/lib/seo";
@@ -82,57 +81,7 @@ export default function HomePage() {
       <IntegrationsBand />
       <IndustriesBand />
 
-      {/* ---------------------------------------------------------------- */}
-      {/* How it runs                                                       */}
-      {/* ---------------------------------------------------------------- */}
-      {/* Five stages across, one line each. It was a sticky heading beside a
-          stack of five, which said the same thing at four times the height
-          and made the page's third column-of-paragraphs in a row. Laid out
-          this way the sequence is the point, which is what the stage names
-          are for; /process carries the detail, one click away. */}
-      <Section>
-        <Container>
-          <SectionHeading
-            eyebrow="How it runs"
-            title="Scope, reconnaissance, harvest, resolution, evidence"
-            deck="Nothing is harvested from a domain until we know what it is, and nothing is reported without the source URL it came from."
-          />
-
-          <ol className="mt-10 grid gap-x-8 gap-y-9 sm:mt-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5 lg:gap-x-6">
-            {processSteps.map((step, i) => (
-              <Reveal
-                key={step.n}
-                as="li"
-                delay={i * 60}
-                className="home-step flex flex-col border-t border-line-strong pt-5"
-              >
-                <span className="label-tech text-accent">{step.n}</span>
-                <h3 className="mt-4 font-heading text-lg leading-snug font-semibold text-ink">
-                  {step.title}
-                </h3>
-                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-muted">
-                  {step.brief}
-                </p>
-                <p className="label-tech mt-5 text-muted">
-                  {step.tag ? (
-                    <span className="text-accent">{step.tag} · </span>
-                  ) : null}
-                  {step.duration}
-                </p>
-              </Reveal>
-            ))}
-          </ol>
-
-          <Reveal delay={80} className="mt-12 flex justify-center lg:mt-16">
-            <Button asChild variant="outline">
-              <Link href="/process">
-                The full process
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
+      <ProcessOverview />
 
       {/* ---------------------------------------------------------------- */}
       {/* Why us                                                            */}

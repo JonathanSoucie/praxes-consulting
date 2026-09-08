@@ -151,3 +151,133 @@
     margin-top: 32px;
   }
 }
+
+/* Reuse the same restrained hierarchy across all three homepage sections. */
+.divided {
+  border-top: 1px solid #202027;
+}
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 28px;
+}
+.stage {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.stageNumber {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #ff6e9e45;
+  border-radius: 50%;
+  color: #ff6e9e;
+  background: #141219;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-bottom: 25px;
+}
+.stage:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 52px;
+  right: -14px;
+  height: 1px;
+  background: #303039;
+}
+.stage h3 {
+  font-size: 19px;
+  font-weight: 500;
+  color: #f6f4f5;
+  line-height: 1.35;
+  letter-spacing: -0.4px;
+}
+.stage p {
+  color: #b5b0bd;
+  font-size: 14px;
+  line-height: 1.75;
+  margin-top: 12px;
+  margin-bottom: 22px;
+  text-wrap: pretty;
+}
+.duration {
+  margin-top: auto;
+  color: #c9bccf;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.4px;
+}
+.processFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 28px;
+  margin-top: 42px;
+  background: #15151d;
+  border-radius: 12px;
+}
+.processFooter p {
+  color: #b5b0bd;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.processFooter a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: #ff6e9e;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: #ff6e9e65;
+}
+.processFooter a:hover {
+  text-decoration-color: currentColor;
+}
+@media (min-width: 641px) and (max-width: 1050px) {
+  .timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 36px;
+  }
+  .stage::after {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .stage {
+    padding-left: 60px;
+  }
+  .stageNumber {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .stage:not(:last-child)::after {
+    top: 49px;
+    left: 18px;
+    bottom: -17px;
+    right: auto;
+    height: auto;
+    width: 1px;
+  }
+  .stage p {
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }
+  .processFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 24px;
+  }
+}
