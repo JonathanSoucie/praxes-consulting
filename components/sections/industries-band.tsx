@@ -1,3 +1,4 @@
+import { SectionStars } from "./section-stars";
 import { Factory, Fuel, Truck, Car, Cog, Zap } from "lucide-react";
 import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
@@ -9,9 +10,10 @@ const industryIcons = [Factory, Fuel, Truck, Car, Cog, Zap];
 export function IndustriesBand() {
   return (
     <section
-      className={`${styles.section} ${styles.divided}`}
+      className={`${styles.section} ${styles.divided} ${styles.starSection}`}
       aria-labelledby="industries-title"
     >
+      <SectionStars seed={0x4b92} />
       <Container>
         <Reveal className={styles.intro}>
           <div>

@@ -13,10 +13,11 @@
 }
 .eyebrow {
   color: #ff6e9e;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
   margin-bottom: 22px;
 }
 .intro h2 {
@@ -282,13 +283,13 @@
   }
 }
 
-/* A distinct charcoal band for How we work, independent of other sections. */
+/* Keep the platform band and How we work on the same black ground. */
 .methodBackground {
-  background: #171820;
+  background: #0b0c10;
   border-block: 1px solid #ffffff12;
 }
 .methodBackground .assurances {
-  background: #21222d;
+  background: #15151d;
 }
 .methodBackground .step {
   border-top-color: #ffffff26;
@@ -296,7 +297,7 @@
 
 /* One continuous ground, with equal space on each side of the platform heading. */
 .integrationsGroup {
-  background: #171820;
+  background: #0b0c10;
 }
 .platformBand {
   padding-block: 40px 0;
@@ -308,4 +309,10 @@
   .platformBand {
     padding-top: 48px;
   }
+}
+
+.starSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }

@@ -3,7 +3,7 @@ import { Reveal } from "@/components/reveal";
 import { Eyebrow } from "@/components/ui/eyebrow";
 
 /**
- * Standard section header: a pill eyebrow, a display headline, optional deck.
+ * Standard section header: a pink label, a display headline, optional deck.
  * Centred by default — the reference layout leads with centred section heads
  * and reserves left-alignment for two-column text sections.
  */

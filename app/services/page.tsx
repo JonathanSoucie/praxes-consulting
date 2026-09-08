@@ -145,7 +145,7 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      <CtaSection secondary={{ href: "/process", label: "See how it runs" }} />
+      <CtaSection secondary={{ href: "/contact", label: "Get in touch" }} />
     </>
   );
 }

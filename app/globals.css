@@ -882,13 +882,13 @@
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -52px -42px;
+  inset: -80px -70px;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 55%, rgb(248 32 109 / 0.25), rgb(181 17 91 / 0.12) 45%, transparent 72%);
+  background: radial-gradient(ellipse at 50% 55%, rgb(248 32 109 / 0.48) 12%, rgb(248 32 109 / 0.26) 45%, rgb(181 17 91 / 0.1) 62%, transparent 78%);
 }
 .channel-preview-glow > .card-raise {
-  border-color: rgb(255 141 179 / 0.26);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 16px 40px -24px rgb(0 0 0 / 0.7);
+  border-color: rgb(255 141 179 / 0.4);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 16px 40px -24px rgb(0 0 0 / 0.7), 0 0 36px -12px rgb(248 32 109 / 0.3);
 }
 
 /* A cool charcoal band keeps the reasons distinct without a saturated pink floor. */
@@ -905,7 +905,7 @@
   border-color: rgb(255 110 158 / 0.5);
 }
 @media (max-width: 640px) {
-  .channel-preview-glow::before { inset: -38px -22px; }
+  .channel-preview-glow::before { inset: -55px -35px; }
 }
 
 /* Service rows reveal their copy first, then the preview and its pink light. */

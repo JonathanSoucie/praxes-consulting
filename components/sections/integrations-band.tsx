@@ -1,3 +1,4 @@
+import { SectionStars } from "./section-stars";
 import { Container, Section } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import Link from "next/link";
@@ -88,9 +89,10 @@ export function IntegrationsBand() {
         </div>
       </Section>
       <section
-        className={`${styles.section} ${styles.methodBackground}`}
+        className={`${styles.section} ${styles.methodBackground} ${styles.starSection}`}
         aria-labelledby="how-we-work-title"
       >
+        <SectionStars seed={0x7c31} />
         <Container>
           <Reveal className={styles.intro}>
             <div>
@@ -128,8 +130,8 @@ export function IntegrationsBand() {
             ))}
           </Reveal>
           <Reveal className={styles.footer}>
-            <Link href="/process">
-              See the full process
+            <Link href="/services">
+              Explore our services
               <ArrowUpRight size={17} aria-hidden />
             </Link>
           </Reveal>

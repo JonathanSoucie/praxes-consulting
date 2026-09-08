@@ -6,7 +6,6 @@ import { PageHeader } from "@/components/sections/page-header";
 import { SectionHeading } from "@/components/section-heading";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
-import { ProseLink } from "@/components/ui/prose-link";
 
 import { JsonLd } from "@/components/json-ld";
 
@@ -93,7 +92,7 @@ export default function AboutPage() {
               </p>
               <p className="text-base leading-relaxed text-muted">
                 Praxes exists to close that gap the careful way. We bring{" "}
-                <ProseLink href="/process">the same method</ProseLink> every
+                the same method every
                 time: establish what each domain is before extracting anything,
                 harvest only what is published, resolve part numbers to real
                 manufacturers, store the source URL and a verbatim quote for
@@ -230,7 +229,7 @@ export default function AboutPage() {
       <CtaSection
         title="Talk to the team."
         body="No account manager, no discovery deck. Thirty minutes with the person who would run the crawl of your channel."
-        secondary={{ href: "/process", label: "See how it runs" }}
+        secondary={{ href: "/services", label: "Explore our services" }}
       />
     </>
   );

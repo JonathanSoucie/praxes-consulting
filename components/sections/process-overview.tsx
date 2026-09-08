@@ -44,8 +44,8 @@ export function ProcessOverview() {
         </ol>
         <Reveal className={styles.processFooter}>
           <p>Start with a free, 30-minute scoping call.</p>
-          <Link href="/process">
-            See the full process
+          <Link href="/services">
+            Explore our services
             <ArrowUpRight size={17} aria-hidden />
           </Link>
         </Reveal>

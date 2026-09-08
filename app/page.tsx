@@ -92,7 +92,7 @@ export default function HomePage() {
       <CtaSection
         title="Which distributors carry you?"
         body="Thirty minutes, no preparation needed. Tell us roughly how many distributors you sell through, which categories you are contesting, and which competitors you worry about — and we'll tell you whether a census is worth running, including when the answer is no."
-        secondary={{ href: "/process", label: "See how it runs" }}
+        secondary={{ href: "/services", label: "Explore our services" }}
       />
     </>
   );

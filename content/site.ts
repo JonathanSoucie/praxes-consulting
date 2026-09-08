@@ -67,7 +67,6 @@ export const features = {
  * those subservices are assembled from.
  */
 export const nav = [
-  { href: "/process", label: "Process" },
   { href: "/services", label: "Services" },
   ...(features.caseStudies
     ? [{ href: "/case-studies", label: "Case Studies" }]

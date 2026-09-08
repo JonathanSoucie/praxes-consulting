@@ -123,7 +123,7 @@ export default function CaseStudiesPage() {
       <CtaSection
         title="What would yours show?"
         body="The discovery call is fifteen minutes and costs nothing. If there's no case, you'll hear that on the call rather than after an invoice."
-        secondary={{ href: "/process", label: "How the audit works" }}
+        secondary={{ href: "/services", label: "Explore our services" }}
       />
     </>
   );
