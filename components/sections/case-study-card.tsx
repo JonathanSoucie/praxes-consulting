@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import type { CaseStudy } from "@/content/case-studies";
-import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
+import { AmbientField } from "@/components/sections/ambient-field";
 import { cn } from "@/lib/utils";
 
 /** Index/grid card: client · problem · result metric. */
@@ -77,10 +77,10 @@ export function FeaturedCaseStudy({ study }: { study: CaseStudy }) {
       </div>
 
       <div className="relative isolate overflow-hidden border-t border-line bg-surface-2 p-8 sm:p-12">
-        <DitheredGalaxyField
+        <AmbientField
           scrim="center"
           intensity={0.85}
-          zoom={1.45}
+
           fadeBottom={false}
         />
         <div className="relative z-10">

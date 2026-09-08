@@ -165,7 +165,7 @@
      The page colour is not only a token. Two other things paint it directly
      and have to be changed with it, because their whole job is to have no
      edge against the page: the dither field's ground
-     (components/sections/dithered-galaxy-field.tsx) and the browser chrome
+     (components/sections/ambient-field.tsx) and the browser chrome
      colour (app/layout.tsx). Contrast ratios quoted through this file are
      against the page and the card. */
   --color-surface: var(--t-light, #ffffff) var(--t-dark, #222222); /* cards */

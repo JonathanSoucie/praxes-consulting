@@ -4,7 +4,7 @@ import { BookACall, BookingNote } from "@/components/book-a-call";
 import { Container, Section } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
+import { AmbientField } from "@/components/sections/ambient-field";
 import { Reveal } from "@/components/reveal";
 
 /**
@@ -24,11 +24,7 @@ export function CtaSection({
 }) {
   return (
     <Section className="relative isolate overflow-hidden">
-      {/* Follows the theme like every other field on the site: dark ink on
-          the light ground, light ink on the dark one. The band used to be
-          pinned dark in both themes, which left it as the one place the light
-          theme went black. */}
-      <DitheredGalaxyField scrim="center" intensity={0.85} zoom={1.45} />
+      <AmbientField scrim="center" intensity={0.85} />
 
       <Container className="relative z-10">
         <Reveal className="mx-auto max-w-3xl text-center">

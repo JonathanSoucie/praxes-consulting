@@ -293,3 +293,19 @@
 .methodBackground .step {
   border-top-color: #ffffff26;
 }
+
+/* One continuous ground, with equal space on each side of the platform heading. */
+.integrationsGroup {
+  background: #171820;
+}
+.platformBand {
+  padding-block: 40px 0;
+}
+.integrationsGroup .methodBackground {
+  border-top: 0;
+}
+@media (min-width: 1024px) {
+  .platformBand {
+    padding-top: 48px;
+  }
+}

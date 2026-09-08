@@ -10,7 +10,7 @@ import { CaseStudyCard } from "@/components/sections/case-study-card";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
+import { AmbientField } from "@/components/sections/ambient-field";
 
 import { JsonLd } from "@/components/json-ld";
 
@@ -83,7 +83,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Hero                                                              */}
       {/* ---------------------------------------------------------------- */}
       <div className="relative isolate overflow-hidden bg-surface-2">
-        <DitheredGalaxyField scrim="upper-left" intensity={0.55} />
+        <AmbientField scrim="upper-left" intensity={0.55} />
 
         <Container className="relative z-10 pt-32 pb-20 sm:pt-36 sm:pb-24">
           <Link

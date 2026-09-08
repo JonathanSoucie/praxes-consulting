@@ -80,7 +80,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* FAQ                                                               */}
       {/* ---------------------------------------------------------------- */}
-      <Section>
+      <Section className="border-t border-white/20">
         <Container>
           <SectionHeading eyebrow="Questions" title="Common questions" />
           <Reveal delay={80} className="mx-auto mt-10 max-w-3xl sm:mt-16">

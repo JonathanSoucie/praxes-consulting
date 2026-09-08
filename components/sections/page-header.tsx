@@ -1,24 +1,9 @@
 import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
+import { AmbientField } from "@/components/sections/ambient-field";
 
-/**
- * Standard page masthead — the short version of the hero treatment, used on
- * every page except Home. The navbar overlays the top of it.
- *
- * Same dot field as the home hero, on the same page colour, so arriving on an
- * inner page reads as the same site rather than a different one. Two things
- * are dialled back for the shorter box:
- *
- * - The scrim is centred, not weighted upper-left. This copy is centred and
- *   has no empty corner to sit in, so the calm has to be in the middle.
- * - `intensity` fades the dots toward the ground. At masthead height the crop
- *   is a narrow horizontal band through the middle of the galaxy — its densest
- *   part, with none of the empty sky that gives the home hero its air — so at
- *   full strength it reads as a busy stripe behind the title rather than as a
- *   background.
- */
+/** Shared page masthead with quiet gradient lighting and a fine edge grid. */
 export function PageHeader({
   eyebrow,
   title,
@@ -33,7 +18,7 @@ export function PageHeader({
 }) {
   return (
     <div className="relative isolate overflow-hidden bg-surface-2">
-      <DitheredGalaxyField scrim="center" intensity={0.55} />
+      <AmbientField scrim="center" intensity={0.55} />
 
       <Container className="relative z-10 pt-36 pb-20 sm:pt-40 sm:pb-24">
         <Reveal className="mx-auto max-w-3xl text-center">

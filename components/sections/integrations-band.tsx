@@ -31,8 +31,10 @@ import {
  */
 export function IntegrationsBand() {
   return (
-    <>
-      <Section className="overflow-hidden border-t border-white/20">
+    <div className={styles.integrationsGroup}>
+      <Section
+        className={`${styles.platformBand} overflow-hidden border-t border-white/20`}
+      >
         <Container>
           <Reveal>
             <p className="text-center text-base text-ink-soft sm:text-lg">
@@ -133,6 +135,6 @@ export function IntegrationsBand() {
           </Reveal>
         </Container>
       </section>
-    </>
+    </div>
   );
 }

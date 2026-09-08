@@ -5,7 +5,7 @@ import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { BookACall } from "@/components/book-a-call";
-import { DitheredGalaxyField } from "@/components/sections/dithered-galaxy-field";
+import { AmbientField } from "@/components/sections/ambient-field";
 import { nav } from "@/content/site";
 
 /* Next emits the noindex directive for this route itself — repeating it here
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <div className="relative isolate overflow-hidden bg-surface-2">
-      <DitheredGalaxyField scrim="center" intensity={0.55} />
+      <AmbientField scrim="center" intensity={0.55} />
 
       <Container className="relative z-10 pt-40 pb-28 text-center sm:pt-44 sm:pb-32">
         <div className="mx-auto max-w-2xl">
