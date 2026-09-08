@@ -1,26 +1,13 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
-
-import { Container, Section } from "@/components/container";
 import { Hero } from "@/components/sections/hero";
 import { BlackHoleScene } from "@/components/sections/black-hole-scene";
-import { ServicesPanel } from "@/components/sections/services-panel";
-import { IntegrationsBand } from "@/components/sections/integrations-band";
-import { IndustriesBand } from "@/components/sections/industries-band";
-import { SectionHeading } from "@/components/section-heading";
-import { FaqList } from "@/components/sections/faq";
-import { CtaSection } from "@/components/sections/cta";
-import { Reveal } from "@/components/reveal";
-import { Button } from "@/components/ui/button";
+import { HomeContinuation } from "@/components/sections/home-continuation";
 import { JsonLd } from "@/components/json-ld";
-
 import { generalFaqs } from "@/content/faqs";
-import { whyManufacturing } from "@/content/manufacturing";
-import { processSteps } from "@/content/process";
 import { site } from "@/content/site";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/schema";
 import { ogImage, pageMetadata, siteKeywords } from "@/lib/seo";
+import "./home.css";
 
 /* Home leads with the brand rather than taking the "— Praxes" suffix, so its
    titles are set absolutely instead of going through the shared helper. */
@@ -51,19 +38,7 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Home.
- *
- * It opens on a statement on the bare page, with the black hole's halo
- * already rising into the bottom of the first screen and nothing between
- * the two. Then the hole, close enough to fill the viewport, with the
- * questions nobody can answer inside it; then the camera pulling back until
- * the hole is a dome on the bottom edge with the six parts of Channel
- * Intelligence in orbit around it. The panel under that is what you can
- * actually buy — the five subservices, a row each. Then the platforms we
- * read and how we read them, who this is for, how an engagement runs, why
- * us, the usual questions, and the one action every page funnels to.
- */
+/** The opening scene leads into a complete editorial account of the offer. */
 export default function HomePage() {
   return (
     <>
@@ -71,153 +46,12 @@ export default function HomePage() {
         schema={[
           organizationSchema(),
           websiteSchema(),
-          // Valid because <FaqList> below renders these exact items.
           faqPageSchema(generalFaqs),
         ]}
       />
-
       <Hero />
       <BlackHoleScene />
-      <ServicesPanel />
-      <IntegrationsBand />
-      <IndustriesBand />
-
-      {/* ---------------------------------------------------------------- */}
-      {/* How it runs                                                       */}
-      {/* ---------------------------------------------------------------- */}
-      {/* Five stages across, one line each. It was a sticky heading beside a
-          stack of five, which said the same thing at four times the height
-          and made the page's third column-of-paragraphs in a row. Laid out
-          this way the sequence is the point, which is what the stage names
-          are for; /process carries the detail, one click away. */}
-      <Section>
-        <Container>
-          <SectionHeading
-            eyebrow="How it runs"
-            title="Scope, reconnaissance, harvest, resolution, evidence"
-            deck="Nothing is harvested from a domain until we know what it is, and nothing is reported without the source URL it came from."
-          />
-
-          <ol className="mt-10 grid gap-x-8 gap-y-9 sm:mt-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-5 lg:gap-x-6">
-            {processSteps.map((step, i) => (
-              <Reveal
-                key={step.n}
-                as="li"
-                delay={i * 60}
-                className="home-step flex flex-col border-t border-line-strong pt-5"
-              >
-                <span className="label-tech text-accent">{step.n}</span>
-                <h3 className="mt-4 font-heading text-lg leading-snug font-semibold text-ink">
-                  {step.title}
-                </h3>
-                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-muted">
-                  {step.brief}
-                </p>
-                <p className="label-tech mt-5 text-muted">
-                  {step.tag ? (
-                    <span className="text-accent">{step.tag} · </span>
-                  ) : null}
-                  {step.duration}
-                </p>
-              </Reveal>
-            ))}
-          </ol>
-
-          <Reveal delay={80} className="mt-12 flex justify-center lg:mt-16">
-            <Button asChild variant="outline">
-              <Link href="/process">
-                The full process
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Why us                                                            */}
-      {/* ---------------------------------------------------------------- */}
-      {/* The one section on the page with a ground of its own: the page
-          colour at the top running into the logo's deep pink at the foot,
-          with the four reasons as a row of cards over it.
-
-          The ramp is measured up from the bottom in pixels, not in
-          percentages of the section. As a percentage it is a different
-          picture at every height: four cards in a row make a short section
-          on a desktop, where the pink is a foot; the same four stacked on a
-          phone make one three times taller, where those stops put a thousand
-          pixels of flat magenta behind the copy and left the closing button
-          on the hottest part of it. Anchored to the foot, a taller section
-          grows out of the top of the ramp rather than stretching it. */}
-      <Section className="relative isolate overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10"
-          style={{
-            background:
-              "linear-gradient(to top, #8e0c48 0px, #3a0f2a 250px, var(--color-surface-2) 640px)",
-          }}
-        />
-        <Container>
-          <SectionHeading
-            align="left"
-            eyebrow="Why Praxes"
-            title="Built for industrial distribution"
-          />
-
-          <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:mt-16 lg:grid-cols-4">
-            {whyManufacturing.map((item, i) => (
-              <Reveal
-                key={item.title}
-                delay={i * 60}
-                className="home-card card-raise hover-lift flex h-full flex-col rounded-[18px] border border-line-strong bg-surface/90 p-6 backdrop-blur-sm sm:p-7"
-              >
-                <h3 className="font-heading text-lg leading-snug font-semibold text-ink sm:text-xl">
-                  {item.title}
-                </h3>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
-                  {item.body}
-                </p>
-                <div className="mt-8 flex items-end justify-between gap-4">
-                  <span className="figure-num text-3xl text-ink sm:text-4xl">
-                    0{i + 1}
-                  </span>
-                  <Link
-                    href="/process"
-                    className="text-sm text-ink-soft underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-                  >
-                    See the process &rarr;
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={200} className="mt-12 flex justify-center">
-            <Button asChild variant="outline" size="lg">
-              <Link href="/services">What is inside it</Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
-
-      {/* ---------------------------------------------------------------- */}
-      {/* FAQ                                                               */}
-      {/* ---------------------------------------------------------------- */}
-      <Section>
-        <Container>
-          <SectionHeading eyebrow="Questions" title="Common questions" />
-          <Reveal delay={80} className="mx-auto mt-10 max-w-3xl sm:mt-16">
-            <FaqList items={generalFaqs} />
-          </Reveal>
-        </Container>
-      </Section>
-
-      <CtaSection
-        title="Which distributors carry you?"
-        body="Thirty minutes, no preparation needed. Tell us roughly how many distributors you sell through, which categories you are contesting, and which competitors you worry about — and we'll tell you whether a census is worth running, including when the answer is no."
-        secondary={{ href: "/process", label: "See how it runs" }}
-      />
+      <HomeContinuation />
     </>
   );
 }
