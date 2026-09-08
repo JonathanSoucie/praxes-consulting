@@ -1,5 +1,5 @@
 import { Container } from "@/components/container";
-import { Reveal } from "@/components/reveal";
+import "@fontsource-variable/plus-jakarta-sans/wght.css";
 import { hero } from "@/content/manufacturing";
 import {
   HOLE_BACKGROUND,
@@ -100,33 +100,16 @@ export function Hero() {
           copy is centred in what is left, with symmetric padding so the
           centre is the section's centre. */}
       <Container className="relative z-10 flex min-h-[78svh] flex-col items-center justify-center py-20 text-center sm:py-24 lg:py-28">
-        <Reveal className="flex flex-col items-center">
-          {/* The name of the thing, at full display size and first on the
-              page — there is no eyebrow above it now, so nothing competes.
-              36ch is clamped by the 78rem container on a wide screen; at
-              fifty-eight characters this sets on two lines, and
-              `text-balance` splits them evenly rather than leaving a short
-              second. */}
-          <h1
-            id="hero-title"
-            className="hero-reflect max-w-[36ch] font-display text-[1.875rem] leading-[1.02] font-bold tracking-[-0.03em] text-balance min-[400px]:text-[2.25rem] sm:text-5xl lg:text-6xl xl:text-[4.25rem]"
-          >
-            {hero.headline}
+        <div className="hero-copy flex w-full flex-col items-center">
+          <h1 id="hero-title" className="hero-headline">
+            {hero.headline}{" "}
+            <span className="hero-highlight">{hero.highlight}</span>
           </h1>
-
-          {/* The rule stays at the paragraph's own measure, so it reads as
-              that block's lid rather than as a divider across the page. That
-              puts the paragraph at roughly eighty characters a line, which is
-              the top of what reads comfortably; wider and it stops being a
-              paragraph.
-
-              It takes the glow through its middle — see `hero-rule`. */}
-          <hr aria-hidden className="hero-rule mt-8 w-full max-w-3xl sm:mt-10" />
-
-          <p className="mt-6 max-w-3xl text-base leading-relaxed text-ink-soft sm:mt-8 sm:text-xl">
+          <hr aria-hidden className="hero-rule hero-rule-enter mt-8 w-full max-w-2xl sm:mt-10" />
+          <p className="hero-deck mt-6 max-w-2xl text-base leading-relaxed text-ink-soft sm:mt-8 sm:text-lg">
             {hero.sub}
           </p>
-        </Reveal>
+        </div>
       </Container>
     </section>
   );

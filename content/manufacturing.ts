@@ -14,7 +14,8 @@
  * nothing else on the screen, because the action is in the bar above.
  */
 export const hero = {
-  headline: "The Channel & Product Intelligence Engine for Manufacturers",
+  headline: "The Channel & Product Intelligence Engine",
+  highlight: "for Manufacturers",
   /** Under the rule. */
   sub: "Channel Intelligence crawls your distributor network, extracts the catalogs they publish, and converts raw product data into commercial intelligence — with every finding traced to the live listing it came from.",
 } as const;

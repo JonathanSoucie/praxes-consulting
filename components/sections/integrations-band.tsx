@@ -47,7 +47,7 @@ export function IntegrationsBand() {
           element's border as well as its content — put both on one element
           and the rules dissolve at the ends along with the wordmarks, which
           is the opposite of what a rule is for. */}
-      <div className="relative mt-10 border-y border-line-strong py-7 lg:mt-12">
+      <div className="integrations-marquee relative mt-10 border-y border-line-strong py-7 lg:mt-12">
         <div
           style={{
             maskImage:

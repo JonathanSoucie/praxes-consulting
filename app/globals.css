@@ -489,55 +489,92 @@
   margin-bottom: -0.16em;
 }
 
-/* The hero headline, lit from below.
+/* Local variable font preserves the requested intermediate weight. The entire
+   headline moves as one unit; supporting copy follows without hiding SSR text. */
+.hero-headline {
+  max-width: 24ch;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", Arial, sans-serif;
+  font-weight: 350;
+  font-style: normal;
+  font-size: clamp(42px, 4.1vw, 60px);
+  line-height: 1.09;
+  letter-spacing: -2.5px;
+  color: #f6f4f5;
+  text-wrap: balance;
+  animation: hero-enter 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
-   The black hole's halo crests just under the hero and is centred on the
-   page, so the type is sitting on the near edge of a light source with a
-   known position. This is that source: a radial ellipse centred a little
-   below the block's bottom edge, hot at #FF6E9E — the halo's own pink —
-   through a pale rose and out to page ink before it reaches the top line.
+.hero-highlight {
+  display: block;
+  font-size: 1em;
+  font-weight: 350;
+  line-height: 1.15;
+  letter-spacing: -2px;
+  color: #f8206d;
+}
 
-   Radial rather than a flat band, because the halo is a glow at a point and
-   not a horizon. The ends of the lower line fall off from its centre the way
-   they would under a real lamp, and the line above catches only the edge of
-   it.
+.hero-rule-enter {
+  animation: hero-rule-enter 850ms 140ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
-   WHY ONE SOURCE AND NOT ONE PER LINE
+.hero-deck {
+  text-wrap: pretty;
+  animation: hero-enter 850ms 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
-   Tiling a gradient per line box is the obvious way to light every row, and
-   it cannot work at this leading. A descender reaches 112% of its line box —
-   12% into the next tile, which begins again at ink — so every "g" and "y"
-   lost its light halfway down. The overlap cannot be painted pink either:
-   line one's descender lands at 50.4% of a two-line block and line two's
-   capitals start at 52.2%, so anything reaching down for the tails catches
-   the tops of the caps underneath them.
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-   The stops are placed against measured glyph positions, which is why they
-   are odd numbers. Top line caps sit outside the ellipse and stay ink; its
-   baseline is three quarters of the way to ink and takes only a trace; the
-   lower line runs from half-lit at the cap through warm at the baseline to
-   nearly the full pink on the tails. The tails are inside the paint because
-   of the padding below — the box otherwise stops at the last line box, which
-   is above them. */
-@utility hero-reflect {
-  background-image: radial-gradient(
-    ellipse 135% 100% at 50% 112%,
-    #ff6e9e 0%,
-    #ff9dc0 20%,
-    #ffcadd 38%,
-    var(--color-ink) 86%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  /* What the letters throw back at the page: a close warm one for the bounce
-     and a wide faint one for the air around it. Both weak — a tight single
-     shadow reads as a drop shadow, which is the opposite of a bounce. */
-  text-shadow:
-    0 0 24px rgba(248, 32, 109, 0.26),
-    0 0 64px rgba(255, 110, 158, 0.13);
-  padding-bottom: 0.22em;
-  margin-bottom: -0.22em;
+@keyframes hero-rule-enter {
+  from { opacity: 0; transform: scaleX(0.65); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@media (min-width: 761px) and (max-width: 1050px) {
+  .hero-headline { font-size: 43px; letter-spacing: -2px; }
+}
+
+@media (max-width: 760px) {
+  .hero-headline {
+    font-size: clamp(39px, 9.5vw, 62px);
+    letter-spacing: -1.8px;
+  }
+  .hero-highlight { letter-spacing: -1.5px; }
+}
+
+/* A restrained accent ties the lower homepage to the hero. Preserve the
+   reveal transition while adding border and shadow feedback. */
+.home-card {
+  background-image: radial-gradient(ellipse at top left, rgb(248 32 109 / 0.06), transparent 70%);
+  transition: opacity 700ms var(--ease-out-soft), transform 700ms var(--ease-out-soft),
+    border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.home-card:focus-within {
+  border-color: rgb(248 32 109 / 0.55);
+  box-shadow: 0 12px 40px -20px rgb(248 32 109 / 0.22);
+}
+
+.home-step {
+  border-image: linear-gradient(90deg, rgb(248 32 109 / 0.65), var(--color-line-strong) 65%) 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home-card:hover {
+    border-color: rgb(248 32 109 / 0.55);
+    box-shadow: 0 12px 40px -20px rgb(248 32 109 / 0.22);
+  }
+  .integrations-marquee:hover .marquee-track { animation-play-state: paused; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-headline, .hero-rule-enter, .hero-deck { animation: none !important; }
+  .integrations-marquee { overflow-x: auto; }
+  .integrations-marquee > div { mask-image: none !important; }
+  .integrations-marquee [aria-hidden="true"] { display: none; }
 }
 
 /* The rule under the hero headline, catching the same light. Line colour at
