@@ -1,3 +1,4 @@
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionStars } from "./section-stars";
 import { Container, Section } from "@/components/container";
 import { Reveal } from "@/components/reveal";
@@ -96,7 +97,9 @@ export function IntegrationsBand() {
         <Container>
           <Reveal className={styles.intro}>
             <div>
-              <p className={styles.eyebrow}>{integrationApproach.eyebrow}</p>
+              <Eyebrow className={styles.eyebrow}>
+                {integrationApproach.eyebrow}
+              </Eyebrow>
               <h2 id="how-we-work-title">{integrationApproach.title}</h2>
             </div>
             <p className={styles.deck}>{integrationApproach.deck}</p>

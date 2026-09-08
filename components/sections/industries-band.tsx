@@ -1,3 +1,4 @@
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionStars } from "./section-stars";
 import { Factory, Fuel, Truck, Car, Cog, Zap } from "lucide-react";
 import { Container } from "@/components/container";
@@ -17,7 +18,7 @@ export function IndustriesBand() {
       <Container>
         <Reveal className={styles.intro}>
           <div>
-            <p className={styles.eyebrow}>Who we help</p>
+            <Eyebrow className={styles.eyebrow}>Who we help</Eyebrow>
             <h2 id="industries-title">Built for industrial channels.</h2>
           </div>
           <p className={styles.deck}>

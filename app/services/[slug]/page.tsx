@@ -196,7 +196,7 @@ export default async function ServicePage({ params }: Params) {
       {/* The other subservices. */}
       <Section className="pt-0 sm:pt-0 lg:pt-0">
         <Container>
-          <p className="label-section text-muted">Also inside Channel Intelligence</p>
+          <p className="label-section text-accent">Also inside Channel Intelligence</p>
           <div className="mt-8 grid border-t border-line-strong sm:grid-cols-2">
             {others.map((other) => (
               <Link

@@ -62,7 +62,7 @@ export function TimeEstimator({ className }: { className?: string }) {
       <div className="grid gap-10 border-t border-line-strong pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
         {/* What you set. */}
         <div>
-          <p className="label-section text-muted">Estimator</p>
+          <p className="label-section text-accent">Estimator</p>
 
           <h3 className="card-title mt-5 text-2xl sm:text-[1.75rem]">
             Where does the time go?

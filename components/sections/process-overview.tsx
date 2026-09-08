@@ -1,3 +1,4 @@
+import { Eyebrow } from "@/components/ui/eyebrow";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/container";
@@ -14,7 +15,7 @@ export function ProcessOverview() {
       <Container>
         <Reveal className={styles.intro}>
           <div>
-            <p className={styles.eyebrow}>How it runs</p>
+            <Eyebrow className={styles.eyebrow}>How it runs</Eyebrow>
             <h2 id="process-overview-title">
               From first call to clear evidence.
             </h2>
