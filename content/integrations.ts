@@ -53,28 +53,28 @@ export const integrationSystems: IntegrationSystem[] = [
  */
 export const integrationApproach = {
   eyebrow: "How we work",
-  title: "Public pages, one request per second",
-  deck: "Nothing here depends on your distributors' cooperation, and nothing here goes anywhere a browser could not. We read what they chose to publish, at a rate that costs them nothing, and we keep the receipt for every value we report.",
+  title: "Careful collection. Clear evidence.",
+  deck: "Public pages. One request per second. Every finding linked to its source.",
   points: [
     {
-      title: "Reconnaissance before extraction",
-      body: "We establish what each domain is — reachable, catalogued, gated, parked — before harvesting anything from it. That is what makes the first layer cheap, and what stops a project being scoped against a channel nobody has looked at.",
+      title: "Check before we crawl",
+      body: "We check each domain’s access, platform, and catalog before collecting data.",
     },
     {
-      title: "robots.txt and dealer logins are respected",
-      body: "A site that excludes automated access, or puts its catalog behind a dealer login, is reported as gated with a recommendation for manual review or direct outreach. It is never worked around and never counted as an empty catalog.",
+      title: "Respect the boundaries",
+      body: "We respect robots.txt and dealer logins. Restricted sites are flagged, never bypassed.",
     },
     {
-      title: "Evidence stored with every value",
-      body: "The source URL and a verbatim quote are kept for every field we report. A finding you cannot open and check is a finding your sales team will not use in front of a distributor, and they would be right not to.",
+      title: "Keep the evidence",
+      body: "Every finding includes a source URL and a verbatim quote, ready to open and verify.",
     },
     {
-      title: "Resolution cached permanently",
-      body: "Mapping a part number to its manufacturer is the one step in the pipeline with real per-part work behind it. Every result is cached forever, so the same part is only ever resolved once and recurring runs are a fraction of the first.",
+      title: "Resolve once. Reuse forever.",
+      body: "Manufacturer matches are cached, making repeat runs faster and less costly.",
     },
     {
-      title: "Your channel data stays yours",
-      body: "Your distributor list, categories, competitor universe and reports are confidential and are not sold on. The one asset we build across clients is the interchange database of cross-reference tables distributors publish themselves, and access to that is licensed selectively.",
+      title: "Your data stays yours",
+      body: "Your distributor list and reports stay confidential. Public interchange data is built and licensed separately.",
     },
   ],
 } as const;

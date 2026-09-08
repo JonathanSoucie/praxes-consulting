@@ -1,6 +1,8 @@
 import { Container, Section } from "@/components/container";
 import { Reveal } from "@/components/reveal";
-import { SectionHeading } from "@/components/section-heading";
+import Link from "next/link";
+import { ArrowUpRight, ScanLine, ShieldCheck, FileCheck2 } from "lucide-react";
+import styles from "./how-we-work.module.css";
 import {
   integrationApproach,
   integrationSystems,
@@ -29,16 +31,17 @@ import {
  */
 export function IntegrationsBand() {
   return (
-    <Section className="overflow-hidden">
-      <Container>
-        <Reveal>
-          <p className="text-center text-base text-ink-soft sm:text-lg">
-            Platforms we read, and systems findings land in
-          </p>
-        </Reveal>
-      </Container>
+    <>
+      <Section className="overflow-hidden">
+        <Container>
+          <Reveal>
+            <p className="text-center text-base text-ink-soft sm:text-lg">
+              Platforms we read, and systems findings land in
+            </p>
+          </Reveal>
+        </Container>
 
-      {/* Full-bleed, and outside the Container: the row should run off both
+        {/* Full-bleed, and outside the Container: the row should run off both
           edges of the page rather than stopping at the gutter, or it reads as
           a widget instead of as something passing through.
 
@@ -47,70 +50,86 @@ export function IntegrationsBand() {
           element's border as well as its content — put both on one element
           and the rules dissolve at the ends along with the wordmarks, which
           is the opposite of what a rule is for. */}
-      <div className="integrations-marquee relative mt-10 border-y border-line-strong py-7 lg:mt-12">
-        <div
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
-          }}
-        >
-          <div className="marquee-track flex w-max animate-marquee items-stretch">
-            {[0, 1].map((copy) => (
-              <ul
-                key={copy}
-                aria-hidden={copy === 1 || undefined}
-                className="flex shrink-0 items-stretch"
-              >
-                {integrationSystems.map((system) => (
-                  <li
-                    key={system.name}
-                    className="flex shrink-0 flex-col justify-center border-l border-line px-8 lg:px-12"
-                  >
-                    <span className="font-sans text-lg font-semibold whitespace-nowrap text-ink-soft lg:text-xl">
-                      {system.name}
-                    </span>
-                    <span className="label-tech mt-1.5 text-muted">
-                      {system.kind}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            ))}
+        <div className="integrations-marquee relative mt-10 border-y border-line-strong py-7 lg:mt-12">
+          <div
+            style={{
+              maskImage:
+                "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
+            }}
+          >
+            <div className="marquee-track flex w-max animate-marquee items-stretch">
+              {[0, 1].map((copy) => (
+                <ul
+                  key={copy}
+                  aria-hidden={copy === 1 || undefined}
+                  className="flex shrink-0 items-stretch"
+                >
+                  {integrationSystems.map((system) => (
+                    <li
+                      key={system.name}
+                      className="flex shrink-0 flex-col justify-center border-l border-line px-8 lg:px-12"
+                    >
+                      <span className="font-sans text-lg font-semibold whitespace-nowrap text-ink-soft lg:text-xl">
+                        {system.name}
+                      </span>
+                      <span className="label-tech mt-1.5 text-muted">
+                        {system.kind}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-
-      <Container className="mt-16 sm:mt-24 lg:mt-32">
-        <div className="grid gap-8 sm:gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-          <SectionHeading
-            align="left"
-            eyebrow={integrationApproach.eyebrow}
-            title={integrationApproach.title}
-            deck={integrationApproach.deck}
-            className="lg:sticky lg:top-28 lg:self-start"
-          />
-
-          <ul className="grid">
-            {integrationApproach.points.map((point, i) => (
-              <Reveal
-                key={point.title}
-                as="li"
-                delay={i * 50}
-                className="border-t border-line-strong py-6 last:border-b"
-              >
-                <h3 className="font-heading text-lg font-semibold text-ink sm:text-xl">
-                  {point.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">
-                  {point.body}
-                </p>
-              </Reveal>
+      </Section>
+      <section className={styles.section} aria-labelledby="how-we-work-title">
+        <Container>
+          <Reveal className={styles.intro}>
+            <div>
+              <p className={styles.eyebrow}>{integrationApproach.eyebrow}</p>
+              <h2 id="how-we-work-title">{integrationApproach.title}</h2>
+            </div>
+            <p className={styles.deck}>{integrationApproach.deck}</p>
+          </Reveal>
+          <ol className={styles.steps}>
+            {integrationApproach.points.slice(0, 3).map((point, i) => {
+              const Icon = [ScanLine, ShieldCheck, FileCheck2][i];
+              return (
+                <Reveal
+                  as="li"
+                  key={point.title}
+                  delay={i * 70}
+                  className={styles.step}
+                >
+                  <div className={styles.stepTop}>
+                    <Icon size={25} strokeWidth={1.4} aria-hidden />
+                    <span>0{i + 1}</span>
+                  </div>
+                  <h3>{point.title}</h3>
+                  <p>{point.body}</p>
+                </Reveal>
+              );
+            })}
+          </ol>
+          <Reveal className={styles.assurances}>
+            {integrationApproach.points.slice(3).map((point) => (
+              <div key={point.title}>
+                <h3>{point.title}</h3>
+                <p>{point.body}</p>
+              </div>
             ))}
-          </ul>
-        </div>
-      </Container>
-    </Section>
+          </Reveal>
+          <Reveal className={styles.footer}>
+            <Link href="/process">
+              See the full process
+              <ArrowUpRight size={17} aria-hidden />
+            </Link>
+          </Reveal>
+        </Container>
+      </section>
+    </>
   );
 }
