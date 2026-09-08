@@ -19,10 +19,10 @@
   font-size: 25px;
   line-height: 1;
   letter-spacing: -.9px;
-  /* Match the optical centre of the smaller Inter navigation labels. */
-  translate: 0 1.5px;
 }
 .logo > svg { display: block; flex-shrink: 0; }
+/* Centre the visible Jakarta letterforms against the Inter link labels. */
+.logo > span { display: block; translate: 0 -1px; }
 .desktopNav { display: none; }
 .links { display: flex; align-items: center; gap: 32px; }
 .link {

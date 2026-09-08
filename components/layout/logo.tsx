@@ -30,7 +30,7 @@ export function Logo({
       )}
     >
       <LogoMark size={markSize} />
-      {wordmark ? site.name : null}
+      {wordmark ? <span>{site.name}</span> : null}
     </Link>
   );
 }
