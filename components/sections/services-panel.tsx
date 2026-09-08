@@ -3,13 +3,13 @@ import { ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/container";
 import { Reveal } from "@/components/reveal";
-import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StepPanelView } from "@/components/process/step-panel";
 import { STAR_COLOR, starField } from "@/components/sections/hole-geometry";
 import { servicesSection } from "@/content/manufacturing";
 import { services } from "@/content/services";
 import { cn } from "@/lib/utils";
+import styles from "./refined-home.module.css";
 
 /**
  * The services on the home page: one row per engagement, alternating — copy
@@ -46,11 +46,9 @@ export function ServicesPanel() {
   return (
     <section
       aria-labelledby="services-title"
-      className="relative isolate overflow-hidden bg-surface-2 pt-20 pb-16 sm:pt-44 sm:pb-20 lg:pt-52 lg:pb-28"
+      className={styles.services}
     >
-      {/* The sky, faded out at the foot of the section: what follows has no
-          stars, and a field that simply stopped would draw a line across the
-          page where it did. */}
+      {/* Fade the sky toward the next section so its boundary stays quiet. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
@@ -78,48 +76,47 @@ export function ServicesPanel() {
       </div>
 
       <Container>
-        <Reveal className="max-w-4xl">
-          <Eyebrow>{servicesSection.eyebrow}</Eyebrow>
-          <h2
-            id="services-title"
-            className="mt-6 text-3xl leading-[1.06] text-ink sm:text-4xl lg:text-[2.875rem]"
-          >
-            {servicesSection.title}
-          </h2>
+        <Reveal className={styles.servicesIntro}>
+          <div>
+            <Eyebrow>{servicesSection.eyebrow}</Eyebrow>
+            <h2 id="services-title">{servicesSection.title}</h2>
+          </div>
+          <p>From the first crawl to monthly monitoring. A clear view of your distributor network, backed by evidence.</p>
         </Reveal>
 
-        <ul className="mt-12 grid gap-16 sm:mt-16 sm:gap-20 lg:mt-24 lg:gap-28">
+        <ul className={styles.serviceList}>
           {services.map((service, i) => {
             const panelFirst = i % 2 === 1;
             return (
               <Reveal
                 key={service.slug}
                 as="li"
-                className="channel-service-row grid items-center gap-8 lg:grid-cols-2 lg:gap-16 xl:gap-20"
+                className={cn("channel-service-row", styles.serviceRow)}
               >
                 <div
                   className={cn(
                     "channel-service-copy",
+                    styles.serviceCopy,
                     panelFirst && "lg:order-2",
                   )}
                 >
-                  <span className="label-tech text-accent">
+                  <span className={styles.serviceNumber}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-4 font-heading text-2xl leading-snug font-semibold text-ink sm:text-3xl">
+                  <h3>
                     {service.name}
                   </h3>
-                  <p className="mt-4 max-w-md text-base leading-relaxed text-muted sm:mt-5">
+                  <p>
                     {service.showcase.blurb}
                   </p>
                   <Link
                     href={`/services/${service.slug}`}
-                    className="group mt-7 inline-flex w-fit items-center gap-1.5 text-sm text-ink-soft underline decoration-line-strong underline-offset-[5px] transition-colors hover:text-accent hover:decoration-accent"
+                    className={styles.textLink}
                   >
                     How it works
                     <ArrowRight
                       aria-hidden
-                      className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
+                      className="size-4"
                     />
                   </Link>
                 </div>
@@ -127,6 +124,7 @@ export function ServicesPanel() {
                 <div
                   className={cn(
                     "channel-preview-glow",
+                    styles.preview,
                     panelFirst && "lg:order-1",
                   )}
                 >
@@ -141,11 +139,11 @@ export function ServicesPanel() {
 
         <Reveal
           delay={120}
-          className="mt-14 flex justify-center sm:mt-20 lg:mt-28"
+          className={styles.servicesFooter}
         >
-          <Button asChild variant="outline" size="lg">
-            <Link href="/services">View all services</Link>
-          </Button>
+          <Link href="/services" className={styles.textLink}>
+            View all services <ArrowRight size={17} aria-hidden />
+          </Link>
         </Reveal>
       </Container>
     </section>

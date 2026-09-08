@@ -15,31 +15,31 @@ export function IndustriesBand() {
       aria-labelledby="industries-title"
     >
       <SectionStars seed={0x4b92} />
-      <Container>
-        <Reveal className={styles.intro}>
-          <div>
-            <Eyebrow className={styles.eyebrow}>Who we help</Eyebrow>
-            <h2 id="industries-title">Built for industrial channels.</h2>
-          </div>
+      <Container className={styles.industriesLayout}>
+        <Reveal className={styles.industriesIntro}>
+          <Eyebrow className={styles.eyebrow}>Who we help</Eyebrow>
+          <h2 id="industries-title">Built for industrial channels.</h2>
           <p className={styles.deck}>
             For eight-figure manufacturers and independent distributors
             competing for a place on the shelf.
           </p>
         </Reveal>
-        <ul className={styles.steps}>
+        <ul className={styles.industriesList}>
           {industries.map((industry, i) => {
             const Icon = industryIcons[i];
             return (
               <Reveal
                 key={industry.name}
                 as="li"
-                delay={(i % 3) * 60}
-                className={styles.step}
+                delay={(i % 2) * 60}
+                className={styles.industry}
               >
-                <div className={styles.stepTop}>
-                  <Icon size={25} strokeWidth={1.4} aria-hidden />
-                  <span>0{i + 1}</span>
-                </div>
+                <Icon
+                  className={styles.industryIcon}
+                  size={22}
+                  strokeWidth={1.4}
+                  aria-hidden
+                />
                 <h3>{industry.name}</h3>
                 <p>{industry.body}</p>
               </Reveal>

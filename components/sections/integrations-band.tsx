@@ -36,8 +36,8 @@ export function IntegrationsBand() {
                 className={styles.step}
               >
                 <div className={styles.stepTop}>
-                  <Icon size={25} strokeWidth={1.4} aria-hidden />
                   <span>0{i + 1}</span>
+                  <Icon size={22} strokeWidth={1.4} aria-hidden />
                 </div>
                 <h3>{point.title}</h3>
                 <p>{point.body}</p>
@@ -47,7 +47,7 @@ export function IntegrationsBand() {
         </ol>
         <Reveal className={styles.assurances}>
           {integrationApproach.points.slice(3).map((point) => (
-            <div key={point.title}>
+            <div key={point.title} className={styles.assurance}>
               <h3>{point.title}</h3>
               <p>{point.body}</p>
             </div>
