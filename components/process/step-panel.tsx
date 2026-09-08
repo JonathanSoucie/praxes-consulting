@@ -23,7 +23,7 @@ export function StepPanelView({
   active: boolean;
 }) {
   return (
-    <div className="h-full rounded-[14px] border border-line-strong bg-surface p-5 sm:p-7 lg:p-9">
+    <div className="card-raise h-full rounded-xl bg-surface p-5 sm:p-7 lg:p-9">
       {panel.kind === "flow" ? <FlowPanel panel={panel} /> : null}
       {panel.kind === "rows" ? <RowsPanel panel={panel} /> : null}
       {panel.kind === "bars" ? (
@@ -151,15 +151,16 @@ function BarsPanel({
             <div className="mt-2.5 h-1.5 w-full rounded-full bg-line">
               <div
                 className={cn(
-                  "h-full origin-left rounded-full transition-[width] duration-700 ease-out-soft",
+                  "data-bar h-full origin-left rounded-full transition-[width] duration-700 ease-out-soft",
                   bar.muted ? "bg-line-strong" : "bg-accent",
                 )}
                 style={{
                   width: active ? `${bar.value}%` : "0%",
+                  "--bar-delay": `${i * 90}ms`,
                   // Staggered so the bars arrive in order and the panel reads
                   // as a chart being drawn, not as four things appearing.
                   transitionDelay: active ? `${i * 90}ms` : "0ms",
-                }}
+                } as React.CSSProperties}
               />
             </div>
           </li>

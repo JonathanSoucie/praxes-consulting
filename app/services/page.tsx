@@ -54,7 +54,7 @@ export default function ServicesPage() {
         <Container>
           {services.map((service, i) => (
             <Reveal key={service.slug} delay={i * 80}>
-              <article className="grid gap-8 border-t border-line-strong py-12 last:border-b lg:grid-cols-[auto_1fr] lg:gap-16 lg:py-20">
+              <article className="card-raise mb-6 grid gap-8 rounded-2xl bg-surface p-6 sm:p-9 lg:grid-cols-[auto_1fr] lg:gap-12 lg:p-12">
                 <span className="figure-num text-4xl text-accent lg:text-5xl">
                   0{i + 1}
                 </span>

@@ -325,11 +325,15 @@ export function BlackHoleScene() {
         ctx.globalAlpha = 1;
       };
 
+      let previousTime = 0;
       const tick = (time: number) => {
+        // Keep the camera easing consistent on 60 Hz and high-refresh displays.
+        const frameDuration = previousTime ? Math.min(time - previousTime, 64) : 1000 / 60;
+        previousTime = time;
         const target = clamp01((progress() - HOLD_IN) / (1 - HOLD_IN - HOLD_OUT));
         if (eased < 0 || reduceMotion) eased = target;
         else {
-          eased += (target - eased) * EASE;
+          eased += (target - eased) * (1 - Math.pow(1 - EASE, frameDuration / (1000 / 60)));
           if (Math.abs(target - eased) < 0.0005) eased = target;
         }
         const t = smooth(eased);

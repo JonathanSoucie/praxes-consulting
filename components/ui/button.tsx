@@ -5,21 +5,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  // `rounded-sm`, not `rounded-none`: it resolves through the --radius-* scale,
-  // which is zeroed site-wide, so buttons are square for the same reason the
-  // cards are and go back to rounding with them if that decision is reversed.
-  //
-  // Tracked uppercase mono, matching the reference layout's actions. The size
-  // steps below drop their own font-size for the same reason — at this
-  // tracking a 15px label on the large size overflowed its box.
-  "inline-flex items-center justify-center gap-2 rounded-sm font-mono text-xs tracking-[0.12em] whitespace-nowrap uppercase transition-[background-color,color,border-color,box-shadow,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  "ui-button inline-flex items-center justify-center gap-2 rounded-sm font-sans text-sm font-medium tracking-[-0.01em] whitespace-nowrap transition-[background-color,color,border-color,box-shadow,transform] duration-250 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         /* Violet — the booking CTA and form submits. Fill only: `card-raise`
            is a hairline now rather than a shadow, and a grey line around a
            solid violet pill reads as a rendering artefact. */
-        primary: "bg-accent text-on-accent hover:bg-accent-hover",
+        primary: "bg-accent text-on-accent shadow-[0_4px_20px_-8px_rgba(248,32,109,0.5)] hover:bg-accent-hover hover:shadow-[0_6px_28px_-8px_rgba(248,32,109,0.65)]",
         /* On the dark gradient: solid white pill. The label is `text-deep`,
            not `text-ink` — the deep band stays dark in both themes, so ink
            (which flips to near-white in dark) would render white-on-white. */
@@ -36,7 +29,7 @@ const buttonVariants = cva(
       size: {
         sm: "h-9 px-4",
         md: "h-11 px-5",
-        lg: "h-12.5 px-7 text-[0.8125rem]",
+        lg: "h-12.5 px-7 text-sm",
       },
     },
     defaultVariants: {

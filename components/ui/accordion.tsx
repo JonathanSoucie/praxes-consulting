@@ -15,7 +15,7 @@ function AccordionItem({
   return (
     <AccordionPrimitive.Item
       className={cn(
-        "card-raise overflow-hidden rounded-xl bg-surface transition-shadow",
+        "accordion-item card-raise overflow-hidden rounded-xl bg-surface transition-[border-color,background-color,box-shadow] duration-300",
         className,
       )}
       {...props}

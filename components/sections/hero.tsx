@@ -1,5 +1,4 @@
 import { Container } from "@/components/container";
-import "@fontsource-variable/plus-jakarta-sans/wght.css";
 import { hero } from "@/content/manufacturing";
 import {
   HOLE_BACKGROUND,
@@ -99,14 +98,14 @@ export function Hero() {
           the halo, and the ring at about five percent below the seam. The
           copy is centred in what is left, with symmetric padding so the
           centre is the section's centre. */}
-      <Container className="relative z-10 flex min-h-[78svh] flex-col items-center justify-center py-20 text-center sm:py-24 lg:py-28">
+      <Container className="hero-container relative z-10 flex min-h-[78svh] flex-col items-center justify-center py-20 text-center sm:py-24 lg:py-28">
         <div className="hero-copy flex w-full flex-col items-center">
           <h1 id="hero-title" className="hero-headline">
             {hero.headline}{" "}
             <span className="hero-highlight">{hero.highlight}</span>
           </h1>
-          <hr aria-hidden className="hero-rule hero-rule-enter mt-8 w-full max-w-2xl sm:mt-10" />
-          <p className="hero-deck mt-6 max-w-2xl text-base leading-relaxed text-ink-soft sm:mt-8 sm:text-lg">
+          <hr aria-hidden className="hero-rule hero-rule-enter mt-8 w-full max-w-3xl sm:mt-10" />
+          <p className="hero-deck mt-6 max-w-3xl text-base leading-relaxed text-ink-soft sm:mt-8 sm:text-lg">
             {hero.sub}
           </p>
         </div>

@@ -170,7 +170,7 @@ export default function HomePage() {
               <Reveal
                 key={item.title}
                 delay={i * 60}
-                className="home-card flex h-full flex-col rounded-[18px] border border-line-strong bg-surface/90 p-6 backdrop-blur-sm sm:p-7"
+                className="home-card card-raise hover-lift flex h-full flex-col rounded-[18px] border border-line-strong bg-surface/90 p-6 backdrop-blur-sm sm:p-7"
               >
                 <h3 className="font-heading text-lg leading-snug font-semibold text-ink sm:text-xl">
                   {item.title}

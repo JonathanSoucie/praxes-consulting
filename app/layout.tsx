@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Frame } from "@/components/layout/frame";
@@ -10,18 +10,8 @@ import { siteKeywords } from "@/lib/seo";
 
 import "./globals.css";
 
-/* Headings and sub-headings, both levels. Plus Jakarta Sans replaces the two
-   IBM Plex faces that used to split this job — the serif on H1 and H2, the
-   sans beneath — so the whole heading stack is now one voice at two sizes.
-
-   Loaded as the variable font rather than a list of static weights: the axis
-   runs 200 to 800 and the site asks for 500, 600 and 700 in different
-   places, which is three files enumerated against one variable file. */
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-  display: "swap",
-});
+// One local variable heading face, shared by the hero and every page.
+import "@fontsource-variable/plus-jakarta-sans/wght.css";
 
 /* Everything made of sentences, and the interface: body copy, decks, notes,
    list items, the nav. Variable, so the whole weight axis comes from one
@@ -105,7 +95,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${inter.variable} ${jetBrainsMono.variable}`}
+      className={`${inter.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
         <a

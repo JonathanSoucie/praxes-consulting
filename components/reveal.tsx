@@ -4,11 +4,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-/**
- * Subtle scroll reveal: a short fade + 8px rise, once, on first intersection.
- * Falls back to visible immediately when IntersectionObserver is unavailable
- * or the user prefers reduced motion (handled globally in globals.css).
- */
+/** Reveal once on entry; server-rendered content stays readable without JS. */
 export function Reveal({
   children,
   className,
@@ -22,23 +18,24 @@ export function Reveal({
   as?: React.ElementType;
 }) {
   const ref = React.useRef<HTMLElement>(null);
-  const [shown, setShown] = React.useState(false);
+  const [state, setState] = React.useState<"idle" | "pending" | "shown">("idle");
 
   React.useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      setShown(true);
+    if (!el || typeof IntersectionObserver === "undefined" ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
+    setState("pending");
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setShown(true);
+          setState("shown");
           observer.disconnect();
         }
       },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.05 },
+      { rootMargin: "0px 0px -32px 0px", threshold: 0.05 },
     );
 
     observer.observe(el);
@@ -48,12 +45,9 @@ export function Reveal({
   return (
     <Tag
       ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={cn(
-        "transition-[opacity,transform] duration-700 ease-out-soft",
-        shown ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
-        className,
-      )}
+      data-reveal={state}
+      style={{ "--reveal-delay": `${Math.min(delay, 240)}ms` } as React.CSSProperties}
+      className={cn("scroll-reveal", className)}
     >
       {children}
     </Tag>

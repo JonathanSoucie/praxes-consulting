@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
  * Small label above a headline: a bordered chip carrying a glyph and tracked
  * uppercase mono, matching the reference layout's section and hero labels.
  *
- * Square, hairline, no fill — the same card language as everything else.
+ * Softly rounded, with a subtle fill to separate it from decorative fields.
  */
 export function Eyebrow({
   children,
@@ -18,7 +18,7 @@ export function Eyebrow({
   return (
     <p
       className={cn(
-        "inline-flex items-center gap-2 border px-2.5 py-1.5 font-mono text-[0.6875rem] tracking-[0.14em] uppercase",
+        "inline-flex items-center gap-2 rounded-full border bg-surface/60 px-3.5 py-2 font-mono text-[0.6875rem] tracking-[0.14em] uppercase",
         tone === "onDark"
           ? "border-white/25 text-white/70"
           : "border-line-strong text-accent",
