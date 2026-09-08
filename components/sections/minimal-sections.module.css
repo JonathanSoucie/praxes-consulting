@@ -277,7 +277,7 @@
   }
 }
 
-/* Keep the platform band and How we work on the same black ground. */
+/* Black ground for How we work. */
 .methodBackground {
   background: #0b0c10;
   border-block: 1px solid #ffffff12;
@@ -287,22 +287,6 @@
 }
 .methodBackground .step {
   border-top-color: #ffffff26;
-}
-
-/* One continuous ground, with equal space on each side of the platform heading. */
-.integrationsGroup {
-  background: #0b0c10;
-}
-.platformBand {
-  padding-block: 40px 0;
-}
-.integrationsGroup .methodBackground {
-  border-top: 0;
-}
-@media (min-width: 1024px) {
-  .platformBand {
-    padding-top: 48px;
-  }
 }
 
 .starSection {
