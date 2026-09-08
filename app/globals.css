@@ -153,8 +153,8 @@
      hierarchy of them reads at all. Ratios quoted against the dark surfaces,
      which are the only ones that render. */
   --color-ink: var(--t-light, #1b0712) var(--t-dark, #f5f3f4); /* headings — 16.1:1 page */
-  --color-ink-soft: var(--t-light, #3a2831) var(--t-dark, #cbc5c9); /* body — 10.5:1 page / 9.4:1 card */
-  --color-muted: var(--t-light, #5c515a) var(--t-dark, #b0a9ae); /* secondary — 7.7:1 page / 6.9:1 card */
+  --color-ink-soft: var(--t-light, #3a2831) var(--t-dark, #e0dce2); /* brighter body copy */
+  --color-muted: var(--t-light, #5c515a) var(--t-dark, #cbc5ce); /* readable secondary copy */
 
   /* --- Surfaces --------------------------------------------------------- */
   /* Light: white cards over the palette's white-smoke page. Dark: the page is
@@ -871,4 +871,39 @@
     #000,
     transparent 76%
   );
+}
+
+/* Localized light behind the service previews, below the opaque card face. */
+.channel-preview-glow {
+  position: relative;
+  isolation: isolate;
+}
+.channel-preview-glow::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -52px -42px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 55%, rgb(248 32 109 / 0.25), rgb(181 17 91 / 0.12) 45%, transparent 72%);
+}
+.channel-preview-glow > .card-raise {
+  border-color: rgb(255 141 179 / 0.26);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 16px 40px -24px rgb(0 0 0 / 0.7);
+}
+
+/* A cool charcoal band keeps the reasons distinct without a saturated pink floor. */
+.why-praxes {
+  background: radial-gradient(ellipse at 90% 0%, rgb(248 32 109 / 0.08), transparent 55%), #11151e;
+  border-block: 1px solid rgb(255 255 255 / 0.09);
+}
+.why-praxes .home-card {
+  background-color: #20242e;
+  border-color: rgb(255 255 255 / 0.16);
+}
+.why-praxes .home-card:hover,
+.why-praxes .home-card:focus-within {
+  border-color: rgb(255 110 158 / 0.5);
+}
+@media (max-width: 640px) {
+  .channel-preview-glow::before { inset: -38px -22px; }
 }

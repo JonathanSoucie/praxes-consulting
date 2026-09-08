@@ -119,7 +119,12 @@ export function ServicesPanel() {
                   </Link>
                 </div>
 
-                <div className={cn(panelFirst && "lg:order-1")}>
+                <div
+                  className={cn(
+                    "channel-preview-glow",
+                    panelFirst && "lg:order-1",
+                  )}
+                >
                   {/* `active` is what fills the bars. There is no scrub here
                       to drive it, so they are drawn at full length. */}
                   <StepPanelView panel={service.showcase.panel} active />
@@ -129,7 +134,10 @@ export function ServicesPanel() {
           })}
         </ul>
 
-        <Reveal delay={120} className="mt-14 flex justify-center sm:mt-20 lg:mt-28">
+        <Reveal
+          delay={120}
+          className="mt-14 flex justify-center sm:mt-20 lg:mt-28"
+        >
           <Button asChild variant="outline" size="lg">
             <Link href="/services">View all services</Link>
           </Button>

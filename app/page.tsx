@@ -86,27 +86,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- */}
       {/* Why us                                                            */}
       {/* ---------------------------------------------------------------- */}
-      {/* The one section on the page with a ground of its own: the page
-          colour at the top running into the logo's deep pink at the foot,
-          with the four reasons as a row of cards over it.
-
-          The ramp is measured up from the bottom in pixels, not in
-          percentages of the section. As a percentage it is a different
-          picture at every height: four cards in a row make a short section
-          on a desktop, where the pink is a foot; the same four stacked on a
-          phone make one three times taller, where those stops put a thousand
-          pixels of flat magenta behind the copy and left the closing button
-          on the hottest part of it. Anchored to the foot, a taller section
-          grows out of the top of the ramp rather than stretching it. */}
-      <Section className="relative isolate overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10"
-          style={{
-            background:
-              "linear-gradient(to top, #8e0c48 0px, #3a0f2a 250px, var(--color-surface-2) 640px)",
-          }}
-        />
+      <Section className="why-praxes relative isolate overflow-hidden">
         <Container>
           <SectionHeading
             align="left"
