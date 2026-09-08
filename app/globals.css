@@ -153,8 +153,8 @@
      hierarchy of them reads at all. Ratios quoted against the dark surfaces,
      which are the only ones that render. */
   --color-ink: var(--t-light, #1b0712) var(--t-dark, #f5f3f4); /* headings — 16.1:1 page */
-  --color-ink-soft: var(--t-light, #3a2831) var(--t-dark, #e0dce2); /* brighter body copy */
-  --color-muted: var(--t-light, #5c515a) var(--t-dark, #cbc5ce); /* readable secondary copy */
+  --color-ink-soft: var(--t-light, #3a2831) var(--t-dark, #efecf0); /* near-white body copy */
+  --color-muted: var(--t-light, #5c515a) var(--t-dark, #ded9e2); /* bright secondary copy */
 
   /* --- Surfaces --------------------------------------------------------- */
   /* Light: white cards over the palette's white-smoke page. Dark: the page is
@@ -906,4 +906,39 @@
 }
 @media (max-width: 640px) {
   .channel-preview-glow::before { inset: -38px -22px; }
+}
+
+/* Service rows reveal their copy first, then the preview and its pink light. */
+@media (prefers-reduced-motion: no-preference) {
+  .channel-service-row[data-reveal="shown"] {
+    animation: none;
+    opacity: 1;
+    translate: none;
+  }
+  .channel-service-row[data-reveal="shown"] .channel-service-copy {
+    animation: channel-copy-enter 750ms var(--ease-out-soft) both;
+  }
+  .channel-service-row[data-reveal="shown"] .channel-preview-glow {
+    animation: channel-card-enter 900ms 140ms var(--ease-out-soft) both;
+  }
+  .channel-service-row[data-reveal="shown"] .channel-preview-glow::before {
+    animation: channel-glow-enter 1100ms 280ms ease-out both;
+  }
+  .channel-service-row { --preview-enter-x: 28px; }
+  .channel-service-row:nth-child(even) { --preview-enter-x: -28px; }
+  @keyframes channel-copy-enter {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes channel-card-enter {
+    from { opacity: 0; transform: translate(var(--preview-enter-x), 24px) scale(0.97); }
+    to { opacity: 1; transform: translate(0, 0) scale(1); }
+  }
+  @keyframes channel-glow-enter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @media (max-width: 1023px) {
+    .channel-service-row, .channel-service-row:nth-child(even) { --preview-enter-x: 0px; }
+  }
 }

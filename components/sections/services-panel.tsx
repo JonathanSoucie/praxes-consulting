@@ -95,9 +95,14 @@ export function ServicesPanel() {
               <Reveal
                 key={service.slug}
                 as="li"
-                className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16 xl:gap-20"
+                className="channel-service-row grid items-center gap-8 lg:grid-cols-2 lg:gap-16 xl:gap-20"
               >
-                <div className={cn(panelFirst && "lg:order-2")}>
+                <div
+                  className={cn(
+                    "channel-service-copy",
+                    panelFirst && "lg:order-2",
+                  )}
+                >
                   <span className="label-tech text-accent">
                     {String(i + 1).padStart(2, "0")}
                   </span>
