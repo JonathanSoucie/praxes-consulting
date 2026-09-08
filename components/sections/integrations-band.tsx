@@ -32,7 +32,7 @@ import {
 export function IntegrationsBand() {
   return (
     <>
-      <Section className="overflow-hidden">
+      <Section className="overflow-hidden border-t border-white/20">
         <Container>
           <Reveal>
             <p className="text-center text-base text-ink-soft sm:text-lg">
@@ -85,7 +85,10 @@ export function IntegrationsBand() {
           </div>
         </div>
       </Section>
-      <section className={styles.section} aria-labelledby="how-we-work-title">
+      <section
+        className={`${styles.section} ${styles.methodBackground}`}
+        aria-labelledby="how-we-work-title"
+      >
         <Container>
           <Reveal className={styles.intro}>
             <div>

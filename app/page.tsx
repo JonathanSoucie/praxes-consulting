@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 
 import { Container, Section } from "@/components/container";
@@ -7,16 +6,13 @@ import { BlackHoleScene } from "@/components/sections/black-hole-scene";
 import { ServicesPanel } from "@/components/sections/services-panel";
 import { IntegrationsBand } from "@/components/sections/integrations-band";
 import { IndustriesBand } from "@/components/sections/industries-band";
-import { ProcessOverview } from "@/components/sections/process-overview";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqList } from "@/components/sections/faq";
 import { CtaSection } from "@/components/sections/cta";
 import { Reveal } from "@/components/reveal";
-import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/json-ld";
 
 import { generalFaqs } from "@/content/faqs";
-import { whyManufacturing } from "@/content/manufacturing";
 import { site } from "@/content/site";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/schema";
 import { ogImage, pageMetadata, siteKeywords } from "@/lib/seo";
@@ -60,8 +56,8 @@ export const metadata: Metadata = {
  * the hole is a dome on the bottom edge with the six parts of Channel
  * Intelligence in orbit around it. The panel under that is what you can
  * actually buy — the five subservices, a row each. Then the platforms we
- * read and how we read them, who this is for, how an engagement runs, why
- * us, the usual questions, and the one action every page funnels to.
+ * read and how we read them, who this is for, the usual questions,
+ * and the one action every page funnels to.
  */
 export default function HomePage() {
   return (
@@ -80,55 +76,6 @@ export default function HomePage() {
       <ServicesPanel />
       <IntegrationsBand />
       <IndustriesBand />
-
-      <ProcessOverview />
-
-      {/* ---------------------------------------------------------------- */}
-      {/* Why us                                                            */}
-      {/* ---------------------------------------------------------------- */}
-      <Section className="why-praxes relative isolate overflow-hidden">
-        <Container>
-          <SectionHeading
-            align="left"
-            eyebrow="Why Praxes"
-            title="Built for industrial distribution"
-          />
-
-          <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:mt-16 lg:grid-cols-4">
-            {whyManufacturing.map((item, i) => (
-              <Reveal
-                key={item.title}
-                delay={i * 60}
-                className="home-card card-raise hover-lift flex h-full flex-col rounded-[18px] border border-line-strong bg-surface/90 p-6 backdrop-blur-sm sm:p-7"
-              >
-                <h3 className="font-heading text-lg leading-snug font-semibold text-ink sm:text-xl">
-                  {item.title}
-                </h3>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
-                  {item.body}
-                </p>
-                <div className="mt-8 flex items-end justify-between gap-4">
-                  <span className="figure-num text-3xl text-ink sm:text-4xl">
-                    0{i + 1}
-                  </span>
-                  <Link
-                    href="/process"
-                    className="text-sm text-ink-soft underline decoration-line-strong underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-                  >
-                    See the process &rarr;
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={200} className="mt-12 flex justify-center">
-            <Button asChild variant="outline" size="lg">
-              <Link href="/services">What is inside it</Link>
-            </Button>
-          </Reveal>
-        </Container>
-      </Section>
 
       {/* ---------------------------------------------------------------- */}
       {/* FAQ                                                               */}

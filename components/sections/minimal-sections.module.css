@@ -281,3 +281,15 @@
     padding: 24px;
   }
 }
+
+/* A distinct charcoal band for How we work, independent of other sections. */
+.methodBackground {
+  background: #171820;
+  border-block: 1px solid #ffffff12;
+}
+.methodBackground .assurances {
+  background: #21222d;
+}
+.methodBackground .step {
+  border-top-color: #ffffff26;
+}
