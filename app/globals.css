@@ -40,6 +40,7 @@
    while --t-light is empty.
    ========================================================================== */
 :root {
+  scroll-padding-top: calc(88px + var(--frame-y));
   --t-light: ;
   --t-dark: initial;
   /* Tells the UA to render form controls, scrollbars and the canvas dark, and

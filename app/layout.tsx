@@ -104,9 +104,8 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {/* The navbar overlays the page rather than sitting in flow, so the
-            hero runs behind it. Page tops reserve space with pt-*. It scrolls
-            away; <Frame> is the chrome that stays. */}
+        {/* The fixed navbar preserves the hero's existing document position.
+            Page tops reserve space with pt-*; the frame remains above it. */}
         <Navbar />
         <main id="main">{children}</main>
         <Footer />

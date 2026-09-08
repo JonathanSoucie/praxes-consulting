@@ -10,8 +10,7 @@
  * document scrolls underneath and is clipped by a constant band on all four
  * sides. It reads as a margin the content slides beneath rather than as a bar.
  *
- * This is what stays put now that the navbar does not: the bar scrolls away
- * with the page and the frame is the only permanent chrome.
+ * The frame and navbar stay put while the page scrolls beneath them.
  *
  * `pointer-events: none` is load-bearing — the element covers the entire
  * viewport, so without it nothing underneath would be clickable. It sits above
