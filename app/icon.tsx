@@ -5,13 +5,9 @@ import { logoMarkSvg } from "@/lib/logo-svg";
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-/**
- * Favicon — the brand mark on a white tile, generated from the shared SVG so
- * there is no binary asset to keep in sync. White rather than transparent so
- * the darker end of the mark still reads against a dark browser tab strip.
- */
+/** Transparent browser-tab icon, generated from the shared brand geometry. */
 export default function Icon() {
-  const svg = logoMarkSvg({ background: "#ffffff", radius: 150, variant: "onLight" });
+  const svg = logoMarkSvg({ variant: "onDark" });
 
   return new ImageResponse(
     <img

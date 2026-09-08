@@ -679,7 +679,7 @@ function PhoneScene({
         <ProblemCopy />
       </Container>
 
-      <Container className="pt-24 pb-12">
+      <Container className="hidden pt-24 pb-12 md:block">
         <SolutionIntro />
 
         {/* No orbit to hang the six names on at this width, so they are
@@ -716,7 +716,7 @@ function PhoneScene({
           the line. So the band dissolves the ring instead of ending it. */}
       <div
         aria-hidden
-        className="pointer-events-none relative overflow-hidden"
+        className="pointer-events-none relative hidden overflow-hidden md:block"
         style={{
           height: DOME_BAND_H_CSS,
           maskImage:

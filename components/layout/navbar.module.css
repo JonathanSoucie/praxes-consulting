@@ -11,7 +11,18 @@
   font-family: var(--font-sans);
 }
 .row { display: flex; align-items: center; gap: 48px; height: var(--nav-height); }
-.logo { flex-shrink: 0; gap: 9px; font-size: 25px; letter-spacing: -.9px; }
+.logo {
+  flex-shrink: 0;
+  align-items: center;
+  min-height: 44px;
+  gap: 9px;
+  font-size: 25px;
+  line-height: 1;
+  letter-spacing: -.9px;
+  /* Match the optical centre of the smaller Inter navigation labels. */
+  translate: 0 1.5px;
+}
+.logo > svg { display: block; flex-shrink: 0; }
 .desktopNav { display: none; }
 .links { display: flex; align-items: center; gap: 32px; }
 .link {
