@@ -43,6 +43,7 @@
 .link .arrowOpen { transform: rotate(180deg); color: #ff8db5; }
 .actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
 .desktopBooking { display: none; }
+.clientLogin { display: none; white-space: nowrap; }
 .header .booking {
   height: 38px;
   padding-inline: 21px;
@@ -163,8 +164,9 @@
 .mobileServices a:hover, .mobileServices a[aria-current="page"] { color: #ff8db5; }
 .mobileFooter { padding-top: 24px; }
 .mobileFooter .booking { width: 100%; height: 44px; }
+.mobileFooter .mobileLink { padding-block: 12px; margin-bottom: 8px; }
 .mobileFooter p { margin-top: 13px; text-align: center; font-size: 11px; color: #b9b9c3; }
-@media (min-width: 640px) { .desktopBooking { display: block; } }
+@media (min-width: 640px) { .desktopBooking { display: block; } .clientLogin { display: inline-flex; } }
 @media (min-width: 1024px) {
   .desktopNav { display: block; }
   .dropdown { display: grid; }

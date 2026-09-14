@@ -13,6 +13,9 @@ import { services } from "@/content/services";
 import { cn } from "@/lib/utils";
 import styles from "./navbar.module.css";
 
+/** The client dashboard (its own app and deployment). */
+const CLIENT_APP_URL = "https://app.praxes.io";
+
 const serviceNotes: Record<string, string> = {
   "channel-census": "Know which distributors publish a catalog you can read.",
   "displacement-mapping": "See the competitor brands occupying your categories.",
@@ -155,6 +158,9 @@ export function Navbar() {
             </ul>
           </nav>
           <div className={styles.actions}>
+            <a href={CLIENT_APP_URL} className={cn(styles.link, styles.clientLogin)} onClick={closeMenus}>
+              Client login
+            </a>
             <div className={styles.desktopBooking} onClick={closeMenus}>
               <BookACall variant="outline" className={styles.booking} />
             </div>
@@ -243,6 +249,7 @@ export function Navbar() {
                     ))}
                   </ul>
                   <div className={styles.mobileFooter}>
+                    <a href={CLIENT_APP_URL} className={styles.mobileLink} onClick={closeMenus}>Client login</a>
                     <BookACall variant="outline" className={styles.booking} />
                     <BookingNote />
                   </div>
