@@ -1,264 +1,97 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowDown, ArrowRight, Menu, X } from "lucide-react";
-
-import { Logo } from "@/components/layout/logo";
-import { BookACall, BookingNote } from "@/components/book-a-call";
-import { Container } from "@/components/container";
-import { nav } from "@/content/site";
-import { services } from "@/content/services";
-import { cn } from "@/lib/utils";
+import { ArrowUpRight, ChevronDown, Factory, Layers3, Menu, X } from "lucide-react";
+import { BookACall } from "@/components/book-a-call";
+import { Logo } from "./logo";
 import styles from "./navbar.module.css";
-
-/** The client dashboard (its own app and deployment). */
-const CLIENT_APP_URL = "https://app.praxes.io";
-
-const serviceNotes: Record<string, string> = {
-  "channel-census": "Know which distributors publish a catalog you can read.",
-  "displacement-mapping": "See the competitor brands occupying your categories.",
-  "whitespace-mapping": "Find category gaps your products could fill.",
-  "change-monitoring": "Track what changes across your channel.",
-  "distributor-qualification": "Assess your next distributor.",
-};
 
 export function Navbar() {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [servicesOpen, setServicesOpen] = React.useState(false);
-  const headerRef = React.useRef<HTMLElement>(null);
-  const toggleRef = React.useRef<HTMLButtonElement>(null);
-  const servicesRef = React.useRef<HTMLButtonElement>(null);
-  const hoverTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-  const panelId = React.useId();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLButtonElement>(null);
+  const industriesRef = useRef<HTMLButtonElement>(null);
+  const panelId = useId();
+  const navigationId = useId();
+  const home = pathname === "/";
 
-  const cancelHover = React.useCallback(() => {
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    hoverTimer.current = null;
+  function closeMenus() { setMobileOpen(false); setIndustriesOpen(false); }
+
+  useEffect(() => { setMobileOpen(false); setIndustriesOpen(false); }, [pathname]);
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 16);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
   }, []);
-  const closeMenus = React.useCallback(() => {
-    cancelHover();
-    setMobileOpen(false);
-    setServicesOpen(false);
-  }, [cancelHover]);
-
-  React.useEffect(() => { closeMenus(); }, [pathname, closeMenus]);
-  React.useEffect(() => cancelHover, [cancelHover]);
-  React.useEffect(() => {
-    const breakpoint = window.matchMedia("(min-width: 1024px)");
-    breakpoint.addEventListener("change", closeMenus);
-    return () => breakpoint.removeEventListener("change", closeMenus);
-  }, [closeMenus]);
-
-  React.useEffect(() => {
-    if (!mobileOpen && !servicesOpen) return;
-    const onPointerDown = (event: PointerEvent) => {
-      if (!headerRef.current?.contains(event.target as Node)) closeMenus();
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        closeMenus();
-        (mobileOpen ? toggleRef : servicesRef).current?.focus();
-      }
-      if (event.key === "Tab" && mobileOpen) {
-        const controls = Array.from(
-          headerRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? [],
-        ).filter((element) => element.getClientRects().length && !element.closest("[inert]"));
-        const first = controls[0];
-        const last = controls[controls.length - 1];
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last?.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first?.focus();
-        }
+  useEffect(() => {
+    const onOutside = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) {
+        setIndustriesOpen(false); setMobileOpen(false);
       }
     };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [mobileOpen, servicesOpen, closeMenus]);
-
-  React.useEffect(() => {
-    if (!mobileOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = previousOverflow; };
-  }, [mobileOpen]);
-
-  const isActive = (href: string) =>
-    !href.includes("#") && (pathname === href || pathname.startsWith(`${href}/`));
+    document.addEventListener("pointerdown", onOutside);
+    return () => document.removeEventListener("pointerdown", onOutside);
+  }, []);
 
   return (
-    <>
-      <div aria-hidden className={cn(styles.backdrop, servicesOpen && styles.backdropOpen)} />
-      <header
-        ref={headerRef}
-        className={cn(styles.header, servicesOpen && styles.headerExpanded)}
-        onPointerEnter={cancelHover}
-        onPointerLeave={(event) => {
-          cancelHover();
-          if (event.pointerType === "mouse") {
-            hoverTimer.current = setTimeout(() => setServicesOpen(false), 160);
-          }
-        }}
-        onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setServicesOpen(false);
-        }}
-        onClick={(event) => {
-          if ((event.target as Element).closest("a")) closeMenus();
-        }}
-      >
-        <Container className={styles.row}>
-          <Logo markSize={31} className={styles.logo} />
-          <nav aria-label="Primary" className={styles.desktopNav}>
-            <ul className={styles.links}>
-              {nav.map((item) => (
-                <li key={item.href}>
-                  {item.href === "/services" ? (
-                    <button
-                      ref={servicesRef}
-                      type="button"
-                      aria-expanded={servicesOpen}
-                      aria-controls={panelId}
-                      onPointerEnter={(event) => {
-                        if (event.pointerType === "mouse") {
-                          cancelHover();
-                          hoverTimer.current = setTimeout(() => setServicesOpen(true), 120);
-                        }
-                      }}
-                      onClick={() => {
-                        cancelHover();
-                        setServicesOpen((value) => !value);
-                      }}
-                      className={cn(styles.link, (isActive(item.href) || servicesOpen) && styles.active)}
-                    >
-                      {item.label}
-                      <ArrowDown aria-hidden className={servicesOpen ? styles.arrowOpen : undefined} />
-                    </button>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      aria-current={isActive(item.href) ? "page" : undefined}
-                      onPointerEnter={() => { cancelHover(); setServicesOpen(false); }}
-                      className={cn(styles.link, isActive(item.href) && styles.active)}
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div className={styles.actions}>
-            <a href={CLIENT_APP_URL} className={cn(styles.link, styles.clientLogin)} onClick={closeMenus}>
-              Client login
-            </a>
-            <div className={styles.desktopBooking} onClick={closeMenus}>
-              <BookACall variant="outline" className={styles.booking} />
-            </div>
-            <button
-              ref={toggleRef}
-              type="button"
-              onClick={() => setMobileOpen((value) => !value)}
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-nav"
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              className={styles.toggle}
-            >
-              {mobileOpen ? <X aria-hidden /> : <Menu aria-hidden />}
-            </button>
-          </div>
-        </Container>
-
-        <div id={panelId} inert={!servicesOpen} className={cn(styles.dropdown, servicesOpen && styles.dropdownOpen)}>
-          <div className={styles.dropdownClip}>
-            <div className={styles.dropdownScroll}>
-              <Container>
-                <nav aria-label="Services">
-                  <ul className={styles.serviceCards}>
-                    {services.slice(0, 3).map((service, index) => (
-                      <li key={service.slug}>
-                        <Link
-                          href={`/services/${service.slug}`}
-                          aria-current={pathname === `/services/${service.slug}` ? "page" : undefined}
-                          className={styles.serviceCard}
-                        >
-                          <div aria-hidden className={cn(styles.preview, styles[`preview${index}`])}>
-                            {service.showcase.panel.kind === "rows" && (
-                              <div className={styles.previewSheet}>
-                                {service.showcase.panel.rows.slice(0, 3).map((row) => (
-                                  <div key={row.label} className={cn(styles.previewRow, row.state === "ok" && styles.previewHighlight)}>
-                                    <span>{row.label}</span><span>{row.value}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                          <div className={styles.cardTitle}><span>{service.name}</span><ArrowRight aria-hidden /></div>
-                          <p className={styles.cardDescription}>{serviceNotes[service.slug]}</p>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className={styles.dropdownFooter}>
-                    {services.slice(3).map((service) => (
-                      <Link key={service.slug} href={`/services/${service.slug}`} className={styles.secondaryService}>
-                        <span><strong>{service.name}</strong><span>{serviceNotes[service.slug]}</span></span>
-                        <ArrowRight aria-hidden />
-                      </Link>
-                    ))}
-                    <Link href="/services" className={styles.allServices}>Explore all services <ArrowRight aria-hidden /></Link>
-                  </div>
-                </nav>
-              </Container>
-            </div>
-          </div>
-        </div>
-
-        <div id="mobile-nav" inert={!mobileOpen} className={cn(styles.mobileSheet, mobileOpen && styles.mobileOpen)}>
-          <div className={styles.mobileClip}>
-            <div className={styles.mobileScroll}>
-              <Container>
-                <nav aria-label="Mobile primary" onClick={(event) => {
-                  if ((event.target as Element).closest("a, button")) closeMenus();
+    <header ref={headerRef} className={`${styles.header} ${scrolled || mobileOpen || !home ? styles.solid : ""}`}
+      onKeyDown={(event) => {
+        if (event.key !== "Escape") return;
+        if (industriesOpen) { setIndustriesOpen(false); industriesRef.current?.focus(); }
+        else if (mobileOpen) { setMobileOpen(false); menuRef.current?.focus(); }
+      }}>
+      <div className={styles.row}>
+        <Logo href="/#main" className={styles.logo} markSize={29} />
+        <button ref={menuRef} type="button" className={styles.toggle}
+          aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={mobileOpen} aria-controls={navigationId}
+          onClick={() => { setMobileOpen(!mobileOpen); setIndustriesOpen(false); }}>
+          {mobileOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+        </button>
+        <nav id={navigationId} aria-label="Main navigation" className={`${styles.navigation} ${mobileOpen ? styles.navigationOpen : ""}`}>
+          <div className={styles.links}>
+            <a href={home ? "#demo" : "/#demo"} onClick={closeMenus}>Platform</a>
+            <div className={styles.industries}
+              onPointerEnter={(event) => { if (event.pointerType === "mouse" && window.matchMedia("(min-width: 901px)").matches) setIndustriesOpen(true); }}
+              onPointerLeave={(event) => { if (event.pointerType === "mouse" && !event.currentTarget.contains(document.activeElement)) setIndustriesOpen(false); }}
+              onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setIndustriesOpen(false); }}>
+              <button ref={industriesRef} type="button" className={styles.industryTrigger}
+                aria-expanded={industriesOpen} aria-controls={panelId}
+                onClick={() => setIndustriesOpen(!industriesOpen)}
+                onKeyDown={(event) => {
+                  if (event.key === "ArrowDown") { event.preventDefault(); setIndustriesOpen(true); }
                 }}>
-                  <ul className={styles.mobileLinks}>
-                    {nav.map((item) => (
-                      <li key={item.href}>
-                        <Link href={item.href} aria-current={isActive(item.href) ? "page" : undefined} className={cn(styles.mobileLink, isActive(item.href) && styles.mobileActive)}>
-                          {item.label}<ArrowRight aria-hidden />
-                        </Link>
-                        {item.href === "/services" && (
-                          <ul className={styles.mobileServices}>
-                            {services.map((service) => (
-                              <li key={service.slug}>
-                                <Link href={`/services/${service.slug}`} aria-current={pathname === `/services/${service.slug}` ? "page" : undefined}>{service.name}</Link>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className={styles.mobileFooter}>
-                    <a href={CLIENT_APP_URL} className={styles.mobileLink} onClick={closeMenus}>Client login</a>
-                    <BookACall variant="outline" className={styles.booking} />
-                    <BookingNote />
-                  </div>
-                </nav>
-              </Container>
+                Industries <ChevronDown size={13} aria-hidden="true" className={industriesOpen ? styles.chevronOpen : ""} />
+              </button>
+              <div id={panelId} className={styles.dropdown} hidden={!industriesOpen}>
+                <p className={styles.dropdownLabel}>Built around your channel</p>
+                <Link href="/industries/manufacturers" className={styles.industryItem} onClick={closeMenus}
+                  aria-current={pathname === "/industries/manufacturers" ? "page" : undefined}>
+                  <span className={styles.industryIcon}><Factory size={20} strokeWidth={1.5} aria-hidden="true" /></span>
+                  <span><strong>Manufacturers</strong><small>See your range across your distributors.</small></span>
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </Link>
+                <div className={`${styles.industryItem} ${styles.unavailable}`} aria-label="More industries coming soon">
+                  <span className={styles.industryIcon} aria-hidden="true"><Layers3 size={20} strokeWidth={1.5} /></span>
+                  <span className={styles.blurred} aria-hidden="true"><strong>More industries</strong><small>A new perspective is on the way.</small></span>
+                  <span className={styles.soon}>Coming soon</span>
+                </div>
+              </div>
             </div>
+            <a href={home ? "#how-it-works" : "/#how-it-works"} onClick={closeMenus}>How it works</a>
           </div>
-        </div>
-      </header>
-    </>
+          <div className={styles.actions}>
+            <a href="https://app.praxes.io" className={styles.login} onClick={closeMenus}>Log in</a>
+            <BookACall label="Book a call" className={styles.booking} onClick={closeMenus} />
+          </div>
+        </nav>
+      </div>
+    </header>
   );
 }

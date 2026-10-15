@@ -1,0 +1,170 @@
+.insights {
+  --home-ink: #28252d;
+  width: min(1120px, calc(100% - 96px));
+  margin-inline: auto;
+  padding-block: 80px;
+  color: #28252d;
+  color-scheme: light;
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  scroll-margin-top: 100px;
+}
+
+.insights *, .insights *::before, .insights *::after { box-sizing: border-box; }
+.insights svg { flex-shrink: 0; }
+.insights button { font: inherit; cursor: pointer; }
+.insights button:focus-visible { outline: 2px solid #854c6b; outline-offset: 5px; }
+.sectionHeading { display: grid; grid-template-columns: 1.25fr 1fr; gap: 22px 70px; align-items: end; margin-bottom: 35px; }
+.insights .chapter { grid-column: 1 / -1; margin: 0; color: #854c6b; font-size: 11px; font-weight: 500; letter-spacing: .025em; }
+.insights .sectionHeading h2 { margin: 0; color: #28252d; font-family: var(--font-sans), Arial, sans-serif; font-size: clamp(31px, 3.15vw, 44px); line-height: 1.24; letter-spacing: -.045em; font-weight: 400; }
+.sectionHeading h2 span { color: #817482; }
+.insights .intro { margin: 0 0 3px; max-width: 385px; justify-self: end; color: #6d6572; font-size: 14px; line-height: 1.85; }
+
+.cardGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.insight { display: flex; flex-direction: column; min-width: 0; background: #fdfcfb; border: 1px solid #e4dedf; border-radius: 16px; overflow: hidden; }
+.copy { min-height: 166px; padding: 29px 30px 24px; }
+.insights .copy h3 { margin: 0 0 13px; color: #28252d; font-family: var(--font-sans), Arial, sans-serif; font-size: 22px; line-height: 1.3; font-weight: 450; letter-spacing: -.035em; max-width: 375px; }
+.insights .copy > p { margin: 0; color: #6d6572; font-size: 12px; line-height: 1.8; max-width: 415px; }
+.cardAction { margin-top: auto; padding: 22px 30px 25px; }
+.exploreButton { display: inline-flex; align-items: center; justify-content: space-between; gap: 15px; width: 100%; padding: 0; background: transparent; color: #854c6b; border: 0; font-size: 12px !important; font-weight: 500; line-height: 1.7; text-align: left; transition: color 150ms ease; }
+.exploreButton:hover { color: #602d4a; }
+.exploreButton:hover svg { transform: translate(1px, -1px); }
+.exploreButton svg { transition: transform 150ms ease; }
+
+.visual { display: flex; align-items: stretch; min-width: 0; padding: 0 25px; flex: 1; }
+.productCard { display: flex; flex-direction: column; width: 100%; min-width: 0; color: #332d39; background: #fff; border: 1px solid #e6e0e7; border-radius: 9px; overflow: hidden; font-variant-numeric: tabular-nums; box-shadow: 0 4px 14px -8px #35233212; }
+.cardChrome { display: flex; justify-content: space-between; align-items: center; min-height: 43px; gap: 12px; padding: 9px 17px; border-bottom: 1px solid #eee9ee; background: #fbf9fb; }
+.cardIdentity { display: flex; align-items: center; gap: 8px; font-size: 10px; color: #675a6d; white-space: nowrap; }
+.cardIdentity svg { color: #956d84; }
+.cardTools { display: flex; align-items: center; gap: 9px; }
+.demoBadge { padding: 3px 6px; background: #f9eef3; border: 1px solid #efdee7; border-radius: 4px; color: #90516f; font-size: 9px; line-height: 1.4; white-space: nowrap; }
+.previewButton { width: 25px; height: 25px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 4px; background: transparent; color: #79687f; margin-right: -4px; }
+.previewButton:hover { background: #f0e7ef; color: #854c6b; }
+.insights .previewButton:focus-visible { outline-color: #854c6b; outline-offset: 2px; }
+.chartContent { padding: 19px 22px 16px; }
+.insights .productCard .cardHeading .cardTitle { margin: 0; font-family: var(--font-sans), Arial, sans-serif; color: #332d39; font-size: 14px; line-height: 1.5; font-weight: 550; letter-spacing: -.02em; }
+.insights .productCard .cardHeading p:not(.cardTitle) { margin: 3px 0 0; color: #817284; font-size: 10px; line-height: 1.6; }
+.total { display: flex; align-items: center; gap: 14px; margin: 17px 0; }
+.total > strong { color: #433449; font-size: 33px; font-weight: 500; letter-spacing: -1.5px; line-height: 1.1; }
+.total > span { color: #827486; font-size: 9px; line-height: 1.6; padding-left: 14px; border-left: 1px solid #e5dfe8; }
+.stackedChart { display: flex; gap: 3px; height: 11px; border-radius: 4px; overflow: hidden; }
+.stackedChart > span { height: 100%; }
+.competitorList { margin: 12px 0 0; padding: 0; }
+.competitorRow { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 8px 0; border-bottom: 1px solid #f0ebf2; font-size: 11px; }
+.competitorRow:last-child { border-bottom: 0; }
+.competitorRow dt { display: flex; align-items: center; gap: 8px; color: #64566b; }
+.swatch { width: 7px; height: 7px; border-radius: 2px; flex-shrink: 0; }
+.competitorRow dd { display: flex; align-items: center; gap: 25px; margin: 0; }
+.competitorRow dd strong { color: #57475f; font-weight: 550; }
+.competitorRow dd span { min-width: 26px; text-align: right; color: #85768b; font-size: 10px; }
+.insights .productCard .dataFootnote { color: #85748b; font-size: 9px; line-height: 1.7; margin: 9px 0 0; }
+.finding { display: flex; align-items: flex-start; gap: 8px; padding: 12px 19px; margin-top: auto; background: #f8f4f8; border-top: 1px solid #ede4ef; }
+.findingDot { width: 5px; height: 5px; border-radius: 50%; background: #a07b91; margin-top: 6px; flex-shrink: 0; }
+.insights .finding p { color: #7d6b84; font-size: 10px; line-height: 1.7; margin: 0; }
+.finding strong { color: #63516d; font-weight: 550; }
+
+.changeContent { padding: 20px 22px 17px; }
+.changeMeta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.changeMeta > span:last-child { color: #827389; font-size: 10px; }
+.expansionBadge { display: inline-flex; align-items: center; gap: 5px; background: #f4eef7; color: #885e87; font-size: 9px; line-height: 1.5; padding: 4px 7px; border-radius: 4px; }
+.comparison { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto; align-items: center; gap: 18px; padding: 19px 0; margin-top: 18px; border-block: 1px solid #eee8f1; }
+.comparison > div { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.comparison > div > span { color: #8a7b8e; font-size: 10px; white-space: nowrap; }
+.comparison strong { margin-top: 6px; color: #a396a9; font-size: 40px; line-height: 1.05; letter-spacing: -2px; font-weight: 450; }
+.comparison small { color: #938399; font-size: 9px; margin-top: 5px; }
+.comparison .currentValue strong { color: #784863; }
+.comparisonArrow { color: #bdabc2; margin-top: 10px; }
+.changeAmount { display: inline-flex; align-items: center; justify-content: center; min-width: 39px; padding: 5px 7px; color: #9a4e75; background: #f9eaf2; border: 1px solid #eed6e2; border-radius: 5px; font-size: 13px; line-height: 1.3; font-weight: 550; margin-top: 8px; }
+.comparisonChart { display: grid; gap: 11px; margin-top: 20px; }
+.comparisonChart > div { display: grid; grid-template-columns: 55px minmax(0, 1fr); gap: 12px; align-items: center; }
+.comparisonChart span { color: #88758f; font-size: 9px; }
+.comparisonChart i { display: block; height: 7px; border-radius: 3px; background: #ded3e3; }
+.comparisonChart > div:last-child i { background: #a36d8c; }
+
+@media (max-width: 1100px) {
+  .insights { width: calc(100% - 64px); padding-block: 66px; }
+  .sectionHeading { gap: 20px 42px; }
+  .cardGrid { gap: 20px; }
+  .copy { min-height: 175px; padding: 26px 25px 22px; }
+  .visual { padding-inline: 20px; }
+  .cardAction { padding-inline: 25px; }
+  .cardChrome { padding-inline: 13px; }
+  .chartContent, .changeContent { padding-inline: 18px; }
+  .comparison { gap: 12px; }
+}
+
+@media (max-width: 780px) {
+  .insights { padding-block: 55px; }
+  .sectionHeading { grid-template-columns: 1fr; gap: 19px; margin-bottom: 28px; }
+  .sectionHeading .chapter { grid-column: auto; }
+  .insights .sectionHeading h2 { font-size: 35px; }
+  .insights .intro { justify-self: start; max-width: 570px; font-size: 13px; }
+  .cardGrid { grid-template-columns: 1fr; gap: 22px; }
+  .copy { min-height: auto; padding: 28px 30px 24px; }
+  .insights .copy h3 { max-width: none; font-size: 24px; }
+  .insights .copy > p { max-width: 520px; }
+  .visual { padding-inline: 25px; }
+  .productCard { max-width: none; }
+  .chartContent, .changeContent { padding-inline: 25px; }
+  .cardChrome { padding-inline: 23px; }
+  .finding { padding-inline: 23px; }
+  .cardAction { padding-inline: 30px; }
+  .comparison { gap: 20px; }
+}
+
+@media (max-width: 560px) {
+  .insights { width: calc(100% - 40px); padding-block: 44px; }
+  .sectionHeading { gap: 16px; margin-bottom: 25px; }
+  .insights .chapter { font-size: 10px; }
+  .insights .sectionHeading h2 { font-size: 30px; }
+  .insights .intro { font-size: 12px; line-height: 1.85; }
+  .insight { border-radius: 13px; }
+  .copy { padding: 25px 21px 21px; }
+  .insights .copy h3 { font-size: 21px; line-height: 1.3; margin-bottom: 12px; }
+  .insights .copy > p { font-size: 12px; line-height: 1.8; }
+  .visual { padding-inline: 15px; }
+  .productCard { border-radius: 8px; }
+  .cardChrome { min-height: 43px; padding: 10px 12px; gap: 8px; }
+  .cardIdentity { font-size: 10px; gap: 7px; }
+  .cardIdentity svg { width: 13px; height: 13px; }
+  .cardTools { gap: 5px; }
+  .demoBadge { font-size: 8px; padding: 3px 5px; }
+  .previewButton { width: 23px; height: 23px; }
+  .chartContent, .changeContent { padding: 19px 17px 17px; }
+  .insights .productCard .cardHeading .cardTitle { font-size: 14px; }
+  .insights .productCard .cardHeading p:not(.cardTitle) { font-size: 10px; }
+  .total { gap: 13px; margin-block: 18px; }
+  .total > strong { font-size: 32px; }
+  .total > span { font-size: 9px; padding-left: 13px; }
+  .stackedChart { gap: 2px; }
+  .competitorRow dd { gap: 19px; }
+  .finding { padding: 12px 14px; gap: 7px; }
+  .insights .finding p { font-size: 10px; }
+  .changeMeta { margin-bottom: 14px; gap: 8px; }
+  .expansionBadge { font-size: 8px; gap: 4px; padding: 4px 5px; }
+  .changeMeta > span:last-child { font-size: 9px; }
+  .comparison { gap: 13px; margin-top: 17px; padding-block: 20px; }
+  .comparison > div > span { font-size: 9px; }
+  .comparison strong { font-size: 36px; }
+  .comparison small { font-size: 9px; }
+  .comparisonArrow { width: 17px; }
+  .changeAmount { min-width: 33px; padding: 5px; font-size: 11px; }
+  .comparisonChart { margin-top: 20px; gap: 11px; }
+  .comparisonChart > div { grid-template-columns: 48px minmax(0, 1fr); gap: 9px; }
+  .comparisonChart span { font-size: 9px; }
+  .cardAction { padding: 20px 21px 23px; }
+  .exploreButton { font-size: 11px !important; gap: 10px; }
+}
+
+@media (max-width: 360px) {
+  .insights { width: calc(100% - 28px); }
+  .visual { padding-inline: 12px; }
+  .cardChrome { padding-inline: 10px; }
+  .cardTools { gap: 2px; }
+  .comparison { gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insights *, .insights *::before, .insights *::after { animation: none !important; transition: none !important; }
+}

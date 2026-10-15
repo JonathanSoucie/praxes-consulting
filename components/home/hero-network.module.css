@@ -1,0 +1,82 @@
+.network {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.panel {
+  position: absolute;
+  display: block;
+  width: min(31vw, 760px);
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.left { top: 110px; left: -22px; }
+.right { top: 83px; right: -27px; }
+.routes, .faintRoutes { stroke: #bc8eab; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+.routes { opacity: .29; }
+.faintRoutes { opacity: .13; }
+.routes path, .faintRoutes path, .rings circle, .signals path { vector-effect: non-scaling-stroke; }
+.nodes { fill: #c89ab7; opacity: .48; }
+.junctions { fill: #d6abc5; opacity: .68; }
+.rings { stroke: #c493b2; stroke-width: .7; opacity: .19; }
+
+.signals path {
+  stroke: #e2b7d1;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 5 100;
+  stroke-dashoffset: 8;
+  opacity: 0;
+  animation: signal-travel 14s linear infinite;
+  animation-delay: -4s;
+}
+.signals path:nth-child(2) { animation-duration: 18s; animation-delay: -12s; }
+.right .signals path { animation-delay: -9s; }
+.right .signals path:nth-child(2) { animation-delay: -3s; }
+.junctions circle { animation: junction-glow 8s ease-in-out infinite; }
+.junctions circle:nth-child(2) { animation-delay: -3s; }
+.junctions circle:nth-child(3) { animation-delay: -6s; }
+.right .junctions circle { animation-delay: -4s; }
+.right .junctions circle:nth-child(2) { animation-delay: -7s; }
+.right .junctions circle:nth-child(3) { animation-delay: -1s; }
+
+@keyframes signal-travel {
+  0% { stroke-dashoffset: 8; opacity: 0; }
+  9% { opacity: .55; }
+  56% { opacity: .55; }
+  72%, 100% { stroke-dashoffset: -100; opacity: 0; }
+}
+
+@keyframes junction-glow {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .panel { width: 300px; opacity: .75; }
+  .left { top: 102px; left: -91px; }
+  .right { top: 85px; right: -100px; }
+  .faintRoutes { opacity: .08; }
+}
+
+@media (max-width: 600px) {
+  .panel { width: 248px; opacity: .55; }
+  .left { top: 94px; left: -132px; }
+  .right { top: 118px; right: -141px; }
+  .left { mask-image: linear-gradient(to right, #000 42%, transparent 79%); }
+  .right { mask-image: linear-gradient(to left, #000 42%, transparent 79%); }
+  .faintRoutes, .rings { display: none; }
+  .nodes { opacity: .4; }
+  .junctions { opacity: .6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signals { display: none; }
+  .signals path, .junctions circle { animation: none; }
+}

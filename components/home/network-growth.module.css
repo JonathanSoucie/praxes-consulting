@@ -1,0 +1,130 @@
+.section {
+  --home-ink: #28252d;
+  width: min(1120px, calc(100% - 96px));
+  margin-inline: auto;
+  padding-block: 65px 72px;
+  font-family: var(--font-sans), Arial, sans-serif;
+  color: #28252d;
+  color-scheme: light;
+  font-size: 14px;
+  line-height: 1.7;
+  scroll-margin-top: 100px;
+}
+.section *, .section *::before, .section *::after { box-sizing: border-box; }
+.section svg { flex-shrink: 0; }
+.section :focus-visible { outline: 2px solid #854c6b; outline-offset: 5px; }
+.heading { display: grid; grid-template-columns: 1.3fr 1fr; align-items: end; gap: 21px 70px; margin-bottom: 32px; }
+.section .eyebrow { grid-column: 1 / -1; margin: 0; color: #854c6b; font-size: 11px; font-weight: 500; letter-spacing: .025em; }
+.section .heading h2 { margin: 0; font-family: var(--font-sans), Arial, sans-serif; color: #28252d; font-size: clamp(31px, 3.15vw, 44px); line-height: 1.23; font-weight: 400; letter-spacing: -.045em; }
+.heading h2 span { color: #817482; }
+.section .intro { max-width: 340px; margin: 0 0 4px; justify-self: end; color: #6d6572; font-size: 14px; line-height: 1.85; }
+.cards { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.card { min-width: 0; padding: 25px; background: #fdfcfb; border: 1px solid #e4dedf; border-radius: 15px; }
+.cardCopy { padding: 2px 3px 23px; min-height: 205px; }
+.section .serviceLabel { display: flex; align-items: center; gap: 9px; color: #8a6a7e; font-size: 10px; font-weight: 500; margin: 0 0 15px; }
+.serviceLabel > span { color: #b29aa9; font-size: 9px; }
+.section .cardCopy h3 { margin: 0 0 12px; color: #28252d; font-family: var(--font-sans), Arial, sans-serif; font-size: 23px; font-weight: 450; line-height: 1.25; letter-spacing: -.035em; }
+.section .cardCopy > p:last-child { margin: 0; max-width: 425px; color: #6d6572; font-size: 14px; line-height: 1.85; }
+.connection { position: absolute; left: 50%; top: 56%; transform: translate(-50%, -50%); z-index: 1; display: grid; place-items: center; width: 35px; height: 35px; border: 1px solid #dfd1dc; border-radius: 50%; background: #f7f2f5; color: #91697f; box-shadow: 0 0 0 6px #f7f5f2; }
+
+.productView { display: flex; flex-direction: column; min-height: 276px; background: #fff; border: 1px solid #e6e0e7; border-radius: 9px; overflow: hidden; }
+.productHeader { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 15px; border-bottom: 1px solid #ede7ee; background: #fbf9fb; }
+.productHeader > span:first-child { display: flex; align-items: center; gap: 7px; color: #6c5771; font-size: 11px; white-space: nowrap; }
+.productHeader svg { color: #99768e; }
+.exampleBadge { padding: 3px 6px; border: 1px solid #ece0e8; border-radius: 4px; background: #f7f0f4; color: #91647f; font-size: 9px; line-height: 1.4; white-space: nowrap; }
+.candidateTable { padding: 8px 14px 12px; }
+.candidateTable table { width: 100%; border-collapse: collapse; text-align: left; }
+.candidateTable thead th { color: #806f86; font-size: 9px; font-weight: 400; padding: 9px 7px 8px; white-space: nowrap; }
+.candidateTable thead th:first-child { padding-left: 5px; }
+.candidateTable tbody th, .candidateTable tbody td { border-top: 1px solid #f0eaf1; padding: 14px 7px; color: #78627f; font-size: 11px; font-weight: 400; vertical-align: middle; }
+.candidateTable tbody th { padding-left: 5px; white-space: nowrap; }
+.candidateTable tbody th > span:last-child { vertical-align: middle; }
+.candidateMark { display: inline-grid; place-items: center; width: 22px; height: 23px; margin-right: 7px; border: 1px solid #e8ddea; border-radius: 5px; background: #f7f1f8; color: #8c7093; font-size: 9px; font-weight: 500; vertical-align: middle; flex-shrink: 0; }
+.selectedCandidate { background: #fdf8fb; }
+.selectedCandidate .candidateMark { background: #f0e4ed; color: #855772; border-color: #e4cedd; }
+.mobileLabel { display: none; }
+.section .productFooter { margin: auto 0 0; padding: 11px 16px; border-top: 1px solid #eee6ef; background: #faf7fa; color: #8a758f; font-size: 9px; line-height: 1.7; }
+
+.reviewIdentity { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 17px 9px; }
+.reviewIdentity > span:first-child { display: flex; align-items: center; }
+.reviewIdentity strong { color: #6b5074; font-size: 11px; font-weight: 500; }
+.reviewStatus { display: inline-flex; align-items: center; padding: 3px 7px; background: #f4edf7; border: 1px solid #e9ddef; border-radius: 4px; color: #86658e; font-size: 9px; line-height: 1.4; white-space: nowrap; }
+.reviewList { padding: 0 17px 8px; margin: 0; }
+.reviewList > div { display: grid; grid-template-columns: 1fr 1.3fr; align-items: start; gap: 12px; padding: 9px 0; border-bottom: 1px solid #f0eaf1; }
+.reviewList > div:last-child { border-bottom: 0; }
+.reviewList dt { display: flex; align-items: center; gap: 7px; color: #7d6486; font-size: 11px; }
+.reviewList dt svg { margin-top: 2px; color: #a27b9c; }
+.reviewList dd { margin: 0; color: #826d8a; font-size: 11px; }
+.reviewList strong { display: block; font-weight: 400; }
+.reviewList dd > span { display: block; margin-top: 2px; color: #85728c; font-size: 9px; }
+
+.sectionFooter { display: flex; align-items: center; gap: 10px; padding-top: 23px; color: #9b7d91; }
+.section .sectionFooter p { margin: 0; color: #837486; font-size: 12px; line-height: 1.8; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+@media (max-width: 1100px) {
+  .section { width: calc(100% - 64px); padding-block: 55px 60px; }
+  .heading { grid-template-columns: 1fr; gap: 19px; }
+  .section .eyebrow { grid-column: auto; }
+  .section .heading h2 { font-size: 35px; }
+  .section .intro { justify-self: start; max-width: 520px; font-size: 14px; }
+  .cards { grid-template-columns: 1fr; gap: 28px; }
+  .card { padding: 27px; }
+  .cardCopy { min-height: auto; padding-bottom: 24px; }
+  .section .cardCopy h3 { font-size: 24px; }
+  .section .cardCopy > p:last-child { max-width: 540px; }
+  .connection { display: none; }
+  .productView { min-height: 264px; }
+  .productHeader { padding-inline: 17px; }
+  .candidateTable { padding-inline: 17px; }
+  .candidateTable thead th { padding-inline: 8px; }
+  .candidateTable tbody th, .candidateTable tbody td { padding-inline: 8px; }
+  .candidateMark { width: 23px; height: 24px; margin-right: 7px; }
+}
+
+@media (max-width: 560px) {
+  .section { width: calc(100% - 40px); padding-block: 43px 48px; }
+  .heading { gap: 16px; margin-bottom: 25px; }
+  .section .eyebrow { font-size: 10px; }
+  .section .heading h2 { font-size: 30px; }
+  .section .intro { font-size: 13px; }
+  .cards { gap: 28px; }
+  .card { padding: 21px 17px 17px; border-radius: 12px; }
+  .cardCopy { padding: 0 3px 22px; }
+  .section .serviceLabel { font-size: 9px; margin-bottom: 13px; }
+  .section .cardCopy h3 { font-size: 21px; }
+  .section .cardCopy > p:last-child { font-size: 13px; }
+  .productView { min-height: auto; }
+  .productHeader { padding: 11px; gap: 7px; flex-wrap: wrap; }
+  .productHeader > span:first-child { font-size: 10px; gap: 5px; }
+  .productHeader svg { width: 12px; height: 12px; }
+  .exampleBadge { font-size: 9px; padding: 3px 4px; }
+  .candidateTable { padding: 0 12px; }
+  .candidateTable table, .candidateTable tbody { display: block; }
+  .candidateTable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+  .candidateTable tr { display: grid; grid-template-columns: 1.1fr .8fr 1fr; gap: 10px 8px; padding: 13px 5px; border-bottom: 1px solid #efe8f1; }
+  .candidateTable tr:last-child { border-bottom: 0; }
+  .candidateTable tbody th, .candidateTable tbody td { display: block; font-size: 10px; padding: 0; border: 0; }
+  .candidateTable tbody th { grid-column: 1 / -1; font-size: 10px; }
+  .candidateMark { width: 21px; height: 22px; }
+  .mobileLabel { display: block; color: #85728c; font-size: 9px; margin-bottom: 3px; }
+  .selectedCandidate { background: transparent; }
+  .connection { display: none; }
+  .reviewIdentity { padding: 14px 13px 9px; gap: 7px; }
+  .reviewIdentity strong { font-size: 10px; }
+  .reviewStatus { font-size: 9px; padding-inline: 5px; }
+  .reviewList { padding: 0 13px 10px; }
+  .reviewList > div { grid-template-columns: .9fr 1.1fr; gap: 8px; padding-block: 11px; }
+  .reviewList dt { font-size: 10px; gap: 5px; }
+  .reviewList dt svg { width: 11px; height: 11px; }
+  .reviewList dd { font-size: 10px; }
+  .reviewList dd > span { font-size: 9px; }
+  .section .productFooter { padding: 11px 13px; font-size: 9px; }
+  .sectionFooter { align-items: flex-start; gap: 9px; padding-top: 20px; }
+  .sectionFooter svg { margin-top: 3px; }
+  .section .sectionFooter p { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section *, .section *::before, .section *::after { animation: none !important; transition: none !important; }
+}

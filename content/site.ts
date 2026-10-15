@@ -55,25 +55,12 @@ export const features = {
   testimonials: false,
 } as const;
 
-/**
- * Primary navigation. Order here is the order in the navbar and footer.
- *
- * The navbar splits this list in half around the brand mark, so the order is
- * also the left-to-right order across it: the first half sits left of the
- * mark, the rest to its right.
- *
- * Services is a route: the index at /services and one page per subservice in
- * content/services.ts. The layers in the black-hole scene on Home are what
- * those subservices are assembled from.
- */
+/** Primary destinations. Industries expands in the shared navbar. */
 export const nav = [
-  { href: "/services", label: "Services" },
-  ...(features.caseStudies
-    ? [{ href: "/case-studies", label: "Case Studies" }]
-    : []),
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-] as { href: string; label: string }[];
+  { href: "/#demo", label: "Platform" },
+  { href: "/industries/manufacturers", label: "Manufacturers" },
+  { href: "/#how-it-works", label: "How it works" },
+] as const;
 
 export const legalNav = [
   { href: "/privacy", label: "Privacy Policy" },

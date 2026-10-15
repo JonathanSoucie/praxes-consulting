@@ -10,18 +10,21 @@ export function Logo({
   tone = "default",
   wordmark = true,
   markSize = 30,
+  href = "/",
 }: {
   className?: string;
   tone?: "default" | "inverse";
   /** Set false for the mark alone. */
   wordmark?: boolean;
   markSize?: number;
+  href?: string;
 }) {
   const inverse = tone === "inverse";
+  const LogoLink = href.includes("#") ? "a" : Link;
 
   return (
-    <Link
-      href="/"
+    <LogoLink
+      href={href}
       aria-label={`${site.name} — home`}
       className={cn(
         "group inline-flex items-center gap-2.5 font-display text-base font-bold tracking-tight transition-opacity hover:opacity-80",
@@ -31,6 +34,6 @@ export function Logo({
     >
       <LogoMark size={markSize} />
       {wordmark ? <span>{site.name}</span> : null}
-    </Link>
+    </LogoLink>
   );
 }

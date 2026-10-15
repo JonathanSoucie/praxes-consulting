@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Frame } from "@/components/layout/frame";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { SiteShell } from "@/components/layout/site-shell";
 import { site } from "@/content/site";
 import { siteKeywords } from "@/lib/seo";
 
@@ -95,6 +96,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${jetBrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-surface-2 antialiased">
@@ -106,10 +108,9 @@ export default function RootLayout({
         </a>
         {/* The fixed navbar preserves the hero's existing document position.
             Page tops reserve space with pt-*; the frame remains above it. */}
-        <Navbar />
-        <main id="main">{children}</main>
-        <Footer />
-        <Frame />
+        <SiteShell header={<Navbar />} footer={<Footer />} frame={<Frame />}>
+          {children}
+        </SiteShell>
         <Analytics />
       </body>
     </html>

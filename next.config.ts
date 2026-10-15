@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   async redirects() {
-    return [{ source: "/process", destination: "/services", permanent: true }];
+    return [{ source: "/process", destination: "/#how-it-works", permanent: true }];
   },
   // Nothing here is served by a version-specific URL, so leaking the Next
   // version in a response header only helps someone fingerprinting the stack.
